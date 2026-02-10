@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_sales_invoices" model="ir.actions.report">
+            <field name="name">Facturas de cliente</field>
+            <field name="model">kc.sales.invoices.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kc_plasticasa.report_sales_invoices</field>
+            <field name="report_file">kc_plasticasa.report_sales_invoices</field>
+            <field name="print_report_name">'Facturas de cliente - %s a %s' % (object.date_from, object.date_to)</field>
+        </record>
+    </data>
+</odoo>

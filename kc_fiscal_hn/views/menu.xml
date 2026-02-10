@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_journal_entries_report" model="ir.actions.act_window">
+        <field name="name">Asiento Contable</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('move_type', '=', 'entry')]</field>
+        <field name="context">{'default_move_type': 'entry'}</field>
+    </record>
+
+    <menuitem name="Fiscal HN"
+              id="menu_fiscal"
+              web_icon="kc_fiscal_hn,static/description/icon.png">
+        <menuitem id="menu_settings" name="Configuraciones" sequence="2">
+            <menuitem action="ir_sequence_form_inherit" id="menu_ir_sequence_form_inherit" />
+        </menuitem>
+        <menuitem id="menu_validation" name="Validaciones" sequence="3">
+            <!-- <menuitem id="menu_partner_validation" name="Validación de Contactos" 
+                      action="action_partner_validation" sequence="1"/> -->
+            <menuitem id="menu_sequence_alerts" name="Alertas de Secuencias" 
+                      action="action_sequence_alerts_wizard" sequence="2"/>
+            <menuitem id="menu_fiscal_validation" name="Validación Fiscal Masiva" 
+                      action="action_fiscal_validation_wizard" sequence="3"/>
+        </menuitem>
+        <menuitem id="menu_sequence_control" name="Control de Secuencias" sequence="4">
+            <menuitem id="menu_sequence_alerts_advanced" name="Alertas Avanzadas" 
+                      action="action_sequence_alert" sequence="1"/>
+            <menuitem id="menu_sequence_audit" name="Auditoría de Secuencias" 
+                      action="action_sequence_audit" sequence="2"/>
+        </menuitem>
+        <menuitem id="menu_reports" name="Informes" sequence="3">
+            <menuitem id="report_dmc" name="Declaracion DMC" action="kc_fiscal_hn_dmc_view_action" sequence="1"/>
+            <menuitem id="report_detail_invoice" name="Factura - Producto"
+                      action="kc_fiscal_hn_invoice_details_view_action" sequence="2"/>
+            <menuitem id="report_sales" name="Ventas Netas" action="kc_fiscal_hn_sales_view_action" sequence="3"/>
+            <menuitem id="report_sales_sar" name="Reporte de Ventas SAR" 
+                      action="action_report_sales_sar" sequence="4"/>
+            <menuitem id="report_purchases_sar" name="Reporte de Compras SAR" 
+                      action="action_report_purchases_sar" sequence="5"/>
+            <menuitem id="report_retentions_sar" name="Reporte de Retenciones SAR" 
+                      action="action_report_retentions_sar" sequence="6"/>
+            <menuitem id="report_exemptions_sar" name="Reporte de Exenciones SAR" 
+                      action="action_report_exemptions_sar" sequence="7"/>
+        </menuitem>
+    </menuitem>
+</odoo>

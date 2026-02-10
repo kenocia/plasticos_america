@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paper_format_a4" model="report.paperformat">
+            <field name="name">A4 Sin Márgenes</field>
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_width">210</field>
+            <field name="page_height">297</field>
+            <field name="margin_top">7</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <!-- Paperformat para formato pre-impreso personalizado: 8.5" x 9.5" sin márgenes -->
+        <record id="paper_format_letter_preimpreso" model="report.paperformat">
+            <field name="name">Formato Pre-impreso (8.5" x 9.5")</field>
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_width">216</field>
+            <field name="page_height">241</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+    </data>
+</odoo>

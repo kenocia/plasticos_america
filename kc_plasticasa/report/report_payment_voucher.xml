@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_account_payment_voucher">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="o">
+                <main class="page">
+                    <h2 t-esc="o._get_voucher_title()"/>
+
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <strong>Pago:</strong> <span t-esc="o.name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Fecha:</strong> <span t-esc="o.date"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <strong>Contacto:</strong> <span t-esc="o.partner_id.display_name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Diario:</strong> <span t-esc="o.journal_id.display_name"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <strong>Método:</strong> <span t-esc="o.payment_method_line_id.display_name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Referencia:</strong> <span t-esc="o.payment_reference"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <strong>Importe:</strong>
+                            <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Estado:</strong> <span t-esc="o.state"/>
+                        </div>
+                    </div>
+
+                    <h4>Asiento contable</h4>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>Cuenta</th>
+                                <th>Descripción</th>
+                                <th class="text-end">Débito</th>
+                                <th class="text-end">Crédito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.move_id.line_ids" t-as="l">
+                                <tr>
+                                    <td>
+                                        <span t-esc="l.account_id.code"/> 
+                                    </td>
+                                    <td t-esc="l.name"/>
+                                    <td class="text-end">
+                                        <span t-field="l.debit" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="l.credit" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-5">
+                        <table class="table table-sm table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Firma Autorizada
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Contabilizado Por
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Revisado Por
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Recibido Por
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </t>
+        </t>
+    </template>
+</odoo>

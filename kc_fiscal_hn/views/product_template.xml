@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_exent_form" model="ir.ui.view">
+            <field name="name">product_template_exent_form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']//field[@name='categ_id']" position="before">                  
+                    <field name="tax_retention" invisible="is_retention == False" domain="[('is_retention','=',True)]"/>
+                </xpath>
+
+                <!-- Agregar campo is_retention en la sección de opciones -->
+                <xpath expr="//span[field[@name='purchase_ok']]" position="after">
+                    <span class="d-inline-flex">
+                        <field name="is_retention"/>
+                        <label for="is_retention"/>
+                    </span>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <record id="product_product_exent_form" model="ir.ui.view">
+            <field name="name">product_product_exent_form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']//field[@name='taxes_id']" position="before">
+                    <field name="exento"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

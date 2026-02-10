@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sales_invoices">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Facturas de cliente</h2>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <strong>Fecha Desde:</strong>
+                            <span t-esc="date_from"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Fecha Hasta:</strong>
+                            <span t-esc="date_to"/>
+                        </div>
+                    </div>
+
+                    <table class="table table-sm o_main_table" style="width: 100%; font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Factura</th>
+                                <th>Cliente</th>
+                                <th class="text-end">Sub Total</th>
+                                <th class="text-end">Impuesto</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="o">
+                                <t t-set="doc_date" t-value="o.invoice_date or o.date"/>
+                                <tr>
+                                    <td>
+                                        <t t-esc="doc_date"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="o.name or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="o.partner_id.name or ''"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <t t-esc="'{:,.2f}'.format(o.amount_untaxed or 0.0)"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <t t-esc="'{:,.2f}'.format(o.amount_tax or 0.0)"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <t t-esc="'{:,.2f}'.format(o.amount_total or 0.0)"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <t t-set="total_subtotal" t-value="sum(docs.mapped('amount_untaxed'))"/>
+                            <t t-set="total_tax" t-value="sum(docs.mapped('amount_tax'))"/>
+                            <t t-set="total_total" t-value="sum(docs.mapped('amount_total'))"/>
+                            <tr>
+                                <th colspan="3" class="text-end"><strong>Total</strong></th>
+                                <th class="text-end">
+                                    <strong><t t-esc="'{:,.2f}'.format(total_subtotal or 0.0)"/></strong>
+                                </th>
+                                <th class="text-end">
+                                    <strong><t t-esc="'{:,.2f}'.format(total_tax or 0.0)"/></strong>
+                                </th>
+                                <th class="text-end">
+                                    <strong><t t-esc="'{:,.2f}'.format(total_total or 0.0)"/></strong>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

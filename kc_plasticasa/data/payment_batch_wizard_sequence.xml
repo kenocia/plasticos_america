@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_kc_payment_batch_wizard" model="ir.sequence">
+        <field name="name">Lote de Pagos (Wizard KC)</field>
+        <field name="code">kc.payment.batch.wizard</field>
+        <field name="prefix">LB%(y)s%(month)s-</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

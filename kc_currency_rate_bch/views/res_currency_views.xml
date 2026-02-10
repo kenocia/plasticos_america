@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_currency_view_form_kc_currency_rate_bch" model="ir.ui.view">
+        <field name="name">res.currency.view.form.kc.currency.rate.bch</field>
+        <field name="model">res.currency</field>
+        <field name="inherit_id" ref="base.view_currency_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group/group" position="inside">
+                <button name="action_update_bch_rate"
+                        type="object"
+                        string="Actualizar BCH"
+                        class="oe_highlight"
+                        groups="account.group_account_manager"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

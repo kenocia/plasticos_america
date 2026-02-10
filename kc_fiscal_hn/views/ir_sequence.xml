@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Vista de formulario extendida para ir.sequence -->
+        <record id="ir_sequence_form_extended" model="ir.ui.view">
+            <field name="name">ir.sequence.form.extended</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="is_fiscal"/>
+                </xpath>
+                <xpath expr="//field[@name='number_increment']" position="after">
+                    <field name="dias_alerta"/>
+                    <field name="numeros_alerta"/>
+                </xpath>
+                <xpath expr="//field[@name='date_range_ids']" position="after">
+                    <group string="Validación Fiscal" invisible="is_fiscal == False">
+                        <group>
+                            <field name="fiscal_sequence_validated" readonly="1"/>
+                            <field name="fiscal_validation_date" readonly="1"/>
+                            <field name="fiscal_validation_error" readonly="1" invisible="fiscal_validation_error == False"/>
+                            <button name="validate_fiscal_sequence_complete" 
+                                    string="Validar Secuencia Completa" 
+                                    type="object" 
+                                    class="btn-primary"/>
+                            <button name="validate_fiscal_sequence_simple" 
+                                    string="Validación Simple (Debug)" 
+                                    type="object" 
+                                    class="btn-secondary"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='date_range_ids']/list" position="inside">
+                    <field name="cai" optional="show"/>
+                    <field name="cai_validated" optional="show"/>
+                    <field name="rangoInicial" optional="show"/>
+                    <field name="rangoFinal" optional="show"/>
+                    <field name="cai_validation_date" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista de lista extendida para ir.sequence -->
+        <record id="ir_sequence_list_extended" model="ir.ui.view">
+            <field name="name">ir.sequence.list.extended</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="is_fiscal" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='number_next_actual']" position="after">
+                    <field name="dias_alerta" optional="hide"/>
+                    <field name="numeros_alerta" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='implementation']" position="after">
+                    <field name="fiscal_sequence_validated" optional="show" invisible="is_fiscal == False"/>
+                    <field name="fiscal_validation_date" optional="hide" invisible="is_fiscal == False"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista de búsqueda extendida para ir.sequence -->
+        <record id="ir_sequence_search_extended" model="ir.ui.view">
+            <field name="name">ir.sequence.search.extended</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.view_sequence_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <filter name="fiscal_sequences" string="Secuencias Fiscales" 
+                            domain="[('is_fiscal', '=', True)]"/>
+                    <filter name="non_fiscal_sequences" string="Secuencias No Fiscales" 
+                            domain="[('is_fiscal', '=', False)]"/>
+                    <separator/>
+                    <filter name="with_alerts" string="Con Alertas" 
+                            domain="['|', ('dias_alerta', '>', 0), ('numeros_alerta', '>', 0)]"/>
+                </xpath>
+                <xpath expr="//separator" position="after">
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_fiscal" string="Fiscal" context="{'group_by': 'is_fiscal'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista de lista para ir.sequence.date_range -->
+        <record id="ir_sequence_date_range_list_extended" model="ir.ui.view">
+            <field name="name">ir.sequence.date_range.list.extended</field>
+            <field name="model">ir.sequence.date_range</field>
+            <field name="arch" type="xml">
+                <list string="Rangos de Fecha de Secuencia">
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="number_next_actual" string="Next Number"/>
+                    <field name="cai" optional="show"/>
+                    <field name="cai_validated" optional="show"/>
+                    <field name="rangoInicial" optional="show"/>
+                    <field name="rangoFinal" optional="show"/>
+                    <field name="cai_validation_date" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Acción para la vista de secuencias -->
+        <record id="ir_sequence_form_inherit" model="ir.actions.act_window">
+            <field name="name">Secuencias Fiscales</field>
+            <field name="res_model">ir.sequence</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="ir_sequence_list_extended"/>
+            <field name="search_view_id" ref="ir_sequence_search_extended"/>
+            <field name="domain">[('is_fiscal', '=', True)]</field>
+            <field name="context">{'form_view_initial_mode': 'edit', 'default_is_fiscal': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea tu primera secuencia fiscal
+                </p>
+                <p>
+                    Las secuencias fiscales se utilizan para generar números automáticos para documentos fiscales con validaciones SAR.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

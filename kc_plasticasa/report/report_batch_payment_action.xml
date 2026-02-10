@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_account_batch_payment" model="ir.actions.report">
+            <field name="name">Lote de pagos</field>
+            <field name="model">account.batch.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kc_plasticasa.report_account_batch_payment</field>
+            <field name="report_file">kc_plasticasa.report_account_batch_payment</field>
+            <field name="print_report_name">'Lote de pagos - %s' % (object.name)</field>
+        </record>
+
+        <record id="action_report_pa_account_batch_payment" model="ir.actions.report">
+            <field name="name">Lote de pagos (KC)</field>
+            <field name="model">pa.account.payment.batch</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kc_plasticasa.report_pa_account_batch_payment</field>
+            <field name="report_file">kc_plasticasa.report_pa_account_batch_payment</field>
+            <field name="print_report_name">'Lote de pagos (KC) - %s' % (object.name)</field>
+        </record>
+    </data>
+</odoo>

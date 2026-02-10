@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_move_extended" model="ir.ui.view">
+            <field name="name">account.move.extended</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <!-- Agregar botón de impresión en la barra de herramientas -->
+                <!-- <xpath expr="//header" position="inside">
+                    <button name="action_print_document" 
+                            string="Imprimir Documento" 
+                            type="object" 
+                            class="btn-primary"
+                            invisible="state not in ['posted', 'draft']"
+                            icon="fa-print"/>
+                    <button name="action_print_original" 
+                            string="Imprimir Original" 
+                            type="object" 
+                            class="btn-secondary"
+                            invisible="state not in ['posted', 'draft']"
+                            icon="fa-print"/>
+                    <button name="action_print_with_mark" 
+                            string="Imprimir y Marcar" 
+                            type="object" 
+                            class="btn-success"
+                            invisible="state not in ['posted', 'draft'] or original_print"
+                            icon="fa-print"/>
+                </xpath> -->
+                
+                <!-- Agregar campos fiscales en la sección principal -->
+                <xpath expr="//div[@class='o_col']" position="after">
+                    <field name="depto"/>
+                    <field name="sale_order_id"/>
+                    <field name="document_fiscal"/>
+                    <!-- <field name="original_print"/> -->
+                </xpath>
+                
+                <!-- Agregar campo de retención después del campo ref -->
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="invoice_retention" invisible="document_fiscal != 'retention'"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='journal_id']" position="before">
+                    <field name="motivo_emision" invisible="move_type not in ['out_refund']"/>
+                </xpath>
+
+                <!-- Mejorar el widget del usuario de facturación -->
+                <xpath expr="//sheet/notebook/page[@name='other_info']/group/group[@name='sale_info_group']//field[@name='invoice_user_id']"
+                       position="replace">
+                    <field name="invoice_user_id" widget="many2one_avatar_user"/>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='other_info']/group/group[@name='sale_info_group']//field[@name='invoice_user_id']"
+                       position="before">
+                    <field name="vendedor_empleado"/>
+                </xpath>
+                
+                <!-- Agregar página SAR con información fiscal -->
+                <xpath expr="//sheet/notebook/page[@name='other_info']" position="after">
+                    <page name="sar" string="SAR" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']">
+                    <!-- <page name="sar" string="SAR"> -->
+                        <group>
+                            <group string="Información SAR">
+                                <field name="noOrdenCompraExenta"/>
+                                <field name="noConsRegistroExonerado"/>
+                                <field name="noIdentificacionRegistroSAG"/>
+                                <field name="is_import" invisible="0"/>
+                            </group>
+                            <group string="Numeración Fiscal">
+                                <field name="cai" readonly="1"/>
+                                <field name="numeroInicial" readonly="1"/>
+                                <field name="numeroFinal" readonly="1"/>
+                                <field name="fechaLimiteEmision" readonly="1"/>
+                            </group>
+                            <group string="Factura Proveedor" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']">
+                                <field name="cai_proveedor"/>
+                                <field name="correlativo_proveedor"/>
+                                <field name="femision_proveedor"/>
+                            </group>
+                            <group string="DMC">
+                                <field name="class_document_sar"/>
+                                <field name="montos_sar"/>
+                                <field name="dmc_tipo"/>
+                                <field name="dmc_pasaporte_identificacion_ca"
+                                       invisible="dmc_tipo not in ['importacion', 'fiduca']"/>
+                                <field name="dmc_identificador_tributario_mercantil"
+                                       invisible="dmc_tipo != 'fiduca'"/>
+                                <field name="dmc_numero_fyduca"
+                                       invisible="dmc_tipo != 'fiduca'"/>
+                                <field name="dmc_numero_dua"
+                                       invisible="dmc_tipo != 'importacion'"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Agregar sección de montos fiscales -->
+                        <group string="Montos Fiscales" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']">                        
+                            <group>
+                                <field name="amount_discount"/>
+                                <field name="amount_exento"/>
+                                <field name="amount_exonerado"/>
+                                <field name="base_imponible_total"/>
+                                <field name="isv_total"/>
+                            </group>
+                            <group>
+                                <field name="amount_isv15"/>
+                                <field name="gravado_isv15"/>
+                                <field name="amount_isv18"/>
+                                <field name="gravado_isv18"/>
+                                <field name="totalAmountString"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Agregar sección de validación fiscal -->
+                        <group string="Validación Fiscal" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']">
+                            <group>
+                                <field name="fiscal_validation_status"/>
+                                <field name="requires_fiscal_numbering"/>
+                                <field name="fiscal_validation_message" invisible="fiscal_validation_message == False"/>
+                                <button name="validate_fiscal_invoice" 
+                                        string="Validar Factura Fiscal" 
+                                        type="object" 
+                                        class="btn-primary"
+                                        invisible="state != 'draft'"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <!-- Agregar campos en las líneas de factura -->
+                <xpath expr="//field[@name='invoice_line_ids']//field[@name='account_id']" position="after">
+                    <field name="base_imponible" optional="hide" />
+                    <field name="porcentaje_retencion" options="{'no_create': True}" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista de búsqueda mejorada -->
+        <record id="account_move_search_view" model="ir.ui.view">
+            <field name="name">account_move_search_view</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <filter name="group_depto" string="Departamento" context="{'group_by': 'depto'}"/>
+                    <filter name="fiscal_moves" string="Movimientos Fiscales" 
+                            domain="[('journal_id.sequence_id.is_fiscal', '=', True)]"/>
+                    <filter name="non_fiscal_moves" string="Movimientos No Fiscales" 
+                            domain="[('journal_id.sequence_id.is_fiscal', '=', False)]"/>
+                    <filter name="printed_documents" string="Documentos Impresos" 
+                            domain="[('original_print', '=', True)]"/>
+                    <filter name="not_printed_documents" string="Documentos No Impresos" 
+                            domain="[('original_print', '=', False)]"/>
+                    <filter name="import_moves" string="Importados" 
+                            domain="[('is_import', '=', True)]"/>
+                    <filter name="non_import_moves" string="No Importados" 
+                            domain="[('is_import', '=', False)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista de lista mejorada -->
+        <record id="account_move_tree_extended" model="ir.ui.view">
+            <field name="name">account.move.tree.extended</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="depto" optional="hide"/>
+                    <field name="document_fiscal" optional="hide"/>
+                    <field name="amount_isv15" optional="hide"/>
+                    <field name="amount_isv18" optional="hide"/>
+                    <!-- <field name="original_print" optional="hide"/> -->
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

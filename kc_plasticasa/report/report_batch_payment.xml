@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_account_batch_payment">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="o">
+                <main class="page">
+                    <h2>Lote de pagos</h2>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <strong>Referencia:</strong> <span t-esc="o.name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Fecha:</strong> <span t-esc="o.date"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <strong>Diario:</strong> <span t-esc="o.journal_id.display_name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Método:</strong> <span t-esc="o.payment_method_id.display_name"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <strong>Total:</strong>
+                            <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                        </div>
+                    </div>
+
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>Pago</th>
+                                <th>Contacto</th>
+                                <th>Referencia</th>
+                                <th>Fecha</th>
+                                <th class="text-end">Importe</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.payment_ids" t-as="p">
+                                <tr>
+                                    <td><span t-esc="p.name"/></td>
+                                    <td><span t-esc="p.partner_id.display_name"/></td>
+                                    <td><span t-esc="p.payment_reference or ''"/></td>
+                                    <td><span t-esc="p.date"/></td>
+                                    <td class="text-end">
+                                        <span t-field="p.amount" t-options="{'widget': 'monetary', 'display_currency': p.currency_id}"/>
+                                    </td>
+                                    <td><span t-esc="p.state"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-5">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Firma Autorizada
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Contabilizado Por
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Revisado Por
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Recibido Por
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_pa_account_batch_payment">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="o">
+                <main class="page">
+                    <h2>Lote de pagos (KC)</h2>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <strong>Referencia:</strong> <span t-esc="o.name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Fecha:</strong> <span t-esc="o.date"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <strong>Diario:</strong> <span t-esc="o.journal_id.display_name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Total:</strong>
+                            <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                        </div>
+                    </div>
+
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>Pago</th>
+                                <th>Contacto</th>
+                                <th>Referencia</th>
+                                <th>Fecha</th>
+                                <th class="text-end">Importe</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.payment_ids" t-as="p">
+                                <tr>
+                                    <td><span t-esc="p.name"/></td>
+                                    <td><span t-esc="p.partner_id.display_name"/></td>
+                                    <td><span t-esc="p.payment_reference or ''"/></td>
+                                    <td><span t-esc="p.date"/></td>
+                                    <td class="text-end">
+                                        <span t-field="p.amount" t-options="{'widget': 'monetary', 'display_currency': p.currency_id}"/>
+                                    </td>
+                                    <td><span t-esc="p.state"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-5">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Firma Autorizada
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Contabilizado Por
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Revisado Por
+                                    </td>
+                                    <td class="text-center" style="width:25%;">
+                                        <br/><br/><br/>
+                                        _______________________________<br/>
+                                        Recibido Por
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para el wizard de reporte de compras SAR -->
+        <record id="view_report_purchases_sar_form" model="ir.ui.view">
+            <field name="name">kc_fiscal_hn.wizard.purchases_sar.form</field>
+            <field name="model">kc_fiscal_hn.wizard.purchases_sar</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Compras SAR">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group>
+                            <group string="Configuración">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group string="Filtros">
+                                <field name="include_draft"/>
+                                <field name="include_cancelled"/>
+                                <field name="group_by_tax_rate"/>
+                                <field name="group_by_vendor_type"/>
+                            </group>
+                        </group>
+                        <group string="Resultados" invisible="excel_file == False">
+                            <group>
+                                <field name="total_invoices"/>
+                                <field name="total_amount"/>
+                            </group>
+                            <group>
+                                <field name="total_isv"/>
+                                <field name="total_exempt"/>
+                                <field name="total_exonerated"/>
+                            </group>
+                        </group>
+                        <group string="Archivo Generado" invisible="excel_file == False">
+                            <field name="excel_filename" readonly="1"/>
+                            <field name="excel_file" readonly="1" filename="excel_filename"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_generate_report"
+                                string="Generar Reporte"
+                                type="object"
+                                class="btn-primary"/>
+                        <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción para el wizard -->
+        <record id="action_report_purchases_sar" model="ir.actions.act_window">
+            <field name="name">Reporte de Compras SAR</field>
+            <field name="res_model">kc_fiscal_hn.wizard.purchases_sar</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_report_purchases_sar_form"/>
+        </record>
+
+        <!-- Vista para el archivo Excel de compras SAR -->
+        <record id="view_report_purchases_sar_excel_form" model="ir.ui.view">
+            <field name="name">kc_fiscal_hn.purchases_sar.excel.form</field>
+            <field name="model">kc_fiscal_hn.purchases_sar.excel</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Compras SAR - Excel">
+                    <sheet>
+                        <group>
+                            <field name="file_name" readonly="1"/>
+                            <field name="excel_file" readonly="1" filename="file_name"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

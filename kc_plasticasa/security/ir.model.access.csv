@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pa_account_payment_batch,pa.account.payment.batch,model_pa_account_payment_batch,account.group_account_user,1,1,1,1
+access_pa_account_payment_batch_line,pa.account.payment.batch.line,model_pa_account_payment_batch_line,account.group_account_user,1,1,1,1
+access_kc_payment_batch_wizard,kc.payment.batch.wizard,model_kc_payment_batch_wizard,account.group_account_user,1,1,1,1
+access_kc_payment_batch_line,kc.payment.batch.line,model_kc_payment_batch_line,account.group_account_user,1,1,1,1
+access_kc_sales_invoices_report_wizard,kc.sales.invoices.report.wizard,model_kc_sales_invoices_report_wizard,account.group_account_user,1,1,1,1

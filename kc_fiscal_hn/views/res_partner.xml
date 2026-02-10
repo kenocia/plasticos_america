@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para res.partner con validación RTN -->
+        <record id="view_partner_form_fiscal" model="ir.ui.view">
+            <field name="name">res.partner.form.fiscal</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="contacto_cliente" string="Contacto"/>
+                </xpath>
+                <!-- <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page string="Validación Fiscal" name="fiscal_validation" invisible="country_id.code != 'HN'">
+                        <group>
+                            <group string="Validación RTN">
+                                <field name="rtn_validated" readonly="1"/>
+                                <field name="rtn_validation_date" readonly="1"/>
+                                <field name="rtn_validation_error" readonly="1" invisible="rtn_validation_error == False"/>
+                                <button name="validate_rtn_manual" 
+                                        string="Validar RTN" 
+                                        type="object" 
+                                        class="btn-primary"
+                                        invisible="vat == False"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath> -->
+            </field>
+        </record>
+
+        <!-- Vista de lista para res.partner con validación RTN -->
+        <!-- <record id="view_partner_tree_fiscal" model="ir.ui.view">
+            <field name="name">res.partner.tree.fiscal</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="rtn_validated" optional="show"/>
+                    <field name="rtn_validation_date" optional="hide"/>
+                </xpath>
+            </field>
+        </record> -->
+
+        <!-- Filtro para contactos con RTN válido -->
+        <record id="view_res_partner_filter_rtn_valid" model="ir.ui.view">
+            <field name="name">res.partner.select.rtn.valid</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Contactos">
+                    <field name="name"/>
+                    <field name="vat"/>
+                    <field name="contacto_cliente"/>
+                    <!-- <filter string="RTN Válido" name="rtn_valid" domain="[('rtn_validated', '=', True)]"/>
+                    <filter string="RTN Inválido" name="rtn_invalid" domain="[('rtn_validated', '=', False), ('vat', '!=', False)]"/>
+                    <filter string="Sin RTN" name="no_rtn" domain="[('vat', '=', False)]"/>
+                    <separator/>
+                    <filter string="Honduras" name="honduras" domain="[('country_id.code', '=', 'HN')]"/> -->
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para validación de contactos -->
+        <!-- <record id="action_partner_validation" model="ir.actions.act_window">
+            <field name="name">Validación de Contactos</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_partner_tree_fiscal"/>
+            <field name="search_view_id" ref="view_res_partner_filter_rtn_valid"/>
+            <field name="domain">[('country_id.code', '=', 'HN')]</field>
+            <field name="context">{'search_default_honduras': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No hay contactos de Honduras para validar
+                </p>
+                <p>
+                    Aquí puedes validar los RTN de los contactos de Honduras según los requerimientos del SAR.
+                </p>
+            </field>
+        </record> -->
+    </data>
+</odoo> 

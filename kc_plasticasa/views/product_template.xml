@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista heredada para agregar campos de Plasticasa al producto -->
+        <record id="product_template_plasticasa_form" model="ir.ui.view">
+            <field name="name">product_template_plasticasa_form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <!-- Agregar campo is_bag -->
+                <xpath expr="//span[field[@name='purchase_ok']]" position="after">
+                    <span class="d-inline-flex">
+                        <field name="is_bag"/>
+                        <label for="is_bag"/>
+                    </span>
+                </xpath>
+                
+
+                
+                <!-- Agregar pestaña para bolsas -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Información de Plasticos" name="plasticasa_info">
+                        <group col="2">
+                            <field name="thread_number"/>
+                            <field name="machine"/>
+                            <field name="grammage"/>
+                            <field name="units_per_bale"/>
+                        </group>
+                        <group string="Unidad Secundaria" col="2">
+                            <field name="uom_secondary_id"/>
+                        </group>
+                        <!-- Campos de dimensiones de bolsa (solo si is_bag = True) -->
+                        <group string="Dimensiones de Bolsa" invisible="not is_bag">
+                            <group>
+                                <field name="bag_width"/>
+                                <field name="bag_height"/>
+                                <field name="bag_gusset"/>
+                            </group>
+                            <group>
+                                <field name="bag_name" readonly="1" placeholder="Se genera automáticamente"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Campos para asignar bolsas a otros productos (solo si is_bag = False) -->
+                        <group string="Bolsas Asignadas" invisible="is_bag">
+                            <group>
+                                <field name="bag_1_id" domain="[('is_bag', '=', True), ('active', '=', True)]" options="{'no_create': True}"/>
+                                <field name="bag_2_id" domain="[('is_bag', '=', True), ('active', '=', True)]" options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Vista de lista para agregar campos visibles -->
+        <record id="product_template_plasticasa_tree" model="ir.ui.view">
+            <field name="name">product_template_plasticasa_tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='list_price']" position="after">
+                    <field name="thread_number" optional="hide"/>
+                    <field name="machine" optional="hide"/>
+                    <field name="grammage" optional="hide"/>
+                    <field name="units_per_bale" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

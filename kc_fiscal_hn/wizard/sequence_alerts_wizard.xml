@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de formulario para el wizard de alertas -->
+        <record id="view_sequence_alerts_wizard_form" model="ir.ui.view">
+            <field name="name">kc_fiscal_hn.wizard.sequence_alerts.form</field>
+            <field name="model">kc_fiscal_hn.wizard.sequence_alerts</field>
+            <field name="arch" type="xml">
+                <form string="Alertas de Secuencias Fiscales">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_check_sequences" 
+                                    string="Verificar Secuencias" 
+                                    type="object" 
+                                    class="btn-primary"/>
+                            <button name="action_validate_all_sequences" 
+                                    string="Validar Todas" 
+                                    type="object" 
+                                    class="btn-secondary"/>
+                        </div>
+                        <group>
+                            <group string="Secuencias Agotadas">
+                                <field name="expired_sequences" nolabel="1"/>
+                            </group>
+                            <group string="CAI Próximos a Vencer">
+                                <field name="expiring_cais" nolabel="1"/>
+                            </group>
+                        </group>
+                        <group string="Errores de Validación">
+                            <field name="validation_errors" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción para el wizard -->
+        <record id="action_sequence_alerts_wizard" model="ir.actions.act_window">
+            <field name="name">Alertas de Secuencias Fiscales</field>
+            <field name="res_model">kc_fiscal_hn.wizard.sequence_alerts</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_sequence_alerts_wizard_form"/>
+        </record>
+    </data>
+</odoo> 

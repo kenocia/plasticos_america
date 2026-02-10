@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="aged_receivable_report_date_column" model="account.report.column">
+        <field name="name">Date</field>
+        <field name="expression_label">date</field>
+        <field name="figure_type">date</field>
+        <field name="sortable" eval="True"/>
+        <field name="sequence">15</field>
+        <field name="report_id" ref="account_reports.aged_receivable_report"/>
+    </record>
+
+    <record id="aged_receivable_line_date" model="account.report.expression">
+        <field name="label">date</field>
+        <field name="engine">custom</field>
+        <field name="formula">_report_custom_engine_aged_receivable</field>
+        <field name="subformula">date</field>
+        <field name="auditable" eval="False"/>
+        <field name="report_line_id" ref="account_reports.aged_receivable_line"/>
+    </record>
+
+    <record id="aged_receivable_report_aging_days_column" model="account.report.column">
+        <field name="name">Antigüedad (días)</field>
+        <field name="expression_label">aging_days</field>
+        <field name="figure_type">integer</field>
+        <field name="sortable" eval="True"/>
+        <field name="sequence">35</field>
+        <field name="report_id" ref="account_reports.aged_receivable_report"/>
+    </record>
+
+    <record id="aged_receivable_line_aging_days" model="account.report.expression">
+        <field name="label">aging_days</field>
+        <field name="engine">custom</field>
+        <field name="formula">_report_custom_engine_aged_receivable</field>
+        <field name="subformula">aging_days</field>
+        <field name="auditable" eval="False"/>
+        <field name="report_line_id" ref="account_reports.aged_receivable_line"/>
+    </record>
+
+    <template id="aged_receivable_pdf_export_main_table_body">
+        <t t-foreach="lines" t-as="line">
+            <t t-set="o_line_level" t-value="'o_line_level_' + str(line['level'])"/>
+
+            <t t-if="line.get('page_break') and not options.get('horizontal_split')">
+                <t t-out="table_end"/>
+                <t t-call="{{custom_templates.get('pdf_export_main_table_header', 'account_reports.pdf_export_main_table_header')}}"/>
+                <t t-out="table_start"/>
+            </t>
+
+            <t t-if="line_index != 0 and line['level'] == 0">
+                <tr>
+                    <td/>
+                    <t t-foreach="line.get('columns')" t-as="cell">
+                        <td/>
+                    </t>
+                    <t t-if="options.get('column_percent_comparison')">
+                        <td/>
+                    </t>
+                    <t t-if="options.get('show_horizontal_group_total')">
+                        <td/>
+                    </t>
+                </tr>
+            </t>
+
+            <t t-set="o_bold" t-value="(' o_fw_bold' if line.get('unfolded') or 'total' in line.get('id') else '')"/>
+            <t t-set="o_overflow" t-value="(' o_overflow_name' if len(line.get('name') or '') > 42 else '')"/>
+            <t t-set="o_total_line" t-value="(' o_aged_partner_total' if 'total' in line.get('id') else '')"/>
+
+            <tr t-att-class="o_line_level + o_bold + o_overflow + o_total_line" name="pdf_export_main_table_body_lines_tr"
+                t-att-style="('background-color: #fff3a1; border-top: 1px solid #8a8a8a;' if 'total' in line.get('id') else 'border-top: 1px solid #d0d0d0;')">
+                <td t-att-colspan="line.get('colspan', '1')" class="o_line_name_level">
+                    <t t-out="line.get('name')"/>
+                    <t t-if="line.get('annotations')">
+                        <t t-foreach="annotations" t-as="annotation">
+                            <t t-if="annotation.get('number') and annotation['number'] in (line.get('annotations') or [])">
+                                <sup t-out="annotation['number']"/>
+                            </t>
+                        </t>
+                    </t>
+                </td>
+
+                <t t-foreach="line.get('columns')" t-as="cell">
+                    <td class="o_cell_td">
+                        <t t-if="not env.company.totals_below_sections or options.get('ignore_totals_below_sections') or not line.get('unfolded')">
+                            <t t-call="{{custom_templates.get('pdf_export_cell', 'account_reports.pdf_export_cell')}}"/>
+                        </t>
+                    </td>
+                </t>
+
+                <t t-if="options.get('column_percent_comparison')">
+                    <td class="o_column_percent_comparison">
+                        <t t-if="line.get('column_percent_comparison_data')">
+                            <t t-out="line['column_percent_comparison_data'].get('name')"/>
+                        </t>
+                    </td>
+                </t>
+
+                <t t-if="options.get('show_horizontal_group_total')">
+                    <td class="o_cell_td">
+                        <t t-if="line.get('horizontal_group_total_data')">
+                            <t t-set="o_classes" t-value="'o_line_cell_value_number' + (' o_muted' if line['horizontal_group_total_data'].get('no_format') == 0 else '')"/>
+                            <span t-att-class="o_classes" t-out="line['horizontal_group_total_data'].get('name')"/>
+                        </t>
+                    </td>
+                </t>
+            </tr>
+
+            <t t-set="separator_colspan" t-value="1 + len(line.get('columns') or []) + (1 if options.get('column_percent_comparison') else 0) + (1 if options.get('show_horizontal_group_total') else 0)"/>
+            <t t-if="line.get('is_partner_group_end')">
+                <tr class="o_aged_partner_group_separator">
+                    <td t-att-colspan="separator_colspan" style="border-bottom: 2px solid #8a8a8a; height: 8px;"/>
+                </tr>
+            </t>
+
+            <t t-if="'total' in line.get('id')">
+                <tr class="o_aged_partner_total_separator">
+                    <td t-att-colspan="separator_colspan" style="border-bottom: 2px solid #6e6e6e; height: 8px;"/>
+                </tr>
+            </t>
+        </t>
+    </template>
+</odoo>

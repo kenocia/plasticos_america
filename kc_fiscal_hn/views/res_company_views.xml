@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Extender la vista de configuración de la compañía -->
+        <record id="view_company_form_inherit_kc_invoice_report" model="ir.ui.view">
+            <field name="name">res.company.form.inherit.kc.invoice.report</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Información de Reportes" name="report_information">
+                        <group>
+                            <group string="Imágenes para Reportes">
+                                <field name="banking_information_image" widget="image" class="oe_avatar"/>
+                                <field name="terms_conditions_image" widget="image" class="oe_avatar"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo> 

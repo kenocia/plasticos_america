@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="id_report_invoice_sar">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <!-- Filtrar solo líneas de producto (sin secciones ni notas) -->
+                    <t t-set="product_lines" t-value="o.invoice_line_ids.filtered(lambda l: l.display_type == 'product')"/>
+                    
+                    <!-- Paginar cada 27 líneas -->
+                    <t t-set="max_lines_per_page" t-value="31"/>
+                    <t t-set="total_lines" t-value="len(product_lines) or 0"/>
+                    <t t-set="total_pages" t-value="max(1, (total_lines + max_lines_per_page - 1) // max_lines_per_page) if total_lines else 1"/>
+                    <t t-set="pages" t-value="[product_lines[i:i+max_lines_per_page] for i in range(0, total_lines, max_lines_per_page)] if total_lines else [[]]"/>
+                    
+                    <style>
+                        @page {
+                            size: 216mm 241mm; 
+                            margin: 0mm;
+                        }
+                        
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            font-family: Arial, sans-serif;
+                            font-size: 10pt;
+                        }
+                        
+                        .preimpresa-sheet {
+                            position: relative;
+                            width: 216mm;   
+                            height: 241mm;  
+                            margin: 0;
+                            padding: 0;
+                            background: white;
+                            page-break-after: always;
+                        }
+                        
+                        .preimpresa-sheet:last-child {
+                            page-break-after: auto;
+                        }
+                        
+                        .abs {
+                            position: absolute;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+                        
+                        .bold {
+                            font-weight: bold;
+                        }
+                        
+                        /* Tabla de líneas de detalle - posición fija */
+                        .lines-container {
+                            position: absolute;
+                            left: 3mm;
+                            top: 76mm;  /* AJUSTAR según posición en formato pre-impreso */
+                            width: 216mm;
+                        }
+                        
+                        table.detail-lines {
+                            width: 100%;
+                            border-collapse: collapse;
+                            table-layout: fixed;
+                            font-size: 9pt;
+                        }
+                        
+                        table.detail-lines td {
+                            border: none;
+                            padding: 0;
+                            height: 4mm;      /* Altura fija por línea */
+                            line-height: 4mm;
+                            vertical-align: top;
+                            overflow: hidden;
+                        }
+                        
+                        /* Columnas de la tabla de detalle */
+                        td.col-cantidad {
+                            width: 15mm;
+                            text-align: right;
+                            padding-left: 1mm;
+                            
+                        }
+                        
+                        td.col-um {
+                            width: 22mm;
+                            text-align: center;
+                           
+                        }
+                        
+                        td.col-descripcion {
+                            width: 143mm;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            padding-left: 2mm;
+                            
+                        }
+                        
+                        td.col-precio {
+                            width: 24mm;
+                            text-align: right;
+                            padding-right: 2mm;
+                           
+                        }
+                        
+                        td.col-total {
+                            width: 32mm;
+                            text-align: right;
+                           /* padding-right: 25mm;*/
+                        }
+                    </style>
+                    
+                    <t t-set="page_idx" t-value="0"/>
+                    <t t-foreach="pages" t-as="page_lines">
+                        <t t-set="is_last_page" t-value="page_idx == (total_pages - 1)"/>
+                        <div class="preimpresa-sheet">
+                                    
+                                    <!-- ========== HEADER - Campos con posición absoluta ========== -->
+                                    
+                                    <!-- Número de factura (name) - Alineado a la derecha -->
+                                    <span class="abs bold" style="left: 170mm; top: 15mm; width: 72mm; font-size: 16pt; text-align: right;">
+                                        <t t-esc="o.name or ''"/>
+                                    </span>
+                                    
+                                    <!-- Fecha de factura - Separada en día, mes, año (año a 4 dígitos) -->
+                                    <t t-set="invoice_date" t-value="o.invoice_date or o.date"/>
+                                    <span class="abs bold" style="left: 200mm; top: 35mm; font-size: 10pt;">
+                                        <t t-esc="invoice_date and invoice_date.strftime('%d') or ''"/>
+                                    </span>
+                                    <span class="abs bold" style="left: 219mm; top: 35mm; font-size: 10pt;">
+                                        <t t-esc="invoice_date and invoice_date.strftime('%m') or ''"/>
+                                    </span>
+                                    <span class="abs bold" style="left: 234mm; top: 35mm; font-size: 10pt; min-width: 15mm; white-space: nowrap;">
+                                        <t t-if="invoice_date">
+                                            <t t-set="year_4digits" t-value="invoice_date.strftime('%Y')"/>
+                                            <t t-esc="year_4digits"/>
+                                        </t>
+                                    </span>
+                                    
+                                    <!-- CAI -->
+                                    <span class="abs bold" style="left: 70mm; top: 29mm; font-size: 9pt;">
+                                        CAI: <t t-esc="o.cai or ''"/>
+                                    </span>
+                                    
+                                    <!-- Rango autorizado: En un solo texto desde Rango... hasta el valor -->
+                                    <span class="abs bold" style="left: 70mm; top: 33mm; font-size: 8pt;">
+                                        <t t-if="o.numeroInicial and o.numeroFinal">
+                                            Rango autorizado desde: <t t-esc="o.numeroInicial"/> Hasta: <t t-esc="o.numeroFinal"/>
+                                        </t>
+                                    </span>
+                                    
+                                    <!-- Cuadro para Fecha límite de emisión y Vendedor -->
+                                    <div class="abs" style="left: 140mm; top: 43mm; width: 100mm; height: 14mm; border: 1px solid #000; padding: 1.5mm; box-sizing: border-box; background: white;">
+                                        <!-- Fecha límite de emisión (fechaLimiteEmision) -->
+                                        <div style="font-size: 8pt; margin-bottom: 2mm; line-height: 1.2;">
+                                            <span style="font-weight: bold;">
+                                                Fecha limite de emision: 
+                                            </span>
+                                            <span style="font-weight: bold;">
+                                                <t t-if="o.fechaLimiteEmision">
+                                                    <t t-esc="o.fechaLimiteEmision.strftime('%d/%m/%Y')"/>
+                                                </t>
+                                            </span>
+                                        </div>
+                                        
+                                        <!-- Vendedor (invoice_user_id) -->
+                                        <div style="font-size: 8pt; line-height: 1.2;">
+                                            <span style="font-weight: bold;">
+                                                Vendedor: 
+                                            </span>
+                                            <span style="font-weight: bold;">
+                                                <t t-esc="o.invoice_user_id and o.invoice_user_id.name or ''"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Cliente (partner_id.name) -->
+                                    <span class="abs bold" style="left: 21mm; top: 44mm; font-size: 10pt;">
+                                        <t t-esc="o.partner_id and o.partner_id.name or ''"/>
+                                    </span>
+                                    
+                                    <!-- Contacto del cliente -->
+                                    <!-- <span class="abs bold" style="left: 21mm; top: 46mm; font-size: 10pt;">
+                                        <t t-esc="o.partner_id and o.partner_id.contacto or ''"/>
+                                    </span> -->
+
+                                    <!-- Teléfono y celular del cliente -->
+                                    <t t-set="phone_str" t-value="(o.partner_id.phone or '')"/>
+                                    <t t-set="mobile_str" t-value="(o.partner_id.mobile or '')"/>
+                                    <t t-set="phone_combined" t-value="', '.join([p for p in [phone_str, mobile_str] if p])"/>
+                                    <span class="abs" style="left: 24mm; top: 54mm; font-size: 9pt; max-width: 125mm;">
+                                        <t t-esc="phone_combined"/>
+                                    </span>
+                                    
+                                    <!-- Dirección del cliente -->
+                                    <t t-set="direccion_parts" t-value="[]"/>
+                                    <t t-if="o.partner_id.street">
+                                        <t t-set="direccion_parts" t-value="direccion_parts + [o.partner_id.street]"/>
+                                    </t>
+                                    <t t-if="o.partner_id.street2">
+                                        <t t-set="direccion_parts" t-value="direccion_parts + [o.partner_id.street2]"/>
+                                    </t>
+                                    <t t-if="o.partner_id.city">
+                                        <t t-set="direccion_parts" t-value="direccion_parts + [o.partner_id.city]"/>
+                                    </t>
+                                    <t t-if="o.partner_id.state_id">
+                                        <t t-set="direccion_parts" t-value="direccion_parts + [o.partner_id.state_id.name]"/>
+                                    </t>
+                                    <t t-if="o.partner_id.country_id">
+                                        <t t-set="direccion_parts" t-value="direccion_parts + [o.partner_id.country_id.name]"/>
+                                    </t>
+                                    <t t-set="direccion_completa" t-value="', '.join(direccion_parts)"/>
+                                    <span class="abs" style="left: 22mm; top: 59mm; font-size: 9pt; max-width: 125mm;">
+                                        <t t-esc="direccion_completa"/>
+                                    </span>
+
+                                    
+                                    <!-- Tipo de pago: Contado / Crédito - Todo en una sola línea con 5 valores (texto, X contado, X crédito, fecha, RTN) -->
+                                    <t t-set="is_cash" t-value="not o.invoice_payment_term_id or (o.invoice_payment_term_id.name and 'contado' in o.invoice_payment_term_id.name.lower()) or (o.invoice_payment_term_id.name and 'inmediato' in o.invoice_payment_term_id.name.lower())"/>
+                                    <t t-set="is_credit" t-value="not is_cash"/>
+                                    
+                                    <!-- Texto de pago -->
+                                    <span class="abs bold" style="left: 23mm; top: 63mm; font-size: 9pt;">
+                                        <t t-if="is_cash">Contado</t>
+                                        <t t-if="is_credit">Credito</t>
+                                    </span>
+                                    
+                                    <!-- Casilla Contado (X condicionada) -->
+                                    <span class="abs bold" style="left: 79mm; top: 62mm; font-size: 12pt;">
+                                        <t t-esc="is_cash and 'X' or ''"/>
+                                    </span>
+                                    
+                                    <!-- Casilla Crédito (X condicionada) -->
+                                    <span class="abs bold" style="left: 115mm; top: 62mm; font-size: 12pt;">
+                                        <t t-esc="is_credit and 'X' or ''"/>
+                                    </span>
+                                    
+                                    <!-- Fecha de pago -->
+                                     <span class="abs bold" style="left: 125mm; top: 63mm; font-size: 9pt;">
+                                        <t t-if="invoice_date">
+                                            <t t-esc="invoice_date.strftime('%d/%m/%Y')"/>
+                                        </t>
+                                    </span>
+
+                                    <!-- RTN del cliente (partner_id.vat) -->
+                                    <span class="abs bold" style="left: 162mm; top: 63mm; font-size: 9pt;">
+                                        <t t-esc="o.partner_id and o.partner_id.vat or ''"/>
+                                    </span>                                    
+                                    
+                                    <!-- ========== DETALLE - Tabla con exactamente 31 líneas ========== -->
+                                    <div class="lines-container">
+                                        <table class="detail-lines">
+                                            <tbody>
+                                                <t t-foreach="range(max_lines_per_page)" t-as="i">
+                                                    <t t-set="line" t-value="(i &lt; len(page_lines)) and page_lines[i] or False"/>
+                                                    <tr>
+                                                        <td class="col-cantidad">
+                                                            <t t-if="line">
+                                                                <t t-set="qty_str" t-value="'{:,.2f}'.format(line.quantity) if line.quantity else '0'"/>
+                                                                 <t t-set="parts" t-value="qty_str.split('.')"/>   
+                                                                <span style="text-align: left;">
+                                                                    <t t-esc="parts[0]"/>
+                                                                </span>
+                                                            </t>
+                                                        </td>
+                                                        <td class="col-um">
+                                                            <t t-if="line">
+                                                                <span style="text-align: left;">
+                                                                    <t t-esc="line.product_uom_id and line.product_uom_id.name or ''"/>
+                                                                </span>
+                                                            </t>
+                                                        </td>
+                                                        <td class="col-descripcion">
+                                                            <t t-if="line">
+                                                                <span style="text-align: left; font-size: 13px;">
+                                                                    <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                                                                </span>
+                                                            </t>
+                                                        </td>
+                                                        <td class="col-precio">
+                                                            <t t-if="line">
+                                                                <span style="text-align: right;">
+                                                                    <t t-esc="'{:.2f}'.format(line.price_unit) if line.price_unit else '0.00'"/>
+                                                                </span>
+                                                            </t>
+                                                        </td>
+                                                        <td class="col-total">
+                                                            <t t-if="line">
+                                                                <t t-set="total_str" t-value="'{:,.2f}'.format(line.price_subtotal) if line.price_subtotal else '0.00'"/>
+                                                                
+                                                                <span style="text-align: right;">
+                                                                    <t t-esc="total_str"/>
+                                                                </span>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- ========== TOTALES - Solo en la última página ========== -->
+                                    <t t-if="is_last_page">
+
+                                        <span class="abs" style="left:  5mm; top: 204mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                        <t t-esc="o.noOrdenCompraExenta or ''"/>
+                                        </span>
+                                        <span class="abs" style="left: 74mm; top: 204mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="o.noConsRegistroExonerado or ''"/>
+                                        </span>
+                                        <span class="abs" style="left: 127mm; top: 204mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="o.noIdentificacionRegistroSAG or ''"/>
+                                        </span>
+
+                                         <!-- Monto en letras (totalAmountString) -->
+                                        <!-- Usar totalAmountString directamente que ya tiene los acentos correctos -->
+                                        <t t-if="o.totalAmountString">
+                                            <t t-set="total_words" t-value="o.totalAmountString"/>
+                                            <!-- Extraer la parte del entero (antes de " Lempiras con " o " Lempiras con ") -->
+                                            <t t-set="entero_part" t-value="total_words.split(' Lempiras con ')[0] if ' Lempiras con ' in total_words else (total_words.split(' Lempiras con ')[0] if ' Lempiras con ' in total_words else total_words)"/>
+                                            <!-- Extraer los centavos (después de "con " y antes de "/100 Centavos") -->
+                                            <t t-set="centavos_part" t-value="total_words.split(' con ')[1].split('/100')[0] if ' con ' in total_words and '/100' in total_words else '00'"/>
+                                            <!-- Convertir a formato capital: minúsculas, reducir espacios múltiples, y capitalizar cada palabra -->
+                                            <t t-set="entero_lower" t-value="entero_part.lower()"/>
+                                            <!-- Reducir espacios múltiples a uno solo usando split y join -->
+                                            <t t-set="entero_clean" t-value="' '.join(entero_lower.split())"/>
+                                            <!-- Capitalizar primera letra de cada palabra usando title() -->
+                                            <t t-set="entero_capital" t-value="entero_clean.title()"/>
+                                            <!-- Construir el texto final: entero capitalizado + " Lempiras" (singular) + " y " + centavos -->
+                                            <t t-set="entero_final" t-value="entero_capital + ' Lempiras'"/>
+                                        </t>
+                                        <t t-if="not o.totalAmountString">
+                                            <t t-set="entero_final" t-value="''"/>
+                                            <t t-set="centavos_part" t-value="'00'"/>
+                                        </t>
+                                        
+                                        <span class="abs bold" style="left: 14mm; top: 215mm; font-size: 10pt; max-width: 150mm;">
+                                            *** <t t-esc="entero_final or ''"/> y <t t-esc="centavos_part or '00'"/>/100 ***
+                                        </span>                                       
+                                        
+                                        <!-- Usuario que creó la factura -->
+                                        <span class="abs" style="top: 239mm; width: 50mm; font-size: 10pt; text-align: center;">
+                                            <t t-esc="o.create_uid.name or ''"/>
+                                        </span>  
+                                        
+                                        <!-- Total Exento (amount_exento) -->
+                                        <t t-set="exento_str" t-value="'{:,.2f}'.format(o.amount_exento or 0.0)"/>
+                                        <span class="abs" style="left: 187mm; top: 202mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="exento_str"/>
+                                        </span>
+                                        
+                                        <!-- Total Exento (amount_exonerado) -->
+                                         <t t-set="exonerado_str" t-value="'{:,.2f}'.format(o.amount_exonerado or 0.0)"/>
+                                        <span class="abs" style="left: 187mm; top: 207mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="exonerado_str"/>
+                                        </span>
+                                        
+                                        <!-- Importe Gravado 15% (gravado_isv15) -->
+                                        <t t-set="gravado15_str" t-value="'{:,.2f}'.format(o.gravado_isv15 or 0.0)"/>
+                                        <span class="abs" style="left: 187mm; top: 212mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="gravado15_str"/>
+                                        </span>
+                                        
+                                        <!-- Descuentos Otorgados (amount_discount) -->
+                                        <t t-set="discount_str" t-value="'{:,.2f}'.format(o.amount_discount or 0.0)"/>
+                                        <span class="abs" style="left: 187mm; top: 217mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="discount_str"/>
+                                        </span>
+                                        
+                                        <!-- Subtotal (amount_untaxed) -->
+                                        <t t-set="untaxed_str" t-value="'{:,.2f}'.format(o.amount_untaxed or 0.0)"/>
+                                        <span class="abs" style="left: 187mm; top: 222mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="untaxed_str"/>
+                                        </span>
+                                        
+                                        <!-- ISV 15% (amount_isv15) -->
+                                        <t t-set="isv15_str" t-value="'{:,.2f}'.format(o.amount_isv15 or 0.0)"/>
+                                        <span class="abs" style="left: 187mm; top: 227mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="isv15_str"/>
+                                        </span>
+                                        
+                                        <!-- Total a Pagar (amount_total) -->
+                                        <t t-set="total_str" t-value="'{:,.2f}'.format(o.amount_total or 0.0)"/>
+                                        <span class="abs" style="left: 187mm; top: 232mm; width: 52mm; font-size: 10pt; text-align: right;">
+                                            <t t-esc="total_str"/>
+                                        </span>
+                                
+                                </t>
+                                    
+                        </div>
+                        <t t-set="page_idx" t-value="page_idx + 1"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

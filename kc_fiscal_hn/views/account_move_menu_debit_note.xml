@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Acción para crear Nota de Débito usando acción de servidor para ejecutar el método -->
+        <record id="action_create_debit_note" model="ir.actions.server">
+            <field name="name">Nota de Débito</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+action = env['account.move'].action_create_debit_note()
+            </field>
+        </record>
+
+        <!-- Menú Nota de Débito en la sección de Clientes -->
+        <!-- Este menú aparecerá en el menú de Clientes junto con Facturas, Notas de crédito, etc. -->
+        <!-- Usamos account.menu_action_move_out_invoice_type como padre que es el menú de facturas de cliente -->
+        <!-- <menuitem id="menu_customer_debit_note"
+                  name="Nota Débito"
+                  parent="account.menu_action_move_out_invoice_type"
+                  action="action_create_debit_note"
+                  sequence="25"/> -->
+    </data>
+</odoo>
+

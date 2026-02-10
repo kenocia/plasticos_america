@@ -1,0 +1,70 @@
+<odoo>
+    <record id="res_config_settings_view_form_kc_currency_rate_bch" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.kc.currency.rate.bch</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="Tipo de cambio BCH" string="Tipo de cambio BCH">
+                    <h2>Tipo de cambio BCH</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="bch_api_key"/>
+                                <div>
+                                    <field name="bch_api_key" password="True"/>
+                                </div>
+                                <div class="text-muted">Llave del API de BCH.</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="bch_indicator_id"/>
+                                <div>
+                                    <field name="bch_indicator_id"/>
+                                </div>
+                                <div class="text-muted">Indicador BCH (por defecto 97).</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="bch_currency_code"/>
+                                <div>
+                                    <field name="bch_currency_code"/>
+                                </div>
+                                <div class="text-muted">Codigo de moneda a actualizar (ej. USD).</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="bch_company_currency_code"/>
+                                <div>
+                                    <field name="bch_company_currency_code"/>
+                                </div>
+                                <div class="text-muted">Codigo de moneda base de la compania (ej. HNL).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_kc_currency_rate_bch_settings" model="ir.actions.act_window">
+        <field name="name">Tipo de cambio BCH</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'kc_currency_rate_bch', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="menu_kc_currency_rate_bch_settings"
+              name="Tipo de cambio BCH"
+              parent="account.menu_finance_configuration"
+              sequence="200"
+              action="action_kc_currency_rate_bch_settings"/>
+</odoo>
