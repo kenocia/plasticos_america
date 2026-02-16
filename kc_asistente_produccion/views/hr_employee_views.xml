@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_form_pin" model="ir.ui.view">
+            <field name="name">hr.employee.form.pin</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <group string="Asistente de producción" name="tablet_pin" groups="hr.group_hr_manager">
+                        <field name="pin_hash" invisible="1"/>
+                        <label for="pin_hash"/>
+                        <div class="oe_inline">
+                            <span class="text-muted">PIN configurado</span>
+                            <span invisible="not pin_hash">Sí</span>
+                            <span invisible="pin_hash">No</span>
+                        </div>
+                        <button name="action_set_pin_wizard" type="object" string="Establecer / cambiar PIN" class="btn-link"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

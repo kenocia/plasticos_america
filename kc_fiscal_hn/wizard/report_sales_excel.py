@@ -51,35 +51,35 @@ class ReportSalesList(models.TransientModel):
         # ENCABEZADO
         # sheet.write_merge(fila inicial, fila final, columna inicial, columna final)
         # --------------------------- HOJA 1 ---------------------
-        sheet.write_merge(0, 0, 0, 3, 'GRUPO RIO S. DE R.L.', encabezado)
+        sheet.write_merge(0, 0, 0, 3, self.company_id.name, encabezado)
         sheet.write_merge(1, 1, 0, 5,
                           'REPORTE DE VENTAS NETAS DE ' + str(self.fecha_desde) + ' a ' + str(self.fecha_hasta),
                           encabezado)
         sheet.write_merge(2, 2, 0, 3, 'VENDEDOR - DEPARTAMENTO', encabezado)
 
         # --------------------------- HOJA 2  ---------------------
-        sheet2.write_merge(0, 0, 0, 3, 'GRUPO RIO S. DE R.L.', encabezado)
+        sheet2.write_merge(0, 0, 0, 3, self.company_id.name, encabezado)
         sheet2.write_merge(1, 1, 0, 5,
                            'REPORTE DE VENTAS NETAS DE ' + str(self.fecha_desde) + ' a ' + str(self.fecha_hasta),
                            encabezado)
         sheet2.write_merge(2, 2, 0, 3, 'VENDEDOR - PRODUCTO', encabezado)
 
         # --------------------------- HOJA 3  ---------------------
-        sheet3.write_merge(0, 0, 0, 3, 'GRUPO RIO S. DE R.L.', encabezado)
+        sheet3.write_merge(0, 0, 0, 3, self.company_id.name, encabezado)
         sheet3.write_merge(1, 1, 0, 5,
                            'REPORTE DE VENTAS NETAS DE ' + str(self.fecha_desde) + ' a ' + str(self.fecha_hasta),
                            encabezado)
         sheet3.write_merge(2, 2, 0, 3, 'VENTA DETALLADA POR PRODUCTO', encabezado)
 
         # --------------------------- HOJA 4  ---------------------
-        sheet4.write_merge(0, 0, 0, 3, 'GRUPO RIO S. DE R.L.', encabezado)
+        sheet4.write_merge(0, 0, 0, 3, self.company_id.name, encabezado)
         sheet4.write_merge(1, 1, 0, 5,
                            'REPORTE DE VENTAS NETAS DE ' + str(self.fecha_desde) + ' a ' + str(self.fecha_hasta),
                            encabezado)
         sheet4.write_merge(2, 2, 0, 3, 'VENTA PRODUCTO RESUMEN', encabezado)
 
         # --------------------------- HOJA 5  ---------------------
-        sheet5.write_merge(0, 0, 0, 3, 'GRUPO RIO S. DE R.L.', encabezado)
+        sheet5.write_merge(0, 0, 0, 3, self.company_id.name, encabezado)
         sheet5.write_merge(1, 1, 0, 5,
                            'REPORTE DE VENTAS NETAS DE ' + str(self.fecha_desde) + ' a ' + str(self.fecha_hasta),
                            encabezado)

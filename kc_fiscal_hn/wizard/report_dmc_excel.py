@@ -14,6 +14,158 @@ except ImportError:
     xlwt = None
 
 
+class ReportDmcLine(models.TransientModel):
+    _name = 'kc_fiscal_hn.dmc.line'
+    _description = 'Línea DMC para vista'
+
+    dmc_view_id = fields.Many2one('kc_fiscal_hn.dmc.view', string='Vista DMC', required=True, ondelete='cascade')
+    sheet_type = fields.Selection([
+        ('527-52', '527-52'),
+        ('527-53', '527-53'),
+        ('527-54', '527-54'),
+    ], string='Hoja', required=True)
+    # Campos hoja 527-52
+    rtn = fields.Char(string='R.T.N')
+    proveedor = fields.Char(string='Proveedor')
+    clase = fields.Char(string='Clase documento')
+    cai = fields.Char(string='CAI')
+    f_documento = fields.Char(string='N° Documento')
+    r_documento = fields.Char(string='N° Documento (OC)')
+    # Campos hojas 527-53, 527-54
+    dmc_pasaporte_identificacion_ca = fields.Char(string='Pasaporte/Identificación CA')
+    dmc_identificador_tributario_mercantil = fields.Char(string='Identificador tributario mercantil')
+    dmc_numero_fyduca = fields.Char(string='N.º FYDUCA')
+    dmc_numero_dua = fields.Char(string='N.º DUA')
+    # Campos comunes
+    fecha_emision = fields.Char(string='Fecha emisión')
+    fecha_contable = fields.Char(string='Fecha contable')
+    oce = fields.Char(string='Nº OCE')
+    importe_exento = fields.Float(string='Importe exento')
+    resolucion = fields.Char(string='Nº resolución')
+    importe_exonerado_15 = fields.Float(string='Importe exonerado 15%')
+    importe_exonerado_18 = fields.Float(string='Importe exonerado 18%')
+    importe_isv15 = fields.Float(string='Importe base 15%')
+    importe_isv18 = fields.Float(string='Importe base 18%')
+    importe_base_15_fuera = fields.Float(string='Importe base 15% (Fuera CA)')
+    importe_base_18_fuera = fields.Float(string='Importe base 18% (Fuera CA)')
+    costo = fields.Float(string='Monto al costo')
+    gasto = fields.Float(string='Monto al gasto')
+    deducible = fields.Float(string='Valor no deducible')
+
+
+class ReportDmcView(models.TransientModel):
+    _name = 'kc_fiscal_hn.dmc.view'
+    _description = 'Vista DMC con pestañas'
+
+    wizard_id = fields.Many2one('kc_fiscal_hn.wizard.dmc', string='Wizard', ondelete='cascade')
+    fecha_desde = fields.Date(string="Fecha Desde", related='wizard_id.fecha_desde', readonly=True)
+    fecha_hasta = fields.Date(string="Fecha Hasta", related='wizard_id.fecha_hasta', readonly=True)
+
+    line_ids_527_52 = fields.One2many(
+        'kc_fiscal_hn.dmc.line', 'dmc_view_id', string='527-52',
+        domain=[('sheet_type', '=', '527-52')])
+    line_ids_527_53 = fields.One2many(
+        'kc_fiscal_hn.dmc.line', 'dmc_view_id', string='527-53',
+        domain=[('sheet_type', '=', '527-53')])
+    line_ids_527_54 = fields.One2many(
+        'kc_fiscal_hn.dmc.line', 'dmc_view_id', string='527-54',
+        domain=[('sheet_type', '=', '527-54')])
+
+    def _populate_dmc_lines(self):
+        """Crear registros de línea DMC a partir de get_invoice()."""
+        invoice = self.wizard_id.get_invoice()
+
+        def _norm_tipo(value):
+            return (value or '').strip().lower()
+
+        def _is_fiduca(value):
+            tipo = _norm_tipo(value)
+            return 'fiduca' in tipo or 'fyduca' in tipo
+
+        def _is_importacion(value):
+            tipo = _norm_tipo(value)
+            return 'importacion' in tipo or 'importación' in tipo
+
+        DmcLine = self.env['kc_fiscal_hn.dmc.line']
+        vals_527_52 = []
+        vals_527_53 = []
+        vals_527_54 = []
+
+        for i in invoice:
+            fiscal_documento = i.get('f_documento', '')
+
+            if _is_fiduca(i.get('dmc_tipo', '')):
+                vals_527_53.append({
+                    'dmc_view_id': self.id,
+                    'sheet_type': '527-53',
+                    'dmc_pasaporte_identificacion_ca': i.get('dmc_pasaporte_identificacion_ca', ''),
+                    'dmc_identificador_tributario_mercantil': i.get('dmc_identificador_tributario_mercantil', ''),
+                    'proveedor': i.get('proveedor', ''),
+                    'dmc_numero_fyduca': i.get('dmc_numero_fyduca', ''),
+                    'fecha_emision': i.get('fecha_emision', ''),
+                    'fecha_contable': i.get('fecha_contable', ''),
+                    'oce': i.get('oce', ''),
+                    'importe_exento': i.get('importe_exento') or 0,
+                    'resolucion': i.get('resolucion', ''),
+                    'importe_exonerado_15': i.get('importe_exonerado_15') or 0,
+                    'importe_exonerado_18': i.get('importe_exonerado_18') or 0,
+                    'importe_isv15': i.get('importe_isv15') or 0,
+                    'importe_isv18': i.get('importe_isv18') or 0,
+                    'costo': i.get('costo') or 0,
+                    'gasto': i.get('gasto') or 0,
+                    'deducible': i.get('deducible') or 0,
+                })
+            elif _is_importacion(i.get('dmc_tipo', '')):
+                vals_527_54.append({
+                    'dmc_view_id': self.id,
+                    'sheet_type': '527-54',
+                    'dmc_pasaporte_identificacion_ca': i.get('dmc_pasaporte_identificacion_ca', ''),
+                    'proveedor': i.get('proveedor', ''),
+                    'dmc_numero_dua': i.get('dmc_numero_dua', ''),
+                    'fecha_emision': i.get('fecha_emision', ''),
+                    'fecha_contable': i.get('fecha_contable', ''),
+                    'oce': i.get('oce', ''),
+                    'importe_exento': i.get('importe_exento') or 0,
+                    'resolucion': i.get('resolucion', ''),
+                    'importe_exonerado_15': i.get('importe_exonerado_15') or 0,
+                    'importe_exonerado_18': i.get('importe_exonerado_18') or 0,
+                    'importe_isv15': i.get('importe_isv15') or 0,
+                    'importe_base_15_fuera': 0,
+                    'importe_isv18': i.get('importe_isv18') or 0,
+                    'importe_base_18_fuera': 0,
+                    'costo': i.get('costo') or 0,
+                    'gasto': i.get('gasto') or 0,
+                    'deducible': i.get('deducible') or 0,
+                })
+            else:
+                vals_527_52.append({
+                    'dmc_view_id': self.id,
+                    'sheet_type': '527-52',
+                    'rtn': i.get('rtn', ''),
+                    'proveedor': i.get('proveedor', ''),
+                    'clase': i.get('clase', ''),
+                    'cai': i.get('cai', ''),
+                    'f_documento': fiscal_documento,
+                    'r_documento': i.get('r_documento', ''),
+                    'fecha_emision': i.get('fecha_emision', ''),
+                    'fecha_contable': i.get('fecha_contable', ''),
+                    'oce': i.get('oce', ''),
+                    'importe_exento': i.get('importe_exento') or 0,
+                    'resolucion': i.get('resolucion', ''),
+                    'importe_exonerado_15': i.get('importe_exonerado_15') or 0,
+                    'importe_exonerado_18': i.get('importe_exonerado_18') or 0,
+                    'importe_isv15': i.get('importe_isv15') or 0,
+                    'importe_isv18': i.get('importe_isv18') or 0,
+                    'costo': i.get('costo') or 0,
+                    'gasto': i.get('gasto') or 0,
+                    'deducible': i.get('deducible') or 0,
+                })
+
+        DmcLine.create(vals_527_52)
+        DmcLine.create(vals_527_53)
+        DmcLine.create(vals_527_54)
+
+
 class ReportDmcList(models.TransientModel):
     _name = 'kc_fiscal_hn.wizard.dmc'
     _description = 'Reporte DMC'
@@ -26,12 +178,18 @@ class ReportDmcList(models.TransientModel):
                                         ('posted', 'Posteado'),
                                         ('cancel', 'Cancelado'), ], string='Status', default='posted')
 
-    # payment_state = fields.Selection(selection=[('not_paid', 'No Pagadas'),
-    #                                             ('in_payment', 'En proceso de pago'),
-    #                                             ('paid', 'Pagado'),
-    #                                             ('partial', 'Pagado Parcialmente'),
-    #                                             ('reversed', 'Revertido')],
-    #                                  string="Payment Status", default='paid')
+    def action_view_data(self):
+        """Crear vista DMC separada con las 3 pestañas."""
+        dmc_view = self.env['kc_fiscal_hn.dmc.view'].create({'wizard_id': self.id})
+        dmc_view._populate_dmc_lines()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'DMC - %s a %s' % (self.fecha_desde, self.fecha_hasta),
+            'res_model': 'kc_fiscal_hn.dmc.view',
+            'res_id': dmc_view.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
 
     def print_report(self):
         invoice = self.get_invoice()

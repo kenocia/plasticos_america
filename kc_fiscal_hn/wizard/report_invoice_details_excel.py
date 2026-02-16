@@ -38,13 +38,13 @@ class ReportInvoiceDetails(models.TransientModel):
 
         # ENCABEZADO
         sheet.merge_range('B10:H10', 'Facturas Detalle', encabezado)
-        sheet.merge_range('D1:D3', 'GRUPO RIO S. DE R.L.', encabezado2)
+        sheet.merge_range('D1:D3', self.company_id.name, encabezado2)
         sheet.merge_range('D4:D6', str(self.fecha_desde) + ' a ' + str(self.fecha_hasta), encabezado2)
         sheet2.merge_range('B10:H10', 'Productos Detalle', encabezado)
-        sheet2.merge_range('D1:D3', 'GRUPO RIO S. DE R.L.', encabezado2)
+        sheet2.merge_range('D1:D3', self.company_id.name, encabezado2)
         sheet2.merge_range('D4:D6', str(self.fecha_desde) + ' a ' + str(self.fecha_hasta), encabezado2)
         sheet3.merge_range('B10:H10', 'Margen por Producto', encabezado)
-        sheet3.merge_range('D1:D3', 'GRUPO RIO S. DE R.L.', encabezado2)
+        sheet3.merge_range('D1:D3', self.company_id.name, encabezado2)
         sheet3.merge_range('D4:D6', str(self.fecha_desde) + ' a ' + str(self.fecha_hasta), encabezado2)
 
         # TITULOS

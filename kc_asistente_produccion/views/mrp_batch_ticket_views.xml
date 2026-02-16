@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_batch_ticket_list" model="ir.ui.view">
+            <field name="name">mrp.batch.ticket.list</field>
+            <field name="model">mrp.batch.ticket</field>
+            <field name="arch" type="xml">
+                <list string="Tickets de lote" create="0">
+                    <field name="name"/>
+                    <field name="production_id"/>
+                    <field name="workcenter_id"/>
+                    <field name="product_id"/>
+                    <field name="lot_id"/>
+                    <field name="qty"/>
+                    <field name="employee_id"/>
+                    <field name="printed_at"/>
+                    <field name="print_count"/>
+                    <button name="action_reprint" type="object" string="Reimprimir" icon="fa-print"/>
+                </list>
+            </field>
+        </record>
+        <record id="mrp_batch_ticket_form" model="ir.ui.view">
+            <field name="name">mrp.batch.ticket.form</field>
+            <field name="model">mrp.batch.ticket</field>
+            <field name="arch" type="xml">
+                <form string="Ticket de lote">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="production_id"/>
+                                <field name="workorder_id"/>
+                                <field name="workcenter_id"/>
+                                <field name="product_id"/>
+                                <field name="lot_id"/>
+                                <field name="qty"/>
+                                <field name="product_uom_id"/>
+                            </group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="user_id"/>
+                                <field name="printed_at"/>
+                                <field name="print_count"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="action_reprint" string="Reimprimir viñeta" type="object" class="btn-primary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

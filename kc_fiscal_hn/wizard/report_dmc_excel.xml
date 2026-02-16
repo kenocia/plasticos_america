@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Wizard: solo filtros y botones -->
     <record id="kc_fiscal_hn_wizard_dmc_form_view" model="ir.ui.view">
-        <field name="name">kc_fiscal_hn_wizard_dcm_form_view</field>
+        <field name="name">kc_fiscal_hn_wizard_dmc_form_view</field>
         <field name="model">kc_fiscal_hn.wizard.dmc</field>
         <field name="arch" type="xml">
             <form string="Declaracion DMC">
@@ -13,13 +14,107 @@
                     </group>
                     <group>
                         <field name="state"/>
-<!--                        <field name="payment_state"/>-->
                     </group>
                 </group>
                 <footer>
-                    <button string="Cancel" special="cancel" class="btn-seconday"/>
-                    <button name="print_report" type="object" string="Imprimir Reporte" class="btn-primary"/>
+                    <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                    <button name="action_view_data" type="object" string="Ver en pantalla"
+                            class="btn-primary"/>
+                    <button name="print_report" type="object" string="Exportar Excel" class="btn-primary"/>
                 </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista DMC separada: formulario con 3 pestañas -->
+    <record id="view_dmc_view_form" model="ir.ui.view">
+        <field name="name">kc_fiscal_hn.dmc.view.form</field>
+        <field name="model">kc_fiscal_hn.dmc.view</field>
+        <field name="arch" type="xml">
+            <form string="Declaración DMC">
+                <sheet>
+                    <group>
+                        <field name="fecha_desde" readonly="1"/>
+                        <field name="fecha_hasta" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="527-52" name="sheet_527_52">
+                            <field name="line_ids_527_52" nolabel="1">
+                                <list string="527-52" create="0" delete="0">
+                                    <field name="sheet_type" column_invisible="1"/>
+                                    <field name="dmc_view_id" column_invisible="1"/>
+                                    <field name="rtn" string="R.T.N"/>
+                                    <field name="proveedor" string="Proveedor"/>
+                                    <field name="clase" string="Clase documento"/>
+                                    <field name="cai" string="CAI"/>
+                                    <field name="f_documento" string="N° Documento"/>
+                                    <field name="r_documento" string="N° Doc (OC)"/>
+                                    <field name="fecha_emision" string="Fecha emisión"/>
+                                    <field name="fecha_contable" string="Fecha contable"/>
+                                    <field name="oce" string="Nº OCE"/>
+                                    <field name="importe_exento" string="Importe exento"/>
+                                    <field name="resolucion" string="Nº resolución"/>
+                                    <field name="importe_exonerado_15" string="Exonerado 15%"/>
+                                    <field name="importe_exonerado_18" string="Exonerado 18%"/>
+                                    <field name="importe_isv15" string="Base 15%"/>
+                                    <field name="importe_isv18" string="Base 18%"/>
+                                    <field name="costo" string="Costo"/>
+                                    <field name="gasto" string="Gasto"/>
+                                    <field name="deducible" string="No deducible"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="527-53" name="sheet_527_53">
+                            <field name="line_ids_527_53" nolabel="1">
+                                <list string="527-53" create="0" delete="0">
+                                    <field name="sheet_type" column_invisible="1"/>
+                                    <field name="dmc_view_id" column_invisible="1"/>
+                                    <field name="dmc_pasaporte_identificacion_ca" string="Pasaporte/Id CA"/>
+                                    <field name="dmc_identificador_tributario_mercantil" string="Id. tributario"/>
+                                    <field name="proveedor" string="Proveedor"/>
+                                    <field name="dmc_numero_fyduca" string="N.º FYDUCA"/>
+                                    <field name="fecha_emision" string="Fecha emisión"/>
+                                    <field name="fecha_contable" string="Fecha contable"/>
+                                    <field name="oce" string="Nº OCE"/>
+                                    <field name="importe_exento" string="Importe exento"/>
+                                    <field name="resolucion" string="Nº resolución"/>
+                                    <field name="importe_exonerado_15" string="Exonerado 15%"/>
+                                    <field name="importe_exonerado_18" string="Exonerado 18%"/>
+                                    <field name="importe_isv15" string="Base 15%"/>
+                                    <field name="importe_isv18" string="Base 18%"/>
+                                    <field name="costo" string="Costo"/>
+                                    <field name="gasto" string="Gasto"/>
+                                    <field name="deducible" string="No deducible"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="527-54" name="sheet_527_54">
+                            <field name="line_ids_527_54" nolabel="1">
+                                <list string="527-54" create="0" delete="0">
+                                    <field name="sheet_type" column_invisible="1"/>
+                                    <field name="dmc_view_id" column_invisible="1"/>
+                                    <field name="dmc_pasaporte_identificacion_ca" string="Pasaporte/Id CA"/>
+                                    <field name="proveedor" string="Proveedor"/>
+                                    <field name="dmc_numero_dua" string="N.º DUA"/>
+                                    <field name="fecha_emision" string="Fecha emisión"/>
+                                    <field name="fecha_contable" string="Fecha contable"/>
+                                    <field name="oce" string="Nº OCE"/>
+                                    <field name="importe_exento" string="Importe exento"/>
+                                    <field name="resolucion" string="Nº resolución"/>
+                                    <field name="importe_exonerado_15" string="Exonerado 15%"/>
+                                    <field name="importe_exonerado_18" string="Exonerado 18%"/>
+                                    <field name="importe_isv15" string="Base 15%"/>
+                                    <field name="importe_base_15_fuera" string="Base 15% (Fuera CA)"/>
+                                    <field name="importe_isv18" string="Base 18%"/>
+                                    <field name="importe_base_18_fuera" string="Base 18% (Fuera CA)"/>
+                                    <field name="costo" string="Costo"/>
+                                    <field name="gasto" string="Gasto"/>
+                                    <field name="deducible" string="No deducible"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>
