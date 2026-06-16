@@ -1,0 +1,202 @@
+/* Footer del wizard tablet: botones centrados en pantallas táctiles */
+.o_form_view .oe_tablet_wizard_footer,
+.modal .oe_tablet_wizard_footer {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+.o_form_view .oe_tablet_wizard_footer .d-flex,
+.modal .oe_tablet_wizard_footer .d-flex {
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+/* Lista de empleados: filas altas y fuente grande para pantalla táctil */
+.oe_tablet_employee_list .o_data_row,
+.oe_tablet_employee_list .o_data_cell {
+    min-height: 48px !important;
+    padding: 4px 4px !important;
+}
+.oe_tablet_employee_list .o_data_cell {
+    font-size: 1.25rem !important;
+    font-weight: 500 !important;
+}
+.oe_tablet_employee_list .o_list_button {
+    padding: 16px 16px !important;
+}
+
+/* PIN: forzar que los dígitos no se vean (modo contraseña) */
+.o_form_view .oe_tablet_pin_input input,
+.modal .oe_tablet_pin_input input,
+.o_form_view input[name="pin_input"],
+.modal input[name="pin_input"] {
+    -webkit-text-security: disc !important;
+    font-size: 1.25rem !important;
+}
+.o_form_view input.o_input[type="password"],
+.modal input.o_input[type="password"] {
+    -webkit-text-security: disc !important;
+}
+
+/* Teclado numérico en pantalla para PIN */
+.oe_tablet_pin_display input {
+    text-align: center;
+    letter-spacing: 0.4rem;
+    font-size: 1.5rem !important;
+    font-weight: 700;
+}
+
+.oe_tablet_pin_pad {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(70px, 1fr));
+    gap: 0.5rem;
+}
+
+/* Botones del teclado numérico: más altos y un poco más estrechos */
+.oe_tablet_pin_pad .btn {
+    min-height: 70px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Tablero tablet de un solo registro (10"): card ancho y centrado */
+.o_kanban_view.oe_kanban_tablet_single_board .o_kanban_group,
+.o_kanban_view.oe_kanban_tablet_single_board .o_kanban_renderer {
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+.o_kanban_view.oe_kanban_tablet_single_board .o_kanban_record {
+    max-width: 92vw !important;
+    width: 100% !important;
+}
+@media (min-width: 768px) {
+    .o_kanban_view.oe_kanban_tablet_single_board .o_kanban_record {
+        max-width: 720px !important;
+    }
+}
+@media (min-width: 1024px) {
+    .o_kanban_view.oe_kanban_tablet_single_board .o_kanban_record {
+        max-width: 900px !important;
+    }
+}
+
+/* Botones de acción del card tablet: mismo tamaño, máximo 4 por fila */
+.o_kanban_view.oe_kanban_tablet_single_board .oe_tablet_kanban_actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+.o_kanban_view.oe_kanban_tablet_single_board .oe_tablet_kanban_actions .btn {
+    min-width: 0;
+    min-height: 4rem;
+    font-size: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.25rem;
+}
+.o_kanban_view.oe_kanban_tablet_single_board .oe_tablet_kanban_actions .btn span {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+}
+@media (max-width: 575px) {
+    .o_kanban_view.oe_kanban_tablet_single_board .oe_tablet_kanban_actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Kanban de tipos de paro: 3 tarjetas por fila */
+.o_kanban_view.oe_kanban_3_per_row .o_kanban_renderer {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    max-width: 100%;
+}
+.o_kanban_view.oe_kanban_3_per_row .o_kanban_record {
+    max-width: none !important;
+    width: auto !important;
+    min-width: 0;
+}
+.o_kanban_view.oe_kanban_3_per_row .o_kanban_record.o_kanban_ghost {
+    display: none;
+}
+@media (max-width: 767px) {
+    .o_kanban_view.oe_kanban_3_per_row .o_kanban_renderer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 399px) {
+    .o_kanban_view.oe_kanban_3_per_row .o_kanban_renderer {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Kanban centros de trabajo (Asistente MRP): título grande y botones altos */
+.o_kanban_view.o_kanban_tablet_centers .oe_tablet_workcenter_kanban_card .card-body {
+    min-height: 11rem;
+}
+
+.o_kanban_view.o_kanban_tablet_centers .oe_tablet_wc_kanban_title {
+    font-size: 1.65rem;
+    line-height: 1.25;
+    margin-bottom: 0.75rem !important;
+}
+
+.o_kanban_view.o_kanban_tablet_centers .oe_tablet_wc_kanban_actions {
+    flex: 1 1 auto;
+    gap: 0.65rem;
+    min-height: 0;
+}
+
+.o_kanban_view.o_kanban_tablet_centers .oe_tablet_wc_kanban_actions .btn {
+    flex: 1 1 0;
+    min-height: 3.75rem;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.o_kanban_view.o_kanban_tablet_centers .oe_tablet_wc_kanban_actions .btn i {
+    font-size: 1.35rem;
+}
+
+/* Wizards tablet: bloquear navegación por enlaces many2one (flecha / texto clicable) */
+.o_form_view.oe_tablet_wizard_no_nav .o_field_many2one .o_external_button,
+.modal .oe_tablet_wizard_no_nav .o_field_many2one .o_external_button,
+.o_form_view.oe_tablet_wizard_no_nav .o_field_many2one_avatar .o_external_button,
+.modal .oe_tablet_wizard_no_nav .o_field_many2one_avatar .o_external_button {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+.o_form_view.oe_tablet_wizard_no_nav .o_field_many2one a,
+.modal .oe_tablet_wizard_no_nav .o_field_many2one a,
+.o_form_view.oe_tablet_wizard_no_nav .o_field_many2one_avatar a,
+.modal .oe_tablet_wizard_no_nav .o_field_many2one_avatar a,
+.o_form_view.oe_tablet_wizard_no_nav .o_list_table .o_field_many2one a,
+.modal .oe_tablet_wizard_no_nav .o_list_table .o_field_many2one a {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+
+.o_form_view.oe_tablet_wizard_no_nav .o_list_table .o_list_record_open,
+.modal .oe_tablet_wizard_no_nav .o_list_table .o_list_record_open {
+    display: none !important;
+}

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_fuel_voucher">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <t t-set="du" t-value="doc.distance_unit or 'km'"/>
+                    <t t-set="du_lbl" t-value="'km' if du == 'km' else 'mi'"/>
+                    <t t-set="uom_name" t-value="(doc.uom_id and doc.uom_id.name) or (doc.fuel_product_id and doc.fuel_product_id.uom_id and doc.fuel_product_id.uom_id.name) or ''"/>
+                    <t t-set="show_real_eff" t-value="doc.state in ('billed', 'closed') and doc.real_efficiency"/>
+                    <t t-set="eff_value" t-value="doc.real_efficiency if show_real_eff else (doc.expected_efficiency or 0)"/>
+                    <t t-set="eff_label" t-value="'Rendimiento real:' if show_real_eff else 'Rendimiento esperado:'"/>
+
+                    <div class="page" style="font-family: Helvetica, Arial, sans-serif; color: #333; font-size: 12px; margin: 0; padding: 20px 16px 32px 16px; background: #fff;">
+                        <div style="margin-bottom: 24px; overflow: hidden;">
+                            <div style="float: left; width: 58%;">
+                                <h1 style="margin: 0 0 4px 0; font-size: 18px; font-weight: bold;">Vale de Combustible</h1>
+                                <p style="margin: 0; font-size: 13px; color: #555;" t-esc="doc.name"/>
+                            </div>
+                            <div style="float: right; width: 40%; text-align: right;">
+                                <p style="margin: 0 0 4px 0; font-size: 11px;"><strong>Estado:</strong> <span t-field="doc.state"/></p>
+                                <p style="margin: 0; font-size: 11px; color: #555;"><span t-field="doc.date" t-options="{'widget': 'datetime'}"/></p>
+                            </div>
+                            <div style="clear: both;"/>
+                        </div>
+
+                        <p style="margin: 0 0 6px 0; font-size: 11px; font-weight: bold;">Información General</p>
+                        <p style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Empresa:</span> <span t-field="doc.company_id.name"/></p>
+                        <p style="margin: 0 0 20px 0; font-size: 11px;"><span style="color: #555;">Cuenta Analítica:</span> <span t-field="doc.analytic_account_id.name"/></p>
+
+                        <div style="overflow: hidden; margin-bottom: 20px;">
+                            <div style="float: left; width: 48%; padding-right: 2%;">
+                                <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold;">Datos del Vehículo</p>
+                                <p style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Vehículo:</span> <span t-field="doc.vehicle_id.name"/></p>
+                                <p style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Placa:</span> <span t-field="doc.vehicle_id.plate"/></p>
+                                <p style="margin: 0; font-size: 11px;"><span style="color: #555;">Motorista:</span> <span t-field="doc.driver_id.name"/></p>
+                            </div>
+                            <div style="float: left; width: 48%;">
+                                <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold;">Suministro</p>
+                                <p style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Proveedor:</span> <span t-field="doc.supplier_id.name"/></p>
+                                <p style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Tipo de combustible:</span> <span t-field="doc.fuel_type"/></p>
+                                <p style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Producto:</span> <span t-field="doc.fuel_product_id.display_name"/></p>
+                                <p t-if="doc.authorized_amount" style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Monto autorizado:</span> <span t-field="doc.authorized_amount"/></p>
+                                <p t-if="doc.authorized_qty" style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Volumen:</span> <span t-field="doc.authorized_qty"/><t t-if="uom_name"> <t t-esc="uom_name"/></t></p>
+                                <p style="margin: 0; font-size: 11px;"><span style="color: #555;">Monto de referencia (OC):</span> <span t-field="doc.authorized_amount_estimated"/></p>
+                            </div>
+                            <div style="clear: both;"/>
+                        </div>
+
+                        <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold;">Control de Odómetro y Rendimiento</p>
+                        <p style="margin: 0 0 4px 0; font-size: 11px;"><span style="color: #555;">Último Odómetro:</span> <span t-field="doc.last_odometer"/> <t t-esc="du_lbl"/> — <span style="color: #555;">Odómetro Real:</span> <span t-field="doc.actual_odometer"/> <t t-esc="du_lbl"/></p>
+                        <p style="margin: 0 0 20px 0; font-size: 11px;"><span style="color: #555;">Proyectado:</span> <span t-field="doc.projected_odometer"/> <t t-esc="du_lbl"/> — <span style="color: #555;" t-esc="eff_label"/> <t t-if="eff_value"><span t-esc="'%.2f' % eff_value"/><t t-esc="' ' + du_lbl + '/' + (uom_name or 'U.M.')"/></t><t t-else="">—</t></p>
+
+                        <p style="margin: 0 0 4px 0; font-size: 10px; font-weight: bold; color: #555;">Motivo / Referencia</p>
+                        <p style="margin: 0 0 16px 0; font-size: 11px; font-style: italic;">"<span t-field="doc.reason"/>"</p>
+                        <p style="margin: 0 0 4px 0; font-size: 10px; font-weight: bold; color: #555;">Observaciones</p>
+                        <p style="margin: 0 0 36px 0; font-size: 11px;" t-field="doc.notes"/>
+
+                        <!-- Firmas: solo dos rayas, sin nombre de usuario -->
+                        <div style="margin-top: 56px; overflow: hidden;">
+                            <div style="float: left; width: 45%; text-align: center;">
+                                <p style="margin: 0 0 8px 0; font-size: 10px; color: #555;">Autorizado por</p>
+                                <div style="border-bottom: 1px solid #333; height: 36px; margin: 0 8px;"/>
+                            </div>
+                            <div style="float: right; width: 45%; text-align: center;">
+                                <p style="margin: 0 0 8px 0; font-size: 10px; color: #555;">Autorizado por</p>
+                                <div style="border-bottom: 1px solid #333; height: 36px; margin: 0 8px;"/>
+                            </div>
+                            <div style="clear: both;"/>
+                        </div>
+
+                        <p style="margin: 40px 0 0 0; font-size: 9px; color: #999; font-style: italic;">Este documento es un comprobante interno de control de combustible. — Página 1 de 1</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

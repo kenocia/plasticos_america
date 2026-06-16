@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="BASIC_INF" model="hr.salary.rule.category">
+            <field name="name">INFORMACIÓN BASICA</field>
+            <field name="code">BASIC_INF</field>
+        </record>
+		<record id="BONO" model="hr.salary.rule.category">
+            <field name="name">BONO</field>
+            <field name="code">BONO</field>
+        </record>
+         <record id="FOR_TAX" model="hr.salary.rule.category">
+            <field name="name">PARA IMPUESTO</field>
+            <field name="code">FOR_TAX</field>
+        </record>
+
+    </data>
+</odoo>

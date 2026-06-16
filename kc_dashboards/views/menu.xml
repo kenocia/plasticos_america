@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_kc_dashboards_app" model="ir.actions.client">
+        <field name="name">Indicadores</field>
+        <field name="tag">kc_dashboards_app</field>
+        <field name="target">fullscreen</field>
+    </record>
+
+    <menuitem
+        id="menu_kc_dashboards_root"
+        name="Indicadores"
+        action="action_kc_dashboards_app"
+        web_icon="kc_dashboards,static/description/icon.png"
+        groups="kc_dashboards.group_kc_dashboards_user"
+        sequence="26"/>
+</odoo>

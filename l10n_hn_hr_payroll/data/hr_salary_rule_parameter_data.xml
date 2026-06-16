@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+<!--        SALARIO MINIMO-->
+        <record id="rule_parameter_sm" model="hr.rule.parameter">
+            <field name="name">Salario Mínimo</field>
+            <field name="code">SM</field>
+            <field name="country_id" eval="False"/>
+        </record>
+         <record id="rule_parameter_value_sm" model="hr.rule.parameter.value">
+            <field name="parameter_value">15335.27</field>
+            <field name="rule_parameter_id" ref="rule_parameter_sm"/>
+            <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        </record>
+<!--        IHSS RAS-->
+        <record id="rule_parameter_techo_ihss_ras" model="hr.rule.parameter">
+            <field name="name">Techo IHSS R.A.S</field>
+            <field name="code">T_IHSS_RSA</field>
+            <field name="country_id" eval="False"/>
+            <field name="description" type="html">
+                <p>Techo de cotización del regimen de atención de seguro de salud</p>
+            </field>
+        </record>
+        <record id="rule_parameter_value_techo_ihss_ras" model="hr.rule.parameter.value">
+            <field name="parameter_value">10796.49</field>
+            <field name="rule_parameter_id" ref="rule_parameter_techo_ihss_ras"/>
+            <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_factor_ihss_rsa" model="hr.rule.parameter">
+            <field name="name">Factor IHSS R.S.A</field>
+            <field name="code">F_IHSS_RSA</field>
+            <field name="country_id" eval="False"/>
+            <field name="description" type="html">
+                <p>Factor de regimen de atención de seguro de salud</p>
+            </field>
+        </record>
+        <record id="rule_parameter_value_factor_ihss_rsa" model="hr.rule.parameter.value">
+            <field name="parameter_value">2.5</field>
+            <field name="rule_parameter_id" ref="rule_parameter_factor_ihss_rsa"/>
+            <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        </record>
+<!--        IHSS RPS-->
+        <record id="rule_parameter_techo_ihss_rps" model="hr.rule.parameter">
+            <field name="name">Techo IHSS R.P.S</field>
+            <field name="code">T_IHSS_RPS</field>
+            <field name="country_id" eval="False"/>
+            <field name="description" type="html">
+                <p>Techo de cotización del regimen de prevensión social</p>
+            </field>
+        </record>
+        <record id="rule_parameter_value_techo_ihss_rps" model="hr.rule.parameter.value">
+            <field name="parameter_value">10796.49</field>
+            <field name="rule_parameter_id" ref="rule_parameter_techo_ihss_rps"/>
+            <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_factor_ihss_rps" model="hr.rule.parameter">
+            <field name="name">Factor IHSS R.P.S</field>
+            <field name="code">F_IHSS_RPS</field>
+            <field name="country_id" eval="False"/>
+            <field name="description" type="html">
+                <p>Factor de regimen de atención de prevensión social</p>
+            </field>
+        </record>
+        <record id="rule_parameter_value_factor_ihss_rps" model="hr.rule.parameter.value">
+            <field name="parameter_value">1.75</field>
+            <field name="rule_parameter_id" ref="rule_parameter_factor_ihss_rps"/>
+            <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_factor_rap" model="hr.rule.parameter">
+            <field name="name">Factor RAP</field>
+            <field name="code">F_RAP</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_factor_rap" model="hr.rule.parameter.value">
+            <field name="parameter_value">1.50</field>
+            <field name="rule_parameter_id" ref="rule_parameter_factor_rap"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+<!--        Patrono Factor IHSS RAS-->
+        <record id="rule_parameter_patrono_factor_ihss_ras" model="hr.rule.parameter">
+            <field name="name">Patrono Factor IHSS RAS</field>
+            <field name="code">PF_IHSS_RAS</field>
+            <field name="country_id" eval="False"/>
+            <field name="description" type="html">
+                <p>Factor de regimen de atención de seguro de salud para el patrono</p>
+            </field>
+        </record>
+        <record id="rule_parameter_value_patrono_factor_ihss" model="hr.rule.parameter.value">
+            <field name="parameter_value">3.72</field>
+            <field name="rule_parameter_id" ref="rule_parameter_patrono_factor_ihss_ras"/>
+            <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        </record>
+
+<!--        Patrono Factor IHSS RPS-->
+        <record id="rule_parameter_patrono_factor_ihss_rps" model="hr.rule.parameter">
+            <field name="name">Patrono Factor IHSS RPS</field>
+            <field name="code">PF_IHSS_RPS</field>
+            <field name="country_id" eval="False"/>
+            <field name="description" type="html">
+                <p>Factor de regimen de atención de prevensión social para el patrono</p>
+            </field>
+        </record>
+        <record id="rule_parameter_value_patrono_factor_ihss_rps" model="hr.rule.parameter.value">
+            <field name="parameter_value">3.72</field>
+            <field name="rule_parameter_id" ref="rule_parameter_patrono_factor_ihss_rps"/>
+            <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_patrono_factor_rap" model="hr.rule.parameter">
+            <field name="name">Patrono Factor RAP</field>
+            <field name="code">PF_RAP</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_patrono_factor_rap" model="hr.rule.parameter.value">
+            <field name="parameter_value">1.50</field>
+            <field name="rule_parameter_id" ref="rule_parameter_patrono_factor_rap"/>
+            <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_techo_rap" model="hr.rule.parameter">
+            <field name="name">Techo RAP</field>
+            <field name="code">T_RAP</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_techo_rap" model="hr.rule.parameter.value">
+            <field name="parameter_value">0.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_techo_rap"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_patrono_factor_infop" model="hr.rule.parameter">
+            <field name="name">Patrono Factor infop</field>
+            <field name="code">PF_INFOP</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_patrono_factor_infop" model="hr.rule.parameter.value">
+            <field name="parameter_value">1.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_patrono_factor_infop"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_incapacidad_3" model="hr.rule.parameter">
+            <field name="name">% Incapacidad 3 día</field>
+            <field name="code">INCAP_3</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_incapacidad_3" model="hr.rule.parameter.value">
+            <field name="parameter_value">100</field>
+            <field name="rule_parameter_id" ref="rule_parameter_incapacidad_3"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_incapacidad_mas_4" model="hr.rule.parameter">
+            <field name="name">% Incapacidad 4 días en Adelante</field>
+            <field name="code">INCAP_M_4</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_incapacidad_mas_4" model="hr.rule.parameter.value">
+            <field name="parameter_value">34.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_incapacidad_mas_4"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_porciento_prenatal" model="hr.rule.parameter">
+            <field name="name">% Pre-Natal</field>
+            <field name="code">P_PRE_NATAL</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_porciento_prenatal" model="hr.rule.parameter.value">
+            <field name="parameter_value">34.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_porciento_prenatal"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_dia_prenatal" model="hr.rule.parameter">
+            <field name="name">Día Pre-Natal</field>
+            <field name="code">DIA_PRE_NATAL</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_dia_prenatal" model="hr.rule.parameter.value">
+            <field name="parameter_value">42</field>
+            <field name="rule_parameter_id" ref="rule_parameter_dia_prenatal"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_porciento_postnatal" model="hr.rule.parameter">
+            <field name="name">% Post-Natal</field>
+            <field name="code">P_POST_NATAL</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_porciento_postnatal" model="hr.rule.parameter.value">
+            <field name="parameter_value">34.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_porciento_postnatal"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_dia_postnatal" model="hr.rule.parameter">
+            <field name="name">Día Post-Natal</field>
+            <field name="code">DIA_POST_NATAL</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_dia_postnatal" model="hr.rule.parameter.value">
+            <field name="parameter_value">42</field>
+            <field name="rule_parameter_id" ref="rule_parameter_dia_postnatal"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_factor_he" model="hr.rule.parameter">
+            <field name="name">Factor Hora Extra en Min</field>
+            <field name="code">F_HE_M</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_factor_he" model="hr.rule.parameter.value">
+            <field name="parameter_value">15.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_factor_he"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_porciento_fp_rap" model="hr.rule.parameter">
+            <field name="name">% Fondo Pensión RAP</field>
+            <field name="code">P_FP_RAP</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_porciento_fp_rap" model="hr.rule.parameter.value">
+            <field name="parameter_value">0.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_porciento_fp_rap"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_empleado_i_v_m" model="hr.rule.parameter">
+            <field name="name">% Empleado I.V.M</field>
+            <field name="code">P_EMP_IVM</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_empleado_i_v_m" model="hr.rule.parameter.value">
+            <field name="parameter_value">1</field>
+            <field name="rule_parameter_id" ref="rule_parameter_empleado_i_v_m"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_empleado_i_v_m_techo" model="hr.rule.parameter">
+            <field name="name">Empleado I.V.M Techo</field>
+            <field name="code">EMP_IVM_TECHO</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_empleado_i_v_m_techo" model="hr.rule.parameter.value">
+            <field name="parameter_value">10796.49</field>
+            <field name="rule_parameter_id" ref="rule_parameter_empleado_i_v_m_techo"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_empleado_e_f" model="hr.rule.parameter">
+            <field name="name">% Empleado E.F</field>
+            <field name="code">P_EMP_EF</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_empleado_e_f" model="hr.rule.parameter.value">
+            <field name="parameter_value">2.5</field>
+            <field name="rule_parameter_id" ref="rule_parameter_empleado_e_f"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_empleado_e_f_techo" model="hr.rule.parameter">
+            <field name="name">Empleado E.F. Techo</field>
+            <field name="code">EMP_EF_TECHO</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_empleado_e_f_techo" model="hr.rule.parameter.value">
+            <field name="parameter_value">10342.19</field>
+            <field name="rule_parameter_id" ref="rule_parameter_empleado_e_f_techo"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_empleado_r_p" model="hr.rule.parameter">
+            <field name="name">% Empleado R.P</field>
+            <field name="code">P_EMP_RP</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_empleado_r_p" model="hr.rule.parameter.value">
+            <field name="parameter_value">0.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_empleado_r_p"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_empleado_r_p_techo" model="hr.rule.parameter">
+            <field name="name">Empleado R.P. Techo</field>
+            <field name="code">EMP_RP_TECHO</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_empleado_r_p_techo" model="hr.rule.parameter.value">
+            <field name="parameter_value">10342.19</field>
+            <field name="rule_parameter_id" ref="rule_parameter_empleado_r_p_techo"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_patrono_i_v_m" model="hr.rule.parameter">
+            <field name="name">% Patrono I.V.M</field>
+            <field name="code">P_PATRONO_IVM</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_patrono_i_v_m" model="hr.rule.parameter.value">
+            <field name="parameter_value">2</field>
+            <field name="rule_parameter_id" ref="rule_parameter_patrono_i_v_m"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_patrono_e_f" model="hr.rule.parameter">
+            <field name="name">% Patrono E.F</field>
+            <field name="code">P_PATRONO_EF</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_patrono_e_f" model="hr.rule.parameter.value">
+            <field name="parameter_value">5</field>
+            <field name="rule_parameter_id" ref="rule_parameter_patrono_e_f"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_patrono_r_p" model="hr.rule.parameter">
+            <field name="name">% Patrono R.P</field>
+            <field name="code">P_PATRONO_RP</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="rule_parameter_value_patrono_r_p" model="hr.rule.parameter.value">
+            <field name="parameter_value">0.20</field>
+            <field name="rule_parameter_id" ref="rule_parameter_patrono_r_p"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+    </data>
+</odoo>
+

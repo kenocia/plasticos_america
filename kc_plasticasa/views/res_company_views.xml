@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_inherit_kc_physical_scan" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.kc.physical.scan</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Inventario físico previo" name="kc_physical_scan">
+                    <group>
+                        <group>
+                            <field name="kc_physical_scan_adjustment_picking_type_id"
+                                   string="Tipo op. ajuste (entrada)"
+                                   options="{'no_create': True}"/>
+                            <field name="kc_physical_scan_return_picking_type_id"
+                                   string="Tipo op. devolución (salida)"
+                                   options="{'no_create': True}"/>
+                            <field name="kc_physical_scan_location_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True}"
+                                nolabel="1"
+                                placeholder="Rampas, despacho u otras ubicaciones además de las internas"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View hr.hn.benefit.deduction.history View List -->
+    <record id="view_hr_hn_benefit_deduction_history_list" model="ir.ui.view">
+        <field name="name">view.hr.hn.benefit.deduction.history.list</field>
+        <field name="model">hr.hn.benefit.deduction.history</field>
+        <field name="arch" type="xml">
+            <list create="False" string="Historial de beneficios y deducciones aplicados">
+                <field name="employee_id"/>
+                <field name="contract_id"/>
+                <field name="department_id"/>
+                <field name="job_id" optional="hide"/>
+                <field name="payslip_run_id"/>
+                <field name="payslip_id" optional="hide"/>
+                <field name="schedule_pay"/>
+                <field name="montly_salary" optional="hide"/>
+                <field name="salary" optional="hide"/>
+                <field name="salary_pay" optional="hide"/>
+                <field name="category"/>
+                <field name="rule_id"/>
+                <field name="fee_amount"/>
+                <field name="fee_amount_apply"/>
+                <field name="apply_in" optional="hide"/>
+                <field name="periodicity"/>
+                <field name="initial_date"/>
+                <field name="end_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- View hr.hn.benefit.deduction.history search -->
+    <record id="view_hr_hn_benefit_deduction_history_search" model="ir.ui.view">
+        <field name="name">view.hr.hn.benefit.deduction.history.search</field>
+        <field name="model">hr.hn.benefit.deduction.history</field>
+        <field name="arch" type="xml">
+            <search string="Historial de beneficios y deducciones aplicados">
+                <group expand="1" string="Group By">
+                    <filter string="Contrato" name="contract_id" domain="[]" context="{'group_by':'contract_id'}"/>
+                    <filter string="Empleado" name="employee_id" domain="[]" context="{'group_by':'employee_id'}"/>
+                    <filter string="Departamento" name="department_id" domain="[]" context="{'group_by':'department_id'}"/>
+                    <filter string="Puesto de trabajo" name="job_id" domain="[]" context="{'group_by':'job_id'}"/>
+                    <filter string="Lote de nómina" name="payslip_run_id" domain="[]" context="{'group_by':'payslip_run_id'}"/>
+                    <filter string="Recibo de nómina" name="payslip_id" domain="[]" context="{'group_by':'payslip_id'}"/>
+                    <filter string="Pago programado" name="schedule_pay" domain="[]" context="{'group_by':'schedule_pay'}"/>
+                    <filter string="Categria" name="category" domain="[]" context="{'group_by':'category'}"/>
+                    <filter string="Regla salarial" name="rule_id" domain="[]" context="{'group_by':'rule_id'}"/>
+                    <filter string="Aplicar en" name="apply_in" domain="[]" context="{'group_by':'apply_in'}"/>
+                    <filter string="Periodicidad" name="periodicity" domain="[]" context="{'group_by':'periodicity'}"/>
+                    <filter string="Periodo desde" name="initial_date" domain="[]" context="{'group_by':'initial_date'}"/>
+                    <filter string="Periodo hasta" name="end_date" domain="[]" context="{'group_by':'end_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action hr.hn.benefit.deduction.history -->
+    <record id="action_hr_hn_benefit_deduction_history" model="ir.actions.act_window">
+        <field name="name">Historial de beneficios y deducciones aplicados</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.hn.benefit.deduction.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Historial de beneficios y deducciones aplicados.
+            </p>
+        </field>
+    </record>
+
+</odoo>

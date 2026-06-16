@@ -1,0 +1,168 @@
+<odoo>
+    <record id="view_fuel_voucher_tree" model="ir.ui.view">
+        <field name="name">fuel.voucher.list</field>
+        <field name="model">fuel.voucher</field>
+        <field name="arch" type="xml">
+            <list string="Vales de combustible">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="supplier_id"/>
+                <field name="fuel_product_id"/>
+                <field name="authorized_amount"/>
+                <field name="authorized_qty"/>
+                <field name="authorized_amount_estimated"/>
+                <field name="last_odometer"/>
+                <field name="projected_odometer"/>
+                <field name="actual_odometer"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_fuel_voucher_form" model="ir.ui.view">
+        <field name="name">fuel.voucher.form</field>
+        <field name="model">fuel.voucher</field>
+        <field name="arch" type="xml">
+            <form string="Vale de combustible">
+                <header>
+                    <button name="action_request" string="Solicitar" type="object"
+                            class="btn-primary" invisible="state != 'draft'"
+                            groups="kc_fuel_purchase_control.group_fuel_user,kc_fuel_purchase_control.group_fuel_manager"/>
+                    <button name="action_approve" string="Aprobar" type="object"
+                            class="btn-success" invisible="state not in ('draft', 'requested')"
+                            groups="kc_fuel_purchase_control.group_fuel_manager"/>
+                    <button name="action_create_purchase_order" string="Crear OC" type="object"
+                            class="btn-primary" invisible="state != 'approved'"
+                            groups="kc_fuel_purchase_control.group_fuel_manager"/>
+                    <button name="action_close" string="Cerrar" type="object"
+                            class="btn-secondary" invisible="state != 'billed'"
+                            groups="kc_fuel_purchase_control.group_fuel_manager"/>
+                    <button name="action_cancel" string="Cancelar" type="object"
+                            class="btn-secondary" invisible="state not in ('draft', 'requested', 'approved', 'po_created')"
+                            groups="kc_fuel_purchase_control.group_fuel_manager"/>
+                    <button name="action_reset_to_draft" string="Reiniciar a borrador" type="object"
+                            class="btn-secondary" invisible="state not in ('requested', 'approved', 'po_created', 'cancelled')"
+                            groups="kc_fuel_purchase_control.group_fuel_manager"/>
+
+                    <button name="%(kc_fuel_purchase_control.action_report_fuel_voucher)d"
+                            string="Imprimir vale" type="action"
+                            class="btn-secondary"/>
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,requested,approved,po_created,billed,closed,cancelled"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <h2>
+                            <field name="date" widget="datetime"/>
+                        </h2>
+                    </div>
+
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_view_purchase_order"
+                                class="oe_stat_button">
+                            <field name="purchase_order_id" invisible="1"/>
+                            <span class="o_stat_text">Orden de compra</span>
+                        </button>
+
+                        <button type="object" name="action_view_vendor_bill"
+                                class="oe_stat_button">
+                            <field name="vendor_bill_id" invisible="1"/>
+                            <span class="o_stat_text">Factura proveedor</span>
+                        </button>
+
+                        <button type="object" name="action_view_consumption_logs"
+                                class="oe_stat_button">
+                            <field name="consumption_log_count" widget="statinfo"
+                                   string="Historial consumo"/>
+                        </button>
+                    </div>
+
+                    <group>
+                        <group string="Datos generales">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="date"/>
+                            <field name="supplier_id"/>
+                            <field name="reason"/>
+                        </group>
+                        <group string="Vehículo y motorista">
+                            <field name="vehicle_id"/>
+                            <field name="driver_id"/>
+                            <field name="analytic_account_id"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Combustible">
+                            <field name="fuel_product_id"/>
+                            <field name="fuel_type"/>
+                            <field name="authorized_amount"/>
+                            <field name="authorized_qty"/>
+                            <field name="uom_id"/>
+                            <field name="authorized_amount_estimated" readonly="1"/>
+                        </group>
+                        <group string="Odómetros y rendimiento">
+                            <field name="distance_unit"/>
+                            <field name="last_odometer"/>
+                            <field name="projected_odometer"/>
+                            <field name="distance_traveled" readonly="1"/>
+                            <field name="actual_odometer" readonly="1"/>
+                            <field name="expected_efficiency" readonly="1"/>
+                            <field name="real_efficiency" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Notas">
+                            <field name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fuel_voucher_search" model="ir.ui.view">
+        <field name="name">fuel.voucher.search</field>
+        <field name="model">fuel.voucher</field>
+        <field name="arch" type="xml">
+            <search string="Buscar vales">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="supplier_id"/>
+                <field name="fuel_product_id"/>
+                <filter string="Borrador" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Aprobados" name="approved" domain="[('state','=','approved')]"/>
+                <filter string="OC creadas" name="po_created" domain="[('state','=','po_created')]"/>
+                <filter string="Facturados" name="billed" domain="[('state','=','billed')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Vehículo" name="grp_vehicle" context="{'group_by':'vehicle_id'}"/>
+                    <filter string="Motorista" name="grp_driver" context="{'group_by':'driver_id'}"/>
+                    <filter string="Proveedor" name="grp_supplier" context="{'group_by':'supplier_id'}"/>
+                    <filter string="Estado" name="grp_state" context="{'group_by':'state'}"/>
+                    <filter string="Compañía" name="grp_company" context="{'group_by':'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fuel_voucher" model="ir.actions.act_window">
+        <field name="name">Vales de combustible</field>
+        <field name="res_model">fuel.voucher</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>Registre y controle vales de combustible para sus vehículos.</p>
+        </field>
+    </record>
+</odoo>
+

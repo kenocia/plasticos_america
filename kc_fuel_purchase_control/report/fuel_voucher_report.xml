@@ -1,0 +1,11 @@
+<odoo>
+    <record id="action_report_fuel_voucher" model="ir.actions.report">
+        <field name="name">Vale de combustible</field>
+        <field name="model">fuel.voucher</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kc_fuel_purchase_control.report_fuel_voucher</field>
+        <field name="report_file">kc_fuel_purchase_control.report_fuel_voucher</field>
+        <field name="print_report_name">'Vale de combustible - %s' % (object.name)</field>
+    </record>
+</odoo>
+

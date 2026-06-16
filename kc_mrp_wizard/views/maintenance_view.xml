@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Añadir columna Por paro de producción en lista de solicitudes de mantenimiento -->
+        <record id="maintenance_request_view_tree_by_stop_production" model="ir.ui.view">
+            <field name="name">maintenance.request.tree.by_stop_production</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_tree"/>
+            <field name="arch" type="xml">
+                <!-- En la vista árbol base no existe maintenance_team_id; insertamos después de stage_id -->
+                <xpath expr="//field[@name='stage_id']" position="after">
+                    <field name="by_stop_production" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- Añadir campos Por paro de producción en formulario de solicitudes de mantenimiento -->
+        <record id="maintenance_request_view_form_by_stop_production" model="ir.ui.view">
+            <field name="name">maintenance.request.form.by_stop_production</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='maintenance_team_id']" position="after">
+                    <field name="by_stop_production" optional="show" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

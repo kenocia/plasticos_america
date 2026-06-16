@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Grupo PLC API -->
+        <record id="group_plc_api" model="res.groups">
+            <field name="name">PLC API</field>
+            <field name="category_id" ref="base.module_category_operations"/>
+            <field name="comment">Grupo para acceso a la API de PLC y gestión de estaciones PLC</field>
+        </record>
+
+        <!-- Grupo PLC API Manager -->
+        <record id="group_plc_api_manager" model="res.groups">
+            <field name="name">PLC API Manager</field>
+            <field name="category_id" ref="base.module_category_operations"/>
+            <field name="implied_ids" eval="[(4, ref('group_plc_api'))]"/>
+            <field name="comment">Grupo para administración completa de estaciones PLC y eventos</field>
+        </record>
+    </data>
+</odoo>

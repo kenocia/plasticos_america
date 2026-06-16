@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kc_logistics_handheld_launcher,kc.logistics.handheld.launcher,kc_logistics_handheld.model_kc_logistics_handheld_launcher,kc_logistics_handheld.group_kc_logistics_handheld,1,1,1,1
+access_kc_internal_lot_scan_log_user,kc.internal.lot.scan.log user,kc_logistics_handheld.model_kc_internal_lot_scan_log,stock.group_stock_user,1,1,1,0
+access_kc_internal_lot_scan_log_manager,kc.internal.lot.scan.log manager,kc_logistics_handheld.model_kc_internal_lot_scan_log,stock.group_stock_manager,1,1,1,1
+access_kc_internal_lot_scan_session_user,kc.internal.lot.scan.session user,kc_logistics_handheld.model_kc_internal_lot_scan_session,stock.group_stock_user,1,1,1,0
+access_kc_internal_lot_scan_session_manager,kc.internal.lot.scan.session manager,kc_logistics_handheld.model_kc_internal_lot_scan_session,stock.group_stock_manager,1,1,1,1
+access_kc_internal_lot_scan_session_line_user,kc.internal.lot.scan.session.line user,kc_logistics_handheld.model_kc_internal_lot_scan_session_line,stock.group_stock_user,1,1,1,1
+access_kc_internal_lot_scan_session_line_manager,kc.internal.lot.scan.session.line manager,kc_logistics_handheld.model_kc_internal_lot_scan_session_line,stock.group_stock_manager,1,1,1,1
+access_kc_internal_lot_transfer_wizard,kc.internal.lot.transfer.wizard,kc_logistics_handheld.model_kc_internal_lot_transfer_wizard,stock.group_stock_user,1,1,1,1

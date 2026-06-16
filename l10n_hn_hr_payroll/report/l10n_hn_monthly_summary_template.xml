@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="report_l10n_hn_monthly_summary">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout_standard">
+                        <div class="page">
+                            <t t-set="lines_values" t-value="o.get_payslip()"></t>
+                                <div class="row border">
+                                    <div class="col-4 border-end">
+                                        <strong>From:</strong> <span t-esc="o.date_from.strftime('%d/%m/%Y')"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong>To:</strong> <span t-esc="o.date_to.strftime('%d/%m/%Y')"/>
+                                    </div>
+                                </div>
+                            <t t-foreach="lines_values['employees_data']" t-as="line">
+                                <div class="row border border-top-0 py-2">
+                                    <strong>Empleado:</strong> <br/>
+                                    <div class="col-4 border-end">
+                                        <span t-esc="line['name']"/> <br/>
+                                        <span t-esc="line['ident']"/><br/>
+                                        <span t-esc="line['member_account']"/>
+                                    </div>
+                                    <div class="col-4 border-end">
+                                        <span t-esc="line['job_position']"/> <br/>
+                                        <span t-esc="line['period_start']"/> / <span t-esc="line['period_end']"/><br/>
+                                    </div>
+                                    <div class="col-4 border-end">
+                                        <span t-esc="line['first_date_of_employment']"/> <br/>
+                                        <span t-esc="line['last_date_of_employment']"/> <br/>
+                                    </div>
+                                </div>
+                                <div class="row border border-top-0 py-2">
+                                    <div class="col-12 text-center text-uppercase fw-bold">
+                                        Monthly Wage Type Summary.
+                                    </div>
+                                </div>
+                                <table class="table table-sm" style="text-align: left;">
+                                    <tbody>
+                                        <tr><td colspan="2" class="h-100"><h6>INGRESOS</h6></td></tr>
+                                        <tr>
+                                            <th>Salario Básico Mensual</th>
+                                            <td class="text-start"><span t-esc="line['basic_salary']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Dias a pagar</th>
+                                            <th><span t-out="'%0.2f' % float(line['worked_days']) or ''"/></th>
+                                        </tr>
+                                        <tr>
+                                            <th><t t-set="wage" t-value="'Sueldo %s devengado' % lines_values['title_format']"/>
+                                                <t t-esc="wage"/>
+                                            </th>
+                                            <td class="text-start"><span t-esc="line['amount_basic']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Sueldo Variable</th>
+                                            <td class="text-start"><span t-esc="line['amount_variable']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Ajuste de salario</th>
+                                            <td class="text-start"><span t-esc="line['amount_rounding']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>13avo Mes - Complemento</th>
+                                            <td class="text-start"><span t-esc="line['amount_13avo_comp']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Combustible</th>
+                                            <td class="text-start"><span t-esc="line['amount_car_atn']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Car allowance</th>
+                                            <td class="text-start"><span t-esc="line['amount_car_alw']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Premio</th>
+                                            <td class="text-start"><span t-esc="line['amount_bonus']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Devengado</th>
+                                            <td class="text-start"><span t-esc="line['amount_gross']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr><td colspan="2" class="h-100"><h6>DEDUCCIONES</h6></td></tr>
+                                        <tr>
+                                            <th>Prima seguro médico por dependientes</th>
+                                            <td class="text-start"><span t-esc="line['amount_prima']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Préstamo de vehículo</th>
+                                            <td class="text-start"><span t-esc="line['amount_loan_car']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Subsidio IHSS</th>
+                                            <td class="text-start"><span t-esc="line['amount_alw_before_ihss']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>IHSS Laboral</th>
+                                            <td class="text-start"><span t-esc="line['amount_ded_IHSS']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>RAP</th>
+                                            <td class="text-start"><span t-esc="line['amount_ded_RAP']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+<!--                                        <tr>-->
+<!--                                            <th>IR/Salarios</th>-->
+<!--                                            <td class="text-start"><span t-esc="line['amount_ir']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <th>Comisión ACH</th>-->
+<!--                                            <td class="text-start"><span t-esc="line['amount_ach_com']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <th>Embargo(Banrural)</th>-->
+<!--                                            <td class="text-start"><span t-esc="line['amount_alw_rural']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <th>Préstamo RAP</th>-->
+<!--                                            <td class="text-start"><span t-esc="line['amount_loan_rap']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <th>Préstamo Banrural</th>-->
+<!--                                            <td class="text-start"><span t-esc="line['amount_loan_rural']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>-->
+<!--                                        </tr>-->
+                                        <tr>
+                                            <th>Impuesto Municipal</th>
+                                            <td class="text-start"><span t-esc="line['amount_tax']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Deducc.</th>
+                                            <td class="text-start"><span t-esc="line['total_amount_ded_row']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Neto a Recibir LEM.</th>
+                                            <td class="text-start"><span t-esc="line['amount_net']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr><td colspan="2" class="h-100"><h6>CONTRIBUCIONES PATRONALES</h6></td></tr>
+                                        <tr>
+                                            <th>Seguro Patronal</th>
+                                            <td class="text-start"><span t-esc="line['amount_comp_patron']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>RAP</th>
+                                            <td class="text-start"><span t-esc="line['amount_comp_patron_rap']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>INFOP</th>
+                                            <td class="text-start"><span t-esc="line['amount_comp_patron_infop']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr><td colspan="2" class="h-100"><h6>PROVISIONES DEL MES</h6></td></tr>
+                                        <tr>
+                                            <th>Décimo tercer mes</th>
+                                            <td class="text-start"><span t-esc="line['amount_comp_PROV_13AVO']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Décimo cuarto mes</th>
+                                            <td class="text-start"><span t-esc="line['amount_comp_PROV_14AVO']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row border border-top-0">
+                                    <div class="col-12 text-center text-uppercase fw-bold">
+                                        Monthly Total Summary
+                                    </div>
+                                </div>
+                                <table class="table table-sm">
+                                      <tbody>
+                                          <tr>
+                                              <th></th>
+                                              <th colspan="2">S. BM</th>
+                                              <th>S.D</th>
+                                              <th>S.V</th>
+                                              <th>A.S</th>
+                                              <th>13avo M.C</th>
+                                              <th>Comb</th>
+                                              <th>Veh. ALW</th>
+                                              <th>Premio</th>
+                                              <th>T. D</th>
+                                              <th>Prima</th>
+                                              <th>Prést. Veh</th>
+                                              <th>Sub. IHSS</th>
+                                              <th>IHSS Lab.</th>
+                                              <th>RAP</th>
+                                              <th>IR/Sal.</th>
+                                              <th>C. ACH</th>
+                                              <th>Emb.</th>
+                                              <th>Prést. RAP</th>
+                                              <th>Prést. B</th>
+                                              <th>Imp.</th>
+                                              <th>T. D</th>
+                                              <th>N. LEM.</th>
+                                              <th>S. Pat</th>
+                                              <th>Cont. RAP</th>
+                                              <th>Cont. INFOP</th>
+                                              <th>Déc 3er mes</th>
+                                              <th>Déc 4to mes</th>
+                                          </tr>
+                                          <tr>
+                                              <th><strong>TOTALES: </strong></th>
+                                              <t t-set="totals" t-value="lines_values['total_data']"/>
+                                              <t t-foreach="totals" t-as="line">
+                                                <td class="text-end" t-if="totals[line]"><strong><t t-out="o.company_id.currency_id.symbol or ''">$</t><t t-out="'%0.2f' % float(totals[line]) or ''">0.00</t></strong></td>
+                                                <td t-else=""></td>
+                                              </t>
+                                          </tr>
+                                      </tbody>
+                                </table>
+                            </t>
+                          </div>
+                          <p style="page-break-after: always;"/>
+                     </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

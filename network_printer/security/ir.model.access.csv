@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_network_printer_user,network.printer user,model_network_printer,base.group_user,1,1,1,1
+access_network_printer_manager,network.printer manager,model_network_printer,base.group_system,1,1,1,1
+access_network_printer_test_wizard_user,network.printer.test.wizard user,model_network_printer_test_wizard,base.group_user,1,1,1,1
+

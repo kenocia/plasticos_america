@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <data>
+         <record model="ir.ui.view" id="view_company_hn_day_published_inherit_form">
+            <field name="name">res.company.day.publishedform.inherit</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='alert_contract']" position="after">
+
+                    <field name="day_internal_published"/>
+                    <field name="selection_portal" widget="many2many_tags"/>
+                </xpath>
+            </field>
+         </record>
+    </data>
+</odoo>

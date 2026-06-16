@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_plc_station_user,plc.station.user,model_plc_station,group_plc_api,1,0,0,0
+access_plc_station_manager,plc.station.manager,model_plc_station,group_plc_api_manager,1,1,1,1
+access_plc_event_log_user,plc.event.log.user,model_plc_event_log,group_plc_api,1,0,0,0
+access_plc_event_log_manager,plc.event.log.manager,model_plc_event_log,group_plc_api_manager,1,1,1,1

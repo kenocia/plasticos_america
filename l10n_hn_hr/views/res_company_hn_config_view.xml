@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_company_hn_config_inherit_form">
+            <field name="name">res.company.form.inherit</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//page[@name='general_info']" position="after">
+                    <page string="Configuración Honduras" name="conf_honduras">
+                        <group string="Configuración">
+                            <field name="hide_fields"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="authorized" string="Authorized signature">
+                        <field name="authorized_signature_ids" nolabel="1">
+                            <list string="Authorized" editable="bottom">
+                                <field name="model" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="employee_ids" widget="many2many_tags"
+                                       domain="[('company_id', '=', company_id)]"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

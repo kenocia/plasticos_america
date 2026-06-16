@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Kanban tablet PRINCIPAL: tablero operativo de órdenes (vista original) -->
+        <record id="mrp_workorder_kanban_tablet" model="ir.ui.view">
+            <field name="name">mrp.workorder.kanban.tablet</field>
+            <field name="model">mrp.workorder</field>
+            <field name="arch" type="xml">
+                <kanban create="0" can_open="0" class="o_kanban_mobile o_kanban_tablet_fullscreen oe_kanban_tablet_single_board">
+                    <field name="id"/>
+                    <field name="kc_tablet_session_employee_id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="workcenter_id"/>
+                    <field name="production_id"/>
+                    <field name="product_id"/>
+                    <field name="qty_produced"/>
+                    <field name="qty_pending"/>
+                    <field name="batch_ticket_count"/>
+                    <field name="kc_semi_ticket_count"/>
+                    <field name="qty_semi_ticket_count"/>
+                    <field name="kc_wc_creates_pt_lot"/>
+                    <field name="kc_tablet_register_semi"/>
+                    <field name="kc_tablet_kanban_uom_name"/>
+                    <field name="kc_tablet_semi_operation_uom_name"/>
+                    <field name="workcenter_name"/>
+                    <field name="production_reference"/>
+                    <field name="product_display_name"/>
+                    <field name="kc_tablet_kanban_default_code"/>
+                    <templates>
+                        <t t-name="card">
+                            <div>
+                                <div class="card bg-white rounded-3 shadow-sm border h-100 d-flex flex-column overflow-hidden">
+                                    <!-- Cabecera -->
+                                    <div class="p-3 border-bottom bg-light bg-opacity-50">
+                                        <div class="row g-2 align-items-stretch">
+                                            <div class="col-6 pe-2">
+                                                <div class="d-flex align-items-center flex-nowrap gap-1 fw-semibold text-dark">
+                                                    <i class="fa fa-user me-1" title="Identificado con PIN"/>
+                                                    <field name="kc_tablet_session_employee_id" options="{'no_open': True}"/>
+                                                </div>
+                                                <div class="d-flex align-items-center flex-nowrap gap-1 fw-semibold text-dark">
+                                                    <i class="fa fa-gears me-1 opacity-75 text-secondary" title="Orden de producción"/>
+                                                    <field name="production_reference" widget="char"/>
+                                                </div>
+                                                <div class="d-flex align-items-center flex-nowrap gap-1 fw-semibold text-danger text-uppercase">
+                                                    <i class="fa fa-cogs me-1 text-danger" title="Operación"/>
+                                                    <field name="name" widget="char"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 border-start border-secondary border-opacity-25 ps-2 d-flex flex-column justify-content-center">
+                                                <div class="mt-1">
+                                                    <span t-if="record.state.raw_value == 'progress'" class="badge rounded-pill text-bg-primary">
+                                                        <i class="fa fa-circle fa-fw small me-1"/> En progreso
+                                                    </span>
+                                                    <span t-if="record.state.raw_value == 'ready'" class="badge rounded-pill text-bg-info">
+                                                        <i class="fa fa-clock-o me-1"/> Listo
+                                                    </span>
+                                                    <span t-if="record.state.raw_value == 'pending'" class="badge rounded-pill text-bg-secondary">
+                                                        <i class="fa fa-pause me-1"/> Esperando otra WO
+                                                    </span>
+                                                    <span t-if="record.state.raw_value == 'waiting'" class="badge rounded-pill text-bg-warning">
+                                                        <i class="fa fa-exclamation-triangle me-1"/> Esperando componentes
+                                                    </span>
+                                                    <span t-if="record.state.raw_value == 'done'" class="badge rounded-pill text-bg-success">
+                                                        <i class="fa fa-check me-1"/> Hecho
+                                                    </span>
+                                                </div>
+                                                <div t-if="!record.kc_tablet_register_semi.raw_value" class="fw-semibold text-muted">
+                                                    <i class="fa fa-cubes me-1" title="Lotes PT"/>
+                                                    <strong><field name="batch_ticket_count"/></strong> lote(s) PT
+                                                </div>
+                                                <div t-if="record.kc_tablet_register_semi.raw_value" class="fw-semibold text-muted">
+                                                    <i class="fa fa-cube me-1" title="Semis"/>
+                                                    <strong><field name="kc_semi_ticket_count"/></strong> semi(s)
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex align-items-start justify-content-center mt-1">
+                                                <button name="action_tablet_exit_to_workcenters" type="object"
+                                                        class="btn btn-outline-secondary btn-lg px-4 py-3 w-100"
+                                                        style="max-width: 300px;"
+                                                        title="Sale del tablero de este centro y vuelve a la lista de centros. Si el centro exige PIN, deberá identificarse de nuevo al entrar.">
+                                                    <i class="fa fa-sign-out me-1"/>
+                                                    Salir
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Cuerpo -->
+                                    <div class="p-3 flex-grow-1">
+                                        <div class="row g-2">
+                                            <div class="col-6 pe-2">
+                                                <div class="fw-semibold text-dark text-break">
+                                                    <field name="kc_tablet_kanban_default_code" widget="char"/>
+                                                </div>
+                                                <div class="fw-bold text-dark text-break">
+                                                    <field name="product_display_name" widget="char"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 border-start border-secondary border-opacity-25 ps-2 d-flex flex-column justify-content-center">
+                                                <div t-if="record.kc_tablet_register_semi.raw_value" class="d-flex flex-row flex-nowrap align-items-baseline justify-content-end gap-2">
+                                                    <span class="small text-uppercase text-muted fw-bold text-nowrap">Semi-terminados:</span>
+                                                    <span class="d-inline-flex flex-nowrap align-items-baseline gap-1">
+                                                        <span class="fw-bold text-primary"><field name="qty_semi_ticket_count" widget="float" digits="[16, 0]"/></span>
+                                                        <span class="small text-muted text-nowrap"><field name="kc_tablet_semi_operation_uom_name" widget="char"/></span>
+                                                    </span>
+                                                </div>
+                                                <div t-if="!record.kc_tablet_register_semi.raw_value" class="d-flex flex-row align-items-baseline justify-content-end gap-2">
+                                                    <span class="small text-uppercase text-muted fw-bold">Pre-etiquetas:</span>
+                                                    <span class="fw-bold text-primary"><field name="batch_ticket_count" widget="integer"/></span>
+                                                    <span class="small text-muted"><field name="kc_tablet_kanban_uom_name" widget="char"/></span>
+                                                </div>
+                                                <div t-if="!record.kc_tablet_register_semi.raw_value" class="d-flex flex-row align-items-baseline justify-content-end gap-2">
+                                                    <span class="small text-uppercase text-muted fw-bold">Producido:</span>
+                                                    <span class="fw-bold text-primary"><field name="qty_produced" widget="float" digits="[16, 0]"/></span>
+                                                    <span class="small text-muted"><field name="kc_tablet_kanban_uom_name" widget="char"/></span>
+                                                </div>
+                                                <div t-if="!record.kc_tablet_register_semi.raw_value" class="d-flex flex-row align-items-baseline justify-content-end gap-2 mt-1">
+                                                    <span class="small text-uppercase text-muted fw-semibold">Pendiente:</span>
+                                                    <span class="fw-bold text-warning"><field name="qty_pending" widget="float" digits="[16, 0]"/></span>
+                                                    <span class="small text-muted"><field name="kc_tablet_kanban_uom_name" widget="char"/></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Botones operativos -->
+                                    <div class="p-3 border-top bg-light bg-opacity-25 w-100" t-if="record.state.raw_value != 'done'">
+                                        <!-- Iniciar: cuando la WO puede iniciarse (Listo o Esperando disponibilidad). Evitar "in" en QWeb, usar comparaciones. -->
+                                        <div class="oe_tablet_kanban_actions" t-if="record.state.raw_value == 'ready' or record.state.raw_value == 'waiting'">
+                                            <button name="action_tablet_start" type="object"
+                                                    class="btn btn-primary rounded-3 text-white"
+                                                    string="Iniciar" title="Iniciar orden de trabajo">
+                                                <i class="fa fa-play mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Iniciar</span>
+                                            </button>
+                                            <!-- Pre-etiquetas PT solo en «En progreso» (mismo bloque que Crear lote / escanear), para no duplicar el botón aquí. -->
+                                            <button name="action_tablet_confirm_material_waste" type="object"
+                                                    class="btn btn-outline-danger rounded-3"
+                                                    title="Registrar merma de material (componentes de la orden)">
+                                                <i class="fa fa-trash mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Merma Material</span>
+                                            </button>
+                                        </div>
+                                        <!-- En progreso: PT (pre-etiquetas, lote, etc.) o registro semi según operación -->
+                                        <div class="oe_tablet_kanban_actions" t-if="record.state.raw_value == 'progress'">
+                                            <button name="action_tablet_confirm_material_waste" type="object"
+                                                    class="btn btn-outline-danger rounded-3"
+                                                    title="Registrar merma de material (componentes de la orden)">
+                                                <i class="fa fa-trash mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Merma Material</span>
+                                            </button>
+                                            <button t-if="record.kc_tablet_register_semi.raw_value" name="action_tablet_confirm_register_semi" type="object"
+                                                    class="btn btn-outline-primary rounded-3"
+                                                    title="Registrar cantidad de semiterminado (ticket)">
+                                                <i class="fa fa-cube mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Registrar semi-procesado</span>
+                                            </button>
+                                            <button t-if="!record.kc_tablet_register_semi.raw_value and record.kc_wc_creates_pt_lot.raw_value" name="action_tablet_open_prelabel_print" type="object"
+                                                    class="btn btn-outline-info rounded-3"
+                                                    title="Generar lotes pendientes e imprimir etiquetas">
+                                                <i class="fa fa-print mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Generar pre-etiquetas</span>
+                                            </button>
+                                            <button t-if="!record.kc_tablet_register_semi.raw_value and record.kc_wc_creates_pt_lot.raw_value" name="action_tablet_open_consume_prelabel" type="object"
+                                                    class="btn btn-outline-dark rounded-3"
+                                                    title="Escanear código de pre-etiqueta y registrar producción">
+                                                <i class="fa fa-barcode mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Producir pre-etiquetas</span>
+                                            </button>
+                                            <button t-if="!record.kc_tablet_register_semi.raw_value and record.kc_wc_creates_pt_lot.raw_value" name="action_tablet_open_consult_lot" type="object"
+                                                    class="btn btn-outline-info rounded-3"
+                                                    title="Consultar lote por número o QR GS1">
+                                                <i class="fa fa-search mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Consultar lote</span>
+                                            </button>
+                                            <button t-if="!record.kc_tablet_register_semi.raw_value and record.kc_wc_creates_pt_lot.raw_value" name="action_tablet_confirm_create_batch_lot" type="object"
+                                                    class="btn btn-outline-primary rounded-3">
+                                                <i class="fa fa-cubes mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Crear lote PT</span>
+                                            </button>
+                                            <button name="action_quality_alert" type="object"
+                                                    class="btn btn-outline-warning rounded-3">
+                                                <i class="fa fa-exclamation-triangle mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Alerta de calidad</span>
+                                            </button>
+                                            <button t-if="!record.kc_tablet_register_semi.raw_value and record.kc_wc_creates_pt_lot.raw_value" name="action_tablet_confirm_manual_production" type="object"
+                                                    class="btn btn-outline-secondary rounded-3"
+                                                    title="Cantidad manual y lote existente o nuevo (no pre-etiqueta)">
+                                                <i class="fa fa-pencil-square-o mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Producción manual</span>
+                                            </button>
+                                            <button t-if="!record.kc_tablet_register_semi.raw_value and record.kc_wc_creates_pt_lot.raw_value" name="action_tablet_open_selective_manual_production" type="object"
+                                                    class="btn btn-outline-secondary rounded-3"
+                                                    title="Añadir cantidad a un lote existente y elegir qué componentes consumir">
+                                                <i class="fa fa-check-square-o mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Prod. manual (componentes)</span>
+                                            </button>
+                                            <button name="action_pause_production" type="object"
+                                                    class="btn btn-warning rounded-3">
+                                                <i class="fa fa-stop mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Pausar/Parar</span>
+                                            </button>
+                                            <button name="action_finish" type="object"
+                                                    class="btn btn-success rounded-3 text-white">
+                                                <i class="fa fa-check mb-1" style="font-size: 1.25rem;"/>
+                                                <span>Finalizar</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Kanban tablet de SELECCIÓN de orden: lista vertical simple -->
+        <record id="mrp_workorder_kanban_tablet_select" model="ir.ui.view">
+            <field name="name">mrp.workorder.kanban.tablet.select</field>
+            <field name="model">mrp.workorder</field>
+            <field name="arch" type="xml">
+                <kanban create="0" can_open="0" class="o_kanban_mobile o_kanban_tablet_fullscreen o_kanban_ungrouped">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="workcenter_id"/>
+                    <field name="production_id"/>
+                    <field name="product_id"/>
+                    <field name="product_display_name"/>
+                    <field name="kc_tablet_kanban_default_code"/>
+                    <field name="qty_produced"/>
+                    <field name="qty_pending"/>
+                    <field name="batch_ticket_count"/>
+                    <field name="kc_semi_ticket_count"/>
+                    <field name="qty_semi_ticket_count"/>
+                    <field name="kc_tablet_register_semi"/>
+                    <field name="kc_tablet_kanban_uom_name"/>
+                    <field name="kc_tablet_semi_operation_uom_name"/>
+                    <field name="production_reference"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="position-relative">
+                                <button name="action_tablet_exit_to_workcenters" type="object"
+                                        class="btn btn-outline-secondary btn-sm position-absolute top-0 end-0 m-2"
+                                        style="z-index: 2;"
+                                        title="Sale de la selección de órdenes y vuelve a la lista de centros. Si el centro exige PIN, deberá identificarse de nuevo al entrar.">
+                                    <i class="fa fa-sign-out me-1"/>
+                                    Volver a centros
+                                </button>
+                            <div>
+                                <div class="card mb-2 bg-white rounded-3 shadow-sm border d-flex flex-column position-relative overflow-hidden">
+                                    <div class="p-3 d-flex flex-column">
+                                        <!-- OF + operación: misma línea, dos columnas -->
+                                        <div class="row g-2 mb-2 align-items-center">
+                                            <div class="col-6 min-w-0">
+                                                <div class="d-flex align-items-center flex-nowrap gap-2">
+                                                    <i class="fa fa-hashtag me-1 text-secondary flex-shrink-0" title="Orden de fabricación"/>
+                                                    <strong class="text-dark text-break"><field name="production_reference" widget="char"/></strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 min-w-0">
+                                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                                    <i class="fa fa-gears text-secondary flex-shrink-0" title="Operación"/>
+                                                    <span class="small text-uppercase text-muted fw-semibold text-nowrap">Operación</span>
+                                                    <span class="fw-bold text-dark text-break"><field name="name" widget="char"/></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Referencia interna del producto (antes del nombre) -->
+                                        <div t-if="record.kc_tablet_kanban_default_code.raw_value" class="small fw-semibold text-dark text-break mb-1">
+                                            <field name="kc_tablet_kanban_default_code" widget="char"/>
+                                        </div>
+                                        <!-- Producto (nombre) -->
+                                        <div class="small text-muted mb-2">
+                                            <field name="product_display_name" widget="char"/>
+                                        </div>
+                                        <!-- Resumen cantidades: MO estándar vs solo semi -->
+                                        <div t-if="!record.kc_tablet_register_semi.raw_value" class="d-flex flex-row justify-content-between align-items-start">
+                                            <div class="d-flex flex-row align-items-baseline gap-2">
+                                                <span class="small text-uppercase text-muted fw-bold">Producido:</span>
+                                                <span class="fw-bold text-primary"><field name="qty_produced" widget="float" digits="[16, 0]"/></span>
+                                                <span class="small text-muted"><field name="kc_tablet_kanban_uom_name" widget="char"/></span>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-baseline gap-2">
+                                                <span class="small text-uppercase text-muted fw-semibold">Pendiente:</span>
+                                                <span class="fw-bold text-warning"><field name="qty_pending" widget="float" digits="[16, 0]"/></span>
+                                                <span class="small text-muted"><field name="kc_tablet_kanban_uom_name" widget="char"/></span>
+                                            </div>
+                                        </div>
+                                        <div t-if="record.kc_tablet_register_semi.raw_value" class="d-flex flex-row flex-nowrap align-items-baseline gap-2">
+                                            <span class="small text-uppercase text-muted fw-bold text-nowrap">Semi-terminados:</span>
+                                            <span class="d-inline-flex flex-nowrap align-items-baseline gap-1">
+                                                <span class="fw-bold text-primary"><field name="qty_semi_ticket_count" widget="float" digits="[16, 0]"/></span>
+                                                <span class="small text-muted text-nowrap"><field name="kc_tablet_semi_operation_uom_name" widget="char"/></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Botón transparente que cubre toda la tarjeta: al hacer clic se ejecuta la acción -->
+                                    <button name="action_tablet_open_single_board" type="object"
+                                            class="position-absolute top-0 start-0 w-100 h-100 border-0 p-0 m-0"
+                                            style="z-index: 1; opacity: 0; cursor: pointer;"/>
+                                </div>
+                            </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>

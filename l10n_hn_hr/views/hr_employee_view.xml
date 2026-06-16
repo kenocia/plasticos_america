@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!--         EMPLOYEE VIEW         -->
+    <record id="hr_employee_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                <page name="payroll_date" string="Datos nómina">
+                    <group col="3" string="Nómina">
+                        <group>
+                            <field name="has_not_over_time"/>
+                            <field name="has_not_mark"/>
+                            <field name="has_not_ihss"/>
+                            <field name="force_ihss"/>
+                            <field name="has_not_rap"/>
+                            <field name="has_not_hours_entry"/>
+                        </group>
+                        <group>
+                            <field name="feeding"/>
+                            <field name="has_notebook"/>
+                            <field name="has_debit_card"/>
+                            <field name="has_savings"/>
+                            <field name="has_check"/>
+                        </group>
+                        <group>
+                            <field name="aec_maintenance"/>
+                            <field name="ds_maintenance"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='hr_settings']/group" position="inside">
+                <group string="Asignación Organizativa">
+                    <field name="hr_employee_company"/>
+                    <field name="hr_employee_sucursal"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group" position="inside">
+                <group string="Datos salud">
+                    <field name="hr_employee_blood_type_id"/>
+                    <field name="weight"/>
+                    <field name="height"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='private_email']" position="after">
+                <field name="rtn"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem
+            id="hr_menu_empleado_honduras"
+            name="Empleado Hondurae"
+            parent="hr.menu_human_resources_configuration"
+            groups="hr.group_hr_manager"
+            sequence="100"/>
+
+        <record id="action_hr_employee_birthday" model="ir.actions.client">
+            <field name="name">birthdays by month</field>
+            <field name="tag">hr_birthdays_dashboard</field>
+            <field name="target">main</field>
+        </record>
+
+        <menuitem
+                id="menu_hr_employee_birthday_user"
+                name="Cumpleaños del mes"
+                action="action_hr_employee_birthday"
+                parent="hr.menu_hr_root"
+                sequence="50"/>
+
+       <!-- <record id="action_manage_send_congratulation" model="ir.actions.server">
+           <field name="name">Enviar felicitaciones de cumpleaño</field>
+           <field name="model_id" ref="model_hr_employee" />
+           <field name="state">code</field>
+           <field name="code">model.send_birthday_email()</field>
+       </record> -->
+
+        <!-- <menuitem
+            id="hr_birthday_menu_configuration"
+            action="action_manage_send_congratulation"
+            name="Enviar correo de felicitación"
+            parent="hr_menu_empleado_honduras"
+            sequence="101"/> -->
+
+</odoo>

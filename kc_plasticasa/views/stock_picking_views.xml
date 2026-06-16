@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_inherit_kc_plasticasa_scan" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.kc_plasticasa.scan</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='button_validate'][1]" position="before">
+                <button name="action_kc_open_gs1_scan_wizard"
+                        type="object"
+                        string="Escanear GS1"
+                        class="btn-primary"
+                        groups="stock.group_stock_user"
+                        invisible="not picking_type_id.kc_enable_gs1_dispatch_wizard
+                                   or state not in ('confirmed', 'assigned', 'waiting')"/>
+                <button name="action_kc_print_all_lot_labels"
+                        type="object"
+                        string="Etiquetas Zebra (proveedor)"
+                        class="btn-secondary"
+                        groups="stock.group_stock_user"
+                        invisible="picking_type_code != 'incoming' or state != 'done'"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="kc_gs1_reservation_cleared" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

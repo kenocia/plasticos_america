@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fuel_vehicle_user,fuel.vehicle user,model_fuel_vehicle,kc_fuel_purchase_control.group_fuel_user,1,0,0,0
+access_fuel_vehicle_manager,fuel.vehicle manager,model_fuel_vehicle,kc_fuel_purchase_control.group_fuel_manager,1,1,1,1
+access_fuel_voucher_user,fuel.voucher user,model_fuel_voucher,kc_fuel_purchase_control.group_fuel_user,1,1,1,0
+access_fuel_voucher_manager,fuel.voucher manager,model_fuel_voucher,kc_fuel_purchase_control.group_fuel_manager,1,1,1,1
+access_fuel_consumption_log_user,fuel.consumption.log user,model_fuel_consumption_log,kc_fuel_purchase_control.group_fuel_user,1,0,0,0
+access_fuel_consumption_log_manager,fuel.consumption.log manager,model_fuel_consumption_log,kc_fuel_purchase_control.group_fuel_manager,1,1,1,1
+

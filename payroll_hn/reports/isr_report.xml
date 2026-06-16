@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="isr_pdf_report">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="header">
+
+                        <table style="width: 100%" class="table table-borderless">
+                            <tr>
+                                <td style="width: 10%; text-align: center;">
+                                    <img
+                                        src='/web/binary/company_logo'
+                                        height="100px"
+                                    />
+                                </td>
+                                <td class="align-middle" style="width: 90%; text-align: center;">
+                                    <span style="font-weight: bold; font-size: 20px;" t-esc="res_company.name.upper()"/><br/>
+                                    <span style="font-weight: bold;" t-esc="o.name"/><br/>
+                                    <span style="font-size: 12px;">Reporte de <span t-field="o.name"/></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <div class="page">
+                        <!--INFO GENERAL DEL REPORTE -->
+                        <div style="width: 90%; margin: auto;" class="d-flex flex-row">
+
+                            <div style="width: 30%;">
+                                <span style="font-weight: bold;">Salario Exento: </span> <span t-field="o.exempt_salary" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/> <br/>
+                                <span style="font-weight: bold;">Gastos Médicos: </span> <span t-field="o.medical_expense" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/> <br/>
+                            </div>
+
+                            <div style="width: 70%;">
+                                <table class="table table-sm table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Desde</th>
+                                            <th>Hasta</th>
+                                            <th>Tasa %</th>
+                                        </tr>
+                                    </thead>
+                                    <t t-foreach="o.range_ids" t-as="line">
+                                        <tr>
+                                            <td><span t-field="line.amount_from" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/></td>
+                                            <td><span t-field="line.amount_to" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/></td>
+                                            <td><span t-field="line.rate" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/></td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </div>
+                        </div>
+
+                        <br/>
+                        <br/>
+
+                        <!-- TABLA DE MOVIMIENTOS-->
+                        <table style="width: 100%;" class="table table-striped">
+                            <!--ENCABEZADO -->
+                            <thead>
+                                <tr style="background-color: #342f2b; color: white;">
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Empleado</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Salario Mensual</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Salario Anual</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Otros Ingresos</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Gastos Medicos</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Cuota RAP</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Cuota IVM</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Colegiaturas</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Otros Gastos</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Total Gravable</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Total Impuesto</span>
+                                    </th>
+
+                                    <th style="font-weight: bold; text-align: center; vertical-align: center;">
+                                        <span>Deducción Mensual</span>
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <!-- LINEAS DE REPORTE -->
+
+                            <t t-foreach="o.isr_line_ids" t-as="line">
+                                    <tr style="vertical-align: center;">
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.employee_id.name"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.wage" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.total_incomes" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.other_income" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.medical_expense" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.amount_rap" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.amount_ivm" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.amount_membership" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.other_expenses" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.total_base" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.total_tax" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: center; vertical-align: center;">
+                                            <span t-field="line.isr_fee" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+
+
+                            <!-- SECCION DE TOTALES -->
+                            <tr style="vertical-align: center;">
+
+                                <td style="background-color: #dcdcdc; color: black; font-weight: bold; text-align: center;" colspan="3">
+                                    Totales
+                                </td>
+
+                                <td style="font-size: 12px; text-align: right; vertical-align: center; background-color: #dcdcdc; color: black;">
+                                    L <span t-esc="'{0:,.2f}'.format(sum(line.other_income for line in o.isr_line_ids))"/>
+                                </td>
+
+                                <td style="background-color: #dcdcdc; color: black; font-weight: bold;" colspan="1"/>
+
+                                <td style="font-size: 12px; text-align: right; vertical-align: center; background-color: #dcdcdc; color: black;">
+                                    L <span t-esc="'{0:,.2f}'.format(sum(line.amount_rap for line in o.isr_line_ids))"/>
+                                </td>
+
+                                <td style="font-size: 12px; text-align: right; vertical-align: center; background-color: #dcdcdc; color: black;">
+                                    L <span t-esc="'{0:,.2f}'.format(sum(line.amount_ivm for line in o.isr_line_ids))"/>
+                                </td>
+
+                                <td style="font-size: 12px; text-align: right; vertical-align: center; background-color: #dcdcdc; color: black;">
+                                    L <span t-esc="'{0:,.2f}'.format(sum(line.amount_membership for line in o.isr_line_ids))"/>
+                                </td>
+
+                                <td style="font-size: 12px; text-align: right; vertical-align: center; background-color: #dcdcdc; color: black;">
+                                    L <span t-esc="'{0:,.2f}'.format(sum(line.other_expenses for line in o.isr_line_ids))"/>
+                                </td>
+
+                                <td style="font-size: 12px; text-align: right; vertical-align: center; background-color: #dcdcdc; color: black;">
+                                    L <span t-esc="'{0:,.2f}'.format(sum(line.total_base for line in o.isr_line_ids))"/>
+                                </td>
+
+                                <td style="font-size: 12px; text-align: right; vertical-align: center; background-color: #dcdcdc; color: black;">
+                                    L <span t-esc="'{0:,.2f}'.format(sum(line.total_tax for line in o.isr_line_ids))"/>
+                                </td>
+
+                                <td style="font-size: 12px; text-align: right; vertical-align: center; background-color: #dcdcdc; color: black;">
+                                    L <span t-esc="'{0:,.2f}'.format(sum(line.isr_fee for line in o.isr_line_ids))"/>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="isr_pdf_report_action" model="ir.actions.report">
+        <field name="name">Reporte ISR PDF</field>
+        <field name="model">hr.hn.isr</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">payroll_hn.isr_pdf_report</field>
+        <field name="binding_model_id" ref="payroll_hn.model_hr_hn_isr"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="cmc_sales_book.sar_sales_book_paper_format"/>
+        <field name="print_report_name">'Reporte PDF - %s' % (object.name)</field>
+    </record>
+</odoo>

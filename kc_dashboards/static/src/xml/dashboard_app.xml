@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="kc_dashboards.DashboardApp" owl="1">
+        <div class="o_action kc-dashboard-app">
+            <div class="kc-dashboard-app__toolbar">
+                <button type="button"
+                        class="kc-dashboard-app__menu-toggle"
+                        title="Menú de dashboards"
+                        t-on-click="() => this.toggleSidebar()">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="kc-dashboard-app__toolbar-title">
+                    <span class="kc-dashboard-app__toolbar-label">Dashboard</span>
+                    <strong t-esc="dash.activeDashboardLabel"/>
+                </div>
+            </div>
+
+            <t t-if="dash.sidebarOpen">
+                <div class="kc-dashboard-app__backdrop" t-on-click="() => this.closeSidebar()"></div>
+            </t>
+
+            <aside t-att-class="'kc-dashboard-app__sidebar' + (dash.sidebarOpen ? ' is-open' : '')">
+                <div class="kc-dashboard-app__sidebar-header">
+                    <span class="kc-dashboard-app__sidebar-title">Dashboards</span>
+                    <button type="button"
+                            class="kc-dashboard-app__sidebar-close"
+                            title="Cerrar menú"
+                            t-on-click="() => this.closeSidebar()">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <nav class="kc-dashboard-app__nav">
+                    <t t-foreach="dash.dashboards" t-as="dashboard" t-key="dashboard.id">
+                        <button type="button"
+                                t-att-class="'kc-dashboard-app__nav-item' + (isActive(dashboard.id) ? ' is-active' : '')"
+                                t-on-click="() => this.onSelectDashboard(dashboard.id)">
+                            <span class="kc-dashboard-app__nav-icon">
+                                <i t-att-class="'fa ' + (dashboard.icon || 'fa-line-chart')"></i>
+                            </span>
+                            <span class="kc-dashboard-app__nav-name" t-esc="dashboard.name"></span>
+                        </button>
+                    </t>
+                </nav>
+                <div class="kc-dashboard-app__footer">
+                    <button type="button" class="kc-dashboard-app__home" t-on-click="onBackToHome">
+                        <i class="fa fa-th"></i> Menú principal
+                    </button>
+                </div>
+            </aside>
+
+            <div class="o_content kc-dashboard-app__content">
+                <t t-if="dash.activeDashboard === 'sales'">
+                    <KcSalesDashboard></KcSalesDashboard>
+                </t>
+                <t t-elif="dash.activeDashboard === 'general_inventory'">
+                    <KcInventoryDashboard></KcInventoryDashboard>
+                </t>
+                <t t-elif="dash.activeDashboard === 'inventory_movements'">
+                    <KcMovementsDashboard></KcMovementsDashboard>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

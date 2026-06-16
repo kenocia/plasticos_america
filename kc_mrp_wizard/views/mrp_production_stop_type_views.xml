@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Kanban tablet: selección de motivo de paro (modal desde WO), una tarjeta por tipo de paro -->
+        <record id="mrp_production_stop_type_kanban_tablet" model="ir.ui.view">
+            <field name="name">mrp.production.stop.type.kanban.tablet</field>
+            <field name="model">mrp.production.stop.type</field>
+            <field name="arch" type="xml">
+                <kanban create="0" can_open="0" class="o_kanban_mobile oe_kanban_tablet_single_board o_kanban_ungrouped oe_kanban_3_per_row">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="fa_icon"/>
+                    <field name="sequence"/>
+                    <templates>
+                        <t t-name="card">
+                            <div>
+                                <div class="card bg-white rounded-3 shadow-sm border h-100 d-flex flex-column overflow-hidden">
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex align-items-center gap-2 py-2">
+                                            <i t-attf-class="fa me-2 {{ record.fa_icon.raw_value or 'fa-stop' }}" style="font-size: 1.5rem;" title="Tipo"/>
+                                            <span class="fw-bold text-dark"><field name="name" widget="char"/></span>
+                                        </div>
+                                        <button name="action_trigger_from_workorder" type="object"
+                                                class="position-absolute top-0 start-0 w-100 h-100 border-0 p-0 m-0"
+                                                style="z-index: 1; opacity: 0; cursor: pointer;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- Kanban backend raíz: paros padre o sin padre (dominio en la acción). Clic en card → action_open_or_children (form o kanban hijos). -->
+        <record id="mrp_production_stop_type_kanban_root" model="ir.ui.view">
+            <field name="name">mrp.production.stop.type.kanban.root</field>
+            <field name="model">mrp.production.stop.type</field>
+            <field name="arch" type="xml">
+                <kanban create="0" class="o_kanban_ungrouped oe_kanban_3_per_row">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="fa_icon"/>
+                    <field name="sequence"/>
+                    <field name="is_parent"/>
+                    <field name="child_count"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click">
+                                <div class="card bg-white rounded-3 shadow-sm border h-100 d-flex flex-column overflow-hidden">
+                                    <div class="p-3 d-flex flex-column flex-grow-1 position-relative">
+                                        <div class="d-flex align-items-center gap-2 py-2">
+                                            <i t-attf-class="fa me-2 {{ record.fa_icon.raw_value or 'fa-stop' }}" style="font-size: 1.5rem;" title="Tipo"/>
+                                            <span class="fw-bold text-dark"><field name="name" widget="char"/></span>
+                                        </div>
+                                        <div class="small text-muted" t-if="record.is_parent.raw_value">
+                                            <t t-out="record.child_count.raw_value"/> opciones de paro
+                                        </div>
+                                        <button name="action_open_or_children" type="object"
+                                                class="position-absolute top-0 start-0 w-100 h-100 border-0 p-0 m-0"
+                                                style="z-index: 1; opacity: 0; cursor: pointer;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- Kanban backend: paros agrupados (al hacer clic en un paro agrupador), misma estructura 3 por fila, clic abre formulario -->
+        <record id="mrp_production_stop_type_kanban_children" model="ir.ui.view">
+            <field name="name">mrp.production.stop.type.kanban.children</field>
+            <field name="model">mrp.production.stop.type</field>
+            <field name="arch" type="xml">
+                <kanban create="0" class="o_kanban_ungrouped oe_kanban_3_per_row">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="fa_icon"/>
+                    <field name="sequence"/>
+                    <field name="parent_id"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click">
+                                <div class="card bg-white rounded-3 shadow-sm border h-100 d-flex flex-column overflow-hidden">
+                                    <div class="p-3 d-flex flex-column flex-grow-1 position-relative">
+                                        <div class="d-flex align-items-center gap-2 py-2">
+                                            <i t-attf-class="fa me-2 {{ record.fa_icon.raw_value or 'fa-stop' }}" style="font-size: 1.5rem;" title="Tipo"/>
+                                            <span class="fw-bold text-dark"><field name="name" widget="char"/></span>
+                                        </div>
+                                        <button name="action_trigger_from_workorder" type="object"
+                                                class="position-absolute top-0 start-0 w-100 h-100 border-0 p-0 m-0"
+                                                style="z-index: 1; opacity: 0; cursor: pointer;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="mrp_production_stop_type_tree" model="ir.ui.view">
+            <field name="name">mrp.production.stop.type.tree</field>
+            <field name="model">mrp.production.stop.type</field>
+            <field name="arch" type="xml">
+                <list string="Tipos de paro" create="1" delete="1" edit="1">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="fa_icon"/>
+                    <field name="is_parent"/>
+                    <field name="child_count" string="Hijos"/>
+                    <field name="active" column_invisible="1"/>
+                    <field name="parent_id"/>
+                </list>
+            </field>
+        </record>
+        <record id="mrp_production_stop_type_form" model="ir.ui.view">
+            <field name="name">mrp.production.stop.type.form</field>
+            <field name="model">mrp.production.stop.type</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de paro">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="fa_icon" placeholder="fa-stop"/>
+                                <field name="is_parent"/>
+                                <field name="parent_id" invisible="is_parent"/>
+                                <field name="sequence"/>
+                                <field name="active"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="child_count" invisible="not is_parent"/>
+                                <button name="action_open_or_children" type="object" string="Ver paros hijos" icon="fa-list" invisible="not is_parent" class="btn-link"/>
+                            </group>
+                        </group>
+                        <notebook invisible="is_parent">
+                            <page string="Alerta de calidad" name="quality">
+                                <group>
+                                    <group>
+                                        <field name="create_quality_alert"/>
+                                        <field name="quality_team_id" invisible="not create_quality_alert"/>
+                                        <field name="quality_responsible_id" invisible="not create_quality_alert"/>
+                                    </group>
+                                    <group invisible="not create_quality_alert">
+                                        <field name="quality_tag_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Solicitud de mantenimiento" name="maintenance">
+                                <group>
+                                    <group>
+                                        <field name="create_maintenance_request"/>
+                                        <field name="maintenance_team_id" invisible="not create_maintenance_request"/>
+                                        <field name="maintenance_responsible_id" invisible="not create_maintenance_request"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_mrp_production_stop_type" model="ir.actions.act_window">
+            <field name="name">Tipos de paro</field>
+            <field name="res_model">mrp.production.stop.type</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'default_create_quality_alert': False, 'default_create_maintenance_request': False}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    <i class="fa fa-stop-circle-o fa-2x text-muted mb-2 d-block"/>
+                    Cree tipos de paro para clasificar detenciones (calidad, mantenimiento, etc.) y opcionalmente generar alertas de calidad o solicitudes de mantenimiento.
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_mrp_production_stop_type"
+            name="Tipos de paro"
+            action="action_mrp_production_stop_type"
+            parent="menu_tablet_root"
+            sequence="22"
+            groups="kc_mrp_wizard.group_kc_mrp_wizard_manager"/>
+    </data>
+</odoo>

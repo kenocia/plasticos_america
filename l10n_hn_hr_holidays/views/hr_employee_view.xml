@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!--         EMPLOYEE VIEW DATOS NOMINA        -->
+    <record id="hr_employee_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='date_general_payroll']" position="inside">
+                <field name="is_perifoneo" invisible="1"/>
+                <field name="is_animador" invisible="1"/>
+                <group string="Datos vacaciones" invisible="is_perifoneo or is_animador">
+                    <group>
+                        <field name="permit_vacation_without_acumulated"/>
+                        <field name="year_of_work" invisible="1"/>
+                        <field name="allowed_vacation_days"/>
+                        <field name="accumulated_leave_year"/>
+                        <field name="remaining_leave_year"/>
+                    </group>
+                    <group>
+                        <field name="accumulated_leave_month"/>
+                        <field name="accumulated_leave_day"/>
+                        <field name="total_vacation_day"/>
+                        <field name="accumulated_leave_day_take"/>
+                    </group>
+                </group>
+                <group string="Datos días libres" invisible="is_perifoneo or is_animador">
+                    <group>
+                        <field name="accumulated_day_free"/>
+                        <field name="remaining_day_free"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="inherited_hr_employee_view_tree">
+        <field name="name">inherited.hr.employee.view.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='country_id']" position="after">
+                <field name="accumulated_leave_year" string="Vac Acumuladas" />
+                <field name="remaining_leave_year" />
+                <field name="total_vacation_day" />
+                <field name="accumulated_day_free" />
+                <field name="remaining_day_free" decoration-danger="remaining_day_free &lt; 0" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

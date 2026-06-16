@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Un eje (referencia del control) para alinear medida y límites por inspección -->
+    <record id="quality_check_view_graph_spc_limits" model="ir.ui.view">
+        <field name="name">quality.check.graph.spc.limits</field>
+        <field name="model">quality.check</field>
+        <field name="priority">40</field>
+        <field name="arch" type="xml">
+            <graph string="SPC: medida y límites" type="line" sample="1">
+                <field name="name"/>
+                <field name="point_id"/>
+                <field name="measure" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="quality_check_action_spc_limits" model="ir.actions.act_window">
+        <field name="name">SPC con norma y tolerancias</field>
+        <field name="res_model">quality.check</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="quality_check_view_graph_spc_limits"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Aún no hay datos de control.
+            </p>
+        </field>
+    </record>
+</odoo>

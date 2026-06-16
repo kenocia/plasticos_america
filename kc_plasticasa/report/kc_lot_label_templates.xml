@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_lot_label_document">
+        <t t-set="full_width" t-value="True"/>
+        <t t-call="web.html_container">
+            <style type="text/css">
+                html, body.o_body_html {
+                    height: auto !important;
+                    min-height: 0 !important;
+                }
+                #wrapwrap, #wrapwrap main {
+                    min-height: 0 !important;
+                }
+                body.o_body_html {
+                    --bs-gutter-x: 0;
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+                }
+                .kc-lot-label {
+                    font-family: sans-serif;
+                    font-size: 7px;
+                    line-height: 1.12;
+                    page-break-inside: avoid !important;
+                    break-inside: avoid !important;
+                    -webkit-region-break-inside: avoid;
+                }
+                /* Tabla: wkhtmltopdf respeta mejor dos columnas que float en este informe. */
+                .kc-lot-label__top {
+                    display: table !important;
+                    width: 100%;
+                    border-collapse: collapse !important;
+                    table-layout: fixed;
+                    margin-bottom: 2px;
+                }
+                .kc-lot-label__top td {
+                    vertical-align: top !important;
+                    padding: 0 !important;
+                }
+                .kc-lot-label__qr-cell {
+                    width: 22mm !important;
+                    max-width: 22mm !important;
+                }
+                .kc-lot-label__qr-inner {
+                    width: 22mm;
+                    height: 22mm;
+                    max-width: 22mm;
+                    max-height: 22mm;
+                    overflow: hidden;
+                    line-height: 0;
+                }
+                .kc-lot-label__qr-inner img {
+                    width: 22mm !important;
+                    height: 22mm !important;
+                    max-width: 22mm !important;
+                    max-height: 22mm !important;
+                    display: block;
+                    object-fit: contain;
+                }
+                .kc-lot-label__meta {
+                    line-height: 1.2;
+                    padding-left: 1mm !important;
+                }
+                .kc-lot-label__meta-line {
+                    white-space: nowrap;
+                    margin: 0 0 1px 0;
+                }
+                .kc-lot-label__bottom {
+                    clear: both;
+                }
+                .kc-lot-label__bottom > div {
+                    margin-bottom: 0;
+                }
+                /* wkhtmltopdf suele ignorar px muy bajos: usar pt y !important para que el tamaño tenga efecto */
+                .kc-lot-label__code {
+                    font-weight: bold;
+                    font-size: 7pt !important;
+                    line-height: 1.12 !important;
+                }
+                .kc-lot-label__ref-caption,
+                .kc-lot-label__prod-caption {
+                    font-weight: normal !important;
+                    font-size: 5pt !important;
+                    color: #333;
+                    margin-right: 1px;
+                }
+                .kc-lot-label__details {
+                    font-size: 5.5pt !important;
+                    line-height: 1.12 !important;
+                    font-weight: normal !important;
+                }
+                .kc-lot-label__name {
+                    font-weight: normal !important;
+                    font-size: 4.5pt !important;
+                }
+                .kc-lot-label__grammage,
+                .kc-lot-label__units-per-bale {
+                    font-weight: normal !important;
+                    font-size: 4.5pt !important;
+                }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="qty_lbl" t-value="doc.kc_label_qty_available()"/>
+                <t t-set="qr" t-value="doc.kc_lot_label_qr_block()"/>
+                <t t-set="tmpl" t-value="doc.product_id.product_tmpl_id"/>
+                <div class="article kc-lot-label"
+                     style="page-break-after: always; page-break-inside: avoid; padding: 1px 0;"
+                     t-att-lang="doc.kc_label_lang()">
+                    <table class="kc-lot-label__top" cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td class="kc-lot-label__qr-cell" valign="top" style="width:22mm; vertical-align:top;">
+                                <div class="kc-lot-label__qr-inner">
+                                    <img t-if="qr['src']"
+                                         t-att-src="qr['src']"
+                                         alt="GS1 QR"
+                                         width="83"
+                                         height="83"
+                                         style="width:22mm;height:22mm;max-width:22mm;max-height:22mm;display:block;"/>
+                                </div>
+                                <div t-if="qr['error']"
+                                     style="max-width: 22mm; color: #b00020; font-size: 7px; border: 1px solid #ccc; padding: 2px; background: #fff8f8;">
+                                    <strong>QR:</strong>
+                                    <span t-esc="qr['error']"/>
+                                </div>
+                            </td>
+                            <td class="kc-lot-label__meta" valign="top" style="vertical-align:top;">
+                                <div class="kc-lot-label__meta-line" align="center">
+                                    <span> </span><strong t-field="doc.name"/>
+                                </div>
+                                <div class="kc-lot-label__meta-line" align="center">
+                                    <span> </span><strong t-esc="qty_lbl"/>
+                                    <span t-esc="' ' + doc.product_id.uom_id.name"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div t-if="doc.low_quality" style="color: #b00020; font-weight: bold; margin-bottom: 2px;">
+                        <strong>Baja calidad</strong>
+                    </div>  
+                    <div class="kc-lot-label__bottom">
+                        <div t-if="doc.product_id.default_code" class="kc-lot-label__code">
+                            <span class="kc-lot-label__ref-caption">Ref. </span>
+                            <strong t-esc="doc.product_id.default_code"/>
+                        </div>
+                        <div class="kc-lot-label__details">
+                            <span class="kc-lot-label__prod-caption">Nombre </span>
+                            <span class="kc-lot-label__name" t-field="doc.product_id.name"/>
+                            <t t-if="tmpl.grammage">
+                                <span class="kc-lot-label__grammage" t-esc="' %.1fG' % tmpl.grammage"/>
+                            </t>
+                            <t t-if="tmpl.units_per_bale">
+                                <span class="kc-lot-label__units-per-bale" t-esc="' 1X%s P' % tmpl.units_per_bale"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

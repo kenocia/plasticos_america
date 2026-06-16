@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<record id="hr_hn_rap_assign_form_view" model="ir.ui.view">
+        <field name="name">hr.hn.rap.assign.form.view</field>
+        <field name="model">hr.hn.rap.assign</field>
+        <field name="arch" type="xml">
+            <form string="Asignar RAP a empleados">
+                <separator string="Departamento" colspan="2"/>
+                <div class="o_row">
+                    <p class="text-muted w-50">Establece un departamento específico si desea seleccionar todos los empleados de este departamento (y subdepartamentos) a la vez.</p>
+                    <field name="department_id" options="{'no_create': true, 'no_open': true}" nolabel="1"/>
+                </div>
+				<separator string="Pago Programado" colspan="2"/>
+                <div class="o_row">
+                    <p class="text-muted w-50">Establezca un Pago Programado específico si desea seleccionar todos los empleados de este Pago Programado a la vez.</p>
+                    <field name="schedule_pay" required="True" nolabel="1"/>
+                </div>
+				<separator string="Aplicar en" colspan="2" invisible="schedule_pay != 'bi-weekly'"/>
+                <div class="o_row" invisible="schedule_pay != 'bi-weekly'">
+                    <p class="text-muted w-50">Establezca en cual quincena desea aplicar la deducción.</p>
+                    <field name="apply_in" nolabel="1" required="schedule_pay == 'bi-weekly'"/>
+                </div>
+                <separator string="Empleados"/>
+                <field name="employee_ids" nolabel="1">
+                    <list>
+                        <field name="name"/>
+                        <field name="work_email"/>
+                        <field name="department_id"/>
+                    </list>
+                </field>
+                <footer>
+                    <button string="Asignar" name="action_assign" type="object" class="oe_highlight" data-hotkey="q"/>
+                    <button string="Cancelar" class="btn btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+	<record id="hr_hn_rap_assign_action" model="ir.actions.act_window">
+        <field name="name">Asignar RAP a empleados</field>
+        <field name="res_model">hr.hn.rap.assign</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hr_hn_rap_assign_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+	<!-- Action hr.contract -->
+    <record id="action_rap_contract" model="ir.actions.act_window">
+        <field name="name">Contratos</field>
+        <field name="res_model">hr.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+        <field name="domain"> [('rap_id', '=', active_id)]</field>
+    </record>
+
+    <!-- vista form de RAP -->
+	<record id="hn_rap_form_view" model="ir.ui.view">
+		<field name="name">hn.rap.form.view</field>
+		<field name="model">hr.hn.rap</field>
+		<field name="arch" type="xml">
+		<form string="RAP">
+			<header>
+                <button name="action_active" type="object" string="Activar" class="oe_highlight" invisible="state == 'active'"/>
+				<button name="action_draft" type="object" string="Desactivar" invisible="state == 'draft'"/>
+				<button name="%(payroll_hn.hr_hn_rap_assign_action)d" type="action" string="Asignar" invisible="state == 'draft'"/>
+				<field name="state" widget="statusbar"/>
+			</header>
+			<sheet>
+				<div class="oe_button_box" name="button_box">
+					<button class="oe_stat_button" name="%(action_rap_contract)d" icon="fa-th-list" type="action">
+						<div class="o_field_widget o_stat_info">
+							<span class="o_stat_value"><field name="contract_count"/></span>
+							<span class="o_stat_text"> Contratos</span>
+						</div>
+					</button>
+				</div>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" placeholder="RAP 2024" readonly="state != 'draft'"/>
+                    </h1>
+                </div>
+				<group>
+                    <group string="RAP" name="rap">
+						<field name="percentage_rap" widget="percentage" readonly="state != 'draft'"/>
+					</group>
+                    <group string="Techo" name="limit_amount">
+                        <field name="currency_id" invisible="1"/>
+						<field name="limit_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="state != 'draft'"/>
+					</group>
+				</group>
+			</sheet>
+			<chatter/>
+			</form>
+		</field>
+	</record>
+
+    <!-- vista list de rap -->
+	<record id="hn_rap_list_view" model="ir.ui.view">
+		<field name="name">hn.rap.list.view</field>
+		<field name="model">hr.hn.rap</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="name"/>
+				<field name="state" widget="badge" decoration-success="state == 'active'" decoration-primary="state == 'draft'"/>
+			</list>
+		</field>
+	</record>
+
+    <!-- accion de rap -->
+    <record id="action_hn_rap" model="ir.actions.act_window">
+		<field name="name">RAP</field>
+		<field name="res_model">hr.hn.rap</field>
+		<field name="view_mode">list,form</field>
+	</record>
+</odoo>

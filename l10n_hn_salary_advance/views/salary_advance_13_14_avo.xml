@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_salary_advance_13avo_tree">
+            <field name="name">salary.advance.tree</field>
+            <field name="model">salary.advance</field>
+            <field name="arch" type="xml">
+                <list string="Salary Advance">
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="advance_thirteen_avo"/>
+                    <field name="advance"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_salary_advance_14avo_tree">
+            <field name="name">salary.advance.tree</field>
+            <field name="model">salary.advance</field>
+            <field name="arch" type="xml">
+                <list string="Salary Advance">
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="advance_fourteen_avo"/>
+                    <field name="advance"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+         <record id="action_salary_advance_13avo" model="ir.actions.act_window">
+            <field name="name">Adelantos 13 avo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">salary.advance</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_salary_advance_filter"/>
+            <field name="view_id" ref="view_salary_advance_13avo_tree"/>
+            <field name="domain">[('advance_thirteen_avo', '=', True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Requests.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_salary_advance_14avo" model="ir.actions.act_window">
+            <field name="name">Adelantos 14 avo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">salary.advance</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_salary_advance_filter"/>
+            <field name="view_id" ref="view_salary_advance_14avo_tree"/>
+            <field name="domain">[('advance_fourteen_avo', '=', True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Requests.
+                </p>
+            </field>
+        </record>
+
+        <record id="ir_seq_hr_advance" model="ir.sequence">
+			<field name="name">Salary Advance Request</field>
+			<field name="code">salary.advance.seq</field>
+			<field name="prefix">SARAD</field>
+			<field name="padding">4</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+            <field name="company_id" eval="False"/>
+		</record>
+
+        <menuitem id="parent_adelantos_13avo_14avo"
+                  action="action_my_salary_advance"
+                  parent="l10n_hn_loan.menu_hr_loans_and_advances"
+                  name="Adelantos de 13 y 14 Avo"
+                  sequence="8" />
+        <menuitem id="menu_salary_advance_13"
+                  action="action_salary_advance_13avo"
+                  parent="parent_adelantos_13avo_14avo"
+                  name="Adelantos 13 avo"
+                  sequence="3"
+                  groups="hr.group_hr_manager,hr.group_hr_user,account.group_account_manager"/>
+
+        <menuitem id="menu_salary_advance_14"
+                  action="action_salary_advance_14avo"
+                  parent="parent_adelantos_13avo_14avo"
+                  name="Adelantos 14 avo"
+                  sequence="3"
+                  groups="hr.group_hr_manager,hr.group_hr_user,account.group_account_manager"/>
+
+    </data>
+</odoo>

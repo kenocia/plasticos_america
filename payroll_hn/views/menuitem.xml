@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem
+                id="payroll_hn_menu_category"
+                name="Nómina HN"
+                sequence="1"
+                parent="hr.menu_human_resources_configuration"
+        />
+
+        <menuitem
+                id="ihss_menu"
+                name="IHSS"
+                sequence="1"
+                parent="payroll_hn_menu_category"
+                action="action_hn_ihss"
+        />
+
+        <menuitem
+                id="rap_menu"
+                name="RAP"
+                sequence="2"
+                parent="payroll_hn_menu_category"
+                action="action_hn_rap"
+        />
+
+        <menuitem
+                id="isr_menu"
+                name="ISR"
+                sequence="3"
+                parent="payroll_hn_menu_category"
+                action="action_hn_isr"
+        />
+
+        <menuitem
+                id="histories_menu_category"
+                name="Historiales"
+                sequence="7"
+                parent="hr.menu_hr_employee_payroll"
+        />
+
+        <menuitem
+                id="salary_history_menu"
+                name="Salarios"
+                sequence="1"
+                parent="histories_menu_category"
+                action="action_hr_hn_salary_history"
+        />
+
+        <menuitem
+                id="ihss_history_menu"
+                name="IHSS"
+                sequence="2"
+                parent="histories_menu_category"
+                action="action_hr_hn_ihss_history"
+        />
+
+        <menuitem
+                id="rap_history_menu"
+                name="RAP"
+                sequence="3"
+                parent="histories_menu_category"
+                action="action_hr_hn_rap_history"
+        />
+
+        <menuitem
+                id="isr_history_menu"
+                name="ISR"
+                sequence="4"
+                parent="histories_menu_category"
+                action="action_hr_hn_isr_history"
+        />
+
+        <menuitem
+                id="benefit_deduction_history_menu"
+                name="Beneficios y deducciones"
+                sequence="5"
+                parent="histories_menu_category"
+                action="action_hr_hn_benefit_deduction_history"
+        />
+
+        <menuitem
+                id="hr_hn_menu_employee_benefit_deduction_hn"
+                name="Beneficios y Deducciones"
+                sequence="2"
+                parent="hr.menu_human_resources_configuration"
+        />
+
+        <menuitem
+                id="hr_hn_assign_benefit_deduction_menu"
+                name="Asignar Beneficio/Deducción"
+                sequence="1"
+                parent="hr_hn_menu_employee_benefit_deduction_hn"
+                action="hr_hn_assign_benefit_deduction_action"
+        />
+
+        <menuitem
+                id="hr_hn_pause_benefit_deduction_menu"
+                name="Pausar Beneficio/Deducción"
+                sequence="2"
+                parent="hr_hn_menu_employee_benefit_deduction_hn"
+                action="action_hr_hn_pause_benefit_deduction"
+        />
+
+        <menuitem
+                id="hr_hn_delete_benefit_deduction_menu"
+                name="Borrar Beneficio/Deducción"
+                sequence="3"
+                parent="hr_hn_menu_employee_benefit_deduction_hn"
+                action="action_hr_hn_delete_benefit_deduction"
+        />
+
+
+        <record id="action_deductions_report" model="ir.actions.client">
+            <field name="name">Reporte de deducciones</field>
+            <field name="tag">deductions_report</field>
+        </record>
+
+        <record id="action_payroll_report" model="ir.actions.client">
+            <field name="name">Reporte de Nómina</field>
+            <field name="tag">payroll_report</field>
+        </record>
+
+        <menuitem
+                id="menu_deductions_report"
+                name="Reporte de deducciones"
+                action="action_deductions_report"
+                parent="hr_payroll.menu_hr_payroll_report"
+                sequence="30"
+        />
+
+        <menuitem
+                id="menu_payroll_report"
+                name="Reporte de Nómina"
+                action="action_payroll_report"
+                parent="hr_payroll.menu_hr_payroll_report"
+                sequence="30"
+        />
+
+    </data>
+</odoo>

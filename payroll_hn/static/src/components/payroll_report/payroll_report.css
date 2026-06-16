@@ -1,0 +1,93 @@
+/* Payroll Report Styles */
+.input-container {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    gap: 10px;
+}
+
+.odoo-input {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.odoo-input input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.odoo-button {
+    padding: 8px 20px;
+    font-size: 14px;
+    border: 2px solid #624159;
+    border-radius: 4px;
+    background-color: #714B67;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.odoo-button:hover {
+    background-color: #624159;
+}
+
+.odoo-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.table-container {
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    margin: 10px;
+}
+
+/* Utility classes */
+.w-100 { width: 100%; }
+.w-90 { width: 90%; }
+.w-80 { width: 80%; }
+.w-70 { width: 70%; }
+.w-60 { width: 60%; }
+.w-50 { width: 50%; }
+.w-49 { width: 49%; }
+.w-40 { width: 40%; }
+.w-30 { width: 30%; }
+.w-20 { width: 20%; }
+.w-10 { width: 10%; }
+.w-33 { width: 33.33%; }
+
+.l-10 { padding-left: 10px; }
+.r-10 { padding-right: 10px; }
+
+.center { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+
+/* Table styles - Solo para reportes de nómina */
+.payroll-report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.payroll-report-table td, .payroll-report-table th {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.payroll-report-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.payroll-report-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.payroll-report-table tr:hover {
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_kc_sales_commission_root"
+        name="Comisiones"
+        sequence="55"
+        groups="kc_sales_commission.group_sales_commission_user"
+        web_icon="kc_sales_commission,static/description/icon.png"
+    />
+    <menuitem
+        id="menu_kc_sales_commission_list"
+        name="Cálculos de Comisión"
+        parent="menu_kc_sales_commission_root"
+        action="action_kc_sales_commission"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_kc_sales_commission_wizard"
+        name="Generar Comisión"
+        parent="menu_kc_sales_commission_root"
+        action="action_kc_sales_commission_wizard"
+        sequence="20"
+    />
+</odoo>

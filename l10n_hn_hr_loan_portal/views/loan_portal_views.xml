@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <data>
+        <template id="loan_form_template" name="Prestamo">
+            <t t-call="portal.portal_layout">
+                <div class="container mt-5 loan_request_form_js_class">
+                    <form action="/#" method="post" string="Solicitud de préstamo"
+                          class="o_mark_required needs-validation" data-mark="*" data-pre-fill="true"
+                          data-model_name="hr.loan">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="form-group row  mt-2 text-center">
+                            <h2>Solicitud de préstamo</h2>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="employee_id" class="col-sm-2 col-form-label">Nombre del Empleado:</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" name="employee_id" id="employee_id" t-att-value="employee_id.id"/>
+                                <input type="text" class="form-control" id="employee_id_name" name="employee_id_name"
+                                       t-att-value="employee_id.name" readonly="readonly"/>
+                                <p class="d-none" id="input_employee_id"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="date" class="col-sm-2 col-form-label">Fecha:</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="date" name="date"
+                                       t-att-value="date.strftime('%Y-%m-%d')"/>
+                                <p class="d-none" id="input_date"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="loan_amount" class="col-sm-2 col-form-label">Importe:
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="loan_amount" name="loan_amount"
+                                       t-att-value="loan_amount" />
+                                <p class="d-none" id="input_loan_amount"/>
+                            </div>
+                        </div>
+                        <div class="form-group row  mt-2">
+                            <label for="installment" class="col-sm-2 col-form-label">Plazos:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="installment"
+                                       name="installment"/>
+                                <p class="d-none" id="input_installment"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="payment_date" class="col-sm-2 col-form-label">Fecha de pago:</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="payment_date" name="payment_date"
+                                       t-att-value="payment_date.strftime('%Y-%m-%d')" />
+                                <p class="d-none" id="input_payment_date"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-10">
+                                <button type="submit" id="add_loan" t-on-click="addLoan"
+                                        class="btn btn-primary">Agregar préstamo
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </t>
+        </template>
+
+        <template id="answer_form" name="Answer Form">
+            <t t-call="portal.portal_layout">
+                <div class="text-center">
+                    <h2>Solicitud procesada satisfactoriamente</h2>
+                    <img src="/l10n_hn_hr_loan_portal/static/src/img/loan.png" alt="Imagen Satisfactoria" width="50%"
+                         height="50%"/>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

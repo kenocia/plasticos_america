@@ -40,6 +40,7 @@
         'views/account_payment.xml',
         'views/ir_sequence.xml',
         'views/account_move_menu_debit_note.xml',
+        'views/account_move_retention_menu.xml',
         'wizard/report_dmc_excel.xml',
         'wizard/report_invoice_details_excel.xml',
         'wizard/report_sales_excel.xml',

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Kanban tablet: centros como tarjetas, minimalista e interactivo -->
+        <record id="mrp_workcenter_kanban_tablet" model="ir.ui.view">
+            <field name="name">mrp.workcenter.kanban.tablet</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="arch" type="xml">
+                <kanban create="0" can_open="0" class="o_kanban_mobile o_kanban_tablet_centers">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="kc_tablet_creates_pt_lot"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden oe_tablet_workcenter_kanban_card">
+                                <div class="card-body d-flex flex-column align-items-center text-center p-3">
+                                    <h2 class="card-title oe_tablet_wc_kanban_title mb-3 text-dark fw-bold w-100">
+                                        <field name="name"/>
+                                    </h2>
+                                    <div class="oe_tablet_wc_kanban_actions d-flex flex-column w-100">
+                                        <button name="action_open_tablet_wizard" type="object"
+                                                class="btn btn-primary btn-lg">
+                                            <i class="fa fa-tablet me-1" title="Operar"/> Operar
+                                        </button>
+                                        <button name="action_open_supervisor_consume_prelabel" type="object"
+                                                class="btn btn-outline-secondary btn-lg"
+                                                invisible="not kc_tablet_creates_pt_lot">
+                                            <i class="fa fa-barcode me-1" title="Pre-etiquetas"/> Registrar pre-etiquetas
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- Lista alternativa (por si se prefiere vista lista) -->
+        <record id="mrp_workcenter_list_tablet" model="ir.ui.view">
+            <field name="name">mrp.workcenter.list.tablet</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="arch" type="xml">
+                <list string="Asistente tablet" create="0" delete="0" edit="0" decoration-primary="True">
+                    <field name="name"/>
+                    <button name="action_open_tablet_wizard" type="object" string="Abrir asistente" class="btn-primary" icon="fa-tablet"/>
+                </list>
+            </field>
+        </record>
+        <!-- Formulario: sección Tablet con iconos y estilo minimalista -->
+        <record id="mrp_workcenter_form_tablet" model="ir.ui.view">
+            <field name="name">mrp.workcenter.form.tablet</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Asistente">
+                        <group>
+                            <group>
+                                <field name="require_pin" widget="boolean_toggle"/>
+                                <field name="enforce_shift" widget="boolean_toggle"/>
+                                <field name="pin_timeout_minutes"/>
+                            </group>
+                            <group>
+                                <field name="validate_alert_quality" widget="boolean_toggle"/>
+                                <field name="validate_alert_maintenance" widget="boolean_toggle"/>
+                            </group>
+                            <group string="Lote PT e impresión (tablet)">
+                                <field name="kc_tablet_creates_pt_lot" widget="boolean_toggle"/>
+                                <field name="kc_label_network_printer_id" options="{'no_create': True, 'no_open': True}" context="{'default_active': True, 'default_print_protocol': 'raw'}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

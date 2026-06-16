@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kc_sales_commission_payment_wizard_form" model="ir.ui.view">
+        <field name="name">kc.sales.commission.payment.wizard.form</field>
+        <field name="model">kc.sales.commission.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Pagar comisión">
+                <group>
+                    <field name="commission_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                    <field name="currency_id"/>
+                    <field name="payment_date"/>
+                    <field name="journal_id"/>
+                    <field name="memo"/>
+                </group>
+                <footer>
+                    <button name="action_create_payment" string="Crear pago" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

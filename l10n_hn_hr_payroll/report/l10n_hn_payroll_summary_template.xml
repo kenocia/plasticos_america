@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="report_l10n_hn_payroll_summary">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout_standard">
+                        <div class="page">
+                            <t t-set="lines_values" t-value="o.get_payslip()"></t>
+                            <div class="row">
+                                <div class="text-center">
+                                    <strong><span t-esc="lines_values['company']" /></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-center">
+                                    <strong>PLANILLA: <span t-esc="lines_values['pago']" /></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 border-end">
+                                    <strong>Planilla:</strong>
+                                    <strong><span t-esc="lines_values['title_format']" /></strong>
+                                </div>
+                            </div>
+                            <table class="table table-sm table-bordered" style="text-align: left;">
+                                <thead>
+                                    <tr>
+                                        <th>
+
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                        <th colspan="5" class="text-center">
+                                            <strong>Ingresos</strong>
+                                        </th>
+                                        <th colspan="5" class="text-center">
+                                            <strong>Egreso</strong>
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <strong>Empleado</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Fecha de Ingreso</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Puesto</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Sueldo Mensual</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Días</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Devengado</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Cant. Horas Ext</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Horas Ext L.P.S</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Otros Ingresos</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Total Ingresos</strong>
+                                        </th>
+                                        <th>
+                                            <strong>IHSS</strong>
+                                        </th>
+                                        <th>
+                                            <strong>RAP</strong>
+                                        </th>
+                                        <th>
+                                            <strong>ISR</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Otros Egresos</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Total Egresos</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Neto a pagar</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="lines_values['employees_data']" t-as="line">
+                                        <tr>
+                                            <td class="text-start">
+                                                <span t-esc="line['name']"/>
+                                            </td>
+                                            <td class="text-start">
+                                                <span t-esc="line['date_hired']"/>
+                                            </td>
+                                            <td class="text-start">
+                                                <span t-esc="line['job_position']"/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_salary']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-start">
+                                                <span t-esc="line['worked_days']" t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_basic']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="line['extra_hours']" t-options='{"widget": "float_time"}' />
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_extra_hours']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_alw']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_gross']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_ded_IHSS']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_ded_RAP']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_ded_ISR']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_ded_other']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_ded_all']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_net']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <t t-set="totals" t-value="lines_values['total_data']"/>
+                                        <td class="text-center">
+                                            <strong><span t-esc="lines_values['total_payslip']" /></strong>
+                                        </td>
+                                        <td colspan="4" class="text-start">
+                                            <strong>Total: <span t-esc="lines_values['title_format']" /></strong>
+                                        </td>
+                                        <t t-foreach="totals" t-as="line">
+
+                                            <td class="text-end" t-if="totals[line]">
+                                                <strong>
+                                                    <t t-out="o.company_id.currency_id.symbol or '$'">$</t>
+                                                    <t t-out="'%0.2f' % float(totals[line]) or '0.00'">0.00</t>
+                                                </strong>
+                                            </td>
+                                            <td class="text-end" t-else="0.00"></td>
+                                        </t>
+                                    </tr>
+                                <tr>
+
+                                </tr>
+                                <tr>
+                                    <br/>
+                                    <br/>
+                                </tr>
+                                <tr>
+                                        <t t-set="totals" t-value="lines_values['total_data']"/>
+                                        <td colspan="5" class="text-center">
+                                            <strong>Neto a pagar: </strong>
+                                        </td>
+                                        <t t-foreach="totals" t-as="line">
+                                            <td class="text-end" t-if="totals[line]">
+                                                <strong>
+                                                    <t t-out="o.company_id.currency_id.symbol or '$'">$</t>
+                                                    <t t-out="'%0.2f' % float(totals[line]) or '0.00'">0.00</t>
+                                                </strong>
+                                            </td>
+                                            <td class="text-end" t-else="0.00"></td>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-12">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 text-center">
+
+                                        <p>______________________________________________
+                                           <br/>
+                                           <strong>HECHO POR</strong>
+                                        </p>
+
+                                </div>
+                                <div class="col-4 text-center">
+                                        <p>______________________________________________
+                                            <br/>
+                                            <strong>REVISADO POR</strong>
+                                        </p>
+                                </div>
+                                <div class="col-4 text-center">
+                                        <p>______________________________________________
+                                            <br/>
+                                            <strong>APROBADO POR</strong>
+                                        </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="page-break-after: always;"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

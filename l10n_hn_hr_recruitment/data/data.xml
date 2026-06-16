@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <data>
+        <!-- <record id="ir_cron_date_comparison" model="ir.cron">
+            <field name="name">Date Comparison Cron</field>
+            <field name="model_id" ref="l10n_hn_hr_recruitment.model_hr_job"/>
+            <field name="state">code</field>
+            <field name="code">model.compare_dates()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="active" eval="True"/>
+        </record> -->
+        <record id="survey_profile_1" model="hr.survey.profile">
+            <field name="name">Operativos</field>
+        </record>
+        <record id="survey_profile_2" model="hr.survey.profile">
+            <field name="name">Administrativos Medios</field>
+        </record>
+        <record id="survey_profile_3" model="hr.survey.profile">
+            <field name="name">Administrativos Altos Medios</field>
+        </record>
+
+        <record id="hr_job_rec_public" model="ir.rule">
+            <field name="name">Job Positions: Public</field>
+            <field name="model_id" ref="hr.model_hr_job"/>
+            <field name="domain_force">[('internal_published', '=', True)]</field>
+            <field name="groups" eval="[(4, ref('base.group_public'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        <record id="hr_job_rec_portal" model="ir.rule">
+            <field name="name">Job Positions: Portal</field>
+            <field name="model_id" ref="hr.model_hr_job"/>
+            <field name="domain_force">[('internal_published', '=', True)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+
+
+    </data>
+</odoo>

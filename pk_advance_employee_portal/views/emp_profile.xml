@@ -1,0 +1,626 @@
+<odoo>
+    <!-- Case when no employee record is linked -->
+    <template id="no_employee_found_template" name="No Employee Found">
+        <t t-call="portal.layout">
+            <div class="container mt-4">
+                <div class="alert alert-warning">
+                    <strong>No Employee Record:</strong>
+                    We could not find an employee record linked to your account.
+                    Please contact HR.
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Profile page -->
+    <template id="ad_my_profile_tem_id" name="Employee Profile Page">
+        <t t-call="portal.portal_layout">
+            <div class="row mb-">
+                <div class="col d-flex justify-content-between">
+                    <!-- Left Button -->
+                    <a href="/my/home" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left me-1"></i>
+                        Back to Home
+                    </a>
+                <a href="/my/experience" class="btn btn-secondary">
+                    <i class="fa fa-edit me-1"></i>
+                     Experience
+                    </a>
+                    <a href="/my/skills" class="btn btn-secondary">
+                    <i class="fa fa-edit me-1"></i>
+                     Skills
+                    </a>
+
+                    <!-- Right Button -->
+                    <a href="/edit/profile" class="btn btn-primary">
+                        <i class="fa fa-edit me-1"></i>
+                        Edit Profile
+                    </a>
+                </div>
+            </div>
+
+            <div class="container mt-4">
+                <h2 class="mb-3">My Profile</h2>
+
+                <div class="row">
+                    <!-- Profile Picture -->
+                    <div class="col-md-4 text-center">
+                        <t t-if="employee.image_1920">
+                            <img t-att-src="'data:image/png;base64,%s' % employee.image_1920.decode('utf-8')"
+                                 class="img-thumbnail rounded-circle mb-3"
+                                 style="max-width:200px;"/>
+                        </t>
+                        <t t-else="">
+                            <div class="border rounded p-3">No Picture</div>
+                        </t>
+                    </div>
+
+                    <!-- Basic Info -->
+                    <div class="col-md-8">
+                        <table class="table table-sm table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td t-esc="employee.name"/>
+                                </tr>
+                                <tr>
+                                    <th>Work Email</th>
+                                    <td t-esc="employee.work_email or ''"/>
+                                </tr>
+                                <tr>
+                                    <th>Work Phone</th>
+                                    <td t-esc="employee.work_phone or ''"/>
+                                </tr>
+                                <tr>
+                                    <th>Job Title</th>
+                                    <td t-esc="employee.job_title or ''"/>
+                                </tr>
+                                <tr>
+                                    <th>Department</th>
+                                    <td t-esc="employee.department_id.name or ''"/>
+                                </tr>
+                                <tr>
+                                    <th>Manager</th>
+                                    <td t-esc="employee.parent_id.name or ''"/>
+                                </tr>
+                                <tr>
+                                    <th>Working Hours</th>
+                                    <td t-esc="employee.resource_calendar_id.name or ''"/>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <!-- Private Information -->
+                <h4 class="mt-4">Private Information</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Private Email</th>
+                            <td t-esc="employee.private_email or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Bank Account</th>
+                            <td t-esc="employee.bank_account_id.acc_number or ''"/>
+                        </tr>
+                        <t t-if="employee.distance_home_work">
+                            <tr>
+                                <th>Home-Work Distance</th>
+                                <td t-esc="employee.distance_home_work or ''"/>
+                            </tr>
+                        </t>
+                        <t t-if="employee.private_car_plate">
+                            <tr>
+                                <th>Private Car Plate</th>
+                                <td t-esc="employee.private_car_plate or ''"/>
+                            </tr>
+                        </t>
+                        <tr>
+                            <th>Nationality</th>
+                            <td t-esc="employee.country_id.name or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Identification No</th>
+                            <td t-esc="employee.identification_id or ''"/>
+                        </tr>
+                        <tr>
+                            <th>SSN No</th>
+                            <td t-esc="employee.ssnid or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Passport No</th>
+                            <td t-esc="employee.passport_id or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td t-esc="employee.gender or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Date of Birth</th>
+                            <td t-esc="employee.birthday or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Place of Birth</th>
+                            <td t-esc="employee.place_of_birth or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Country of Birth</th>
+                            <td t-esc="employee.country_of_birth.name or ''"/>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Emergency -->
+                <h4 class="mt-4">Emergency</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Contact Name</th>
+                            <td t-esc="employee.emergency_contact or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Contact Phone</th>
+                            <td t-esc="employee.emergency_phone or ''"/>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Family Status -->
+                <h4 class="mt-4">Family Status</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Marital Status</th>
+                            <td t-esc="employee.marital or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Number of Dependent Children</th>
+                            <td t-esc="employee.children or ''"/>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Education -->
+                <h4 class="mt-4">Education</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Certificate Level</th>
+                            <td t-esc="employee.certificate or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Field of Study</th>
+                            <td t-esc="employee.study_field or ''"/>
+                        </tr>
+                        <tr>
+                            <th>School</th>
+                            <td t-esc="employee.study_school or ''"/>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Work Permit -->
+                <h4 class="mt-4">Work Permit</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Visa No</th>
+                            <td t-esc="employee.visa_no or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Work Permit No</th>
+                            <td t-esc="employee.permit_no or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Visa Expiration Date</th>
+                            <td t-esc="employee.visa_expire or ''"/>
+                        </tr>
+                        <tr>
+                            <th>Work Permit Expiration Date</th>
+                            <td t-esc="employee.work_permit_expiration_date or ''"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="ad_my_profile_edit_template" name="Employee Profile Edit Page">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h2 class="mb-3">Edit My Profile</h2>
+                <form method="POST" action="/edit/profile" class="o_portal_form">
+                    <div class="row">
+
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Private Email</label>
+                                <input type="email" name="private_email" class="form-control"
+                                       t-att-value="employee.private_email or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Private Phone</label>
+                                <input type="text" name="private_phone" class="form-control"
+                                       t-att-value="employee.private_phone or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Identification No</label>
+                                <input type="text" name="identification_id" class="form-control"
+                                       t-att-value="employee.identification_id or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nationality</label>
+                                <select name="country_id" class="form-control">
+                                    <option value="">-- Select Nationality --</option>
+                                    <t t-foreach="request.env['res.country'].sudo().search([])" t-as="country">
+                                        <option t-att-value="country.id"
+                                                t-att-selected="country.id == (employee.country_id.id if employee.country_id else 0)">
+                                            <t t-esc="country.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>SSN No</label>
+                                <input type="text" name="ssnid" class="form-control"
+                                       t-att-value="employee.ssnid or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Passport No</label>
+                                <input type="text" name="passport_id" class="form-control"
+                                       t-att-value="employee.passport_id or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select name="gender" class="form-control">
+                                    <option value="male" t-att-selected="'male' == employee.gender">Male</option>
+                                    <option value="female" t-att-selected="'female' == employee.gender">Female</option>
+                                    <option value="other" t-att-selected="'other' == employee.gender">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Birthday</label>
+                                <input type="date" name="birthday" class="form-control"
+                                       t-att-value="employee.birthday if employee.birthday else ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Place of Birth</label>
+                                <input type="text" name="place_of_birth" class="form-control"
+                                       t-att-value="employee.place_of_birth or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Country of Birth</label>
+                                <select name="country_of_birth" class="form-control">
+                                    <t t-foreach="request.env['res.country'].sudo().search([])" t-as="country">
+                                        <option t-att-value="country.id"
+                                                t-att-selected="country.id == employee.country_of_birth.id">
+                                            <t t-esc="country.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Marital Status</label>
+                                <select name="marital" class="form-control">
+                                    <option value="single" t-att-selected="'single' == employee.marital">Single</option>
+                                    <option value="married" t-att-selected="'married' == employee.marital">Married
+                                    </option>
+                                    <option value="cohabitant" t-att-selected="'cohabitant' == employee.marital">
+                                        Cohabitant
+                                    </option>
+                                    <option value="widower" t-att-selected="'widower' == employee.marital">Widower
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Number of Children</label>
+                                <input type="number" name="children" class="form-control"
+                                       t-att-value="employee.children or 0"/>
+                            </div>
+
+                            <!--                        <div class="form-group">-->
+                            <!--                            <label>Distance Home-Work (km)</label>-->
+                            <!--                            <input type="text" name="distance_home_work" class="form-control"-->
+                            <!--                                   t-att-value="employee.distance_home_work or ''"/>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="form-group">-->
+                            <!--                            <label>Private Car Plate</label>-->
+                            <!--                            <input type="text" name="private_car_plate" class="form-control"-->
+                            <!--                                   t-att-value="employee.private_car_plate or ''"/>-->
+                            <!--                        </div>-->
+                            <!--                    <div class="form-group">-->
+                            <!--                            <label>Bank Account</label>-->
+                            <!--                            <select name="bank_account_id" class="form-control">-->
+                            <!--                                <t t-foreach="request.env['res.partner.bank'].sudo().search([])" t-as="bank">-->
+                            <!--                                    <option t-att-value="bank.id"-->
+                            <!--                                            t-att-selected="bank.id == (employee.bank_account_id.id or 0)">-->
+                            <!--                                        <t t-esc="bank.acc_number or bank.bank_name"/>-->
+                            <!--                                    </option>-->
+                            <!--                                </t>-->
+                            <!--                            </select>-->
+                            <!--                        </div>-->
+
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Emergency Contact</label>
+                                <input type="text" name="emergency_contact" class="form-control"
+                                       t-att-value="employee.emergency_contact or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Emergency Phone</label>
+                                <input type="text" name="emergency_phone" class="form-control"
+                                       t-att-value="employee.emergency_phone or ''"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Certificate</label>
+                                <select name="certificate" class="form-control">
+                                    <t t-foreach="request.env['hr.employee'].sudo()._fields['certificate'].selection"
+                                       t-as="cert">
+                                        <option t-att-value="cert[0]" t-att-selected="cert[0]==employee.certificate">
+                                            <t t-esc="cert[1]"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Field of Study</label>
+                                <input type="text" name="study_field" class="form-control"
+                                       t-att-value="employee.study_field or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>School / University</label>
+                                <input type="text" name="study_school" class="form-control"
+                                       t-att-value="employee.study_school or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Visa No</label>
+                                <input type="text" name="visa_no" class="form-control"
+                                       t-att-value="employee.visa_no or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Visa Expiry</label>
+                                <input type="date" name="visa_expire" class="form-control"
+                                       t-att-value="employee.visa_expire and employee.visa_expire.strftime('%Y-%m-%d') or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Work Permit Expiration</label>
+                                <input type="date" name="work_permit_expiration_date" class="form-control"
+                                       t-att-value="employee.work_permit_expiration_date and employee.work_permit_expiration_date.strftime('%Y-%m-%d') or ''"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Work Permit No</label>
+                                <input type="text" name="permit_no" class="form-control"
+                                       t-att-value="employee.permit_no or ''"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a href="/my/profile" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="my_experience_template" name="My Experience">
+        <t t-call="portal.portal_layout">
+            <div class="row mb-3">
+                <div class="col d-flex justify-content-between">
+                    <!-- Left Button -->
+                    <a href="/my/profile" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left me-1"></i>
+                        Back to Profile
+                    </a>
+                    <!-- Right Button -->
+                    <a href="/edit/experience" class="btn btn-primary">Add Experience</a>
+
+                </div>
+            </div>
+            <div class="container mt-4">
+
+                <div class="col-md-8">
+                    <table class="table table-sm table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Position Name</th>
+                                <th>Type</th>
+                                <th>Display Type</th>
+                                <th>Date Start</th>
+                                <th>Date End</th>
+                            </tr>
+
+                            <t t-foreach="experience_ids" t-as="exp">
+                                <tr>
+                                    <td><t t-esc="exp.name"/></td>
+                                    <td><t t-esc="exp.line_type_id.name"/></td>
+                                    <td><t t-esc="exp.display_type"/></td>
+                                    <td><t t-esc="exp.date_start"/></td>
+                                    <td><t t-esc="exp.date_end"/></td>
+
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </t>
+    </template>
+
+    <template id="edit_experience_template" name="Edit Experience">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h2>Add Experience</h2>
+                <form method="post" action="/edit/experience">
+                    <div class="form-group">
+                        <label>Position Name</label>
+                        <input type="text" name="name" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group">
+                    <label>Type</label>
+                    <select name="line_type_id" class="form-control" required="required">
+                        <t t-foreach="request.env['hr.resume.line.type'].sudo().search([])" t-as="lt">
+                            <option t-att-value="lt.id"><t t-esc="lt.name"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" name="date_start" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" name="date_end" class="form-control"/>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3">Save</button>
+                    <a href="/my/experience" class="btn btn-secondary mt-3">
+                     Cancel
+                    </a>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="my_skills_template" name="My Skills">
+    <t t-call="portal.portal_layout">
+                    <div class="row mb-3">
+                <div class="col d-flex justify-content-between">
+                    <!-- Left Button -->
+                    <a href="/my/profile" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left me-1"></i>
+                        Back to Profile
+                    </a>
+                    <!-- Right Button -->
+                    <a href="/edit/skills" class="btn btn-primary">Add Skill</a>
+
+                </div>
+            </div>
+
+        <div class="container mt-4">
+            <div class="d-flex justify-content-between mb-3">
+                <h2>My Skills</h2>
+             </div>
+                            <div class="col-md-8">
+                    <table class="table table-sm table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Skill Type</th>
+                                <th>Skill</th>
+                                <th>Skill Level</th>
+                            </tr>
+
+                            <t t-foreach="skills" t-as="sk">
+                                <tr>
+                                    <td><t t-esc="sk.skill_type_id.name"/></td>
+                                    <td><t t-esc="sk.skill_id.name"/></td>
+                                    <td><t t-esc="sk.skill_level_id.name"/></td>
+
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+
+
+
+    </t>
+</template>
+
+<template id="edit_skills_template" name="Edit Skills">
+    <t t-call="portal.portal_layout">
+        <div class="container mt-4">
+            <h2>Add Skill</h2>
+            <form method="post" action="/edit/skills">
+
+                <!-- Skill Type -->
+                <div class="form-group">
+                    <label>Skill Type</label>
+                    <select id="skill_type" class="form-control" required="required">
+                        <option value="">Select a type</option>
+                        <t t-foreach="skill_types" t-as="st">
+                            <option t-att-value="st.id"><t t-esc="st.name"/></option>
+                        </t>
+                    </select>
+                </div>
+
+                <!-- Skill -->
+                <div class="form-group">
+                    <label>Skill</label>
+                    <select name="skill_id" id="skill_id" class="form-control" required="required">
+                        <option value="">Select a skill</option>
+                        <t t-foreach="skills" t-as="s">
+                            <option t-att-value="s.id" t-att-data-type="s.skill_type_id.id">
+                                <t t-esc="s.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+
+                <!-- Skill Level -->
+                <div class="form-group">
+                    <label>Skill Level</label>
+                    <select name="skill_level_id" class="form-control" required="required">
+                        <t t-foreach="skill_levels" t-as="sl">
+                            <option t-att-value="sl.id"><t t-esc="sl.name"/></option>
+                        </t>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3">Save</button>
+                        <a href="/my/skills" class="btn btn-secondary mt-3">Cancel</a>
+            </form>
+        </div>
+
+        <!-- Filtering Script -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const skillTypeSelect = document.getElementById("skill_type");
+                const skillSelect = document.getElementById("skill_id");
+
+                skillTypeSelect.addEventListener("change", function() {
+                    const selectedType = this.value;
+                    Array.from(skillSelect.options).forEach(opt => {
+                        if (!opt.value) return; // skip "Select a skill"
+                        opt.style.display = opt.getAttribute("data-type") === selectedType ? "block" : "none";
+                    });
+                    skillSelect.value = ""; // reset selection
+                });
+            });
+        </script>
+    </t>
+</template>
+
+
+
+</odoo>

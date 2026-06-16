@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--       # employee leave list view template                   -->
+    <template id="ad_employee_leave_list_view_temp_id" name="Employee Lists">
+        <t t-call="portal.portal_table">
+           <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="mt-3 text-start">
+                        <a href="/my/home" class="btn btn-secondary">
+                              <i class="fa fa-arrow-left me-1"></i>
+                            Back to home
+                        </a>
+                 </div>
+               <h3 class="mb-0 mr-3">My Leaves Details   </h3>
+            <a href="/my/leaves/new" class="btn btn-primary">
+                <i class="fa fa-plus"/>    New Leave Request
+            </a>
+        </div>
+            <t t-if="checkouts">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Total Leaves</th>
+                    <th>Used Leaves</th>
+                    <th>Remains Leaves</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span t-out="user.name"/>
+                    </td>
+                    <td>
+                        <span t-out="days_off"/>
+                    </td>
+                    <td>
+                        <span t-out="taken_leave_days"/>
+                    </td>
+                    <td>
+                        <span t-out="scheduled_leave_days"/>
+                    </td>
+                </tr>
+            </tbody>
+        </t>
+
+        <t t-else="">
+            <div class="alert alert-warning" role="alert">There are no Record Found.</div>
+        </t>
+        </t>
+    </template>
+
+
+    <!--   # employee leave form view template    -->
+    <template id="ad_employee_leave_form_view_temp_id" name="Employee Form View">
+        <t t-call="portal.portal_layout">
+            <t t-call="pk_advance_employee_portal.ad_employee_leave_list_view_temp_id"/>
+            <div class="row col-12 mt-4 mb-4" t-if="checkouts">
+                <div class="col-6">
+                    <table class="table table-sm table-bordered border-black">
+                        <thead>
+                            <tr>
+                                <th colspan="4" style="text-align:center !important">Used Leaves Details</th>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th>Leave Type</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Days</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="taken_leaves" t-as="leave">
+                                <tr>
+                                    <td><span t-out="leave.holiday_status_id.name"/></td>
+                                    <td><span t-out="leave.date_from.strftime('%Y-%m-%d')"/></td>
+                                    <td><span t-out="leave.date_to.strftime('%Y-%m-%d')"/></td>
+                                    <td><span t-out="leave.duration_display"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-6">
+                    <table class="table table-sm table-bordered border-black">
+                        <thead>
+
+                            <tr>
+                                <th colspan="4" style="text-align:center !important">Scheduled Leaves Details</th>
+                            </tr>
+                            <tr>
+                                <th>Leave Type</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Days</th>
+                            </tr>
+                        </thead>
+                          <t t-foreach="scheduled_leaves" t-as="leave">
+                                <tr>
+                                    <td><span t-out="leave.holiday_status_id.name"/></td>
+                                    <td><span t-out="leave.date_from.strftime('%Y-%m-%d')"/></td>
+                                    <td><span t-out="leave.date_to.strftime('%Y-%m-%d')"/></td>
+                                    <td><span t-out="leave.duration_display"/></td>
+                                </tr>
+                            </t>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+<!--    submit leave request template-->
+    <template id="ad_portal_leave_create_template" name="Leave Request Form">
+    <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_create_leaves" t-value="'Request New Leave'" />
+        <div class="container mt-4 mb-4">
+            <div class="mt-3 text-start">
+                <a href="/employee/leaves" class="btn btn-secondary">
+                    <i class="fa fa-arrow-left me-1"></i>
+                    Back
+                </a>
+            </div> 
+            <h3 class="mb-3">Request New Leave</h3>
+            <form action="/my/leaves/create" method="POST" class="oe_website_form form-horizontal">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                <div class="form-group row">
+                    <label for="leave_type_id" class="col-sm-3 col-form-label">Leave Type</label>
+                    <div class="col-sm-9">
+                       <select name="leave_type" class="form-control" required="required">
+                        <option value="">Select Type</option>
+                        <t t-foreach="request.env['hr.leave.type'].sudo().search([])" t-as="lt">
+                            <option t-att-value="lt.id"><t t-esc="lt.name" /></option>
+                        </t>
+                    </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="request_date_from" class="col-sm-3 col-form-label">From Date</label>
+                    <div class="col-sm-9">
+                        <input type="date" name="request_date_from" class="form-control" required="required"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="request_date_to" class="col-sm-3 col-form-label">To Date</label>
+                    <div class="col-sm-9">
+                        <input type="date" name="request_date_to" class="form-control" required="required"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="reason" class="col-sm-3 col-form-label">Reason</label>
+                    <div class="col-sm-9">
+                        <textarea name="reason" class="form-control" rows="3" placeholder="Optional..."> </textarea>
+                    </div>
+                </div>
+
+
+            <div class="d-flex justify-content-center form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <button type="submit"  class="btn btn-success mt-3">Submit Leave Request</button>
+                        <a href="/employee/leaves" class="btn btn-secondary mt-3">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </t>
+</template>
+
+</odoo>

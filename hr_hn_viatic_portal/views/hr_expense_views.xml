@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <data>
+          <record id="hr_expense_employee_view_form_easi_inherit" model="ir.ui.view">
+        <field name="name">hr.expense.view.form.inherit.easi</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                 <field name="payment_mode" invisible="1"/>
+                 <field name="approved_rate" string="Monto aprovado" invisible="payment_mode != 'viatic'"/>
+                 <field name="qty_person" string="Cantidad de personas" invisible="payment_mode != 'viatic'"/>
+                 <field name="qty_days" string="Cantidad de dias" invisible="payment_mode != 'viatic'"/>
+                <field name="journal_viatic_id"/>
+            </xpath>
+
+        </field>
+        </record>
+        
+        <!-- Heredar la vista de búsqueda existente -->
+        <record id="hr_expense_view_search_inherit_viatic_id" model="ir.ui.view">
+            <field name="name">hr.expense.view.search.inherit.viatic_id</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_search"/>
+            <field name="arch" type="xml">
+                <!-- Agregar el campo de búsqueda -->
+                <xpath expr="//search" position="inside">
+                    <field name="viatic_id" string="Viático"/>
+                </xpath>
+
+                <!-- Agregar filtro personalizado -->
+                <xpath expr="//search" position="inside">
+                    <filter name="filter_by_viatic" string="Filtrar por Viático" domain="[('viatic_id', '!=', False)]"/>
+                </xpath>
+
+                <!-- Agregar al grupo por -->
+                <xpath expr="//group" position="inside">
+                    <filter string="Viático" name="group_by_viatic" domain="[]" context="{'group_by': 'viatic_id'}"/>
+                </xpath>
+            </field>
+        </record>
+    
+
+    
+    </data>
+   
+</odoo>

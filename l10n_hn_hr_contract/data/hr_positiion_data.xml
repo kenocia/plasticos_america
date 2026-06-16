@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="hr_position_1" model="hr.position">
+            <field name="code">1</field>
+            <field name="name">JEFE DE TIENDA VENTAS</field>
+        </record>
+
+        <record id="hr_position_2" model="hr.position">
+            <field name="code">2</field>
+            <field name="name">AUXILIAR DE SERVICIO AL CLIENTE</field>
+        </record>
+
+        <record id="hr_position_3" model="hr.position">
+            <field name="code">3</field>
+            <field name="name">AUXILIAR DE CAJA</field>
+        </record>
+        <record id="hr_position_3" model="hr.position">
+            <field name="code">3</field>
+            <field name="name">AUXILIAR DE CAJA</field>
+        </record>
+        <record id="hr_position_4" model="hr.position">
+            <field name="code">4</field>
+            <field name="name">ASISTENTE DE SURTIDO</field>
+        </record>
+        <record id="hr_position_5" model="hr.position">
+            <field name="code">5</field>
+            <field name="name">AUXILIAR DE SEGURIDAD</field>
+        </record>
+        <record id="hr_position_6" model="hr.position">
+            <field name="code">6</field>
+            <field name="name">MOTORISTA</field>
+        </record>
+        <record id="hr_position_9" model="hr.position">
+            <field name="code">9</field>
+            <field name="name">IMPULSADOR GINO</field>
+        </record>
+        <record id="hr_position_11" model="hr.position">
+            <field name="code">11</field>
+            <field name="name">AUXILIAR ADMON. DE INVENTARIOS</field>
+        </record>
+        <record id="hr_position_13" model="hr.position">
+            <field name="code">13</field>
+            <field name="name">MECANICO</field>
+        </record>
+        <record id="hr_position_14" model="hr.position">
+            <field name="code">14</field>
+            <field name="name">AUXILIAR SOPORTE TECNICO IT</field>
+        </record>
+        <record id="hr_position_15" model="hr.position">
+            <field name="code">15</field>
+            <field name="name">AUXILIAR DE CONTABILIDAD</field>
+        </record>
+        <record id="hr_position_17" model="hr.position">
+            <field name="code">17</field>
+            <field name="name">JEFE DE TIENDA ADMINISTRATIVO</field>
+        </record>
+        <record id="hr_position_22" model="hr.position">
+            <field name="code">22</field>
+            <field name="name">ASISTENTE DE GERENCIA</field>
+        </record>
+        <record id="hr_position_27" model="hr.position">
+            <field name="code">27</field>
+            <field name="name">COCINERO (A)</field>
+        </record>
+        <record id="hr_position_28" model="hr.position">
+            <field name="code">28</field>
+            <field name="name">CONSERJE DE SUMINISTROS</field>
+        </record>
+        <record id="hr_position_29" model="hr.position">
+            <field name="code">29</field>
+            <field name="name">SUPERVISION DE RECEPCION</field>
+        </record>
+        <record id="hr_position_31" model="hr.position">
+            <field name="code">31</field>
+            <field name="name">ASISTENTE DE RRHH</field>
+        </record>
+        <record id="hr_position_32" model="hr.position">
+            <field name="code">32</field>
+            <field name="name">COORD. DE TRANSFERENCIA</field>
+        </record>
+        <record id="hr_position_35" model="hr.position">
+            <field name="code">35</field>
+            <field name="name">IMPULSADORA PACER</field>
+        </record>
+        <record id="hr_position_38" model="hr.position">
+            <field name="code">38</field>
+            <field name="name">AUXILIAR DE SUMINISTROS</field>
+        </record>
+        <record id="hr_position_39" model="hr.position">
+            <field name="code">39</field>
+            <field name="name">VESTIDORES</field>
+        </record>
+        <record id="hr_position_40" model="hr.position">
+            <field name="code">40</field>
+            <field name="name">AUXILIAR DE MANTENIMIENTO EN GENERAL</field>
+        </record>
+        <record id="hr_position_46" model="hr.position">
+            <field name="code">46</field>
+            <field name="name">CASA DO&#209;A BESSY</field>
+        </record>
+        <record id="hr_position_47" model="hr.position">
+            <field name="code">47</field>
+            <field name="name">AUXILIAR DE CARPINTERIA</field>
+        </record>
+        <record id="hr_position_48" model="hr.position">
+            <field name="code">48</field>
+            <field name="name">ASEADORA</field>
+        </record>
+        <record id="hr_position_49" model="hr.position">
+            <field name="code">49</field>
+            <field name="name">ANIMADOR EN PUERTA</field>
+        </record>
+        <record id="hr_position_51" model="hr.position">
+            <field name="code">51</field>
+            <field name="name">IGLESIA</field>
+        </record>
+        <record id="hr_position_52" model="hr.position">
+            <field name="code">52</field>
+            <field name="name">OPERADOR DE PRODUCCION</field>
+        </record>
+        <record id="hr_position_53" model="hr.position">
+            <field name="code">53</field>
+            <field name="name">SOLDADOR</field>
+        </record>
+        <record id="hr_position_55" model="hr.position">
+            <field name="code">55</field>
+            <field name="name">COMODIN</field>
+        </record>
+        <record id="hr_position_57" model="hr.position">
+            <field name="code">57</field>
+            <field name="name">JEFE DE PRODUCCION</field>
+        </record>
+        <record id="hr_position_59" model="hr.position">
+            <field name="code">59</field>
+            <field name="name">AUXILIAR DE ALMACEN</field>
+        </record>
+        <record id="hr_position_60" model="hr.position">
+            <field name="code">60</field>
+            <field name="name">COSTURERA (O)</field>
+        </record>
+        <record id="hr_position_63" model="hr.position">
+            <field name="code">63</field>
+            <field name="name">COORD. DE CONTROL Y CALIDAD</field>
+        </record>
+        <record id="hr_position_66" model="hr.position">
+            <field name="code">66</field>
+            <field name="name">PEGA PRECIO</field>
+        </record>
+        <record id="hr_position_68" model="hr.position">
+            <field name="code">68</field>
+            <field name="name">DIRECTOR CREATIVO</field>
+        </record>
+        <record id="hr_position_71" model="hr.position">
+            <field name="code">71</field>
+            <field name="name">DISE&#209;ADOR GRAFICO</field>
+        </record>
+        <record id="hr_position_75" model="hr.position">
+            <field name="code">75</field>
+            <field name="name">AUXILIAR ANALISIS DE INVENTARIOS</field>
+        </record>
+        <record id="hr_position_79" model="hr.position">
+            <field name="code">79</field>
+            <field name="name">AUXILIAR DE PROCESOS</field>
+        </record>
+        <record id="hr_position_87" model="hr.position">
+            <field name="code">87</field>
+            <field name="name">PERIFONISTA</field>
+        </record>
+        <record id="hr_position_89" model="hr.position">
+            <field name="code">89</field>
+            <field name="name">AUXILIAR DE RECLUTAMIENTO</field>
+        </record>
+        <record id="hr_position_91" model="hr.position">
+            <field name="code">91</field>
+            <field name="name">ADMINISTRACION DE BODEGA</field>
+        </record>
+        <record id="hr_position_92" model="hr.position">
+            <field name="code">92</field>
+            <field name="name">SUPERVISOR DE TIENDAS</field>
+        </record>
+        <record id="hr_position_93" model="hr.position">
+            <field name="code">93</field>
+            <field name="name">JEFE DE MANTENIMIENTO</field>
+        </record>
+        <record id="hr_position_94" model="hr.position">
+            <field name="code">94</field>
+            <field name="name">AUXILIAR DE MONITOREO</field>
+        </record>
+        <record id="hr_position_101" model="hr.position">
+            <field name="code">101</field>
+            <field name="name">AUXILIAR DE PROYECTO</field>
+        </record>
+        <record id="hr_position_103" model="hr.position">
+            <field name="code">103</field>
+            <field name="name">AUXILIAR GONDOLAS CUIDADO PERSONAL</field>
+        </record>
+        <record id="hr_position_104" model="hr.position">
+            <field name="code">104</field>
+            <field name="name">ELECTRICISTA</field>
+        </record>
+        <record id="hr_position_105" model="hr.position">
+            <field name="code">105</field>
+            <field name="name">AUXILIAR SURTIDO DE ABARROTERIA</field>
+        </record>
+        <record id="hr_position_106" model="hr.position">
+            <field name="code">106</field>
+            <field name="name">ASISTENTE ADMINISTRATIVO (CEDI)</field>
+        </record>
+        <record id="hr_position_108" model="hr.position">
+            <field name="code">108</field>
+            <field name="name">INGENIERO DE PROYECTOS</field>
+        </record>
+        <record id="hr_position_113" model="hr.position">
+            <field name="code">113</field>
+            <field name="name">DESARROLLO SOCIAL</field>
+        </record>
+        <record id="hr_position_115" model="hr.position">
+            <field name="code">115</field>
+            <field name="name">AUXILIAR DE PLANILLAS</field>
+        </record>
+        <record id="hr_position_116" model="hr.position">
+            <field name="code">116</field>
+            <field name="name">ENCARGADO DE PROYECTOS</field>
+        </record>
+        <record id="hr_position_117" model="hr.position">
+            <field name="code">117</field>
+            <field name="name">COMODIN GUARDIA DE SEG.TIENDAS</field>
+        </record>
+        <record id="hr_position_118" model="hr.position">
+            <field name="code">118</field>
+            <field name="name">AUXILIAR DE RELACIONES LABORALES</field>
+        </record>
+        <record id="hr_position_119" model="hr.position">
+            <field name="code">119</field>
+            <field name="name">AUXILIAR DE IMPORT/EXPORT</field>
+        </record>
+        <record id="hr_position_120" model="hr.position">
+            <field name="code">120</field>
+            <field name="name">T - AUXILIAR DE CARPINTERIA</field>
+        </record>
+        <record id="hr_position_121" model="hr.position">
+            <field name="code">121</field>
+            <field name="name">T - AUXILIAR DE MANTENIMIENTO EN GENERAL</field>
+        </record>
+        <record id="hr_position_124" model="hr.position">
+            <field name="code">124</field>
+            <field name="name">COORD. DE RECLUTAMIENTO</field>
+        </record>
+        <record id="hr_position_125" model="hr.position">
+            <field name="code">125</field>
+            <field name="name">AUDITOR INTERNO</field>
+        </record>
+        <record id="hr_position_127" model="hr.position">
+            <field name="code">127</field>
+            <field name="name">CONTRALOR</field>
+        </record>
+        <record id="hr_position_129" model="hr.position">
+            <field name="code">129</field>
+            <field name="name">CONTADOR GENERAL</field>
+        </record>
+        <record id="hr_position_130" model="hr.position">
+            <field name="code">130</field>
+            <field name="name">T - AYUDANTE DE CARPINTERIA</field>
+        </record>
+        <record id="hr_position_131" model="hr.position">
+            <field name="code">131</field>
+            <field name="name">AUXILIAR DE TRANSFERENCIA</field>
+        </record>
+        <record id="hr_position_132" model="hr.position">
+            <field name="code">132</field>
+            <field name="name">AUXILIAR DE ENTRADA DE MERCADERIA</field>
+        </record>
+        <record id="hr_position_134" model="hr.position">
+            <field name="code">134</field>
+            <field name="name">AUXILIAR INVENTARIOS FISICO</field>
+        </record>
+        <record id="hr_position_135" model="hr.position">
+            <field name="code">135</field>
+            <field name="name">LOGISTICA</field>
+        </record>
+        <record id="hr_position_136" model="hr.position">
+            <field name="code">136</field>
+            <field name="name">T - TECNICO EN REFRIGERACION</field>
+        </record>
+        <record id="hr_position_140" model="hr.position">
+            <field name="code">140</field>
+            <field name="name">LAVANDERA</field>
+        </record>
+        <record id="hr_position_141" model="hr.position">
+            <field name="code">141</field>
+            <field name="name">AUXILIAR TALLER DE BODEGA</field>
+        </record>
+        <record id="hr_position_142" model="hr.position">
+            <field name="code">142</field>
+            <field name="name">AUXILIAR DE PRECEO</field>
+        </record>
+        <record id="hr_position_146" model="hr.position">
+            <field name="code">146</field>
+            <field name="name">ENCARGADO DE PLANTA</field>
+        </record>
+        <record id="hr_position_147" model="hr.position">
+            <field name="code">147</field>
+            <field name="name">AUXILIAR AUDITOR DE MERCADERIA</field>
+        </record>
+        <record id="hr_position_148" model="hr.position">
+            <field name="code">148</field>
+            <field name="name">OPERADOR DE VI&#209;ETEO</field>
+        </record>
+        <record id="hr_position_154" model="hr.position">
+            <field name="code">154</field>
+            <field name="name">JEFE ADMON. DE SEGURIDAD</field>
+        </record>
+        <record id="hr_position_155" model="hr.position">
+            <field name="code">155</field>
+            <field name="name">AUXILIAR DE DESPACHO</field>
+        </record>
+        <record id="hr_position_157" model="hr.position">
+            <field name="code">157</field>
+            <field name="name">AUDITOR DE PROCESOS</field>
+        </record>
+        <record id="hr_position_160" model="hr.position">
+            <field name="code">160</field>
+            <field name="name">GERENTE DE MERCADEO</field>
+        </record>
+        <record id="hr_position_164" model="hr.position">
+            <field name="code">164</field>
+            <field name="name">MAESTRO (A) DE NATACION</field>
+        </record>
+        <record id="hr_position_173" model="hr.position">
+            <field name="code">173</field>
+            <field name="name">COORD. ADMON. DE INVENTARIOS</field>
+        </record>
+        <record id="hr_position_174" model="hr.position">
+            <field name="code">174</field>
+            <field name="name">AUXILIAR DE DEVOLUCIONES</field>
+        </record>
+        <record id="hr_position_176" model="hr.position">
+            <field name="code">176</field>
+            <field name="name">AUXILIAR RECEPTOR DE MERCADERIA</field>
+        </record>
+        <record id="hr_position_178" model="hr.position">
+            <field name="code">178</field>
+            <field name="name">&#8230;</field>
+        </record>
+        <record id="hr_position_180" model="hr.position">
+            <field name="code">180</field>
+            <field name="name">ASISTENTE DEL IMPRESOR</field>
+        </record>
+        <record id="hr_position_181" model="hr.position">
+            <field name="code">181</field>
+            <field name="name">AUXILIAR DE CONTROL Y CALIDAD</field>
+        </record>
+        <record id="hr_position_182" model="hr.position">
+            <field name="code">182</field>
+            <field name="name">COORD. DE DISPLAY</field>
+        </record>
+        <record id="hr_position_183" model="hr.position">
+            <field name="code">183</field>
+            <field name="name">ASISTENTE DE IT</field>
+        </record>
+        <record id="hr_position_184" model="hr.position">
+            <field name="code">184</field>
+            <field name="name">&#8230;</field>
+        </record>
+        <record id="hr_position_186" model="hr.position">
+            <field name="code">186</field>
+            <field name="name">COORD. ORDEN Y LIMPIEZA</field>
+        </record>
+        <record id="hr_position_188" model="hr.position">
+            <field name="code">188</field>
+            <field name="name">AUXILIAR ORDEN Y LIMPIEZA</field>
+        </record>
+        <record id="hr_position_191" model="hr.position">
+            <field name="code">191</field>
+            <field name="name">ENCARGADO(A) DE CAJA CHICA AREA MAYOREO</field>
+        </record>
+        <record id="hr_position_192" model="hr.position">
+            <field name="code">192</field>
+            <field name="name">AUXILIAR DE SURTIDO DE TIENDAS</field>
+        </record>
+        <record id="hr_position_196" model="hr.position">
+            <field name="code">196</field>
+            <field name="name">AUXILIAR DE VIAJE</field>
+        </record>
+        <record id="hr_position_198" model="hr.position">
+            <field name="code">198</field>
+            <field name="name">LIMPIEZA</field>
+        </record>
+        <record id="hr_position_200" model="hr.position">
+            <field name="code">200</field>
+            <field name="name">AUX. DE ALMACEN - INT.</field>
+        </record>
+        <record id="hr_position_201" model="hr.position">
+            <field name="code">201</field>
+            <field name="name">AUXILIAR DE MATRICULA</field>
+        </record>
+        <record id="hr_position_203" model="hr.position">
+            <field name="code">203</field>
+            <field name="name">AUXILIAR AREA DE CALZADO CABALLERO</field>
+        </record>
+        <record id="hr_position_209" model="hr.position">
+            <field name="code">209</field>
+            <field name="name">GUARDIA INTERNO</field>
+        </record>
+        <record id="hr_position_212" model="hr.position">
+            <field name="code">212</field>
+            <field name="name">JARDINERO DE CASA</field>
+        </record>
+        <record id="hr_position_213" model="hr.position">
+            <field name="code">213</field>
+            <field name="name">NI&#209;ERA DE CASA</field>
+        </record>
+        <record id="hr_position_214" model="hr.position">
+            <field name="code">214</field>
+            <field name="name">VENTAS ONLINE</field>
+        </record>
+        <record id="hr_position_216" model="hr.position">
+            <field name="code">216</field>
+            <field name="name">AYUDANTE</field>
+        </record>
+        <record id="hr_position_221" model="hr.position">
+            <field name="code">221</field>
+            <field name="name">ALBA&#209;IL</field>
+        </record>
+        <record id="hr_position_222" model="hr.position">
+            <field name="code">222</field>
+            <field name="name">&#8230;</field>
+        </record>
+        <record id="hr_position_223" model="hr.position">
+            <field name="code">223</field>
+            <field name="name">ARQUITECTO DE PROYECTOS</field>
+        </record>
+        <record id="hr_position_229" model="hr.position">
+            <field name="code">229</field>
+            <field name="name">POLIFUNCIONAL</field>
+        </record>
+        <record id="hr_position_232" model="hr.position">
+            <field name="code">232</field>
+            <field name="name">ASISTENTE DE COMPRAS</field>
+        </record>
+        <record id="hr_position_233" model="hr.position">
+            <field name="code">233</field>
+            <field name="name">AUXILIAR COMODIN DE SURTIDO</field>
+        </record>
+        <record id="hr_position_234" model="hr.position">
+            <field name="code">234</field>
+            <field name="name">AUXILIAR DE RETORNO</field>
+        </record>
+        <record id="hr_position_235" model="hr.position">
+            <field name="code">235</field>
+            <field name="name">AUXILIAR DE PRECEO</field>
+        </record>
+        <record id="hr_position_238" model="hr.position">
+            <field name="code">238</field>
+            <field name="name">AUXILIAR DE SURTIDO DE TIENDAS</field>
+        </record>
+        <record id="hr_position_240" model="hr.position">
+            <field name="code">240</field>
+            <field name="name">AUXILIAR SURTIDO DE SEGUNDA</field>
+        </record>
+        <record id="hr_position_243" model="hr.position">
+            <field name="code">243</field>
+            <field name="name">AUXILIAR INVENTARIOS FISICO (CEDI)</field>
+        </record>
+        <record id="hr_position_245" model="hr.position">
+            <field name="code">245</field>
+            <field name="name">JEFE ADMINISTRTATIVO DE BODEGA</field>
+        </record>
+        <record id="hr_position_246" model="hr.position">
+            <field name="code">246</field>
+            <field name="name">DEVOLUCIONES</field>
+        </record>
+        <record id="hr_position_252" model="hr.position">
+            <field name="code">252</field>
+            <field name="name">COORD. RELACIONES LABORALES</field>
+        </record>
+        <record id="hr_position_253" model="hr.position">
+            <field name="code">253</field>
+            <field name="name">AUXILIAR DE ENTRADA</field>
+        </record>
+        <record id="hr_position_254" model="hr.position">
+            <field name="code">254</field>
+            <field name="name">JEFE DE MANTENIMIENTO</field>
+        </record>
+        <record id="hr_position_255" model="hr.position">
+            <field name="code">255</field>
+            <field name="name">AUXILIAR DE AREA CUIDADO PERSONAL Y HOGAR</field>
+        </record>
+        <record id="hr_position_256" model="hr.position">
+            <field name="code">256</field>
+            <field name="name">ASISTENTE DE PROYECTOS</field>
+        </record>
+        <record id="hr_position_257" model="hr.position">
+            <field name="code">257</field>
+            <field name="name">AYUDANTE DE CARPINTERIA</field>
+        </record>
+        <record id="hr_position_258" model="hr.position">
+            <field name="code">258</field>
+            <field name="name">TECNICO EN REFRIGERACION</field>
+        </record>
+        <record id="hr_position_259" model="hr.position">
+            <field name="code">259</field>
+            <field name="name">AUXILIAR DE DISPLAY</field>
+        </record>
+        <record id="hr_position_260" model="hr.position">
+            <field name="code">260</field>
+            <field name="name">AYUDANTE DE ELECTRICISTA</field>
+        </record>
+        <record id="hr_position_262" model="hr.position">
+            <field name="code">262</field>
+            <field name="name">AUXILIAR GONDOLAS DE HOGAR</field>
+        </record>
+        <record id="hr_position_263" model="hr.position">
+            <field name="code">263</field>
+            <field name="name">AUXILIAR DE DESPACHO</field>
+        </record>
+        <record id="hr_position_268" model="hr.position">
+            <field name="code">268</field>
+            <field name="name">AUXILIAR AREA DE CALZADO</field>
+        </record>
+        <record id="hr_position_271" model="hr.position">
+            <field name="code">271</field>
+            <field name="name">COORD. DE INVENTARIOS FISICO (CEDI)</field>
+        </record>
+        <record id="hr_position_272" model="hr.position">
+            <field name="code">272</field>
+            <field name="name">AUXILIAR DE DISE&#209;ADOR GRAFICO</field>
+        </record>
+        <record id="hr_position_275" model="hr.position">
+            <field name="code">275</field>
+            <field name="name">AUXILIAR DE RRHH</field>
+        </record>
+        <record id="hr_position_276" model="hr.position">
+            <field name="code">276</field>
+            <field name="name">OP. DE VI&#209;ETEO - INT.</field>
+        </record>
+        <record id="hr_position_279" model="hr.position">
+            <field name="code">279</field>
+            <field name="name">T - MOTORISTA</field>
+        </record>
+        <record id="hr_position_281" model="hr.position">
+            <field name="code">281</field>
+            <field name="name">AUXILIAR DE DIGITACION</field>
+        </record>
+        <record id="hr_position_289" model="hr.position">
+            <field name="code">289</field>
+            <field name="name">AUXILIAR COMODIN VISUAL</field>
+        </record>
+        <record id="hr_position_290" model="hr.position">
+            <field name="code">290</field>
+            <field name="name">GUARDIA DE SEGURIDAD CASA</field>
+        </record>
+        <record id="hr_position_295" model="hr.position">
+            <field name="code">295</field>
+            <field name="name">OP. DE VI&#209;ETEO - CB</field>
+        </record>
+        <record id="hr_position_296" model="hr.position">
+            <field name="code">296</field>
+            <field name="name">AUX. DE ALMACEN - CB</field>
+        </record>
+        <record id="hr_position_298" model="hr.position">
+            <field name="code">298</field>
+            <field name="name">JARDINERO</field>
+        </record>
+        <record id="hr_position_299" model="hr.position">
+            <field name="code">299</field>
+            <field name="name">PROCESOS</field>
+        </record>
+        <record id="hr_position_300" model="hr.position">
+            <field name="code">300</field>
+            <field name="name">AUXILIAR ELECTRICISTA</field>
+        </record>
+        <record id="hr_position_301" model="hr.position">
+            <field name="code">301</field>
+            <field name="name">AUDITOR DE INVENTARIO</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_kc_physical_lot_scan_session" model="ir.sequence">
+        <field name="name">Sesión inventario físico previo</field>
+        <field name="code">kc.physical.lot.scan.session</field>
+        <field name="prefix">FISPRE/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

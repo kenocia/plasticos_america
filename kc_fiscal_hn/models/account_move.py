@@ -489,6 +489,10 @@ class AccountMove(models.Model):
         # Esto debe hacerse antes de procesar las secuencias fiscales
         # para asegurar que siempre se actualice, incluso si la factura ya tiene un número fiscal
         for move in self:
+            # Debug para recibos de compra (in_receipt)
+            if move.move_type == 'in_receipt':
+                print("KC_FISCAL_HN DEBUG _post in_receipt - move id:", move.id, "journal:", move.journal_id.display_name, "name:", move.name)
+                _logger.info("KC_FISCAL_HN DEBUG _post in_receipt - move id %s journal %s name %s", move.id, move.journal_id.display_name, move.name)
             if move.state == 'posted' and move.move_type in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'in_receipt']:
                 if move.amount_total:
                     move.totalAmountString = move.numero_to_letras(move.amount_total)
@@ -627,9 +631,18 @@ class AccountMove(models.Model):
                 if hasattr(current_range, 'rangoFinal') and current_range.rangoFinal:
                     if current_range.number_next_actual > current_range.rangoFinal:
                         # Verificar si hay subsecuencias futuras
-                        if sequence.has_valid_future_sequences(date):
-                            _logger.warning("Rango actual agotado pero existen subsecuencias futuras para secuencia %s", sequence.name)
-                            continue
+                        next_range = sequence.get_next_available_range(date)
+                        if next_range:
+                            _logger.warning(
+                                "Rango actual agotado (%s-%s) pero se usará subsecuencia futura %s-%s para secuencia %s",
+                                current_range.rangoInicial,
+                                current_range.rangoFinal,
+                                next_range.rangoInicial,
+                                next_range.rangoFinal,
+                                sequence.name,
+                            )
+                            # Cambiar el rango actual al siguiente disponible para que se tome su CAI y rangos
+                            current_range = next_range
                         else:
                             _logger.error("Rango agotado y no hay subsecuencias futuras para secuencia %s", sequence.name)
                             continue

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kc_gs1_picking_scan_wizard_form" model="ir.ui.view">
+        <field name="name">kc.gs1.picking.scan.wizard.form</field>
+        <field name="model">kc.gs1.picking.scan.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Escanear GS1" js_class="kc_gs1_scan_wizard">
+                <field name="state" invisible="1"/>
+                <field name="picking_id" invisible="1"/>
+                <field name="kc_focus_token" invisible="1"/>
+                <field name="kc_scan_refresh" invisible="1"/>
+                <!-- <group>
+                    <field name="picking_id" readonly="1" string="Operación"/>
+                </group> -->
+                <group>
+                    <label for="barcode_input" string="Escanear QR GS1"/>
+                    <field name="barcode_input"
+                           nolabel="1"
+                           widget="kc_gs1_barcode_scan"
+                           default_focus="1"
+                           class="o_input fs-3"/>
+                </group>
+                <group invisible="not message">
+                    <field name="scan_log_count" string="Lotes: " readonly="1"/>
+                    <field name="message" nolabel="1" readonly="1"/>
+                </group>
+                <notebook>
+                    <page string="Lotes escaneados" name="scan_logs">
+                        <group>
+                        </group>
+                        <field name="scan_log_ids" nolabel="1" readonly="1">
+                            <list create="0" edit="0" delete="0"
+                                  default_order="session_line_no desc, scan_date desc, id desc">
+                                <field name="session_line_no" string="#"/>
+                                <field name="lot_id"/>
+                                <field name="qty" string="Cantidad"/>
+                                <field name="product_id" optional="hide"/>
+                                <field name="scan_date" optional="hide"/>
+                                <field name="user_id" optional="hide"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Pendiente por despachar" name="dispatch_summary">
+                        <field name="summary_line_ids" nolabel="1" readonly="1">
+                            <list create="0" edit="0" delete="0">
+                                <field name="product_id"/>
+                                <field name="product_uom_id" string="UdM"/>
+                                <field name="qty_ordered" string="Pedido"/>
+                                <field name="qty_done" string="Despachado"/>
+                                <field name="qty_pending" string="Pendiente"
+                                       decoration-danger="qty_pending &gt; 0"
+                                       decoration-success="qty_pending == 0"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+                <group string="Último QR" invisible="state not in ('confirm', 'done')">
+                    <group>
+                        <field name="product_id"/>
+                        <field name="lot_id"/>
+                        <field name="qty_gs1"/>
+                    </group>
+                    <group>
+                        <field name="available_qty"/>
+                        <field name="pending_qty"/>
+                        <field name="location_id"/>
+                        <field name="location_dest_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_process_qr"
+                            type="object"
+                            string="Procesar QR"
+                            class="btn-secondary"
+                            invisible="1"/>
+                    <button name="action_apply_scan"
+                            type="object"
+                            string="Aplicar escaneo"
+                            class="btn-secondary"
+                            invisible="1"/>
+                    <button name="action_clear_ramp"
+                            type="object"
+                            string="Limpiar rampa"
+                            class="btn-warning"
+                            title="Borra el listado de esta rampa y reinicia el contador. No revierte cantidades ya aplicadas en la operación."/>
+                    <button name="action_close"
+                            type="object"
+                            string="Cerrar"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

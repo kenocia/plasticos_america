@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View hr.hn.delete.benefit.deduction form -->
+    <record id="view_hr_hn_delete_benefit_deduction_form" model="ir.ui.view">
+        <field name="name">view.hr.hn.delete.benefit.deduction.form</field>
+        <field name="model">hr.hn.delete.benefit.deduction</field>
+        <field name="arch" type="xml">
+            <form string="Borrar beneficios y deducciones">
+                <header>
+                    <button name="get_employees" type="object" string="Obtener empleados" invisible="state != 'draft'"/>
+                    <button string='Borrar' name="action_delete" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Información General">
+                            <field name="company_id" options="{'no_create': true, 'no_open': true}" readonly="1" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Beneficio/Deducción">
+                            <field name="category" required="True"/>
+                            <field name="rule_id" domain="[('benefit_deduction','=',True),('category_id.category','=',category)]" options="{'no_create': true, 'no_open': true}" required="True"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Empleados" name="employees">
+                            <field name="line_ids">
+                                <list editable="bottom" create="false">
+                                    <field name="company_id" column_invisible="True"/>
+                                    <field name="employee_id" readonly="1" options="{'no_create': true, 'no_open': true}"/>
+                                    <field name="contract_id" readonly="1" options="{'no_create': true, 'no_open': true}"/>
+                                    <field name="amount" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_hn_delete_benefit_deduction_list_view" model="ir.ui.view">
+		<field name="name">hr.hn.delete.benefit.deduction.list.view</field>
+		<field name="model">hr.hn.delete.benefit.deduction</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="company_id" groups="base.group_multi_company"/>
+				<field name="category"/>
+                <field name="rule_id"/>
+                <field name="state"/>
+			</list>
+		</field>
+	</record>
+
+    <!-- Action hr.hn.delete.benefit.deduction -->
+    <record id="action_hr_hn_delete_benefit_deduction" model="ir.actions.act_window">
+        <field name="name">Borrar beneficios y deducciones</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.hn.delete.benefit.deduction</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Reporte de Beneficios y Deducciones.
+            </p>
+        </field>
+    </record>
+
+</odoo>

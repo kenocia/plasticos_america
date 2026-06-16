@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View hr.hn.isr.history View List -->
+    <record id="view_hr_hn_isr_history_list" model="ir.ui.view">
+        <field name="name">view.hr.hn.isr.history.list</field>
+        <field name="model">hr.hn.isr.history</field>
+        <field name="arch" type="xml">
+            <list create="False" string="Historial de ISR aplicados">
+                <field name="contract_id"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="job_id" optional="hide"/>
+                <field name="isr_id"/>
+                <field name="payslip_run_id"/>
+                <field name="payslip_id" optional="hide"/>
+                <field name="montly_salary" optional="hide"/>
+                <field name="salary" optional="hide"/>
+                <field name="salary_pay" optional="hide"/>
+                <field name="schedule_pay"/>
+                <field name="apply_in_isr" optional="hide"/>
+                <field name="amount_isr"/>
+                <field name="value_isr"/>
+                <field name="initial_date"/>
+                <field name="end_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- View hr.hn.isr.history search -->
+    <record id="view_hr_hn_isr_history_search" model="ir.ui.view">
+        <field name="name">view.hr.hn.isr.history.search</field>
+        <field name="model">hr.hn.isr.history</field>
+        <field name="arch" type="xml">
+            <search string="Historial de ISR aplicados">
+                <group expand="1" string="Group By">
+                    <filter string="Contrato" name="contract_id" domain="[]" context="{'group_by':'contract_id'}"/>
+                    <filter string="Empleado" name="employee_id" domain="[]" context="{'group_by':'employee_id'}"/>
+                    <filter string="Departamento" name="department_id" domain="[]" context="{'group_by':'department_id'}"/>
+                    <filter string="Puesto de trabajo" name="job_id" domain="[]" context="{'group_by':'job_id'}"/>
+                    <filter string="Parametro ISR" name="isr_id" domain="[]" context="{'group_by':'isr_id'}"/>
+                    <filter string="Lote de nómina" name="payslip_run_id" domain="[]" context="{'group_by':'payslip_run_id'}"/>
+                    <filter string="Recibo de nómina" name="payslip_id" domain="[]" context="{'group_by':'payslip_id'}"/>
+                    <filter string="Pago programado" name="schedule_pay" domain="[]" context="{'group_by':'schedule_pay'}"/>
+                    <filter string="Aplicar ISR en" name="apply_in_isr" domain="[]" context="{'group_by':'apply_in_isr'}"/>
+                    <filter string="Periodo desde" name="initial_date" domain="[]" context="{'group_by':'initial_date'}"/>
+                    <filter string="Periodo hasta" name="end_date" domain="[]" context="{'group_by':'end_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action hr.hn.isr.history -->
+    <record id="action_hr_hn_isr_history" model="ir.actions.act_window">
+        <field name="name">Historial de ISR aplicados</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.hn.isr.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Historial de isr aplicados.
+            </p>
+        </field>
+    </record>
+
+</odoo>

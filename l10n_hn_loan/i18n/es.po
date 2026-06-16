@@ -1,0 +1,639 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hn_loan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e-20231201\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-24 14:09+0000\n"
+"PO-Revision-Date: 2024-03-24 14:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono del tipo de actividad"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__amount
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan_line__amount
+msgid "Amount"
+msgstr "Cantidad"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__annually
+#, python-format
+msgid "Annually"
+msgstr "Anualmente"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.hr_loan_form_view
+msgid "Approve"
+msgstr "Aprobar"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__state__approve
+#, python-format
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_attachment_count
+msgid "Attachment Count"
+msgstr "Cantidad de anexos"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__balance_amount
+msgid "Balance Amount"
+msgstr "Balance Importe"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__balance_amount
+msgid "Balance amount"
+msgstr "Balance Importe"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__bi-monthly
+#, python-format
+msgid "Bi-monthly"
+msgstr "Bimensual"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__bi-weekly
+#, python-format
+msgid "Bi-weekly"
+msgstr "Quincenalmente"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.hr_loan_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__state__cancel
+#, python-format
+msgid "Canceled"
+msgstr "Cancelado"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.actions.act_window,help:l10n_hn_loan.action_hr_loan_request
+msgid "Click to create a new Loan request."
+msgstr "Haga clic para crear una nueva solicitud de Préstamo."
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__company_id
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.hr_loan_form_view
+msgid "Compute Installment"
+msgstr "Cálculo de la cuota"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__create_date
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__currency_id
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__daily
+#, python-format
+msgid "Daily"
+msgstr "Diariamente"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__date
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__payment_date
+msgid "Date of the paymemt"
+msgstr "Fecha del pago"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan_line__date
+msgid "Date of the payment"
+msgstr "Fecha del pago"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__schedule_pay
+msgid "Default Scheduled Pay"
+msgstr "Pago programado por defecto"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__schedule_pay
+msgid "Defines the frequency of the wage payment."
+msgstr "Define la frecuencia del pago del salario."
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__department_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.view_loan_request_search_form
+msgid "Department"
+msgstr "Departamento"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__display_name
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__state__draft
+#, python-format
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: l10n_hn_loan
+#: model:ir.model,name:l10n_hn_loan.model_hr_employee
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__employee_id
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__department_id
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__employee_id
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan_line__employee_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.view_loan_request_search_form
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__has_message
+msgid "Has Message"
+msgstr "Tiene Mensaje"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__id
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcada, nuevos mensajes requieren su atención."
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__message_has_error
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
+
+#. module: l10n_hn_loan
+#: model:ir.model,name:l10n_hn_loan.model_hr_loan_line
+msgid "Installment Line"
+msgstr "Línea de pago a plazos"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.hr_loan_form_view
+msgid "Installments"
+msgstr "Plazos"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__job_position
+msgid "Job Position"
+msgstr "Puesto de trabajo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__job_position
+msgid "Job position"
+msgstr "Puesto de trabajo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__write_date
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__write_date
+msgid "Last Updated on"
+msgstr "Última modificación en"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan_line__loan_id
+#: model:ir.ui.menu,name:l10n_hn_loan.menu_base_hr_loan_request
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.view_loan_request_search_form
+msgid "Loan"
+msgstr "Préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__loan_amount
+msgid "Loan Amount"
+msgstr "Importe del préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_employee__loan_count
+msgid "Loan Count"
+msgstr "Número de préstamos"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_payslip_input__loan_line_id
+msgid "Loan Installment"
+msgstr "Préstamo a plazos"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__loan_lines
+msgid "Loan Line"
+msgstr "Línea de Préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__name
+msgid "Loan Name"
+msgstr "Nombre del préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__loan_id
+msgid "Loan Ref."
+msgstr "Préstamo Ref."
+
+#. module: l10n_hn_loan
+#: model:ir.model,name:l10n_hn_loan.model_hr_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.hr_loan_form_view
+msgid "Loan Request"
+msgstr "Solicitud de préstamo"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.hr_loan_tree_view
+msgid "Loan Requests"
+msgstr "Solicitudes de préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__loan_amount
+msgid "Loan amount"
+msgstr "Importe del préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_payslip_input__loan_line_id
+msgid "Loan installment"
+msgstr "Plazo del préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.actions.act_window,name:l10n_hn_loan.act_hr_employee_loan_request
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.view_employee_form_loan_inherit
+msgid "Loans"
+msgstr "Préstamos"
+
+#. module: l10n_hn_loan
+#: model:ir.ui.menu,name:l10n_hn_loan.menu_hr_loans_and_advances
+msgid "Loans & Advances"
+msgstr "Préstamos y anticipos"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_has_error
+msgid "Message Delivery error"
+msgstr "Error en la entrega del mensaje"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__monthly
+#, python-format
+msgid "Monthly"
+msgstr "Mensualmente"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mi actividad Plazo"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.view_loan_request_search_form
+msgid "My Requests"
+msgstr "Mis peticiones"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__name
+msgid "Name of the loan"
+msgstr "Nombre del préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Próximo evento del calendario de actividades"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite para la próxima actividad"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la próxima actividad"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__installment
+msgid "No Of Installments"
+msgstr "Número de plazos"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__installment
+msgid "Number of installments"
+msgstr "Número de plazos"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__paid
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan_line__paid
+msgid "Paid"
+msgstr "Pago"
+
+#. module: l10n_hn_loan
+#: model:ir.model,name:l10n_hn_loan.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Recibo de nómina"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__date
+msgid "Payment Date"
+msgstr "Fecha de pago"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__payment_date
+msgid "Payment Start Date"
+msgstr "Fecha de inicio del pago"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan_line__payslip_id
+msgid "Payslip"
+msgstr "Nómina"
+
+#. module: l10n_hn_loan
+#: model:ir.model,name:l10n_hn_loan.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr "Entrada de recibo de nómina"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan_line__payslip_id
+msgid "Payslip Ref."
+msgstr "Nómina Ref."
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#, python-format
+msgid "Please Compute installment"
+msgstr "Por favor, compute la cuota"
+
+#. module: l10n_hn_loan
+#: model:hr.salary.rule,name:l10n_hn_loan.hr_rule_loan
+msgid "Préstamo"
+msgstr ""
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__quarterly
+#, python-format
+msgid "Quarterly"
+msgstr "Trimestralmente"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.hr_loan_form_view
+msgid "Refuse"
+msgstr "Rechazar"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__state__refuse
+#, python-format
+msgid "Refused"
+msgstr "Rechazado"
+
+#. module: l10n_hn_loan
+#: model:ir.actions.act_window,name:l10n_hn_loan.action_hr_loan_request
+#: model:ir.ui.menu,name:l10n_hn_loan.menu_hr_loan_request
+msgid "Request for Loan"
+msgstr "Solicitud de préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__semi-annually
+#, python-format
+msgid "Semi-annually"
+msgstr "Semestralmente"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__semi-monthly
+#, python-format
+msgid "Semi-monthly"
+msgstr "Semi-mesual"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__state
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.view_loan_request_search_form
+msgid "Status"
+msgstr ""
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Atrasado: La fecha de vencimiento ya ha pasado\n"
+"Hoy: La fecha de la actividad es hoy\n"
+"Planificadas: Actividades futuras."
+
+#. module: l10n_hn_loan
+#: model_terms:ir.ui.view,arch_db:l10n_hn_loan.hr_loan_form_view
+msgid "Submit"
+msgstr "Enviar"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__state__waiting_approval_1
+#, python-format
+msgid "Submitted"
+msgstr "Enviado"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#, python-format
+msgid "The employee has already a pending installment"
+msgstr "El empleado ya tiene una cuota pendiente"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__total_amount
+msgid "Total Amount"
+msgstr "Importe total"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__total_paid_amount
+msgid "Total Paid Amount"
+msgstr "Importe total pagado"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__total_amount
+msgid "Total loan amount"
+msgstr "Importe total del préstamo"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__total_paid_amount
+msgid "Total paid amount"
+msgstr "Importe total pagado"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de la actividad de excepción registrada."
+
+#. module: l10n_hn_loan
+#: model_terms:ir.actions.act_window,help:l10n_hn_loan.action_hr_loan_request
+msgid "Use this menu to create loan requests."
+msgstr "Utilice este menú para crear solicitudes de préstamo."
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,field_description:l10n_hn_loan.field_hr_loan__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: l10n_hn_loan
+#: model:ir.model.fields,help:l10n_hn_loan.field_hr_loan__website_message_ids
+msgid "Website communication history"
+msgstr "Historia de la comunicación en la web"
+
+#. module: l10n_hn_loan
+#. odoo-python
+#: code:addons/l10n_hn_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:l10n_hn_loan.selection__hr_loan__schedule_pay__weekly
+#, python-format
+msgid "Weekly"
+msgstr "Semanalmente"

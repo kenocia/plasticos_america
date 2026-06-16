@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_hn_monthly_summary_view_form" model="ir.ui.view">
+        <field name="name">l10n.hn.monthly.summary.view.form</field>
+        <field name="model">l10n.hn.monthly.summary</field>
+        <field name="arch" type="xml">
+            <form string="Monthly Summary">
+                <header>
+                    <button name="action_generate_xls" string="Create XLSX" type="object" class="btn-primary"
+                        invisible="xlsx_attachment_id"/>
+                    <button string="Set to Draft" name="action_reset_to_draft" type="object" invisible="not xlsx_attachment_id"/>
+                    <button string="Compute Sheet" name="compute_sheet" type="object" invisible="not xlsx_attachment_id"/>
+<!--                    <button string="Print" name="action_print_payslip" type="object" invisible="not xlsx_attachment_id"/>-->
+                    <button string="Print" name="action_print_payslip" type="object" />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="display_name" nolabel="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                             <label for="date_from" string="Period"/>
+                             <div>
+                                 <field name="date_from" class="oe_inline" readonly="state != 'draft'"/> - <field name="date_to" class="oe_inline" readonly="state != 'draft'"/>
+                             </div>
+                            <field name="file_type" class="oe_inline" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="company_id" readonly="xlsx_file"/>
+                            <field name="struct_id" readonly="xlsx_file"/>
+                            <field name="xlsx_attachment_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Generation Complete" invisible="not xlsx_file">
+                        <field name="xlsx_filename" invisible="1"/>
+                        <field name="monthly_summary_pdf_filename" invisible="1"/>
+                        <group>
+                            <p colspan="4" class="oe_inline" name="xlsx_filename">
+                            Download the Monthly Summary XLSX file: <field name="xlsx_file" readonly="1" filename="xlsx_filename"/>
+                            </p>
+                        </group>
+                        <group>
+                           <p colspan="4" invisible="not monthly_summary_pdf_file">
+                           Download the Monthly Summary PDF file: <field name="monthly_summary_pdf_file" readonly="1" filename="monthly_summary_pdf_filename"/>
+                           </p>
+                        </group>
+                    </group>
+                    <field name="line_ids">
+                        <list no_open="1" editable="bottom">
+                            <field name="employee_id" widget="many2one_avatar_user"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_hn_monthly_summary_view_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.monthly.summary.view.tree</field>
+        <field name="model">l10n.hn.monthly.summary</field>
+        <field name="arch" type="xml">
+            <list string="Monthly Summary">
+                <field name="display_name" string="Name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="struct_id"/>
+                <field name="state"/>
+                <field name="state" widget="badge"
+                        decoration-muted="state == 'draft'"
+                        decoration-success="state == 'generated'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_hn_monthly_summary_action" model="ir.actions.act_window">
+        <field name="name">Monthly Summary</field>
+        <field name="res_model">l10n.hn.monthly.summary</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem
+            id="menu_l10n_hn_monthly_summary"
+            name="Monthly Summary"
+            parent="hr_payroll.menu_hr_payroll_report"
+            action="l10n_hn_monthly_summary_action"
+            sequence="15"/>
+</odoo>

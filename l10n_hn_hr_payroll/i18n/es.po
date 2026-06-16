@@ -1,0 +1,1553 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hn_hr_payroll
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-15 15:28+0000\n"
+"PO-Revision-Date: 2024-07-15 15:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_contract_employee_report__count_employee_recruit_temp
+msgid "# Permanently Employees Recruit"
+msgstr "Solicitud de empleados permanentes"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_contract_employee_report__count_employee_recruit_perm
+msgid "# Temporary Employees Recruit"
+msgstr "Solicitud de empleados temporales"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.actions.report,print_report_name:l10n_hn_hr_payroll.action_report_monthly_summary
+msgid "'Monthly Summary - %s' % (object.period.strftime(\"%d %B %Y\"))"
+msgstr "'Resumen Mensual - %s' % (object.period.strftime(\"%d %B %Y\"))"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "0.00"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "13avo M.C"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "13avo Mes - Complemento"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.inherit_hr_work_entry_view_form
+msgid "<span>Hours</span>"
+msgstr "Horas"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "<strong>Empleado:</strong> <br/>"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "<strong>From:</strong>"
+msgstr "<strong>Desde:</strong>"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "<strong>TOTALES: </strong>"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "<strong>To:</strong>"
+msgstr "<strong>Hasta:</strong>"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "A borrador"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "A.S"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "APORTACION RESERVA LABORAL"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "AUXILIO DE CESANTIA"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "AUXILIO DE CESANTIA PROP"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__state__open
+msgid "Abierto"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "Abrir"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__administrative_mistake_amount
+msgid "Administrative Mistake Amount"
+msgstr "Monto del error administrativo"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Ajuste de salario"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_work_entry_view_filter_inherit
+msgid "Animadores"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__anticipate_free_amount
+msgid "Anticipate Free Amount"
+msgstr "Anticipar cantidad gratuita"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__anticipate_free_day
+msgid "Anticipate Free Day"
+msgstr "Anticipar el día libre"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__anticipate_holiday_amount
+msgid "Anticipate Holiday Amount"
+msgstr "Anticipar el monto de las vacaciones"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__anticipate_holiday_day
+msgid "Anticipate Holiday Day"
+msgstr "Anticipar el día festivo"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__aport_reserve_amount
+msgid "Aport Reserve Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__leave_id
+msgid "Ausencia"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll__quincenal_sick_time_off
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_sick_time_off
+msgid "Ausencias por enfermedad"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__auxilio_cesantia
+msgid "Auxilio Cesantia"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__auxilio_cesantia_amount
+msgid "Auxilio Cesantia Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__auxilio_cesantia_amount_prop
+msgid "Auxilio Cesantia Amount Prop"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__auxilio_cesantia_opt
+msgid "Auxilio Cesantia Opt"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__auxilio_cesantia_prop
+msgid "Auxilio Cesantia Prop"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__years_of_service
+msgid "Años de antigüedad"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_benefits
+msgid "BENEFICIOS"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule.category,name:l10n_hn_hr_payroll.BONO
+msgid "BONO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__state__draft
+msgid "Borrador"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__employee_branch_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__employee_branch_ids
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "C. ACH"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "CONTRIBUCIONES PATRONALES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "CUENTA POR COBRAR IPM"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "Calcular"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_payroll_benefits
+msgid "Calculo de las prestaciones"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Car allowance"
+msgstr "Permiso de vehículo"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_search
+msgid "Carga inicial"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__category_id
+msgid "Category"
+msgstr "Categoría"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.actions.act_window,name:l10n_hn_hr_payroll.action_hr_payroll_closing_table
+#: model:ir.ui.menu,name:l10n_hn_hr_payroll.hr_hn_menu_hr_payroll_closing_table
+msgid "Cierres"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__closing_table_id
+msgid "Closing Table"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__closing_table_details_ids
+msgid "Closing Table Details"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__cobrar_pre_aviso_amount
+msgid "Cobrar Pre Aviso Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__cobrar_pre_aviso_day
+msgid "Cobrar Pre Aviso Day"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__cobrar_pre_aviso_opt
+msgid "Cobrar Pre Aviso Opt"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Comb"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Combustible"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Comisión ACH"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__employee_company_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__company_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__employee_company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+msgid "Compute Sheet"
+msgstr "Calcular hoja"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Cont. INFOP"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Cont. RAP"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__contract_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__contract_id
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_contract_employee_report
+msgid "Contract and Employee Analysis Report"
+msgstr "Informe de análisis de contratos y empleados"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__contract_id
+msgid "Contrato"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+msgid "Create XLSX"
+msgstr "Crear XLSX"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary_line__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary_line__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,help:l10n_hn_hr_payroll.field_hr_payroll_benefits__contract_id
+msgid "Current contract of the employee"
+msgstr "Contrato actual del empleado"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "DECIMO CUARTO MES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "DECIMO TERCER MES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_deducciones
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "DEDUCCIONES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_derechos
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "DERECHOS"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13day_pay
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_day_pay
+msgid "DIAS A PAGAR"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13calc_days
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_calc_days
+msgid "DIAS CALCULO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "DIAS LIBRES PENDIENTES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13total_days
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_total_days
+msgid "DIAS TOTALES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__date_from
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__date_from
+msgid "Date From"
+msgstr "Fecha desde"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__date_to
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__date_to
+msgid "Date To"
+msgstr "Fecha hasta"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_tree
+msgid "Desde"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Dias a pagar"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary_line__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_tree
+msgid "Documento"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+msgid "Download the Monthly Summary PDF file:"
+msgstr "Descargar el resumen mensual en un fichero PDF"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+msgid "Download the Monthly Summary XLSX file:"
+msgstr "Descargar el resumen mensual en un fichero XLSX"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__l10n_hn_monthly_summary__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Déc 3er mes"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Déc 4to mes"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Décimo cuarto mes"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Décimo tercer mes"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_day_free
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_day_free
+msgid "Día libre"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "Días"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__days_of_service
+msgid "Días de antigüedad"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__worked_days
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__worked_days
+msgid "Días trabajados"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "ERROR ADMINISTRATIVO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Emb."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Embargo(Banrural)"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__employee_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_tree
+msgid "Empleado"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary_line__employee_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_search
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_contract_employee_report__count_employee_permanently
+msgid "Employee Permanently"
+msgstr "Empleados Permanentes"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_contract_employee_report__count_employee_temporary
+msgid "Employee Temporality"
+msgstr "Empleados Temporales"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__employee_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__employee_ids
+msgid "Employees"
+msgstr "Empleados"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.actions.act_window,name:l10n_hn_hr_payroll.type_contract_employee_report_action
+msgid "Employees Analysis"
+msgstr "Análisis"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payslip_employees__contract_type_id
+msgid "Employment Type"
+msgstr "Tipo de empleado"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__end_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__date_to
+msgid "End Date"
+msgstr "Fecha Final"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.view_hr_payslip_by_employees_inh
+msgid "Especifique el tipo de contrato."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.view_hr_payslip_by_employees_inh
+msgid "Especifique si todos va a cobrar horas extras."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__have_payslip
+msgid "Existe Nómina"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_work_entry__total_overtime
+msgid "Extra Hours"
+msgstr "Horas extras"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__date_salary_paid
+msgid "Fecha Pagada"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__date_hire
+msgid "Fecha contratación"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,help:l10n_hn_hr_payroll.field_hr_payroll_benefits__date_hire
+msgid "Fecha de inicio del primer contrato"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,help:l10n_hn_hr_payroll.field_hr_payroll_benefits__date_of_stay
+msgid "Fecha de inicio del primer contrato permanente"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__date_of_stay
+msgid "Fecha de permanencia"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__report_date
+msgid "Fecha de reporte"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,help:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__date_salary_paid
+msgid "Fecha de salario pagado"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__date_end
+msgid "Fecha fin del contrato"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__date_from
+msgid "From"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_search
+msgid "Generados de la nómina"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_payslip_employees
+msgid "Generate payslips for all selected employees"
+msgstr "Generar los recibos de nómina para todos los empleados seleccionados"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__l10n_hn_monthly_summary__state__generated
+msgid "Generated"
+msgstr "Generado"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+msgid "Generation Complete"
+msgstr "Generación Completa"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "HORAS EXTRAS PENDIENTES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_work_entry
+msgid "HR Work Entry"
+msgstr "Entrada de trabajo de RRHH"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_tree
+msgid "Hasta"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__holiday_amount
+msgid "Holiday Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__holiday_day
+msgid "Holiday Day"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__holiday_prop
+msgid "Holiday Prop"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__holiday_prop_amount
+msgid "Holiday Prop Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__holiday_prop_day
+msgid "Holiday Prop Day"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__overtime
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__overtime
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payslip__overtime_hours_for_all
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payslip_employees__overtime_hours_for_all
+msgid "Horas extras"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__worked_hours
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__worked_hours
+msgid "Horas trabajadas"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_salary_employee_month
+msgid "Hr Salary Employee By Month Report"
+msgstr "Reporte del salario de empleados por mes"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_yearly_salary_detail
+msgid "Hr Salary Employee Detail Report"
+msgstr "Detalles del reporte de recibos de nómina"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary_line__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "IHSS Lab."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "IHSS Laboral"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_ihss_rsa
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_ihss_rsa
+msgid "IHSS R.A.S"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_ihss_rsa_patron
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_ihss_rsa_patron
+msgid "IHSS R.A.S Patrono"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_ihss_rps
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_ihss_rps
+msgid "IHSS R.P.S"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_ihss_rps_patron
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_ihss_rps_patron
+msgid "IHSS R.P.S Patron"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_monthl_inc_ihss
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_inc_ihss
+msgid "INCAPACIDAD IHSS"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_inc_post_natal
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_inc_post_natal
+msgid "INCAPACIDAD POST-NATAL"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_inc_pre_natal
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_inc_pre_natal
+msgid "INCAPACIDAD PRE-NATAL"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "INFOP"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_infop_patron
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_infop_patron
+msgid "INFOP Patron"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule.category,name:l10n_hn_hr_payroll.BASIC_INF
+msgid "INFORMACIÓN BASICA"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "INGRESOS"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "IR/Sal."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "IR/Salarios"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Imp."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "Importe"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Impuesto Municipal"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__ipm_amount
+msgid "Ipm Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__is_change_branch
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__is_change_branch
+msgid "Is changed Branch"
+msgstr "Sucursal actualizada"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_contract_employee_report__job_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.contract_employee_report_view_search_inherit
+msgid "Job Position"
+msgstr "Puesto de trabajo"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "LIBRES ANTICIPADA"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__labor_reserve
+msgid "Labor Reserve"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__labor_reserve_amount
+msgid "Labor Reserve Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary_line__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary_line__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__write_date
+msgid "Last Updated on"
+msgstr "Última actualització el"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__line_ids
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13month
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month
+msgid "MESES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_search
+msgid "Mes actual"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__months_of_service
+msgid "Meses de antigüedad"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__month
+msgid "Month"
+msgstr "Mes"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.actions.act_window,name:l10n_hn_hr_payroll.l10n_hn_monthly_summary_action
+#: model:ir.actions.report,name:l10n_hn_hr_payroll.action_report_monthly_summary
+#: model:ir.ui.menu,name:l10n_hn_hr_payroll.menu_l10n_hn_monthly_summary
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_tree
+msgid "Monthly Summary"
+msgstr "Resumen Mensual"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__monthly_summary_pdf_file
+msgid "Monthly Summary PDF"
+msgstr "Resumen Mensual PDF"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__monthly_summary_pdf_filename
+msgid "Monthly Summary Pdf Filename"
+msgstr "Resumen Mensual Fichero Pdf"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Monthly Total Summary"
+msgstr "Total del Resumen Mensual"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Monthly Wage Type Summary."
+msgstr "Resumen del tipo de salario mensual."
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_l10n_hn_monthly_summary_line
+msgid "Monthly summary line"
+msgstr "Líneas del Resumen Mensual"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "N. LEM."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__auxilio_cesantia_opt__no
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__cobrar_pre_aviso_opt__no
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__pre_aviso_opt__no
+msgid "NO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_tree
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Neto a Recibir LEM."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_search
+msgid "Nómina"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_form
+msgid "Nóminas"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule.category,name:l10n_hn_hr_payroll.FOR_TAX
+msgid "PARA IMPUESTO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "PRE-AVISO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_total_prest
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "PRESTACIONES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13prom_daily
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_prom_daily
+msgid "PROMEDIO DIARIO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13prom_month
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_average_month
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_prom_month
+msgid "PROMEDIO MENSUAL"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "PROVISIONES DEL MES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__state__paid
+msgid "Pagado"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Nómina"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__struct_id
+msgid "Pay Structure"
+msgstr "Estructura de pago"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_l10n_hn_monthly_summary
+msgid "Payroll: Monthly Summary"
+msgstr "Nómina: Resumen Mensual"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__payslip_id
+msgid "Payslip"
+msgstr "Recibo de Nómina"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pending_day_off
+msgid "Pending Day Off"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pending_day_off_amount
+msgid "Pending Day Off Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pending_overtime
+msgid "Pending Overtime"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pending_overtime_amount
+msgid "Pending Overtime Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pending_salary_amount
+msgid "Pending Salary Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pending_salary_day
+msgid "Pending Salary Day"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_work_entry_view_filter_inherit
+msgid "Perifonistas"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+msgid "Period"
+msgstr "Período"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.ui.menu,name:l10n_hn_hr_payroll.menu_report_type_contract_employee_all
+msgid "Permanently and Temporary Contracts"
+msgstr "Contratos permanentes y temporales"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payslip__leave_allocation_id
+msgid "Petición de asignación"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pre_aviso
+msgid "Pre Aviso"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pre_aviso_amount
+msgid "Pre Aviso Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__pre_aviso_opt
+msgid "Pre Aviso Opt"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Premio"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.actions.act_window,name:l10n_hn_hr_payroll.action_hr_payroll_benefits
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__benefits_id
+#: model:ir.ui.menu,name:l10n_hn_hr_payroll.hr_co_menu_hr_payroll_benefits
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_tree
+msgid "Prestaciones"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Prima"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Prima seguro médico por dependientes"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__average_daily
+msgid "Promedio Diario"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__average
+msgid "Promedio Mensual Ordinario"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__average_ord_daily
+msgid "Promedio Ordinario diario"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__average_month
+msgid "Promedio mensual"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_prov_13avo
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_prov_13avo
+msgid "Provisión 13avo"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_prov_14avo
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_prov_14avo
+msgid "Provisión 14avo"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Prést. B"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Prést. RAP"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Prést. Veh"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Préstamo Banrural"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Préstamo RAP"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Préstamo de vehículo"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_rap
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_rap
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "RAP"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_rap_patron
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_rap_patron
+msgid "RAP Patron"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "RESERVA LABORAL"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "S. BM"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "S. Pat"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "S.D"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "S.V"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "SALARIO PENDIENTE"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__auxilio_cesantia_opt__si
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__cobrar_pre_aviso_opt__si
+#: model:ir.model.fields.selection,name:l10n_hn_hr_payroll.selection__hr_payroll_benefits__pre_aviso_opt__si
+msgid "SI"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "SI/NO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits_months__salary
+msgid "Salario"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.custom_basic_salary_rule
+msgid "Salario Basico"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Salario Básico Mensual"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__basic
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__basic
+msgid "Salario basico"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__gross
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__gross
+msgid "Salario devengado"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table__net_salary
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_closing_table_details__net_salary
+msgid "Salario neto"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_report_l10n_hn_hr_payroll_report_hrsalarybymonth
+msgid "Salary by Month Report"
+msgstr "Reporte de salario por mes"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Seguro Patronal"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.l10n_hn_monthly_summary_view_form
+msgid "Set to Draft"
+msgstr "Cambiar a borrador"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary_line__sheet_id
+msgid "Sheet"
+msgstr "Hoja"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__start_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__date_from
+msgid "Start Date"
+msgstr "Fecha Inicial"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__state
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__state
+msgid "Status"
+msgstr "Estados"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_salary_employee_month__struct_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_yearly_salary_detail__struct_id
+msgid "Structure"
+msgstr "Estructura"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Sub. IHSS"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Subsidio IHSS"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Sueldo Variable"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "T. D"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13amount
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_amount
+msgid "TOTAL"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13amount_to_pay
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_amount_to_pay
+msgid "TOTAL A PAGAR"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_13total_gained_average
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_total_gained_average
+msgid "TOTAL GANADO"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_total_month
+msgid "TOTAL MENSUAL"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_payroll_closing_table
+msgid "Tabla Cierre de nómina"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_payroll_closing_table_details
+msgid "Tabla Cierre de nómina Detalle"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.actions.act_window,help:l10n_hn_hr_payroll.type_contract_employee_report_action
+msgid "This report performs analysis on your contracts."
+msgstr "Este informe realiza el ánlisis de sus empleados."
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.view_hr_payslip_by_employees_inh
+msgid "Tipo de contrato"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__date_to
+msgid "To"
+msgstr "Hasta"
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Total Deducc."
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__total_deduction
+msgid "Total Deducciones"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Total Devengado"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__total_benefits
+msgid "Total de beneficios"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__total_benefits_duties
+msgid "Total de beneficios y derechos"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__total_right
+msgid "Total derechos"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__total_months
+msgid "Total mensuales"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__total_prestaciones
+msgid "Total prestaciones"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "UNIFORME"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_closing_table_view_search
+msgid "Ultimo mes"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__last_salary
+msgid "Ultimo salario"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__last_salary_daily
+msgid "Ultimo salario diario"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__benefits_ids
+msgid "Ultimos salarios devengados"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__uniform_amount
+msgid "Uniform Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "VACACIONES"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "VACACIONES ANTICIPADA"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.hr_payroll_benefits_view_form
+msgid "VACACIONES PROPOR"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_vac
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_vac
+msgid "Vacaciones"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_month_vac_ant
+#: model:hr.salary.rule,name:l10n_hn_hr_payroll.datec_l10n_hh_hr_payroll_quincenal_vac_ant
+msgid "Vacaciones anticipadas"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__val_13avo
+msgid "Val 13Avo"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__val_13avo_amount
+msgid "Val 13Avo Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__val_13avo_day
+msgid "Val 13Avo Day"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__val_14avo
+msgid "Val 14Avo"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__val_14avo_amount
+msgid "Val 14Avo Amount"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_hr_payroll_benefits__val_14avo_day
+msgid "Val 14Avo Day"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_payroll.report_l10n_hn_monthly_summary
+msgid "Veh. ALW"
+msgstr ""
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__xlsx_attachment_id
+msgid "XLSX Attachment"
+msgstr "Adjunto XLSX"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__xlsx_file
+msgid "XLSX File"
+msgstr "Fichero XLSX"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model.fields,field_description:l10n_hn_hr_payroll.field_l10n_hn_monthly_summary__xlsx_filename
+msgid "XLSX Filename"
+msgstr "Nombre del fichero XLSX"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_report_l10n_hn_hr_payroll_report_hryearlysalary
+msgid "Yearly Salary Report"
+msgstr "Reporte del salario anual"
+
+#. module: l10n_hn_hr_payroll
+#: model:ir.model,name:l10n_hn_hr_payroll.model_hr_payroll_benefits_months
+msgid "hr.payroll.benefits.months"
+msgstr ""

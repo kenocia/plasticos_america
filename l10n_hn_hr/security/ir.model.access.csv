@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_family_manager,hr.family.manager,model_hr_family,hr.group_hr_manager,1,1,1,1
+access_hr_blood_type_manager,hr.blood.type.manager,model_hr_blood_type,hr.group_hr_manager,1,1,1,1
+access_hr_authorized_signature_manager,hr.authorized_signature.manager,model_hr_authorized_signature,hr.group_hr_manager,1,1,1,1
+access_hr_resource_calendar_type_manager,hr.resource.calendar.type.manager,model_hr_resource_calendar_type,hr.group_hr_manager,1,1,1,1
+access_hr_employee_family_report_manager,hr.employee.family.report.manager,model_hr_employee_family_report,hr.group_hr_manager,1,1,1,1
+access_hr_employee_sucursal_manager,hr.employee.sucursal,model_hr_employee_sucursal,hr.group_hr_manager,1,1,1,1

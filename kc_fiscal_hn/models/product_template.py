@@ -9,6 +9,7 @@ class ProductTemplate(models.Model):
     # Campos del módulo original
     exento = fields.Boolean(string='Exento', required=False, default=False)
     is_retention = fields.Boolean(string='Es Retención', default=False)
+    es_boletin = fields.Boolean(string='Es Boletin', default=False)
     tax_retention = fields.Many2one(comodel_name='account.tax', string='Impuesto Retención',
                                     required=False)
 

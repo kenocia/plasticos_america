@@ -1,0 +1,29 @@
+<odoo>
+    <menuitem id="menu_fuel_root"
+              name="Combustible"
+              parent="purchase.menu_purchase_root"
+              sequence="40"
+              groups="kc_fuel_purchase_control.group_fuel_user,kc_fuel_purchase_control.group_fuel_manager"/>
+
+    <menuitem id="menu_fuel_vehicle"
+              name="Vehículos"
+              parent="menu_fuel_root"
+              action="action_fuel_vehicle"
+              sequence="10"
+              groups="kc_fuel_purchase_control.group_fuel_user,kc_fuel_purchase_control.group_fuel_manager"/>
+
+    <menuitem id="menu_fuel_voucher"
+              name="Vales de combustible"
+              parent="menu_fuel_root"
+              action="action_fuel_voucher"
+              sequence="20"
+              groups="kc_fuel_purchase_control.group_fuel_user,kc_fuel_purchase_control.group_fuel_manager"/>
+
+    <menuitem id="menu_fuel_consumption_log"
+              name="Historial de consumo"
+              parent="menu_fuel_root"
+              action="action_fuel_consumption_log"
+              sequence="30"
+              groups="kc_fuel_purchase_control.group_fuel_user,kc_fuel_purchase_control.group_fuel_manager"/>
+</odoo>
+

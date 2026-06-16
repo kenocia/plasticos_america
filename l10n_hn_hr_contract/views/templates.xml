@@ -1,0 +1,139 @@
+<odoo>
+    <data>
+        <template id="hr_hn_portal_expense_my_home_quit" name="Renuncia" customize_show="True"
+                  inherit_id="portal.portal_my_home" priority="50">
+            <xpath expr="//div[@id='portal_common_category']" position="inside">
+                <t t-if="is_empl">
+                    <t t-call="portal.portal_docs_entry">
+                        <t t-set="icon" t-value="'/l10n_hn_hr_contract/static/src/img/quit.jpeg'"/>
+                        <t t-set="title">Sus renuncias</t>
+                        <t t-set="text">Solicite su renuncia por esta vía y conozca su estado</t>
+                        <t t-set="url" t-value="'/my/quit/list'"/>
+                        <t t-set="config_card" t-value="True"/>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+<!--        <template id="my_custom_quit_request_template" name="Renuncia ">-->
+<!--            <div class="o_portal_category row g-2 mt-3" id="expense_client">-->
+<!--                <div class="o_portal_index_card col-md-6 order-2">-->
+<!--                    <a href="/my/quit/list" title="Sus renuncias"-->
+<!--                       class="d-flex justify-content-start gap-2 gap-md-3 align-items-center py-3 pe-2 px-md-3 h-100 rounded text-decoration-none text-reset text-bg-light">-->
+<!--                        <div class="o_portal_icon align-self-start">-->
+<!--                            <img src="/l10n_hn_hr_contract/static/src/img/quit.jpeg" width="64" height="64"/>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <h5 class="mt-0 mb-1 d-flex gap-2">-->
+<!--                                <span>Sus renuncias</span>-->
+<!--                            </h5>-->
+<!--                            <p class="m-0 text-600">-->
+<!--                                Solicite su renuncia por esta vía y conozca su estado-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </template>-->
+        <template id="template_list_of_quit" name="Página Portal">
+            <t t-call="portal.portal_layout">
+                <div class="container list_js_expense_class">
+                    <div class="mb-2">
+                        <a href="/create_quit/new" class="btn btn-primary">Adicionar renuncia</a>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Fecha de renuncia</th>
+                                <th>Fecha de renuncia</th>
+                                <th>Fecha de renuncia esperada</th>
+                                <th>Fecha de aceptada</th>
+                                <th>Penalización</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="items" t-as="item">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" t-att-id="'checkbox_' + str(item.id)"
+                                               t-att-disabled="'disabled' if item.state != 'draft' else None"/>
+                                    </td>
+                                    <td style="display: none;">
+                                        <t t-esc="item.employee_id"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.employee_id.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.quit_date"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.expected_date"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.accepted_date"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.penalty_to_be_applied"/>
+                                    </td>
+                                    <td name="quit_status">
+                                        <t t-if="item.state == 'draft'" name="quit_status_draft">
+                                            <span class="badge rounded-pill text-primary">
+                                                <i class="fa fa-fw fa-star" aria-label="borrador" title="Borrador"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Borrador</span>
+                                            </span>
+                                        </t>
+                                        <t t-if="item.state == 'open'" name="quit_status_open">
+                                            <span class="badge rounded-pill text-bg-light">
+                                                <i class="fa fa-fw fa-clock-o" aria-label="En proceso"
+                                                   title="En proceso" role="img"/>
+                                                <span class="d-none d-md-inline">En proceso</span>
+                                            </span>
+                                        </t>
+                                        <t t-if="item.state == 'refuse'" name="quit_status_refuse">
+                                            <span class="badge rounded-pill text-bg-danger">
+                                                <i class="fa fa-fw fa-clock-o" aria-label="Rechazada" title="Rechazada"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Rechazada</span>
+                                            </span>
+                                        </t>
+                                        <t t-elif="item.state == 'cancel'">
+                                            <span class="badge rounded-pill text-bg-warning">
+                                                <i class="fa fa-fw fa-remove" aria-label="Cancelado" title="Cancelado"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Cancelado</span>
+                                            </span>
+                                        </t>
+                                        <t t-elif="item.state == 'accepted'">
+                                            <span class="badge rounded-pill text-bg-success">
+                                                <i class="fa fa-fw fa-circle text-success" aria-label="Aceptado"
+                                                   title="Aceptado"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Aceptado</span>
+                                            </span>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Paginación -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <t t-foreach="range(total_pages)" t-as="p">
+                                <li t-att-class="'page-item' + (' active' if page == p else '')">
+                                    <a class="page-link" t-att-href="'/my/quit/list?page=' + str(p)">
+                                        <t t-esc="p+1"/>
+                                    </a>
+                                </li>
+                            </t>
+                        </ul>
+                    </nav>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

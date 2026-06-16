@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kc_sales_commission_tree" model="ir.ui.view">
+        <field name="name">kc.sales.commission.list</field>
+        <field name="model">kc.sales.commission</field>
+        <field name="arch" type="xml">
+            <list string="Cálculos de comisión">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="total_amount" sum="Total venta"/>
+                <field name="total_commission" sum="Total comisión"/>
+                <field name="commission_pending_balance" optional="show" string="Saldo pend."/>
+                <field name="payment_count" widget="count"/>
+                <field name="state" widget="badge" decoration-success="state == 'locked'" decoration-info="state in ('calculated', 'confirmed', 'payment_posted')" decoration-warning="state == 'payment_draft'" decoration-muted="state == 'cancel'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kc_sales_commission_form" model="ir.ui.view">
+        <field name="name">kc.sales.commission.form</field>
+        <field name="model">kc.sales.commission</field>
+        <field name="arch" type="xml">
+            <form string="Comisión de ventas">
+                <field name="payment_count" invisible="1"/>
+                <header>
+                    <button name="action_recalculate" string="Recalcular" type="object" class="btn-primary" invisible="state not in ('draft', 'calculated')"/>
+                    <button name="action_confirm" string="Confirmar" type="object" class="btn-primary" invisible="state != 'calculated'"/>
+                    <button name="action_unconfirm" string="Volver a calculado" type="object" invisible="state != 'confirmed'"/>
+                    <button name="action_print_pdf" string="Imprimir PDF" type="object" invisible="state in ('draft', 'cancel')"/>
+                    <button name="action_export_excel" string="Exportar Excel" type="object" invisible="state in ('draft', 'cancel')"/>
+                    <button name="action_view_payments" string="Ver pagos" type="object" invisible="state in ('draft', 'calculated') and payment_count == 0"/>
+                    <button name="action_open_payment_wizard" string="Pagar" type="object" class="btn-primary" invisible="state in ('draft', 'calculated', 'locked', 'cancel') or commission_pending_balance &lt;= 0"/>
+                    <button name="action_cancel" string="Cancelar" type="object" invisible="state not in ('draft', 'calculated', 'confirmed')"/>
+                    <button name="action_reset_to_draft" string="Volver a borrador" type="object" invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,calculated,confirmed,payment_draft,payment_posted,locked"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_payments" type="object" class="oe_stat_button" icon="fa-money">
+                            <field name="payment_count" widget="statinfo" string="Pagos"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Pago parcial" bg_color="text-bg-warning" invisible="not commission_payment_partial"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="state not in ('draft', 'calculated')"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="state not in ('draft', 'calculated')"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_from" readonly="state not in ('draft', 'calculated')"/>
+                            <field name="date_to" readonly="state not in ('draft', 'calculated')"/>
+                            <field name="commission_calc_mode" readonly="state not in ('draft', 'calculated')"/>
+                        </group>
+                    </group>
+                    <group string="Resumen" col="4">
+                        <field name="total_clients" readonly="1"/>
+                        <field name="total_invoices" readonly="1"/>
+                        <field name="total_amount" readonly="1"/>
+                        <field name="total_commission" readonly="1"/>
+                    </group>
+                    <group string="Liquidación de pagos" col="4">
+                        <field name="payment_registered_total" readonly="1"/>
+                        <field name="payment_paid_total" readonly="1"/>
+                        <field name="commission_pending_balance" readonly="1"/>
+                        <field name="commission_payment_partial" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Clientes" name="page_clients">
+                            <field name="client_line_ids" readonly="1">
+                                <list>
+                                    <field name="partner_id" string="Cliente"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Facturas" name="page_invoices">
+                            <field name="invoice_line_ids" readonly="1">
+                                <list>
+                                    <field name="move_type" string="Tipo"/>
+                                    <field name="invoice_date" string="FECHA"/>
+                                    <field name="invoice_name" string="FACTURA"/>
+                                    <field name="partner_id" string="CLIENTE"/>
+                                    <field name="amount_untaxed" string="SUBTOTAL" sum="Subtotal"/>
+                                    <field name="amount_tax" string="ISV" sum="ISV"/>
+                                    <field name="amount_total" string="TOTAL" sum="Total"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Detalle por producto" name="page_detail">
+                            <field name="detail_line_ids" readonly="1">
+                                <list>
+                                    <field name="move_type" string="Tipo"/>
+                                    <field name="invoice_date" string="FECHA"/>
+                                    <field name="partner_id" string="CLIENTE"/>
+                                    <field name="product_code" string="CÓDIGO PROD."/>
+                                    <field name="product_id" string="PRODUCTO"/>
+                                    <field name="quantity" string="UNIDADES"/>
+                                    <field name="price_unit" string="PRECIO"/>
+                                    <field name="sale_amount" string="VENTA" sum="Venta"/>
+                                    <field name="commission_rate" string="COMISIÓN"/>
+                                    <field name="commission_amount" string="TOTAL COMISIÓN" sum="Comision"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_kc_sales_commission_search" model="ir.ui.view">
+        <field name="name">kc.sales.commission.search</field>
+        <field name="model">kc.sales.commission</field>
+        <field name="arch" type="xml">
+            <search string="Comisiones">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <filter name="filter_state_draft" string="Borrador" domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_state_calculated" string="Calculado" domain="[('state', '=', 'calculated')]"/>
+                <filter name="filter_state_confirmed" string="Confirmado" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="filter_state_payment_draft" string="Pago borrador" domain="[('state', '=', 'payment_draft')]"/>
+                <filter name="filter_state_payment_posted" string="Pago confirmado" domain="[('state', '=', 'payment_posted')]"/>
+                <filter name="filter_state_locked" string="Bloqueado" domain="[('state', '=', 'locked')]"/>
+                <filter name="filter_state_cancel" string="Cancelado" domain="[('state', '=', 'cancel')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_employee" string="Empleado" context="{'group_by': 'employee_id'}"/>
+                    <filter name="group_company" string="Compañía" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    <filter name="group_state" string="Estado" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_kc_sales_commission" model="ir.actions.act_window">
+        <field name="name">Cálculos de Comisión</field>
+        <field name="res_model">kc.sales.commission</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_kc_sales_commission_search"/>
+        <field name="context">{}</field>
+    </record>
+</odoo>

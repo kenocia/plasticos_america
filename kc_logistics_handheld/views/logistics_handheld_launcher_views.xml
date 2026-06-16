@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kc_logistics_handheld_launcher_form" model="ir.ui.view">
+        <field name="name">kc.logistics.handheld.launcher.form</field>
+        <field name="model">kc.logistics.handheld.launcher</field>
+        <field name="arch" type="xml">
+            <form string="Logística" delete="0" class="o_logistics_handheld_launcher">
+                <sheet>
+                    <field name="name" invisible="1"/>
+                    <group invisible="1">
+                        <field name="kc_allow_despachos"/>
+                        <field name="kc_allow_internos"/>
+                        <field name="kc_allow_fisico"/>
+                    </group>
+                    <div class="text-center mb-4 pt-2">
+                        <h1 class="fw-bold">Logística</h1>
+                        <p class="text-muted fs-5 mb-0">Seleccione una operación</p>
+                    </div>
+                    <div class="row g-3 px-2 pb-4 oe_logistics_handheld_buttons">
+                        <div class="col-12" invisible="not kc_allow_despachos">
+                            <button name="action_open_despachos"
+                                    type="object"
+                                    class="btn btn-primary btn-lg w-100 oe_logistics_handheld_btn">
+                                <i class="fa fa-truck fa-2x d-block mb-2" title="Despachos"/>
+                                <span class="fs-4 fw-semibold">Despachos</span>
+                            </button>
+                        </div>
+                        <div class="col-12" invisible="not kc_allow_internos">
+                            <button name="action_open_internos"
+                                    type="object"
+                                    class="btn btn-info btn-lg w-100 oe_logistics_handheld_btn">
+                                <i class="fa fa-exchange fa-2x d-block mb-2" title="Operaciones internas"/>
+                                <span class="fs-4 fw-semibold">Operaciones internas</span>
+                            </button>
+                        </div>
+                        <div class="col-12" invisible="not kc_allow_fisico">
+                            <button name="action_open_fisico"
+                                    type="object"
+                                    class="btn btn-success btn-lg w-100 oe_logistics_handheld_btn">
+                                <i class="fa fa-barcode fa-2x d-block mb-2" title="Toma física previo"/>
+                                <span class="fs-4 fw-semibold">Toma física previo</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning text-center mx-2"
+                         role="alert"
+                         invisible="kc_allow_despachos or kc_allow_internos or kc_allow_fisico">
+                        No tiene operaciones habilitadas. Solicite permisos al administrador.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kc_logistics_handheld_fisico" model="ir.actions.act_window">
+        <field name="name">Toma física previo</field>
+        <field name="path">logistics-fisico</field>
+        <field name="res_model">kc.physical.lot.scan.session</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">main</field>
+        <field name="domain">[('state', '=', 'draft')]</field>
+    </record>
+
+    <delete model="ir.actions.act_window" id="action_kc_logistics_handheld_launcher"/>
+
+    <record id="action_kc_logistics_handheld_launcher" model="ir.actions.server">
+        <field name="name">Logística</field>
+        <field name="path">logistics</field>
+        <field name="model_id" ref="model_kc_logistics_handheld_launcher"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_logistics_launcher()</field>
+    </record>
+</odoo>

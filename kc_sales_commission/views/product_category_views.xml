@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_category_form_commission" model="ir.ui.view">
+        <field name="name">product.category.form.commission</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='first']" position="after">
+                <group string="Comisión" groups="kc_sales_commission.group_sales_commission_user">
+                    <group>
+                        <field name="commission_excluded"/>
+                    </group>
+                    <group string="Comisión específica (opcional)">
+                        <field name="commission_use_custom"/>
+                        <field name="commission_type" invisible="not commission_use_custom"/>
+                        <field name="commission_rate" invisible="not commission_use_custom"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

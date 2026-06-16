@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="hr_hn_portal_expense.ExpenseFormTemplate">
+        <div class="expense_form_js_class" t-ref="form">
+            <form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">Nombre del Gasto *</label>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="name" 
+                                   name="name" 
+                                   t-model="state.currentExpense.name"
+                                   required="required"/>
+                            <div t-if="state.errors.name" class="text-danger">
+                                <small t-esc="state.errors.name"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="date">Fecha *</label>
+                            <input type="date" 
+                                   class="form-control" 
+                                   id="date" 
+                                   name="date" 
+                                   t-model="state.currentExpense.date"
+                                   required="required"/>
+                            <div t-if="state.errors.date" class="text-danger">
+                                <small t-esc="state.errors.date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="product_id">Producto</label>
+                            <select class="form-control" 
+                                    id="product_id" 
+                                    name="product_id" 
+                                    t-model="state.currentExpense.product_id"
+                                    t-on-change="onProductChange">
+                                <option value="">Seleccionar producto</option>
+                                <!-- Opciones se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="payment_mode">Modo de Pago *</label>
+                            <select class="form-control" 
+                                    id="payment_mode" 
+                                    name="payment_mode" 
+                                    t-model="state.currentExpense.payment_mode"
+                                    required="required">
+                                <option value="">Seleccionar modo de pago</option>
+                                <option value="own_account">Empleado (a reembolsar)</option>
+                                <option value="company_account">Empresa</option>
+                                <option value="viatic">Viático</option>
+                            </select>
+                            <div t-if="state.errors.payment_mode" class="text-danger">
+                                <small t-esc="state.errors.payment_mode"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row" t-if="state.showQuantity">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="quantity">Cantidad *</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="quantity" 
+                                   name="quantity" 
+                                   t-model="state.currentExpense.quantity"
+                                   t-on-change="onQuantityChange"
+                                   step="0.01"/>
+                            <div t-if="state.errors.quantity" class="text-danger">
+                                <small t-esc="state.errors.quantity"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="total_amount_currency">Total *</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="total_amount_currency" 
+                                   name="total_amount_currency" 
+                                   t-model="state.currentExpense.total_amount_currency"
+                                   step="0.01"
+                                   readonly="readonly"/>
+                            <div t-if="state.errors.total_amount_currency" class="text-danger">
+                                <small t-esc="state.errors.total_amount_currency"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="description">Descripción *</label>
+                            <textarea class="form-control" 
+                                      id="description" 
+                                      name="description" 
+                                      t-model="state.currentExpense.description"
+                                      rows="3"
+                                      required="required"></textarea>
+                            <div t-if="state.errors.description" class="text-danger">
+                                <small t-esc="state.errors.description"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="archivo_adjunto">Archivo Adjunto</label>
+                            <input type="file" 
+                                   class="form-control" 
+                                   id="archivo_adjunto" 
+                                   name="archivo_adjunto" 
+                                   multiple/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" 
+                                class="btn btn-primary save_and_new" 
+                                t-on-click="onSaveAndNew">
+                            Guardar y Nuevo
+                        </button>
+                        <button type="button" 
+                                class="btn btn-success save_all" 
+                                t-on-click="onSaveAll">
+                            Guardar Todo
+                        </button>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- Tabla de gastos -->
+            <div t-if="state.expenseList.length > 0" class="mt-4">
+                <h5>Lista de Gastos</h5>
+                <table class="table table-striped" id="expense_table_id">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.expenseList" t-as="expense" t-key="expense_index">
+                            <td t-esc="expense.name"/>
+                            <td t-esc="expense.date"/>
+                            <td t-esc="expense.total_amount_currency"/>
+                            <td t-esc="expense.description"/>
+                            <td>
+                                <button type="button" 
+                                        class="btn btn-danger btn-sm" 
+                                        t-on-click="() => this.removeFromList(expense_index)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

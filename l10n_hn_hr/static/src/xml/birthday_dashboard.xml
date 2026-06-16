@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <t t-name="l10n_hn_hr.Dashboard">
+        <div class="o_hr_payroll_dashboard_sheet container-fluid h-100 overflow-auto m-2 m-md-3 p-0">
+            <div class="row g-0 g-lg-3 h-lg-100">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-3" style="background-color: #f8f9fa;">
+                <div class="card-body">
+                    <h5 class="card-title text-center"><t t-esc="dashboardData.month"/></h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center"><strong>Empleado</strong></th>
+                                <th class="text-center"><strong>Departamento</strong></th>
+                                <th class="text-center"><strong>Fecha Nacimiento</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="dashboardData.employees" t-as="emp_id" t-key="emp_id.id" >
+                            <tr>
+                                <td class="text-center"><t t-esc="emp_id.name"/></td>
+                                <td class="text-center"><t t-esc="emp_id.department"/></td>
+                                <td class="text-center"><t t-esc="emp_id.date_birthday"/></td>
+                            </tr>
+                            </t>
+                            <!-- etc. -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Aquí puedes agregar más tarjetas (cards) si lo deseas -->
+        </div>
+    </div>
+</div>
+
+
+            </div>
+        </div>
+    </t>
+</template>

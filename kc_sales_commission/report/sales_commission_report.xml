@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sales_commission_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="doc" t-value="o"/>
+                <t t-call="web.external_layout">
+                    <style>
+                        .kc-sc-pdf {
+                            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                            color: #2c2c2c;
+                        }
+                        .kc-sc-pdf .kc-sc-head {
+                            border-radius: 10px;
+                            background: linear-gradient(135deg, #fff9f5 0%, #ffffff 50%, #f7f4f1 100%);
+                            border: 1px solid #e8dfd6;
+                            padding: 1.25rem 1.5rem;
+                            margin-bottom: 1.5rem;
+                        }
+                        .kc-sc-pdf .kc-sc-title {
+                            margin: 0 0 0.35rem 0;
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                            color: #1f1f1f;
+                            letter-spacing: -0.02em;
+                        }
+                        .kc-sc-pdf .kc-sc-sub {
+                            margin: 0;
+                            font-size: 0.9rem;
+                            color: #5c534c;
+                        }
+                        .kc-sc-pdf .kc-sc-meta {
+                            margin-top: 1rem;
+                            padding-top: 1rem;
+                            border-top: 1px dashed #ddd5cc;
+                            font-size: 0.95rem;
+                        }
+                        .kc-sc-pdf .kc-sc-meta strong { color: #3d352c; }
+                        .kc-sc-pdf .kc-sc-section-title {
+                            font-size: 0.75rem;
+                            text-transform: uppercase;
+                            letter-spacing: 0.12em;
+                            color: #8a7d72;
+                            margin: 0 0 0.75rem 0;
+                            font-weight: 600;
+                        }
+                        .kc-sc-pdf .kc-sc-grid {
+                            display: table;
+                            width: 100%;
+                            border-collapse: separate;
+                            border-spacing: 0 0.65rem;
+                        }
+                        .kc-sc-pdf .kc-sc-grid-row {
+                            display: table-row;
+                        }
+                        .kc-sc-pdf .kc-sc-cell {
+                            display: table-cell;
+                            width: 50%;
+                            vertical-align: top;
+                            padding-right: 0.5rem;
+                        }
+                        .kc-sc-pdf .kc-sc-cell + .kc-sc-cell {
+                            padding-right: 0;
+                            padding-left: 0.5rem;
+                        }
+                        .kc-sc-pdf .kc-sc-card {
+                            background: #ffffff;
+                            border: 1px solid #e5ddd4;
+                            border-radius: 8px;
+                            padding: 0.9rem 1rem;
+                            border-left: 4px solid #c75c28;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+                        }
+                        .kc-sc-pdf .kc-sc-card.kc-sc-card--muted {
+                            border-left-color: #a89888;
+                        }
+                        .kc-sc-pdf .kc-sc-card-label {
+                            font-size: 0.72rem;
+                            text-transform: uppercase;
+                            letter-spacing: 0.08em;
+                            color: #7a716a;
+                            margin-bottom: 0.35rem;
+                        }
+                        .kc-sc-pdf .kc-sc-card-value {
+                            font-size: 1.15rem;
+                            font-weight: 600;
+                            color: #1a1a1a;
+                        }
+                        /* Fondo sólido + texto oscuro: wkhtmltopdf ignora a veces gradientes y los h4 heredan color del layout */
+                        .kc-sc-pdf .kc-sc-total-box {
+                            margin-top: 1.75rem;
+                            padding: 1.35rem 1.5rem;
+                            border-radius: 10px;
+                            text-align: center;
+                            background-color: #fff4ed !important;
+                            border: 2px solid #c75c28 !important;
+                            color: #3d2918 !important;
+                            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                        }
+                        .kc-sc-pdf .kc-sc-total-box h4 {
+                            margin: 0 0 0.5rem 0;
+                            font-size: 0.8rem;
+                            font-weight: 700;
+                            letter-spacing: 0.08em;
+                            text-transform: uppercase;
+                            color: #5c3d2e !important;
+                        }
+                        .kc-sc-pdf .kc-sc-total-box .kc-sc-big {
+                            margin: 0;
+                            font-size: 1.75rem;
+                            font-weight: 700;
+                            color: #1a1a1a !important;
+                        }
+                        .kc-sc-pdf .kc-sc-total-box .kc-sc-big span {
+                            color: #1a1a1a !important;
+                        }
+                        .kc-sc-pdf .kc-sc-signatures {
+                            margin-top: 2.5rem;
+                            padding-top: 1.5rem;
+                        }
+                        .kc-sc-pdf .kc-sc-sign-line {
+                            border-top: 1px solid #c4bbb2;
+                            padding-top: 0.5rem;
+                            margin: 0 0.75rem;
+                            font-size: 0.85rem;
+                            color: #5c534c;
+                        }
+                    </style>
+                    <div class="page kc-sc-pdf">
+                        <div class="kc-sc-head">
+                            <h1 class="kc-sc-title">Comisión de ventas</h1>
+                            <p class="kc-sc-sub">Liquidación de comisiones por periodo</p>
+                            <div class="kc-sc-meta row">
+                                <div class="col-6">
+                                    <strong>Empleado</strong><br/>
+                                    <span t-field="o.employee_id"/>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <strong>Emisión</strong><br/>
+                                    <span t-esc="o.get_report_emission_str()"/>
+                                </div>
+                            </div>
+                            <div class="kc-sc-meta mb-0">
+                                <strong>Periodo</strong>
+                                <span t-field="o.date_from"/>
+                                <span> — </span>
+                                <span t-field="o.date_to"/>
+                            </div>
+                        </div>
+
+                        <p class="kc-sc-section-title">Resumen</p>
+                        <div class="kc-sc-grid">
+                            <div class="kc-sc-grid-row">
+                                <div class="kc-sc-cell">
+                                    <div class="kc-sc-card kc-sc-card--muted">
+                                        <div class="kc-sc-card-label">Total clientes</div>
+                                        <div class="kc-sc-card-value"><span t-esc="o.total_clients"/></div>
+                                    </div>
+                                </div>
+                                <div class="kc-sc-cell">
+                                    <div class="kc-sc-card kc-sc-card--muted">
+                                        <div class="kc-sc-card-label">Total facturas</div>
+                                        <div class="kc-sc-card-value"><span t-esc="o.total_invoices"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kc-sc-grid-row">
+                                <div class="kc-sc-cell">
+                                    <div class="kc-sc-card">
+                                        <div class="kc-sc-card-label">Total venta</div>
+                                        <div class="kc-sc-card-value">
+                                            <span t-field="o.total_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="kc-sc-cell">
+                                    <div class="kc-sc-card">
+                                        <div class="kc-sc-card-label">Comisión a pagar</div>
+                                        <div class="kc-sc-card-value">
+                                            <span t-field="o.total_commission" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kc-sc-total-box">
+                            <h4>Total comisión sobre venta por pagar</h4>
+                            <p class="kc-sc-big">
+                                <span t-field="o.total_commission" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </p>
+                        </div>
+
+                        <div class="kc-sc-signatures row text-center">
+                            <div class="col-4">
+                                <div class="kc-sc-sign-line">Elaborado por</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="kc-sc-sign-line">Revisado por</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="kc-sc-sign-line">Autorizado por</div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

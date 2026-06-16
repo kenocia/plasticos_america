@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Los tipos de calendario se pueden crear manualmente desde la interfaz -->
+    </data>
+</odoo>

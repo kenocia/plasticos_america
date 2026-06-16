@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <data>
+        <template id="quit_form_template" name="Renuncia">
+            <t t-call="portal.portal_layout">
+                <div class="container mt-5 quit_request_form_js_class">
+                    <form action="/#" method="post" string="Solicitud de Renuncia"
+                          class="o_mark_required needs-validation" data-mark="*" data-pre-fill="true"
+                          data-model_name="hr.quit.request">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="form-group row  mt-2 text-center">
+                            <h2>Solicitud de renuncia</h2>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="employee_id" class="col-sm-2 col-form-label">Nombre del Empleado:</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" name="employee_id" id="employee_id" t-att-value="employee_id.id"/>
+                                <input type="text" class="form-control" id="employee_id_name" name="employee_id_name"
+                                       t-att-value="employee_id.name" readonly="readonly"/>
+                                <p class="d-none" id="input_employee_id"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="previous_days" class="col-sm-2 col-form-label">Días Previos para
+                                Renunciar:
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="previous_days" name="previous_days"
+                                       t-att-value="previous_days_to_resign" readonly="readonly"/>
+                                <p class="d-none" id="input_previous_days"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="quit_date" class="col-sm-2 col-form-label">Fecha de renuncia:</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="quit_date" name="quit_date"
+                                       t-att-value="quit_date.strftime('%Y-%m-%d')" readonly="readonly"/>
+                                <p class="d-none" id="input_quit_date"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="expected_date" class="col-sm-2 col-form-label">Fecha esperada:</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="expected_date" name="expected_date"
+                                       t-att-value="expected_date.strftime('%Y-%m-%d')" readonly="readonly"/>
+                                <p class="d-none" id="input_expected_date"/>
+                            </div>
+                        </div>
+                        <div class="form-group row  mt-2">
+                            <label for="accepted_date" class="col-sm-2 col-form-label">Fecha aceptada:</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="accepted_date" name="accepted_date"
+                                       readonly="readonly"/>
+                                <p class="d-none" id="input_accepted_date"/>
+                            </div>
+                        </div>
+                        <div class="form-group row  mt-2">
+                            <label for="penalty" class="col-sm-2 col-form-label">Multa a aplicar":</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="penalty" name="penalty"
+                                       readonly="readonly"/>
+                                <p class="d-none" id="input_penalty"/>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-10">
+                                <button type="submit" id="add_quit_request" t-on-click="addQuit"
+                                        class="btn btn-primary">Agregar renuncia
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </t>
+        </template>
+
+        <template id="answer_form" name="Answer Form">
+            <t t-call="portal.portal_layout">
+                <div class="text-center">
+                    <h2>Solicitud procesada satisfactoriamente</h2>
+                    <img src="/l10n_hn_hr_contract/static/src/img/quit.jpeg" alt="Imagen Satisfactoria" width="50%"
+                         height="50%"/>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

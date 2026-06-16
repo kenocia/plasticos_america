@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="hr_work_entry_type_VAC" model="hr.work.entry.type">
+            <field name="name">Vacaciones</field>
+            <field name="code">VAC</field>
+            <field name="sequence">27</field>
+            <field name="is_leave">True</field>
+        </record>
+        <record id="hr_work_entry_type_VAC_ANT" model="hr.work.entry.type">
+            <field name="name">Vacaciones Anticipadas</field>
+            <field name="code">VAC_ANT</field>
+            <field name="is_leave">True</field>
+            <field name="sequence">27</field>
+        </record>
+        <record id="hr_work_entry_type_DAY_FREE" model="hr.work.entry.type">
+            <field name="name">Días libres</field>
+            <field name="code">DAY_FREE</field>
+            <field name="is_leave">True</field>
+            <field name="sequence">27</field>
+        </record>
+        <record id="hr_work_entry_type_INCAPACIDAD_IHSS" model="hr.work.entry.type">
+            <field name="name">INCAPACIDAD IHSS</field>
+            <field name="code">INC_IHSS</field>
+            <field name="is_leave">True</field>
+            <field name="sequence">28</field>
+        </record>
+        <record id="hr_work_entry_type_INCAPACIDAD_PRE_NATAL" model="hr.work.entry.type">
+            <field name="name">INCAPACIDAD PRE-NATAL</field>
+            <field name="code">INC_PRE_NATAL</field>
+            <field name="is_leave">True</field>
+            <field name="sequence">28</field>
+        </record>
+        <record id="hr_work_entry_type_INCAPACIDAD_POST_NATAL" model="hr.work.entry.type">
+            <field name="name">INCAPACIDAD POST-NATAL</field>
+            <field name="code">INC_POST_NATAL</field>
+            <field name="is_leave">True</field>
+            <field name="sequence">28</field>
+        </record>
+        <record id="hr_work_entry_type_suapension_sueldo" model="hr.work.entry.type">
+            <field name="name">SUSPENCION SIN G. SUELDO</field>
+            <field name="code">SUP_S_G_S</field>
+            <field name="is_leave">True</field>
+            <field name="sequence">29</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="ad_portal_my_expenses" name="My Expenses">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="mt-3 text-start">
+                        <a href="/my/home" class="btn btn-secondary">
+                            <i class="fa fa-arrow-left me-1"></i>
+                            Back to home
+                        </a>
+                    </div>
+                    <h2 class="mt-4 mb-4">My Expenses</h2>
+
+                    <a href="/expense/new" class="btn btn-primary">
+                        <i class="fa fa-plus"/>
+                        Record New Expense
+                    </a>
+                </div>
+                <!-- Search bar -->
+
+                <form method="get" class="form-inline mb-3">
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <input type="text" name="date" class="form-control"
+                                   t-att-value="date or ''"
+                                   placeholder="Date From"
+                                   onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'"/>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="text" name="date_end" class="form-control"
+                                   t-att-value="date_end or ''"
+                                   placeholder="Date To"
+                                   onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'"/>
+                        </div>
+
+                        <!-- EXACT state list you provided -->
+                        <div class="col-md-3">
+                            <select name="state" class="form-control mr-2">
+                                <option value="">All States</option>
+                                <t t-foreach="[('draft',     'To Report'),
+                                               ('submitted', 'Submitted'),
+                                               ('approved',  'Approved'),
+                                               ('done',      'Paid'),
+                                               ('refused',   'Cancelled')]" t-as="st">
+                                    <option t-att-value="st[0]" t-att-selected="state == st[0]">
+                                        <t t-esc="st[1]"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        </div>
+
+                    </div>
+                </form>
+
+                <!--                show expense table section-->
+                <t t-if="expenses">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Paid By</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                        <t t-foreach="expenses" t-as="expense">
+                            <tr>
+                                <td t-esc="expense.date"/>
+                                <td t-esc="expense.name"/>
+                                <td>
+                                    <t t-if="expense.payment_mode == 'own_account'">Employee</t>
+                                    <t t-elif="expense.payment_mode == 'company_account'">Company</t>
+                                    <t t-else="">Unknown</t>
+                                </td>
+                                <td t-esc="expense.total_amount"/>
+                                <td t-esc="expense.state"/>
+                            </tr>
+                        </t>
+                    </table>
+                </t>
+                <t t-if="not expense">
+                    <p class="alert alert-info">You don't have any Expense yet.</p>
+                </t>
+            </div>
+        </t>
+    </template>
+
+
+    <!--    request expense template-->
+    <template id="ad_expense_submission_form" name="Expense Submission Form">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-3">
+                <h2>Submit New Expense</h2>
+                <form method="post" action="/expense/submit" enctype="multipart/form-data">
+                    <!-- Payment Mode -->
+                    <div class="mb-3">
+                        <label class="form-label">Paid By *</label>
+                        <br/>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="payment_mode" id="own_account"
+                                   value="own_account" required="required"/>
+                            <label class="form-check-label" for="own_account">Paid by Employee</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="payment_mode" id="company_account"
+                                   value="company_account" required="required"/>
+                            <label class="form-check-label" for="company_account">Paid by Company</label>
+                        </div>
+                    </div>
+                    <!-- Basic Information -->
+                    <div class="mb-3">
+                        <label class="form-label">Description *</label>
+                        <input type="text" name="name" class="form-control" required="required"/>
+                    </div>
+
+                    <!-- Product Selection -->
+                    <div class="mb-3">
+                        <label class="form-label">Expense Type *</label>
+                        <select name="product_id" class="form-select" required="required">
+                            <option value="">Select an expense type</option>
+                            <t t-foreach="products" t-as="product">
+                                <option t-att-value="product.id">
+                                    <t t-esc="product.name"/>
+                                </option>
+
+                            </t>
+                        </select>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="mb-3">
+                        <label class="form-label">Amount *</label>
+                        <input type="number" name="total_amount" step="0.01" min="0" class="form-control"
+                               required="required"/>
+                    </div>
+                    <!-- Receipt Upload -->
+                    <div class="mb-3">
+                        <label class="form-label">Upload Receipt (PDF/JPG/PNG)</label>
+                        <input type="file" name="receipt" accept=".jpg,.jpeg,.png,.pdf" class="form-control"/>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label">Additional Notes</label>
+                        <textarea name="description" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">Submit Expense</button>
+                    <a href="/expense/my" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

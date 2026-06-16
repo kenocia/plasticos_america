@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payroll_closing_table_manager,hr.payroll.closing.table.manager,model_hr_payroll_closing_table,hr_contract.group_hr_contract_manager,1,1,1,1
+access_hr_payroll_closing_table_details_manager,hr.payroll.closing.table.details.manager,model_hr_payroll_closing_table_details,hr_contract.group_hr_contract_manager,1,1,1,1
+access_hr_payroll_benefits_manager,hr.payroll.benefits.manager,model_hr_payroll_benefits,hr_contract.group_hr_contract_manager,1,1,1,1
+access_hr_payroll_benefits_months_manager,hr.payroll.benefits.months.manager,model_hr_payroll_benefits_months,hr_contract.group_hr_contract_manager,1,1,1,1
+access_l10n_hn_monthly_summary_user,l10n.hn.monthly.summary,model_l10n_hn_monthly_summary,hr_payroll.group_hr_payroll_user,1,1,1,0
+access_l10n_hn_monthly_summary_line_user,l10n.hn.monthly.summary.line,model_l10n_hn_monthly_summary_line,hr_payroll.group_hr_payroll_user,1,1,1,0
+access_l10n_hn_monthly_summary_manager,l10n.hn.monthly.summary,model_l10n_hn_monthly_summary,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_l10n_hn_monthly_summary_line_manager,l10n.hn.monthly.summary.line,model_l10n_hn_monthly_summary_line,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_l10n_hn_bank_summary_manager,l10n.hn.bank.summary,model_l10n_hn_bank_summary,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_l10n_hn_bank_summary_line_manager,l10n.hn.bank.summary.line,model_l10n_hn_bank_summary_line,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_l10n_hn_payroll_summary_manager,l10n.hn.payroll.summary,model_l10n_hn_payroll_summary,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_l10n_hn_payroll_summary_line_manager,l10n.hn.payroll.summary.line,model_l10n_hn_payroll_summary_line,hr_payroll.group_hr_payroll_manager,1,1,1,1

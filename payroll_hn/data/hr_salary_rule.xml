@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="salary_rule_isr" model="hr.salary.rule">
+                <field name="name">ISR</field>
+                <field name="code">ISR</field>
+                <field name="active">True</field>
+                <field name="appears_on_payslip">True</field>
+                <field name="sequence">198</field>
+                <field name="condition_select">none</field>
+                <field name="amount_select">code</field>
+                <field name="category_id">4</field>
+                <field name="amount_python_compute">
+amount = 0
+if contract.apply_isr:
+    if contract.isr_id.state == 'active':
+        if contract.schedule_pay == 'bi-weekly':
+            if contract.apply_in_isr == 'first':
+                if payslip.date_from.day == 1:
+                    amount = contract.value_isr
+
+            if contract.apply_in_isr == 'second':
+                if payslip.date_from.day == 16:
+                    amount = contract.value_isr
+
+            if contract.apply_in_isr == 'both':
+                amount = contract.value_isr
+        else:
+            amount = contract.value_isr
+
+result = amount
+                </field>
+                <field name="struct_id" ref="regular_salary_structure"/>
+        </record>
+
+        <record id="salary_rule_rap" model="hr.salary.rule">
+            <field name="name">RAP</field>
+            <field name="code">RAP</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="sequence">198</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="category_id">4</field>
+            <field name="amount_python_compute">
+amount = 0
+if contract.apply_rap:
+    if contract.rap_id.state == 'active':
+        if contract.schedule_pay == 'bi-weekly':
+            if contract.apply_in_rap == 'first':
+                if payslip.date_from.day == 1:
+                    amount = contract.value_rap
+
+            if contract.apply_in_rap == 'second':
+                if payslip.date_from.day == 16:
+                    amount = contract.value_rap
+
+            if contract.apply_in_rap == 'both':
+                amount = contract.value_rap
+        else:
+            amount = contract.value_rap
+
+result = amount
+            </field>
+            <field name="struct_id" ref="regular_salary_structure"/>
+        </record>
+
+        <record id="salary_rule_ihss" model="hr.salary.rule">
+            <field name="name">IHSS</field>
+            <field name="code">IHSS</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="sequence">198</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="category_id">4</field>
+            <field name="amount_python_compute">
+amount = 0
+if contract.apply_ihss:
+    if contract.ihss_id.state == 'active':
+        if contract.schedule_pay == 'bi-weekly':
+            if contract.apply_in_ihss == 'first':
+                if payslip.date_from.day == 1:
+                    amount = contract.value_ihss
+
+            if contract.apply_in_ihss == 'second':
+                if payslip.date_from.day == 16:
+                    amount = contract.value_ihss
+
+            if contract.apply_in_ihss == 'both':
+                amount = contract.value_ihss
+        else:
+            amount = contract.value_ihss
+
+result = amount
+            </field>
+            <field name="struct_id" ref="regular_salary_structure"/>
+        </record>
+
+        <record id="salary_rule_employee_loans" model="hr.salary.rule">
+            <field name="name">Préstamo Empleado</field>
+            <field name="code">PEM</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="benefit_deduction">True</field>
+            <field name="sequence">198</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="category_id">4</field>
+            <field name="amount_python_compute">
+amount = 0
+line = contract.benefit_deduction_ids.filtered(lambda x: x.rule_id.code == 'PEM')
+if line:
+    if line.state == 'progress':
+        if line.periodicity == 'infinite':
+            if line.schedule_pay == 'bi-weekly':
+                if line.apply_in == 'first':
+                    if payslip.date_from.day == 1:
+                        amount = line.get_fee_amount()
+
+                if line.apply_in == 'second':
+                    if payslip.date_from.day == 16:
+                        amount = line.get_fee_amount()
+
+                if line.apply_in == 'both':
+                    amount = line.get_fee_amount()
+            else:
+                amount = line.get_fee_amount()
+        else:
+            if payslip.date_from &gt;= line.start_date:
+                if line.fee_numbers_apply &lt; line.fee_numbers:
+                    if line.schedule_pay == 'bi-weekly':
+                        if line.apply_in == 'first':
+                            if payslip.date_from.day == 1:
+                                amount = line.get_fee_amount()
+
+                        if line.apply_in == 'second':
+                            if payslip.date_from.day == 16:
+                                amount = line.get_fee_amount()
+
+                        if line.apply_in == 'both':
+                            amount = line.get_fee_amount()
+                    else:
+                        amount = line.get_fee_amount()
+result = amount
+            </field>
+            <field name="struct_id" ref="regular_salary_structure"/>
+        </record>
+
+        <record id="salary_rule_employee_bonus" model="hr.salary.rule">
+            <field name="name">Bono Empleado</field>
+            <field name="code">BONUS</field>
+            <field name="active">True</field>
+            <field name="appears_on_payslip">True</field>
+            <field name="benefit_deduction">True</field>
+            <field name="sequence">99</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="category_id">2</field>
+            <field name="amount_python_compute">
+amount = 0
+line = contract.benefit_deduction_ids.filtered(lambda x: x.rule_id.code == 'BONUS')
+if line:
+    if line.state == 'progress':
+        if line.periodicity == 'infinite':
+            if line.schedule_pay == 'bi-weekly':
+                if line.apply_in == 'first':
+                    if payslip.date_from.day == 1:
+                        amount = line.get_fee_amount()
+
+                if line.apply_in == 'second':
+                    if payslip.date_from.day == 16:
+                        amount = line.get_fee_amount()
+
+                if line.apply_in == 'both':
+                    amount = line.get_fee_amount()
+            else:
+                amount = line.get_fee_amount()
+        else:
+            if payslip.date_from &gt;= line.start_date:
+                if line.fee_numbers_apply &lt; line.fee_numbers:
+                    if line.schedule_pay == 'bi-weekly':
+                        if line.apply_in == 'first':
+                            if payslip.date_from.day == 1:
+                                amount = line.get_fee_amount()
+
+                        if line.apply_in == 'second':
+                            if payslip.date_from.day == 16:
+                                amount = line.get_fee_amount()
+
+                        if line.apply_in == 'both':
+                            amount = line.get_fee_amount()
+                    else:
+                        amount = line.get_fee_amount()
+result = amount
+            </field>
+            <field name="struct_id" ref="regular_salary_structure"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú Principal PLC -->
+    <menuitem id="menu_plc_root"
+              name="PLC"
+              sequence="100"
+              web_icon="kc_plc_transfer,static/description/icon.png"/>
+
+    <!-- Submenú Estaciones -->
+    <menuitem id="menu_plc_station"
+              name="Estaciones"
+              parent="menu_plc_root"
+              action="action_plc_station"
+              sequence="10"/>
+
+    <!-- Submenú Eventos -->
+    <menuitem id="menu_plc_event_log"
+              name="Eventos"
+              parent="menu_plc_root"
+              action="action_plc_event_log"
+              sequence="20"/>
+</odoo>

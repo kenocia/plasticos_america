@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+        <record id="regular_salary_structure" model="hr.payroll.structure">
+            <field name="name">Planilla Empleado</field>
+            <field name="type_id" ref="hr_contract.structure_type_employee"/>
+        </record>
+    
+    </data>
+</odoo>

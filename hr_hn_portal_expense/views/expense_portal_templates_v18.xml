@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Integración con portal principal -->
+        <template id="hr_hn_portal_expense_my_home_v18" name="Gastos Portal" 
+                  inherit_id="portal.portal_my_home" priority="20">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+                <t t-call="hr_hn_portal_expense.expense_portal_card"/>
+            </xpath>
+        </template>
+
+        <!-- Tarjeta de gastos en el portal -->
+        <template id="expense_portal_card" name="Tarjeta de Gastos">
+            <div class="o_portal_category row g-2 mt-3" id="expense_client">
+                <div class="o_portal_index_card col-md-6 order-2">
+                    <a href="/my/expense/list" 
+                       title="Mis Gastos"
+                       class="d-flex justify-content-start gap-2 gap-md-3 align-items-center py-3 pe-2 px-md-3 h-100 rounded text-decoration-none text-reset text-bg-light">
+                        <div class="o_portal_icon align-self-start">
+                            <i class="fa fa-receipt fa-3x text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="mt-0 mb-1 d-flex gap-2">
+                                <span>Mis Gastos</span>
+                            </h5>
+                            <p class="m-0 text-600">
+                                Solicite el pago de sus gastos y dé seguimiento a sus solicitudes
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </template>
+
+        <!-- Lista de gastos -->
+        <template id="template_list_of_expense_v18" name="Lista de Gastos Portal">
+            <t t-call="portal.portal_layout">
+                <div class="container-fluid">
+                    <!-- Header con acciones -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="mb-0">
+                                    <i class="fa fa-receipt me-2"></i>Mis Gastos
+                                </h2>
+                                <div>
+                                    <a href="/create_hr_expense/new" 
+                                       class="btn btn-primary">
+                                        <i class="fa fa-plus me-1"></i>Nuevo Gasto
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtros y búsqueda -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       placeholder="Buscar gastos..."
+                                       id="expense_search"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="status_filter">
+                                <option value="">Todos los estados</option>
+                                <option value="draft">Borrador</option>
+                                <option value="submit">Enviado</option>
+                                <option value="approve">Aprobado</option>
+                                <option value="post">Contabilizado</option>
+                                <option value="done">Pagado</option>
+                                <option value="refuse">Rechazado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="date_filter">
+                                <option value="">Todos los períodos</option>
+                                <option value="this_month">Este mes</option>
+                                <option value="last_month">Mes pasado</option>
+                                <option value="this_year">Este año</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de gastos -->
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0" id="expense_table">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="text-center">
+                                                <input type="checkbox" class="form-check-input" id="select_all"/>
+                                            </th>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th class="text-end">Total</th>
+                                            <th>Fecha</th>
+                                            <th>
+                                                <span class="badge bg-secondary">Estado</span>
+                                            </th>
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="items" t-as="item" t-key="item.id" 
+                                            class="expense-row" 
+                                            t-att-data-status="item.state">
+                                            <td class="text-center">
+                                                <input type="checkbox" 
+                                                       class="form-check-input expense-checkbox" 
+                                                       t-att-data-id="item.id"/>
+                                            </td>
+                                            <td>
+                                                <strong t-esc="item.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="item.description" 
+                                                      class="text-muted"/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="fw-bold" 
+                                                      t-esc="item.total_amount_currency"/>
+                                                <small class="text-muted ms-1" 
+                                                       t-esc="item.currency_id.symbol"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="item.date"/>
+                                            </td>
+                                            <td>
+                                                <span t-attf-class="badge #{
+                                                    'bg-secondary' if item.state == 'draft' else
+                                                    'bg-warning' if item.state == 'submit' else
+                                                    'bg-info' if item.state == 'approve' else
+                                                    'bg-success' if item.state in ['post', 'done'] else
+                                                    'bg-danger' if item.state == 'refuse' else
+                                                    'bg-secondary'
+                                                }">
+                                                    <t t-esc="item.state"/>
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <a t-attf-href="/my/expense/#{item.id}" 
+                                                       class="btn btn-outline-primary btn-sm" 
+                                                       title="Ver detalles">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    <button type="button" 
+                                                            class="btn btn-outline-danger btn-sm" 
+                                                            title="Eliminar"
+                                                            t-att-data-id="item.id"
+                                                            t-att-disabled="item.state not in ['draft']">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="not items">
+                                            <td colspan="7" class="text-center py-4">
+                                                <div class="text-muted">
+                                                    <i class="fa fa-inbox fa-3x mb-3"></i>
+                                                    <p class="mb-0">No hay gastos registrados</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paginación -->
+                    <div t-if="total_pages > 1" class="row mt-4">
+                        <div class="col-12">
+                            <nav aria-label="Paginación de gastos">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" t-att-class="{'disabled': page == 0}">
+                                        <a class="page-link" 
+                                           t-attf-href="/my/expense/list?page=#{page - 1 if page > 0 else 0}">
+                                            <i class="fa fa-chevron-left"></i> Anterior
+                                        </a>
+                                    </li>
+                                    
+                                    <t t-foreach="range(0, total_pages)" t-as="page_num">
+                                        <li class="page-item" 
+                                            t-att-class="{'active': page_num == page}">
+                                            <a class="page-link" 
+                                               t-attf-href="/my/expense/list?page=#{page_num}"
+                                               t-esc="page_num + 1"/>
+                                        </li>
+                                    </t>
+                                    
+                                    <li class="page-item" t-att-class="{'disabled': page >= total_pages - 1}">
+                                        <a class="page-link" 
+                                           t-attf-href="/my/expense/list?page=#{page + 1 if page &lt; total_pages - 1 else total_pages - 1}">
+                                            Siguiente <i class="fa fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Formulario de creación de gastos -->
+        <template id="create_expense_form_v18" name="Formulario de Creación de Gastos">
+            <t t-call="portal.portal_layout">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="mb-0">
+                                    <i class="fa fa-plus me-2"></i>Nuevo Gasto
+                                </h2>
+                                <a href="/my/expense/list" class="btn btn-outline-secondary">
+                                    <i class="fa fa-arrow-left me-1"></i>Volver a la lista
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">
+                                        <i class="fa fa-receipt me-2"></i>Información del Gasto
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Aquí se cargará el componente OWL -->
+                                    <div id="expense_form_container"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">
+                                        <i class="fa fa-info-circle me-2"></i>Información
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-info">
+                                        <h6>Instrucciones:</h6>
+                                        <ul class="mb-0 small">
+                                            <li>Complete todos los campos obligatorios (*)</li>
+                                            <li>Adjunte comprobantes cuando sea posible</li>
+                                            <li>Verifique los montos antes de enviar</li>
+                                            <li>Los gastos serán revisados por su supervisor</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

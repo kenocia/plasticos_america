@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- View hr.department form -->
+    <record id="view_hr_department_form" model="ir.ui.view">
+        <field name="name">view.hr.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <group>
+                    <group string="Parametros">
+                        <field name="record_salary_history"/>
+                        <field name="area" required="1"/>
+                    </group>
+                </group>
+            </sheet>
+        </field>
+    </record>
+
+    <record id="view_hr_department_list" model="ir.ui.view">
+        <field name="name">view.hr.department.list</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="area"/>
+            </field>
+        </field>
+    </record>
+
+    
+</odoo>

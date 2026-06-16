@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Registros de tipos de sangre -->
+        <record id="blood_type_a_pos" model="hr.blood.type">
+            <field name="code">A+</field>
+            <field name="name">A POSITIVO</field>
+        </record>
+        <record id="blood_type_a_neg" model="hr.blood.type">
+            <field name="code">A-</field>
+            <field name="name">A NEGATIVO</field>
+        </record>
+        <record id="blood_type_b_pos" model="hr.blood.type">
+            <field name="code">B+</field>
+            <field name="name">B POSITIVO</field>
+        </record>
+        <record id="blood_type_b_neg" model="hr.blood.type">
+            <field name="code">B-</field>
+            <field name="name">B NEGATIVO</field>
+        </record>
+        <record id="blood_type_ab_pos" model="hr.blood.type">
+            <field name="code">AB+</field>
+            <field name="name">AB POSITIVO</field>
+        </record>
+        <record id="blood_type_ab_neg" model="hr.blood.type">
+            <field name="code">AB-</field>
+            <field name="name">AB NEGATIVO</field>
+        </record>
+        <record id="blood_type_o_pos" model="hr.blood.type">
+            <field name="code">O+</field>
+            <field name="name">O POSITIVO</field>
+        </record>
+        <record id="blood_type_o_neg" model="hr.blood.type">
+            <field name="code">O-</field>
+            <field name="name">O NEGATIVO</field>
+        </record>
+
+    </data>
+</odoo>

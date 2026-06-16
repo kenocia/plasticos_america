@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_picking_handheld_despachos_kanban" model="ir.ui.view">
+        <field name="name">stock.picking.handheld.despachos.kanban</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <kanban create="0" delete="0" edit="0"
+                    class="o_kanban_mobile o_logistics_handheld_despachos_kanban">
+                <header>
+                    <button name="action_kc_logistics_handheld_back_to_menu"
+                            type="object"
+                            string="Menú principal"
+                            display="always"
+                            class="btn-secondary oe_handheld_back_menu_btn"
+                            icon="fa-arrow-left"/>
+                </header>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="scheduled_date"/>
+                <field name="origin"/>
+                <field name="sale_id"/>
+                <field name="state"/>
+                <field name="kc_handheld_state_label"/>
+                <field name="picking_type_id"/>
+                <templates>
+                    <t t-name="card">
+                        <main class="p-2">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <field name="name" class="fw-bold fs-5 text-primary"/>
+                                <span t-attf-class="badge rounded-pill #{
+                                    record.state.raw_value == 'assigned'
+                                        ? 'text-bg-success'
+                                        : 'text-bg-warning'
+                                }">
+                                    <field name="kc_handheld_state_label"/>
+                                </span>
+                            </div>
+                            <div t-if="record.partner_id.raw_value"
+                                 class="oe_handheld_meta_line mb-1 text-muted small">
+                                <i class="fa fa-user" title="Contacto"/>
+                                <field name="partner_id" class="oe_inline"/>
+                            </div>
+                            <div t-if="record.origin.raw_value"
+                                 class="oe_handheld_meta_line mb-1 text-muted small">
+                                <i class="fa fa-file-text-o" title="Pedido"/>
+                                <field name="origin" class="oe_inline"/>
+                            </div>
+                            <div t-if="record.scheduled_date.raw_value"
+                                 class="oe_handheld_meta_line text-muted small">
+                                <i class="fa fa-calendar" title="Fecha programada"/>
+                                <field name="scheduled_date" widget="datetime" class="oe_inline"/>
+                            </div>
+                        </main>
+                        <footer>
+                            <button name="action_kc_logistics_handheld_open_gs1_scan"
+                                    type="object"
+                                    class="btn btn-primary w-100">
+                                <i class="fa fa-barcode me-1" title="Escanear"/> Escanear GS1
+                            </button>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_stock_picking_handheld_despachos_search" model="ir.ui.view">
+        <field name="name">stock.picking.handheld.despachos.search</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <search string="Despachos handheld">
+                <field name="name"
+                       string="Entrega / pedido"
+                       filter_domain="['|', '|', ('name', 'ilike', self), ('origin', 'ilike', self), ('sale_id.name', 'ilike', self)]"/>
+                <field name="partner_id"/>
+                <field name="origin" invisible="1"/>
+                <field name="sale_id" invisible="1"/>
+                <filter string="En espera" name="filter_waiting"
+                        domain="[('kc_handheld_state_group', '=', 'waiting')]"/>
+                <filter string="Disponible" name="filter_assigned"
+                        domain="[('kc_handheld_state_group', '=', 'assigned')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_kc_logistics_handheld_despachos" model="ir.actions.act_window">
+        <field name="name">Despachos</field>
+        <field name="path">logistics-despachos</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">kanban</field>
+        <field name="target">main</field>
+        <field name="view_id" ref="view_stock_picking_handheld_despachos_kanban"/>
+        <field name="search_view_id" ref="view_stock_picking_handheld_despachos_search"/>
+        <field name="domain">[
+            ('picking_type_code', '=', 'outgoing'),
+            ('state', 'in', ('waiting', 'confirmed', 'assigned')),
+            ('picking_type_id.kc_enable_gs1_dispatch_wizard', '=', True),
+        ]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay entregas en espera o disponibles para despachar.
+            </p>
+            <p>Pulse una tarjeta para abrir el escáner GS1.</p>
+        </field>
+    </record>
+</odoo>

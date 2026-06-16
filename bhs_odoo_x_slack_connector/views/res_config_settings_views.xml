@@ -1,0 +1,32 @@
+<odoo>
+    <record id="res_config_settings_view_form_slack_configs" model="ir.ui.view">
+        <field name="name">res.config.settings.form.slack_configs</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- add after the Invite Users section -->
+            <xpath expr="//div[@id='invite_users']" position="after">
+                <h2>Slack integration config</h2>
+                <div class="row mt16 o_settings_container" id="Slack_configs">
+                    <div class="col-12 col-lg-6 o_setting_box"
+                        id="aws_cognito_setting"
+                        title="Using Odoo send messages notification to slack.">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="slack_client_id" class="o_form_label pb-2"/>
+                                    <field name="slack_client_id" placeholder="Input Client ID"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="slack_client_secret" class="o_form_label pb-2"/>
+                                    <field name="slack_client_secret" placeholder="Input Client Secret" password="True"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

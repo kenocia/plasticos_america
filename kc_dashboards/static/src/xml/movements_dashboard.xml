@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="kc_dashboards.MovementsDashboard" owl="1">
+        <div class="kc-sales-dashboard kc-movements-dashboard">
+            <t t-if="state.loading">
+                <div class="kc-sales-dashboard__loading">Cargando movimientos de inventario...</div>
+            </t>
+            <t t-elif="state.error">
+                <div class="kc-sales-dashboard__loading kc-sales-dashboard__error">
+                    <t t-esc="state.error"></t>
+                </div>
+            </t>
+            <t t-elif="state.data">
+                <div class="kc-sales-dashboard__header">
+                    <div>
+                        <div class="kc-sales-dashboard__title-row">
+                            <h1 class="kc-sales-dashboard__title" t-esc="state.data.title"></h1>
+                            <span class="kc-sales-dashboard__company" t-if="state.data.company">
+                                <i class="fa fa-building-o"></i>
+                                <t t-esc="state.data.company.name"></t>
+                            </span>
+                        </div>
+                        <p class="kc-sales-dashboard__updated">
+                            Última actualización: <t t-esc="state.data.updated_at"></t>
+                        </p>
+                    </div>
+                    <button class="kc-sales-dashboard__refresh" t-on-click="onRefresh">
+                        <i class="fa fa-refresh"></i> Actualizar
+                    </button>
+                </div>
+
+                <div t-att-class="'kc-sales-dashboard__filters-panel' + (state.filtersOpen ? '' : ' kc-sales-dashboard__filters-panel--collapsed')">
+                    <button type="button" class="kc-sales-dashboard__filters-toggle" t-on-click="toggleFilters">
+                        <span class="kc-sales-dashboard__filters-toggle-label">
+                            <i class="fa fa-filter"></i> Filtros
+                        </span>
+                        <i t-att-class="'fa ' + (state.filtersOpen ? 'fa-chevron-up' : 'fa-chevron-down')"></i>
+                    </button>
+                    <div class="kc-sales-dashboard__filters">
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Fecha desde</label>
+                        <input type="date" t-att-value="state.filters.date_from"
+                               t-on-change="(ev) => this.onFilterChange('date_from', ev)"></input>
+                    </div>
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Fecha hasta</label>
+                        <input type="date" t-att-value="state.filters.date_to"
+                               t-on-change="(ev) => this.onFilterChange('date_to', ev)"></input>
+                    </div>
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Ubicaciones</label>
+                        <select t-on-change="(ev) => this.onFilterChange('location_id', ev)">
+                            <option value="">Todas</option>
+                            <t t-foreach="state.filterOptions.locations" t-as="location" t-key="location.id">
+                                <option t-att-value="location.id"
+                                        t-att-selected="isSelected('location_id', location.id) ? 'selected' : None"
+                                        t-esc="location.name"></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="kc-sales-dashboard__filter kc-inventory-filter--product">
+                        <label>Producto</label>
+                        <div class="kc-inventory-product-search">
+                            <input type="text"
+                                   class="kc-inventory-product-search__input"
+                                   placeholder="Escriba para buscar..."
+                                   t-att-value="state.productSearch"
+                                   t-on-input="onProductSearchInput"
+                                   t-on-focus="onProductSearchFocus"
+                                   t-on-blur="onProductSearchBlur"></input>
+                            <button type="button"
+                                    class="kc-inventory-product-search__clear"
+                                    t-if="state.productSearch"
+                                    t-on-click="onClearProductSearch">
+                                ×
+                            </button>
+                            <ul class="kc-inventory-product-search__list"
+                                t-if="state.showProductDropdown and state.productResults.length">
+                                <t t-foreach="state.productResults" t-as="product" t-key="product.id">
+                                    <li class="kc-inventory-product-search__item"
+                                        t-on-mousedown.prevent="() => this.onSelectProduct(product)">
+                                        <t t-esc="product.name"></t>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Tipo</label>
+                        <select t-on-change="(ev) => this.onFilterChange('movement_type', ev)">
+                            <t t-foreach="state.filterOptions.movement_types" t-as="mtype" t-key="mtype.id">
+                                <option t-att-value="mtype.id"
+                                        t-att-selected="isSelected('movement_type', mtype.id) ? 'selected' : None"
+                                        t-esc="mtype.name"></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="kc-sales-dashboard__filter-actions">
+                        <button class="kc-sales-dashboard__btn kc-sales-dashboard__btn--primary" t-on-click="onApplyFilters">
+                            <i class="fa fa-filter"></i> Filtrar
+                        </button>
+                        <button class="kc-sales-dashboard__btn kc-sales-dashboard__btn--secondary" t-on-click="onClearFilters">
+                            Limpiar
+                        </button>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="kc-dash-kpis">
+                    <div class="kc-dash-kpi kc-dash-kpi--movements-count">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-list kc-dash-kpi__icon"></i>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label" t-esc="state.data.kpi_labels.total_movements"></div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.total_movements.value"></div>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.total_movements.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.total_movements.delta_pct)"></i>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.total_movements.delta_pct)"></t>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('total_movements')"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--movements-qty">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-cube kc-dash-kpi__icon"></i>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Cantidad movida (kg)</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.total_qty.formatted"></div>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.total_qty.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.total_qty.delta_pct)"></i>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.total_qty.delta_pct)"></t>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('total_qty')"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--movements-in"
+                         t-on-click="() => this.onDrillDown('kpi_incoming')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-arrow-down kc-dash-kpi__icon"></i>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Entradas (kg)</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.incoming.formatted"></div>
+                            <div class="kc-dash-kpi__trend">
+                                <span class="kc-dash-kpi__compare">
+                                    <t t-esc="state.data.kpis.incoming.value"></t> movimientos
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--movements-out"
+                         t-on-click="() => this.onDrillDown('kpi_outgoing')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-arrow-up kc-dash-kpi__icon"></i>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Salidas (kg)</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.outgoing.formatted"></div>
+                            <div class="kc-dash-kpi__trend">
+                                <span class="kc-dash-kpi__compare">
+                                    <t t-esc="state.data.kpis.outgoing.value"></t> movimientos
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--movements-internal"
+                         t-on-click="() => this.onDrillDown('kpi_internal')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-random kc-dash-kpi__icon"></i>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Internos (kg)</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.internal.formatted"></div>
+                            <div class="kc-dash-kpi__trend">
+                                <span class="kc-dash-kpi__compare">
+                                    <t t-esc="state.data.kpis.internal.value"></t> movimientos
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kc-dash-grid">
+                    <div class="kc-dash-card">
+                        <h3 class="kc-dash-card__title">Movimientos por tipo (kg)</h3>
+                        <div class="kc-dash-donut">
+                            <div class="kc-dash-donut__chart" t-att-style="'background: ' + getDonutGradient()">
+                                <div class="kc-dash-donut__center">
+                                    <span>Total</span>
+                                    <strong t-esc="state.data.kpis.total_qty.formatted"></strong>
+                                </div>
+                            </div>
+                            <div class="kc-dash-donut__legend">
+                                <t t-foreach="state.data.movements_by_type" t-as="mtype" t-key="mtype.key">
+                                    <div class="kc-dash-donut__legend-item"
+                                         t-on-click="() => this.onDrillDown('movement_type', mtype.key)">
+                                        <span>
+                                            <span class="kc-dash-donut__dot"
+                                                  t-att-style="'background: ' + getTypeColor(mtype_index)"></span>
+                                            <t t-esc="mtype.name"></t>
+                                        </span>
+                                        <span>
+                                            <t t-esc="formatPct(mtype.pct)"></t> - <t t-esc="mtype.qty_fmt"></t>
+                                        </span>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-card kc-dash-card--inventory-trend">
+                        <h3 class="kc-dash-card__title" t-esc="state.data.movements_trend.title"></h3>
+                        <div class="kc-dash-hour-area-chart">
+                            <div class="kc-dash-hour-area-chart__y-axis">
+                                <t t-foreach="trendChart.yTicks" t-as="tick" t-key="'y_tick_' + tick_index">
+                                    <span t-esc="tick.label"></span>
+                                </t>
+                            </div>
+                            <div class="kc-dash-hour-area-chart__plot">
+                                <div class="kc-dash-hour-area-chart__canvas">
+                                    <svg class="kc-dash-hour-area-chart__svg"
+                                         t-att-viewBox="trendChart.viewBox"
+                                         preserveAspectRatio="none">
+                                        <defs>
+                                            <linearGradient id="kcMovementsTrendGradient"
+                                                            gradientUnits="userSpaceOnUse"
+                                                            x1="0"
+                                                            t-att-y1="trendChart.chartTop"
+                                                            x2="0"
+                                                            t-att-y2="trendChart.chartBottom">
+                                                <stop offset="0%" stop-color="#845ef7" stop-opacity="0.32"></stop>
+                                                <stop offset="100%" stop-color="#845ef7" stop-opacity="0.02"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                        <t t-foreach="trendChart.gridLines" t-as="line" t-key="'grid_' + line_index">
+                                            <line class="kc-dash-hour-area-chart__grid"
+                                                  t-att-x1="line.x1"
+                                                  t-att-x2="line.x2"
+                                                  t-att-y1="line.y"
+                                                  t-att-y2="line.y"></line>
+                                        </t>
+                                        <path class="kc-dash-hour-area-chart__area"
+                                              t-att-d="trendChart.areaPath"
+                                              fill="url(#kcMovementsTrendGradient)"></path>
+                                        <path class="kc-dash-hour-area-chart__line kc-dash-hour-area-chart__line--purple"
+                                              t-att-d="trendChart.linePath"></path>
+                                    </svg>
+                                </div>
+                                <div class="kc-dash-hour-area-chart__x-axis kc-dash-hour-area-chart__x-axis--trend"
+                                     t-att-style="getTrendXAxisStyle()">
+                                    <t t-foreach="state.data.movements_trend.points" t-as="point" t-key="'x_' + point_index">
+                                        <span t-esc="point.label"></span>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-card">
+                        <h3 class="kc-dash-card__title">Top productos movidos (kg)</h3>
+                        <t t-foreach="state.data.top_products" t-as="product" t-key="'top_' + product_index">
+                            <div class="kc-dash-bar-list__item kc-dash-bar-list__item--horizontal">
+                                <div class="kc-dash-bar-list__name" t-esc="product.name"></div>
+                                <div class="kc-dash-bar-list__track kc-dash-bar-list__track--horizontal">
+                                    <span t-att-style="'width: ' + product.pct + '%'"></span>
+                                </div>
+                                <div class="kc-dash-bar-list__amount" t-esc="product.qty_fmt"></div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <div class="kc-dash-card kc-dashboard__detail-table">
+                    <h3 class="kc-dash-card__title">Detalle de movimientos</h3>
+                    <div class="kc-dash-table-wrap">
+                        <table class="kc-dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Referencia</th>
+                                    <th>Producto</th>
+                                    <th>Origen</th>
+                                    <th>Destino</th>
+                                    <th>Cantidad kg</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.data.lines.rows" t-as="line" t-key="line.id">
+                                    <tr t-on-click="() => this.onOpenMove(line.id)">
+                                        <td t-esc="line.datetime"></td>
+                                        <td t-esc="line.reference"></td>
+                                        <td t-esc="line.product"></td>
+                                        <td t-esc="line.origin"></td>
+                                        <td t-esc="line.dest"></td>
+                                        <td t-esc="line.qty_kg_fmt"></td>
+                                        <td>
+                                            <span t-attf-class="kc-dash-badge kc-dash-badge--{{line.type_key}}"
+                                                  t-esc="line.type"></span>
+                                        </td>
+                                        <td>
+                                            <span t-attf-class="kc-dash-badge kc-dash-badge--{{line.status_key}}"
+                                                  t-esc="line.status"></span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="kc-dash-pagination">
+                        <span>Mostrando <t t-esc="getPaginationLabel()"></t> registros</span>
+                        <div class="kc-dash-pagination__buttons">
+                            <button t-on-click="() => this.onChangePage(state.data.lines.page - 1)">‹</button>
+                            <t t-foreach="getPageNumbers()" t-as="page" t-key="page">
+                                <button t-att-class="page === state.data.lines.page ? 'is-active' : None"
+                                        t-on-click="() => this.onChangePage(page)" t-esc="page"></button>
+                            </t>
+                            <button t-on-click="() => this.onChangePage(state.data.lines.page + 1)">›</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="kc-sales-dashboard__loading">Sin datos para mostrar.</div>
+            </t>
+        </div>
+    </t>
+</templates>

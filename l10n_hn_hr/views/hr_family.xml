@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="hr_employee_view_form_family_info" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit.family_info</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                <page string="Familia" groups="hr.group_hr_user">
+                    <group string="Parientes">
+                        <field name="family_ids" colspan="2" nolabel="1">
+                            <list>
+                                <field name="name"/>
+                                <field name="kindred"/>
+                                <field name="gender"/>
+                                <field name="date_of_birth"/>
+                                <field name="conviviality"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+       <record id="hr_family_view_tree" model="ir.ui.view">
+           <field name="name">hr.family.view.tree</field>
+           <field name="model">hr.family</field>
+           <field name="arch" type="xml">
+               <list string="Employee family" editable="bottom">
+                   <field name="name"/>
+                   <field name="kindred"/>
+                   <field name="gender"/>
+                   <field name="date_of_birth"/>
+                   <field name="conviviality"/>
+             </list>
+           </field>
+       </record>
+
+</odoo>

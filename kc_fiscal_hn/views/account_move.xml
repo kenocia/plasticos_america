@@ -58,8 +58,7 @@
                 
                 <!-- Agregar página SAR con información fiscal -->
                 <xpath expr="//sheet/notebook/page[@name='other_info']" position="after">
-                    <page name="sar" string="SAR" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']">
-                    <!-- <page name="sar" string="SAR"> -->
+                    <page name="sar" string="SAR" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'in_receipt']">
                         <group>
                             <group string="Información SAR">
                                 <field name="noOrdenCompraExenta"/>
@@ -73,7 +72,7 @@
                                 <field name="numeroFinal" readonly="1"/>
                                 <field name="fechaLimiteEmision" readonly="1"/>
                             </group>
-                            <group string="Factura Proveedor" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']">
+                            <group string="Factura Proveedor" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'in_receipt']">
                                 <field name="cai_proveedor"/>
                                 <field name="correlativo_proveedor"/>
                                 <field name="femision_proveedor"/>
@@ -94,7 +93,7 @@
                         </group>
                         
                         <!-- Agregar sección de montos fiscales -->
-                        <group string="Montos Fiscales" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']">                        
+                        <group string="Montos Fiscales" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'in_receipt']">                        
                             <group>
                                 <field name="amount_discount"/>
                                 <field name="amount_exento"/>
@@ -112,7 +111,7 @@
                         </group>
                         
                         <!-- Agregar sección de validación fiscal -->
-                        <group string="Validación Fiscal" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']">
+                        <group string="Validación Fiscal" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'in_receipt']">
                             <group>
                                 <field name="fiscal_validation_status"/>
                                 <field name="requires_fiscal_numbering"/>
@@ -129,8 +128,9 @@
 
                 <!-- Agregar campos en las líneas de factura -->
                 <xpath expr="//field[@name='invoice_line_ids']//field[@name='account_id']" position="after">
-                    <field name="base_imponible" optional="hide" />
+                    <field name="base_imponible" optional="hide"/>
                     <field name="porcentaje_retencion" options="{'no_create': True}" optional="hide"/>
+                    <field name="importe_isv15" optional="hide"/>
                 </xpath>
             </field>
         </record>

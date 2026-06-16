@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_sales_commission" model="ir.actions.report">
+        <field name="name">Comisión de ventas (PDF)</field>
+        <field name="model">kc.sales.commission</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kc_sales_commission.report_sales_commission_document</field>
+        <field name="report_file">kc_sales_commission.report_sales_commission_document</field>
+        <field name="print_report_name">'Comision_%s_%s' % (object.employee_id.name or '', object.name or '')</field>
+        <field name="binding_model_id" ref="model_kc_sales_commission"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

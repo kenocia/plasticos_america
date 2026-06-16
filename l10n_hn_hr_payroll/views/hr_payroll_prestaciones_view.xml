@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!--    PRESTACIONES    -->
+    <record id="hr_payroll_benefits_view_form" model="ir.ui.view">
+        <field name="name">hr.payroll.benefits.form</field>
+        <field name="model">hr.payroll.benefits</field>
+        <field name="arch" type="xml">
+            <form string="PRESTACIONES">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,paid"/>
+                    <button name="compute_installment" type="object" string="Calcular" class="oe_highlight"  invisible="state != 'draft'"/>
+                    <button string="Abrir" name="action_period_open" type="object" invisible="state != 'draft'"/>
+                    <button string="A borrador" name="action_period_draft" invisible="state != 'open'" type='object'/>
+                </header>
+                <sheet>
+                    <!-- Información del Empleado -->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="employee_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    
+                    <group col="3" string="Información del Empleado">
+                        <group string="Datos Personales">
+                            <field name="employee_id"/>
+                            <field name="contract_id"/>
+                        </group>
+                        <group string="Fechas Importantes">
+                            <field name="date_hire"/>
+                            <field name="date_end"/>
+                            <field name="report_date"/>
+                        </group>
+                        <group string="Antigüedad">
+                            <field name="years_of_service"/>
+                            <field name="months_of_service"/>
+                            <field name="days_of_service"/>
+                        </group>
+                    </group>
+                    
+                    <separator string="Historial Salarial" colspan="4"/>
+                    
+                    <group col="2">
+                        <group string="Historial de Salarios">
+                            <field name="benefits_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0" editable="top">
+                                    <field name="date_salary_paid"/>
+                                    <field name="month"/>
+                                    <field name="salary"/>
+                                </list>
+                            </field>
+                        </group>
+                        <group string="Cálculos Salariales">
+                            <field name="total_months" force_save="1"/>
+                            <field name="average_month" force_save="1"/>
+                            <field name="average_daily" force_save="1"/>
+                            <field name="average" force_save="1"/>
+                            <field name="average_ord_daily" force_save="1"/>
+                            <field name="last_salary" force_save="1"/>
+                            <field name="last_salary_daily" force_save="1"/>
+                        </group>
+                    </group>
+                    <separator string="Cálculo de Prestaciones" colspan="4"/>
+                    
+                    <!-- Totales Generales -->
+                    <group col="4" string="Resumen de Totales">
+                        <field name="total_benefits_duties" widget="monetary" string="Total Beneficios y Derechos"/>
+                        <field name="total_prestaciones" widget="monetary" string="Total Prestaciones"/>
+                        <field name="total_right" widget="monetary" string="Total Derechos"/>
+                        <field name="total_deduction" widget="monetary" string="Total Deducciones"/>
+                    </group>
+                    
+                    <separator string="Detalle de Cálculos" colspan="4"/>
+                    
+                    <group col="3">
+                            <group string="Prestaciones">
+                                <table class="table table-condensed table-bordered" style="margin-top: 10px;">
+                                    <thead>
+                                        <tr style="background-color: #f8f9fa;">
+                                            <th style="font-weight: bold; padding: 8px;">PRESTACIONES</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 80px;">SI/NO</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 80px;">Días</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 120px;">Importe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">PRE-AVISO</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pre_aviso_opt" widget="radio"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pre_aviso" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pre_aviso_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">AUXILIO DE CESANTIA</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="auxilio_cesantia_opt" widget="radio"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="auxilio_cesantia" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="auxilio_cesantia_amount" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">AUXILIO DE CESANTIA PROP</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="auxilio_cesantia_prop" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="auxilio_cesantia_amount_prop" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </group>
+                            <group string="Derechos">
+                                <table class="table table-condensed table-bordered" style="margin-top: 10px;">
+                                    <thead>
+                                        <tr style="background-color: #f8f9fa;">
+                                            <th style="font-weight: bold; padding: 8px;">DERECHOS</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 80px;">SI/NO</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 80px;">Días</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 120px;">Importe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">VACACIONES</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="holiday_day" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="holiday_amount" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">VACACIONES PROPOR</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="holiday_prop" widget="radio"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="holiday_prop_day" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="holiday_prop_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">DECIMO TERCER MES</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="val_13avo" widget="radio"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="val_13avo_day" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="val_13avo_amount" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">DECIMO CUARTO MES</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="val_14avo" widget="radio"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="val_14avo_day" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="val_14avo_amount" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">SALARIO PENDIENTE</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pending_salary_day" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pending_salary_amount" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">HORAS EXTRAS PENDIENTES</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pending_overtime" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pending_overtime_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">DIAS LIBRES PENDIENTES</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pending_day_off" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="pending_day_off_amount" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">RESERVA LABORAL</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="labor_reserve" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="labor_reserve_amount" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </group>
+                            <group string="Deducciones">
+                                <table class="table table-condensed table-bordered" style="margin-top: 10px;">
+                                    <thead>
+                                        <tr style="background-color: #f8f9fa;">
+                                            <th style="font-weight: bold; padding: 8px;">DEDUCCIONES</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 80px;">SI/NO</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 80px;">Días</th>
+                                            <th class="text-center" style="font-weight: bold; padding: 8px; width: 120px;">Importe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">APORTACION RESERVA LABORAL</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="aport_reserve_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">ERROR ADMINISTRATIVO</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="administrative_mistake_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">UNIFORME</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="uniform_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">VACACIONES ANTICIPADA</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="anticipate_holiday_day" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="anticipate_holiday_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">LIBRES ANTICIPADA</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="anticipate_free_day" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="anticipate_free_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">CUENTA POR COBRAR IPM</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="ipm_amount" widget="monetary"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; font-weight: 500;">PRE-AVISO</td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="cobrar_pre_aviso_opt" widget="radio"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="cobrar_pre_aviso_day" widget="integer"
+                                                       readonly="state in ['open', 'paid']"/>
+                                            </td>
+                                            <td class="text-center" style="padding: 4px;">
+                                                <field name="cobrar_pre_aviso_amount" widget="monetary"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </group>
+                        </group>
+                    </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_payroll_benefits_view_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.benefits.tree</field>
+        <field name="model">hr.payroll.benefits</field>
+        <field name="arch" type="xml">
+            <list string="Prestaciones">
+                <field colspan="4" name="employee_id"/>
+                <field colspan="4" name="date_hire"/>
+                <field colspan="4" name="date_end"/>
+                <field colspan="4" name="report_date"/>
+                <field colspan="4" name="total_months" optional="hide"/>
+                <field colspan="4" name="average_month" optional="hide"/>
+                <field colspan="4" name="average_daily" optional="hide"/>
+                <field colspan="4" name="total_prestaciones"/>
+                <field colspan="4" name="total_right"/>
+                <field colspan="4" name="total_benefits_duties"/>
+                <field colspan="4" name="total_deduction"/>
+                <field colspan="4" name="total_benefits"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="hr_payroll_benefits_view_search" model="ir.ui.view">
+        <field name="name">hr.payroll.benefits.search</field>
+        <field name="model">hr.payroll.benefits</field>
+        <field name="arch" type="xml">
+            <search string="Prestaciones">
+                <field name="employee_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_benefits" model="ir.actions.act_window">
+        <field name="name">Prestaciones</field>
+        <field name="res_model">hr.payroll.benefits</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_payroll_benefits_view_search"/>
+    </record>
+
+    <menuitem
+            id="hr_co_menu_hr_payroll_benefits"
+            name="Prestaciones"
+            parent="hr_payroll.menu_hr_payroll_payslips"
+            sequence="10"
+            action="action_hr_payroll_benefits"
+            groups="hr_payroll.group_hr_payroll_manager"/>
+</odoo>

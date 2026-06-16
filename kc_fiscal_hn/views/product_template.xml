@@ -12,11 +12,15 @@
                     <field name="tax_retention" invisible="is_retention == False" domain="[('is_retention','=',True)]"/>
                 </xpath>
 
-                <!-- Agregar campo is_retention en la sección de opciones -->
+                <!-- Agregar campo is_retention y es_boletin en la sección de opciones -->
                 <xpath expr="//span[field[@name='purchase_ok']]" position="after">
                     <span class="d-inline-flex">
                         <field name="is_retention"/>
                         <label for="is_retention"/>
+                    </span>
+                    <span class="d-inline-flex">
+                        <field name="es_boletin"/>
+                        <label for="es_boletin"/>
                     </span>
                 </xpath>
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_production_lot_form_inherit_kc_plasticasa" model="ir.ui.view">
+        <field name="name">stock.lot.form.inherit.kc_plasticasa</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="before">
+                <header>
+                    <button name="action_kc_print_lot_label"
+                            type="object"
+                            string="Etiqueta Zebra / PDF"
+                            class="btn-secondary"
+                            groups="stock.group_stock_user"
+                            invisible="not id"/>
+                </header>
+            </xpath>
+            <!-- Debajo del bloque Costo (standard_price), añadido por stock_account -->
+            <xpath expr="//field[@name='standard_price']/parent::div" position="after">
+                <field name="low_quality"/>
+                <field name="kc_employee_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_kc_print_lot_label_from_list" model="ir.actions.server">
+        <field name="name">Etiqueta Zebra / PDF</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_kc_print_lot_label()</field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="view_production_lot_tree_inherit_kc_plasticasa" model="ir.ui.view">
+        <field name="name">stock.lot.list.inherit.kc_plasticasa</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="low_quality" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

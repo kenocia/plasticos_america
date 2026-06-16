@@ -4,3 +4,13 @@ access_pa_account_payment_batch_line,pa.account.payment.batch.line,model_pa_acco
 access_kc_payment_batch_wizard,kc.payment.batch.wizard,model_kc_payment_batch_wizard,account.group_account_user,1,1,1,1
 access_kc_payment_batch_line,kc.payment.batch.line,model_kc_payment_batch_line,account.group_account_user,1,1,1,1
 access_kc_sales_invoices_report_wizard,kc.sales.invoices.report.wizard,model_kc_sales_invoices_report_wizard,account.group_account_user,1,1,1,1
+access_product_movement_report_wizard,product.movement.report.wizard,kc_plasticasa.model_product_movement_report_wizard,account.group_account_user,1,1,1,1
+access_kc_net_sales_report_wizard,kc.net.sales.report.wizard,kc_plasticasa.model_kc_net_sales_report_wizard,account.group_account_user,1,1,1,1
+access_kc_lot_label_print_wizard,kc.lot.label.print.wizard,kc_plasticasa.model_kc_lot_label_print_wizard,stock.group_stock_user,1,1,1,1
+access_kc_gs1_picking_scan_wizard,kc.gs1.picking.scan.wizard,kc_plasticasa.model_kc_gs1_picking_scan_wizard,stock.group_stock_user,1,1,1,1
+access_kc_gs1_picking_scan_log,kc.gs1.picking.scan.log,kc_plasticasa.model_kc_gs1_picking_scan_log,stock.group_stock_user,1,1,1,1
+access_kc_gs1_picking_scan_wizard_summary,kc.gs1.picking.scan.wizard.summary,kc_plasticasa.model_kc_gs1_picking_scan_wizard_summary,stock.group_stock_user,1,1,1,1
+access_kc_physical_lot_scan_session,kc.physical.lot.scan.session,kc_plasticasa.model_kc_physical_lot_scan_session,stock.group_stock_user,1,1,1,1
+access_kc_physical_lot_scan_line,kc.physical.lot.scan.line,kc_plasticasa.model_kc_physical_lot_scan_line,stock.group_stock_user,1,1,1,1
+access_kc_physical_lot_scan_wizard,kc.physical.lot.scan.wizard,kc_plasticasa.model_kc_physical_lot_scan_wizard,stock.group_stock_user,1,1,1,1
+access_kc_physical_lot_scan_bulk_update_wizard,kc.physical.lot.scan.bulk.update.wizard,kc_plasticasa.model_kc_physical_lot_scan_bulk_update_wizard,stock.group_stock_user,1,1,1,1

@@ -1,0 +1,798 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hn_hr_recruitment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-21 18:09+0000\n"
+"PO-Revision-Date: 2024-12-21 12:42-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.tu_nuevo_template
+msgid ""
+"<i class=\"fa fa-suitcase fa-fw\" title=\"Employment type\" role=\"img\" aria-"
+"label=\"Employment type\"/>"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "<option selected=\"selected\" value=\"0\">Selecciona un tipo de plaza</option>"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid ""
+"<small class=\"d-none text-danger\" id=\"text_error_id\">Debe seleccionar alguna "
+"plaza</small>"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid ""
+"<span class=\"s_website_form_label_content\">City</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span class=\"s_website_form_label_content\">Ciudad</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid ""
+"<span class=\"s_website_form_label_content\">First Name</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span class=\"s_website_form_label_content\">Nombre</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid ""
+"<span class=\"s_website_form_label_content\">Identification</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr "<span class=\"s_website_form_label_content\">No de identificación</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid ""
+"<span class=\"s_website_form_label_content\">Last Name</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span class=\"s_website_form_label_content\">Apellido</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid ""
+"<span class=\"s_website_form_label_content\">Salary Expected</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span class=\"s_website_form_label_content\">Salario previsto</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid "<span class=\"s_website_form_label_content\">Second Last Name</span>"
+msgstr "<span class=\"s_website_form_label_content\">Segundo apellido</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid "<span class=\"s_website_form_label_content\">Second Name</span>"
+msgstr "<span class=\"s_website_form_label_content\">Segundo nombre</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid ""
+"<span class=\"s_website_form_label_content\">State</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span class=\"s_website_form_label_content\">Estado</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid "<span class=\"s_website_form_label_content\">Street 2</span>"
+msgstr "<span class=\"s_website_form_label_content\">Calle 2</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.form_fields_template
+msgid ""
+"<span class=\"s_website_form_label_content\">Street</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span class=\"s_website_form_label_content\">Calle</span>\n"
+"                            <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_recruitment_res_config_settings_view_form
+msgid "<span>Días</span>"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.position_internal_template
+msgid "<span>Plazas</span>"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_internal_template
+msgid "<span>Trabajos</span>"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hn_hr_applicant_view_form_inherit
+msgid "Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__attachment_ids
+msgid "Adjunto"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__antecentes_penales
+msgid "Antecedentes penales"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__antecentes_policiales
+msgid "Antecedentes policiales"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_applicant
+msgid "Applicant"
+msgstr "Candidato"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__request_new_positions__state__approved
+msgid "Aprobada"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_candidates_applicant_list
+msgid "Aprobar"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.position_internal_template
+msgid "Aquí puede solicitar agregar nuevas plazas a su dependencia"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.tu_nuevo_template
+msgid "Candidatos del puesto"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_candidates_applicant_list
+msgid "Candidatos que solicitaron las plaza"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__qty
+msgid "Cantidad de documentos"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_company__day_internal_published
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_config_settings__day_internal_published
+msgid "Cantidad de días publicada"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__qty
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "Cantidad de plazas"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__city
+msgid "City"
+msgstr "Ciudad"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__constancia_trabajo
+msgid "Constancia de trabajo si ha tenido"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__copia_luz
+msgid "Copia de recibo de luz"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_candidates_applicant_list
+msgid "Correo"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__country_id
+msgid "Country"
+msgstr "País"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "Crear"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_survey_profile__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_survey_profile__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__croquis_direccion_domicilio
+msgid "Croquis de la dirección de su domicilio"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__cuenta_bancaria_ficohsa
+msgid "Cuenta bancaria FICOHSA"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__curriculum
+msgid "Curriculum"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.server,name:l10n_hn_hr_recruitment.ir_cron_date_comparison_ir_actions_server
+msgid "Date Comparison Cron"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "Departamento"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__department_id
+msgid "Department"
+msgstr "Departamento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_survey_profile__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_job__document_type_ids
+msgid "Document Types"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.my_hr_contract_view_form
+msgid "Documentos"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_contract__contract_document_ids
+msgid "Documentos anexados"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_recruitment_res_config_settings_view_form
+msgid "Empleados para modificar informacion de los candidatos en el portal"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_recruitment_res_config_settings_view_form
+msgid "Empleados portal"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__employee_id
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_request_new_positions__department_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_contract
+msgid "Employee Contract"
+msgstr "Contrato de empleado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_job__no_of_recruit_perm
+msgid "Employees Permanents"
+msgstr "Empleados Permanentes"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_job__no_of_recruit_temp
+msgid "Employees Temporaries"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__is_internal
+msgid "Es interno"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__is_required
+msgid "Es obligatorio"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__state
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_candidates_applicant_list
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "Estado"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__process_state
+msgid "Estado del candidato"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_job__date_published
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_recruitment_res_config_settings_view_form
+msgid "Fecha de publicación"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_recruitment_res_config_settings_view_form
+msgid "Fecha de publicación del trabajo"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "Fecha de solicitado"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__request_date
+msgid "Fecha de solicitud"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__date_processed
+msgid "Fecha procesada"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__firstname
+msgid "First name"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__fotocopia_cert_studio
+msgid "Fotocopia del título o certificado de estudios"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__fotocopia_identidad
+msgid "Fotocopias de identidad"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__fotografia_carnet
+msgid "Fotografía tamaño carnet"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_survey_profile__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__identification_id
+msgid "Identification No"
+msgstr "No de Identificación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_request_new_positions__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los nuevos mensajes requieren su atención."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_request_new_positions__message_has_error
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_request_new_positions__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.tu_nuevo_template
+msgid "Insert a Job Description..."
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_job
+msgid "Job Position"
+msgstr "Puesto de trabajo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_survey_profile__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__write_uid
+msgid "Last Updated by"
+msgstr "Ultima Actualización por"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_survey_profile__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__write_date
+msgid "Last Updated on"
+msgstr "Ultima Actualización en"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__lastname
+msgid "Last name"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_internal_template
+msgid "Listado de puestos de trabajo publicados"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__manager_id
+msgid "Manager que solicita"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_candidates_applicant_list
+msgid "No hay solicitantes"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_candidates_applicant_list
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.my_hr_contract_view_form
+msgid "Nombre"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__name
+msgid "Nombre del documento"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__process_state__new
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__request_new_positions__state__new
+msgid "Nuevo"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_request_new_positions__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_request_new_positions__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_job__no_of_recruit_perm
+msgid "Number of new employees you expect to recruit permanently."
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_job__no_of_recruit_temp
+msgid "Number of new employees you expect to recruit temporality."
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "Page navigation"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_survey_profile__name
+msgid "Perfil"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_job__hr_survey_profile_id
+msgid "Perfil de trabajo"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__position_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "Plaza"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.position_internal_template
+msgid "Plazas publicadas"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__process_state__processed
+msgid "Procesado"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_recruitment_res_config_settings_view_form
+msgid "Publicación Interna"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_job__is_aux_published
+msgid "Publicado"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_job__internal_published
+msgid "Publicado internamente"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_contract_documents__attachment_ids
+msgid "Puedes adjuntar una copia de tu documento"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__job_id
+msgid "Puesto de Trabajo"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__rtn
+msgid "RTN"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__rating_ids
+msgid "Ratings"
+msgstr "Calificaciones"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__request_new_positions__state__rejected
+msgid "Rechazada"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__recomendaciones
+msgid "Recomendaciones"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__lastname2
+msgid "Second last name"
+msgstr "Segundo apellido"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__firstname2
+msgid "Second name"
+msgstr "Segundo nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_recruitment_res_config_settings_view_form
+msgid "Selecciones del portal"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_company__selection_portal
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_config_settings__selection_portal
+msgid "Selección portal"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-javascript
+#: code:addons/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#: code:addons/l10n_hn_rrhh/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#, python-format
+msgid "Select a state"
+msgstr "Seleccionar un Departamento"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_list_of_position
+msgid "Solicitar"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.menu_request_new_positions
+msgid "Solicitud de Nuevas Plazas"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_request_new_positions
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.view_request_new_positions_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.view_request_new_positions_tree
+msgid "Solicitud de Nuevas Posiciones"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__state_id
+msgid "State"
+msgstr "Departamento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__street
+msgid "Street"
+msgstr "Calle"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__street2
+msgid "Street2"
+msgstr "Calle 2"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__document_type__document_type__tarjeta_salud
+msgid "Tarjeta de salud"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-javascript
+#: code:addons/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#: code:addons/l10n_hn_rrhh/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#, python-format
+msgid "The state is required."
+msgstr "Se requiere al Departamento."
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-javascript
+#: code:addons/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#: code:addons/l10n_hn_rrhh/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#, python-format
+msgid "The value entered doesn't seems like a valid identification number."
+msgstr "El valor ingresado no parece ser un número de identificación válido."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_contract_documents__document_type
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_document_type__document_type
+msgid "Tipo de documento"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.view_hr_job_form_inherit
+msgid "Tipos de documentos"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.jobs_internal_template
+msgid "Trabajos publicados"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_request_new_positions__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_request_new_positions__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-javascript
+#: code:addons/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#: code:addons/l10n_hn_rrhh/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#, python-format
+msgid ""
+"You already applied to another position recently. You can continue if it's not a "
+"mistake."
+msgstr ""
+"Ya has postulado a otro puesto recientemente. Puedes continuar si no es un error."
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-javascript
+#: code:addons/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#: code:addons/l10n_hn_rrhh/l10n_hn_hr_recruitment/static/src/js/website_hr_applicant_form.js:0
+#, python-format
+msgid "You already applied to this job position recently."
+msgstr "Ya has postulado a esta puesto recientemente."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_contract_documents
+msgid "contract.documents"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_document_type
+msgid "document.type"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_survey_profile
+msgid "hr.survey.profile"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.tu_nuevo_template
+msgid "open positions"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_request_new_positions
+msgid "request.new.positions"
+msgstr ""
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.tu_nuevo_template
+msgid "unpublished"
+msgstr ""

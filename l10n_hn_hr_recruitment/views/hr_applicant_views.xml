@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <data>
+        <record id="hn_hr_applicant_view_form_inherit" model="ir.ui.view">
+            <field name="name">hn.hr.applicant.form.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="is_internal" widget="boolean_toggle" readonly="True" />
+                </xpath>
+
+                <xpath expr="//field[@name='partner_name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email_from']" position="before">
+                    <field name="identification_id" />
+                    <field name="process_state" />
+                    <field name="firstname" />
+                    <field name="firstname2" />
+                    <field name="lastname" />
+                    <field name="lastname2" />
+                </xpath>
+
+                <xpath expr="//sheet/group/group[2]" position="after">
+                    <group string="Address">
+                        <field name="country_id" />
+                        <field name="state_id" />
+                        <field name="city" />
+                        <field name="street" />
+                        <field name="street2" />
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+
+</odoo>

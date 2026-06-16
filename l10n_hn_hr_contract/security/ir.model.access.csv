@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_table_previous_quit_notice_manager,hr.table.previous.quit.notice.manager,model_hr_table_previous_quit_notice,hr.group_hr_manager,1,1,1,1
+access_hr_quit_request_manager,hr.quit.request.manager,model_hr_quit_request,hr.group_hr_manager,1,1,1,1
+access_hr_position_manager,hr.position.manager,model_hr_position,hr.group_hr_manager,1,1,1,1

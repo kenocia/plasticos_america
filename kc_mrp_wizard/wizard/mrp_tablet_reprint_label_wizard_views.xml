@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_tablet_reprint_label_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.reprint.label.wizard.form</field>
+            <field name="model">mrp.tablet.reprint.label.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Consultar lote" class="oe_tablet_wizard_no_nav" js_class="kc_consult_lot_gs1_scan_wizard">
+                    <field name="kc_focus_token" invisible="1"/>
+                    <field name="kc_allow_reprint_permission" invisible="1"/>
+                    <field name="kc_reprint_allowed" invisible="1"/>
+                    <field name="reprint_info_message" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="workorder_id" invisible="1"/>
+                            <field name="employee_id"
+                                   readonly="1"
+                                   widget="many2one_avatar_employee"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <group string="Búsqueda manual">
+                        <label for="lot_name_manual" string="Número de lote"/>
+                        <div class="d-flex flex-wrap gap-2 align-items-stretch w-100">
+                            <field name="lot_name_manual"
+                                   nolabel="1"
+                                   class="o_input fs-3 flex-grow-1"
+                                   placeholder="Escriba el número de lote…"/>
+                            <button name="action_search_lot_manual"
+                                    type="object"
+                                    string="Buscar"
+                                    class="btn-primary btn-lg px-4"/>
+                        </div>
+                    </group>
+                    <group string="Búsqueda por QR GS1">
+                        <label for="gs1_barcode_input" string="Escanear QR GS1"/>
+                        <div class="d-flex flex-wrap gap-2 align-items-stretch w-100">
+                            <field name="gs1_barcode_input"
+                                   nolabel="1"
+                                   widget="kc_consult_lot_gs1_scan"
+                                   class="o_input fs-3 flex-grow-1"
+                                   placeholder="Escanee el código GS1 de la etiqueta…"/>
+                            <button name="action_search_lot_gs1"
+                                    type="object"
+                                    string="Buscar QR"
+                                    class="btn-secondary btn-lg px-4"/>
+                        </div>
+                    </group>
+                    <group string="Datos del lote" invisible="not lot_id">
+                        <field name="lot_id" invisible="1"/>
+                        <group>
+                            <field name="product_id" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="kc_prelabel_production_id" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="kc_prelabel_state" readonly="1" widget="badge"
+                                   decoration-info="kc_prelabel_state == 'pending'"
+                                   decoration-success="kc_prelabel_state in ('produced', 'none')"
+                                   decoration-muted="kc_prelabel_state == 'cancelled'"/>
+                            <field name="kc_prelabel_workcenter_id" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="kc_prelabel_shift" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="kc_prelabel_qty"
+                                   string="Cantidad prevista"
+                                   readonly="1"
+                                   invisible="kc_prelabel_state != 'pending'"/>
+                            <field name="qty_on_hand"
+                                   readonly="1"
+                                   invisible="kc_prelabel_state == 'pending'"/>
+                            <field name="product_uom_id" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="kc_reprint_count" readonly="1"/>
+                            <field name="kc_last_reprint_employee_id" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="kc_last_reprint_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-warning mx-2 mb-0"
+                         role="alert"
+                         invisible="not lot_id or not reprint_info_message">
+                        <field name="reprint_info_message" nolabel="1" readonly="1" class="mb-0"/>
+                    </div>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-3" special="cancel"/>
+                            <button name="action_reprint_label"
+                                    string="Re-imprimir etiqueta"
+                                    type="object"
+                                    class="btn-primary btn-lg py-3"
+                                    invisible="not kc_reprint_allowed"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

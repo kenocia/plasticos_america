@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form view definition -->
+        <record id="view_hr_hn_viatic_form" model="ir.ui.view">
+            <field name="name">hr.hn.viatic.form</field>
+            <field name="model">hr.hn.viatic</field>
+            <field name="arch" type="xml">
+                       <form string="Viatic Form">
+                           <field name="can_reset" invisible="1"/>
+                <field name="can_approve" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+                <field name="account_move_ids" invisible="1"/>
+                <field name="payment_state" invisible="1"/>
+                <field name="is_editable" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="company_currency_id" invisible="1"/>
+                <header>
+                    <button name="action_submit_sheet"
+                            string="Submit to Manager"
+                            invisible="state != 'draft'"
+                            type="object"
+                            class="oe_highlight o_expense_sheet_submit"
+                            data-hotkey="l"/>
+                    <button name="action_approve_expense_sheets"
+                            string="Approve"
+                            type="object"
+                            data-hotkey="q"
+                            context="{'validate_analytic': True}"
+                            invisible="not can_approve or state != 'submit'"
+                            class="oe_highlight o_expense_sheet_approve"/>
+                    <button name="action_sheet_move_create"
+                            string="Add Expenses"
+                            type="object"
+                            data-hotkey="y"
+                            class="oe_highlight o_expense_sheet_post"
+                            invisible="state != 'approve'"
+                            groups="account.group_account_invoice"/>
+                    <button name="action_refuse_expense_sheets"
+                            string="Refuse"
+                            invisible="state not in ('submit', 'approve')"
+                            type="object"
+                            groups="hr_expense.group_hr_expense_team_approver"
+                            data-hotkey="x"/>
+                    <button name="action_reset_approval_expense_sheets"
+                            string="Reset to Draft"
+                            type="object"
+                            invisible="not can_reset or state not in ('submit', 'cancel', 'approve')"
+                            data-hotkey="k"/>
+                    <button name="action_done_viatic_sheets"
+                            string="Done viatic sheet "
+                            type="object"
+                            invisible="state != 'done'"
+                            class="oe_highlight o_expense_sheet_post"
+                            groups="account.group_account_invoice"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,post"
+                           force_save="1" invisible="state == 'cancel'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,cancel"
+                           force_save="1" invisible="state != 'cancel'"/>
+
+                </header>
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                        <button name="action_open_account_moves"
+                            class="oe_stat_button"
+                            icon="fa-file-text-o"
+                            type="object"
+                            invisible="state not in ['post', 'done'] or nb_account_move == 0"
+                            groups="account.group_account_invoice">
+                            <div class="o_stat_info">
+                                <field name="nb_account_move" class="o_stat_value"/>
+                                <span class="o_stat_text">Journal Entry</span>
+                            </div>
+                        </button>
+                        <button name="action_open_expense_view"
+                            class="oe_stat_button"
+                            icon="fa-file-text-o"
+                            type="object"
+                            invisible="nb_expense == 0">
+                            <field name="nb_expense" widget="statinfo" string="Expenses"/>
+                        </button>
+                    </div>
+                        <group>
+                            <field name="name"/>
+                            <group>
+                                <field name="place_and_date" readonly="1"/>
+                                <field name="place"/>
+                                <field name="date"/>
+                                <field name="travel_to"/>
+                                <field name="reason_description"/>
+                                <field name="payment_mode"/>
+                            </group>
+                            <group string="Fechas del viaje">
+                                <field name="date_ini"/>
+                                <field name="date_end"/>
+                                <field name="employee_id"/>
+                                <field name="employees_ids" widget="many2many_tags"/>
+                                <field name="employee_journal_id"
+                                   groups="account.group_account_invoice,account.group_account_readonly"
+                                   options="{'no_open': True, 'no_create': True}"
+                                   invisible="payment_mode != 'company_account'" readonly="not is_editable"
+                                   context="{'default_company_id': company_id}"/>
+                            </group>
+                            <notebook>
+                        <page string="Expense Lines">
+                            <field name="expense_line_ids" nolabel="1" mode="tree,kanban" readonly="state != 'approve'">
+                                <list>
+                                    <field name="company_id" column_invisible="True"/>
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="approved_rate"/>
+                                    <field name="qty_person"/>
+                                    <field name="qty_days"/>
+                                    <field name="sub_total_viatic_amount" widget="monetary"/>
+                                </list>
+                            </field>
+                             <group class="oe_subtotal_footer" colspan="2" name="expense_total">
+
+                                <field name="total_amount_viatic"/>
+                                <field name="untaxed_amount"/>
+                                <div class="oe_inline o_td_label">
+                                    <label for="total_tax_amount"/>
+                                </div>
+                                <field name="total_tax_amount" nolabel="1"/>
+                                <div class="oe_inline o_td_label">
+                                    <label for="total_amount"/>
+                                </div>
+                                <field name="total_amount" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                <field name="amount_residual"
+                                    class="oe_subtotal_footer_separator"
+                                    invisible="state not in ('post', 'done')"/>
+                            </group>
+                        </page>
+                    </notebook>
+                        </group>
+                    </sheet>
+                <div class="o_attachment_preview o_center_attachment"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree view definition -->
+        <record id="view_hr_hn_viatic_tree" model="ir.ui.view">
+            <field name="name">hr.hn.viatic.tree</field>
+            <field name="model">hr.hn.viatic</field>
+            <field name="arch" type="xml">
+                <list string="Viatic Tree">
+
+                    <field name="name"/>
+                    <field name="place_and_date"/>
+                    <field name="travel_to"/>
+                    <field name="reason_description"/>
+                    <field name="date_ini"/>
+                    <field name="date_end"/>
+                    <field name="employee_id"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Action definition to link the views -->
+        <record id="action_hr_hn_viatic" model="ir.actions.act_window">
+            <field name="name">Viatic</field>
+            <field name="res_model">hr.hn.viatic</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_my_expenses" name="Mis Viaticos" sequence="2" parent="hr_expense.menu_hr_expense_my_expenses" action="action_hr_hn_viatic" groups="account.group_account_user,hr_expense.group_hr_expense_team_approver"/>
+
+    </data>
+</odoo>

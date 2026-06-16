@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="email_template_payment_voucher" model="mail.template">
+        <field name="name">Envío Voucher de pago</field>
+        <field name="model_id" ref="payroll_hn.model_hr_payslip"/>
+        <field name="subject">Voucher de pago</field>
+        <field name="email_to">{{ (object.employee_id.work_email or object.employee_id.private_email) }}</field>
+        <field name="body_html" type="html">
+        <div style="margin: 0px; padding: 0px;">
+        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+            Hola, <t t-out="object.employee_id.name or ''"></t>
+            <br/><br/>
+            Adjunto voucher de pago correspondiente al periodo de 
+            <t t-out="object.date_from.strftime('%d/%m/%Y')"/> - 
+            <t t-out="object.date_to.strftime('%d/%m/%Y')"/>
+            <br/><br/>
+            Saludos.
+        </p>
+        </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

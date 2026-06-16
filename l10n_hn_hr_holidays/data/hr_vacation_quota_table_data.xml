@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Contingente de Vacaciones -->
+        <record id="hr_vacation_quota_table_1" model="hr.vacation.quota.table">
+            <field name="years_of_service_start">0</field>
+            <field name="years_of_service_end">1</field>
+            <field name="vacation_days">10</field>
+        </record>
+        <record id="hr_vacation_quota_table_2" model="hr.vacation.quota.table">
+            <field name="years_of_service_start">2</field>
+            <field name="years_of_service_end">3</field>
+            <field name="vacation_days">12</field>
+        </record>
+        <record id="hr_vacation_quota_table_3" model="hr.vacation.quota.table">
+            <field name="years_of_service_start">3</field>
+            <field name="years_of_service_end">4</field>
+            <field name="vacation_days">15</field>
+        </record>
+        <record id="hr_vacation_quota_table_4" model="hr.vacation.quota.table">
+            <field name="years_of_service_start">4</field>
+            <field name="years_of_service_end">40</field>
+            <field name="vacation_days">20</field>
+        </record>
+    </data>
+</odoo>

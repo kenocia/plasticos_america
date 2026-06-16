@@ -1,0 +1,165 @@
+.hr_recruit_extended {
+    border: black;
+}
+
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+/* Rounded tabs */
+
+@media (min-width: 576px) {
+    .rounded-nav {
+        border-radius: 50rem !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .rounded-nav .nav-link {
+        border-radius: 50rem !important;
+    }
+}
+
+/* With arrow tabs */
+
+.with-arrow .nav-link.active {
+    position: relative;
+}
+
+.with-arrow .nav-link.active::after {
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #2b90d9;
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+/* lined tabs */
+
+.lined .nav-link {
+    border: none;
+    border-bottom: 3px solid transparent;
+}
+
+.lined .nav-link:hover {
+    border: none;
+    border-bottom: 3px solid transparent;
+}
+
+.lined .nav-link.active {
+    background: none;
+    color: #555;
+    border-color: #2b90d9;
+}
+
+.margin_nav {
+    margin-top: -167px;
+}
+
+/*
+*
+* ==========================================
+* ESTILOS PARA LAS NUEVAS PAGINAS
+* ==========================================
+*
+*/
+
+.bg-page {
+    background-image: url(/l10n_cu_hr_recruitment_fgne/static/src/img/fondo_completo-01.jpg);
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: cover;
+}
+
+.bg-fondo-azul {
+    color: white;
+    background-image: url(/theme_nice_bootstrap/static/src/img/fondoazul.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ #validation_list ul {
+    list-style:none;
+}
+
+#validation_list ul li {
+    font-size:28px;
+    list-style-image: url(/l10n_cu_hr_recruitment_fgne/static/src/img/checkbox.png);
+}
+
+#validation_list ul li {
+    padding-left:10px;
+    text-decoration:none;
+    color:#737171;
+}
+
+#apply_list ul {
+    list-style:none;
+}
+
+#apply_list ul li {
+    font-size:28px;
+    list-style-image: url(/l10n_cu_hr_recruitment_fgne/static/src/img/checkbox.png);
+}
+
+#apply_list ul li {
+    padding-left:10px;
+    text-decoration:none;
+    color:#737171;
+}
+
+#tcp_list ul {
+    list-style:none;
+}
+
+#tcp_list ul li {
+    font-size:28px;
+    list-style-image: url(/l10n_cu_hr_recruitment_fgne/static/src/img/checkbox.png);
+}
+
+#tcp_list ul li {
+    padding-left:10px;
+    text-decoration:none;
+    color:#737171;
+}
+
+#data_list li::marker {
+  color: #279dff; /* bullet color */
+}
+
+#data_list2 li::marker {
+  color: #279dff; /* bullet color */
+}
+
+#data_list3 li::marker {
+  color: #279dff; /* bullet color */
+}
+
+.td_header {
+    font-size: 27px;
+    color:#737171;
+    font-weight: bold;
+    padding:10px;
+}
+
+#validation_tbl li::marker {
+  color: #279dff; /* bullet color */
+}
+
+#validation_tbl ul li {
+    font-size: 20px;
+    padding-left:10px;
+    color:#737171;
+    margin-top: 15px;
+}
+

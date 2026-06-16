@@ -54,7 +54,7 @@
                         .lines-container {
                             position: absolute;
                             left: 3mm;
-                            top: 76mm;  /* AJUSTAR según posición en formato pre-impreso */
+                            top: 82mm;  /* AJUSTAR según posición en formato pre-impreso */
                             width: 216mm;
                         }
                         

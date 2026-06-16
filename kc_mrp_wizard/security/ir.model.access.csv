@@ -1,0 +1,66 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_batch_ticket_user,mrp.batch.ticket.user,model_mrp_batch_ticket,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,1,0
+access_mrp_batch_ticket_manager,mrp.batch.ticket.manager,model_mrp_batch_ticket,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,1,1,1
+access_mrp_tablet_employee_wizard_user,mrp.tablet.employee.wizard.user,model_mrp_tablet_employee_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_wizard_user,mrp.tablet.wizard.user,model_mrp_tablet_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_wizard_employee_line_user,mrp.tablet.wizard.employee.line.user,model_mrp_tablet_wizard_employee_line,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_confirm_batch_lot_wizard_user,mrp.tablet.confirm.batch.lot.wizard.user,model_mrp_tablet_confirm_batch_lot_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_confirm_batch_lot_bad_qty_wizard_user,mrp.tablet.confirm.batch.lot.bad.qty.wizard.user,model_mrp_tablet_confirm_batch_lot_bad_qty_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_selective_manual_production_wizard_user,mrp.tablet.selective.manual.production.wizard.user,model_mrp_tablet_selective_manual_production_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_selective_manual_component_line_user,mrp.tablet.selective.manual.component.line.user,model_mrp_tablet_selective_manual_component_line,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_semi_ticket_wizard_user,mrp.tablet.semi.ticket.wizard.user,model_mrp_tablet_semi_ticket_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_material_scrap_wizard_user,mrp.tablet.material.scrap.wizard.user,model_mrp_tablet_material_scrap_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_production_stop_type_user,mrp.production.stop.type.user,model_mrp_production_stop_type,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_mrp_production_stop_type_manager,mrp.production.stop.type.manager,model_mrp_production_stop_type,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,1,1,1
+access_mrp_semi_ticket_user,mrp.semi.ticket user,model_mrp_semi_ticket,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,1,0
+access_mrp_semi_ticket_manager,mrp.semi.ticket manager,model_mrp_semi_ticket,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,1,1,1
+access_kc_mrp_production_resin_scrap_user,kc.mrp.production.resin.scrap user,model_kc_mrp_production_resin_scrap,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,0
+access_kc_mrp_production_resin_scrap_manager,kc.mrp.production.resin.scrap manager,model_kc_mrp_production_resin_scrap,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,1,1,1
+access_kc_mrp_resin_scrap_type_user,kc.mrp.resin.scrap.type user,model_kc_mrp_resin_scrap_type,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_mrp_resin_scrap_type_manager,kc.mrp.resin.scrap.type manager,model_kc_mrp_resin_scrap_type,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,1,1,1
+access_mrp_tablet_prelabel_lot_print_wizard_user,mrp.tablet.prelabel.lot.print.wizard user,model_mrp_tablet_prelabel_lot_print_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_reprint_label_wizard_user,mrp.tablet.reprint.label.wizard user,model_mrp_tablet_reprint_label_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_consume_prelabel_lot_wizard_user,mrp.tablet.consume.prelabel.lot.wizard user,model_mrp_tablet_consume_prelabel_lot_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_tablet_consume_prelabel_line_wizard_user,mrp.tablet.consume.prelabel.line.wizard user,model_mrp_tablet_consume_prelabel_line_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_supervisor_consume_prelabel_wizard_user,mrp.supervisor.consume.prelabel.wizard user,model_mrp_supervisor_consume_prelabel_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_mrp_supervisor_consume_prelabel_line_wizard_user,mrp.supervisor.consume.prelabel.line.wizard user,model_mrp_supervisor_consume_prelabel_line_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_kc_mrp_production_semi_adjustment_line_user,kc.mrp.production.semi.adjustment.line user,model_kc_mrp_production_semi_adjustment_line,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,1,0
+access_kc_mrp_production_semi_adjustment_line_manager,kc.mrp.production.semi.adjustment.line manager,model_kc_mrp_production_semi_adjustment_line,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,1,1,1
+access_kc_mrp_semi_stock_adjustment_wizard_user,kc.mrp.semi.stock.adjustment.wizard user,model_kc_mrp_semi_stock_adjustment_wizard,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_kc_mrp_semi_stock_adjustment_wizard_line_user,kc.mrp.semi.stock.adjustment.wizard.line user,model_kc_mrp_semi_stock_adjustment_wizard_line,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,1,1
+access_kc_sale_planning_location_mrp,kc.sale.planning.location mrp,model_kc_sale_planning_location,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,1,1,1
+access_kc_sale_planning_location_stock,kc.sale.planning.location stock,model_kc_sale_planning_location,stock.group_stock_manager,1,1,1,1
+access_kc_sale_planning_location_admin,kc.sale.planning.location admin,model_kc_sale_planning_location,base.group_system,1,1,1,1
+access_kc_tablet_mrp_workcenter,kc.tablet mrp.workcenter,mrp.model_mrp_workcenter,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_mrp_workorder,kc.tablet mrp.workorder,mrp.model_mrp_workorder,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,0,0
+access_kc_tablet_mrp_production,kc.tablet mrp.production,mrp.model_mrp_production,kc_mrp_wizard.group_kc_mrp_wizard_user,1,1,0,0
+access_kc_tablet_mrp_bom,kc.tablet mrp.bom,mrp.model_mrp_bom,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_mrp_bom_line,kc.tablet mrp.bom.line,mrp.model_mrp_bom_line,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_mrp_routing_workcenter,kc.tablet mrp.routing.workcenter,mrp.model_mrp_routing_workcenter,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_stock_lot,kc.tablet stock.lot,stock.model_stock_lot,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_stock_move,kc.tablet stock.move,stock.model_stock_move,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_stock_move_line,kc.tablet stock.move.line,stock.model_stock_move_line,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_stock_quant,kc.tablet stock.quant,stock.model_stock_quant,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_stock_location,kc.tablet stock.location,stock.model_stock_location,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_stock_scrap,kc.tablet stock.scrap,stock.model_stock_scrap,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_stock_picking,kc.tablet stock.picking,stock.model_stock_picking,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_product_product,kc.tablet product.product,product.model_product_product,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_product_template,kc.tablet product.template,product.model_product_template,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_uom_uom,kc.tablet uom.uom,uom.model_uom_uom,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_uom_category,kc.tablet uom.category,uom.model_uom_category,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_hr_employee,kc.tablet hr.employee,hr.model_hr_employee,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_hr_employee_public,kc.tablet hr.employee.public,hr.model_hr_employee_public,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_manager_hr_employee_public,kc.manager hr.employee.public,hr.model_hr_employee_public,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,0,0,0
+access_kc_tablet_quality_alert,kc.tablet quality.alert,quality.model_quality_alert,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_quality_alert_team,kc.tablet quality.alert.team,quality.model_quality_alert_team,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_quality_check,kc.tablet quality.check,quality.model_quality_check,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_quality_point,kc.tablet quality.point,quality.model_quality_point,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_maintenance_request,kc.tablet maintenance.request,maintenance.model_maintenance_request,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_maintenance_team,kc.tablet maintenance.team,maintenance.model_maintenance_team,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_network_printer,kc.tablet network.printer,network_printer.model_network_printer,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_ir_sequence,kc.tablet ir.sequence,base.model_ir_sequence,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_res_company,kc.tablet res.company,base.model_res_company,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_tablet_res_partner,kc.tablet res.partner,base.model_res_partner,kc_mrp_wizard.group_kc_mrp_wizard_user,1,0,0,0
+access_kc_manager_res_company,kc.manager res.company,base.model_res_company,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,0,0,0
+access_kc_manager_res_partner,kc.manager res.partner,base.model_res_partner,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,0,0,0
+access_kc_manager_hr_employee,kc.manager hr.employee,hr.model_hr_employee,kc_mrp_wizard.group_kc_mrp_wizard_manager,1,1,0,0

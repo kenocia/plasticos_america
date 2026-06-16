@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_hr_holidays_portal.LeaveRequestTemplate">
+        <div class="list_js_leave_class">
+            <form t-on-submit="onSubmit">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="leave_type_id">Tipo de Ausencia *</label>
+                            <select class="form-control leave_type-leave" 
+                                    id="leave_type_id" 
+                                    name="leave_type_id" 
+                                    t-model="state.leaveRequest.holiday_status_id"
+                                    t-on-change="onLeaveTypeChange"
+                                    required="required">
+                                <option value="">Seleccionar tipo de ausencia</option>
+                                <option t-foreach="state.leaveTypes" t-as="leaveType" t-key="leaveType.id" 
+                                        t-att-value="leaveType.id" 
+                                        t-esc="leaveType.name"/>
+                            </select>
+                            <div t-if="state.errors.holiday_status_id" class="text-danger">
+                                <small t-esc="state.errors.holiday_status_id"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="employee_id">Empleado *</label>
+                            <select class="form-control" 
+                                    id="employee_id" 
+                                    name="employee_id" 
+                                    t-model="state.leaveRequest.employee_id"
+                                    required="required">
+                                <option value="">Seleccionar empleado</option>
+                                <option t-foreach="state.employees" t-as="employee" t-key="employee.id" 
+                                        t-att-value="employee.id" 
+                                        t-esc="employee.name"/>
+                            </select>
+                            <div t-if="state.errors.employee_id" class="text-danger">
+                                <small t-esc="state.errors.employee_id"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="date_from">Fecha de Inicio *</label>
+                            <input type="date" 
+                                   class="form-control date_from-leave" 
+                                   id="date_from" 
+                                   name="date_from" 
+                                   t-model="state.leaveRequest.date_from"
+                                   t-on-change="onDateFromChange"
+                                   required="required"/>
+                            <div t-if="state.errors.date_from" class="text-danger">
+                                <small t-esc="state.errors.date_from"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="date_to">Fecha de Fin *</label>
+                            <input type="date" 
+                                   class="form-control date_to-leave" 
+                                   id="date_to" 
+                                   name="date_to" 
+                                   t-model="state.leaveRequest.date_to"
+                                   t-on-change="onDateToChange"
+                                   required="required"/>
+                            <div t-if="state.errors.date_to" class="text-danger">
+                                <small t-esc="state.errors.date_to"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="number_of_days_display">Número de Días</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="number_of_days_display" 
+                                   name="number_of_days_display" 
+                                   t-model="state.leaveRequest.number_of_days_display"
+                                   readonly="readonly"/>
+                            <div t-if="state.errors.number_of_days" class="text-danger">
+                                <small t-esc="state.errors.number_of_days"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">Nombre de la Solicitud</label>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="name" 
+                                   name="name" 
+                                   t-model="state.leaveRequest.name"
+                                   readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" 
+                                class="btn btn-primary" 
+                                id="add_leave"
+                                t-att-disabled="state.isSubmitting">
+                            <span t-if="state.isSubmitting">Enviando...</span>
+                            <span t-else="">Solicitar Ausencia</span>
+                        </button>
+                        <button type="button" 
+                                class="btn btn-secondary" 
+                                t-on-click="clearForm">
+                            Limpiar Formulario
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </t>
+</templates>

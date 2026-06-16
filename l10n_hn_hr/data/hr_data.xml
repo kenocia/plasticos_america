@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="spreadsheet_dashboard_birthday_employees" model="spreadsheet.dashboard">
+            <field name="name">Birthday</field>
+            <field name="spreadsheet_binary_data" type="base64"
+                   file="l10n_hn_hr/data/files/employees_dashboard.json"/>
+            <field name="dashboard_group_id" ref="spreadsheet_dashboard.spreadsheet_dashboard_group_hr"/>
+            <field name="group_ids" eval="[Command.link(ref('hr.group_hr_manager'))]"/>
+            <field name="sequence">0</field>
+        </record>
+
+    </data>
+</odoo>

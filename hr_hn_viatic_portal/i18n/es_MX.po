@@ -1,0 +1,1164 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_hn_viatic_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-17 18:56+0000\n"
+"PO-Revision-Date: 2024-12-17 14:11-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "$100.00"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "$120.00"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "$600.00"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "%s: It is not from your department"
+msgstr "%s: No es de tu departamento"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "%s: It is your own expense"
+msgstr "%s: Es tu propio gasto"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "%s: Your are not a Manager or HR Officer"
+msgstr "%s: No eres gerente ni oficial de recursos humanos"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.actions.report,print_report_name:hr_hn_viatic_portal.action_report_hr_expense_sheet
+msgid ""
+"'Viatic - %s - %s' % (object.employee_id.name, (object.name).replace('/', ''))"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "2023-08-11"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "50%"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "<span class=\"o_stat_text\">Journal Entry</span>"
+msgstr "<span class=\"o_stat_text\">Diario</span>"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span> - </span>"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span>Date:</span>"
+msgstr "<span>Fecha:</span>"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span>Employee:</span>"
+msgstr "<span>Empleado:</span>"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span>Manager:</span>"
+msgstr "<span>Jefe:</span>"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span>Paid by:</span>"
+msgstr "<span>Pagado por:</span>"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span>Place and date:</span>"
+msgstr "<span>Lugar y fecha:</span>"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span>Range date:</span>"
+msgstr "<span>Rango de fechas:</span>"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span>Reason for the trip:</span>"
+msgstr "<span>Motivo del viaje:</span>"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.my_custom_viatic_template
+msgid "<span>Sus viaticos</span>"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "<span>Travel to:</span>"
+msgstr "<span>Viaje a:</span>"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__accounting_date
+msgid "Accounting Date"
+msgstr "Fecha Contable"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Add Expenses"
+msgstr "Añadir gastos"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.template_list_of_viatic
+msgid "Add Viatic Expense"
+msgstr "Agregar viatico de gasto"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Agregar gasto"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "All expenses in an expense report must have the same \"paid by\" criteria."
+msgstr ""
+"Todos los gastos en un reporte de gasto deben tener el mismo \"pagado por\" "
+"como criterio."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__amount_residual
+msgid "Amount Due"
+msgstr "Monto adeudado"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "An expense report must contain only lines from the same company."
+msgstr "Un informe de gastos debe contener únicamente líneas de la misma empresa."
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Analytic Account Name"
+msgstr "Nombre de la cuenta analítica"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__sub_total_viatic_amount
+msgid "Anticipo"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__approval_date
+msgid "Approval Date"
+msgstr "Fecha de aprovación"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__approval_state
+msgid "Approval State"
+msgstr "Estado de aprobación"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Approve"
+msgstr "Aprovar"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__approval_state__approve
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__state__approve
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__approved_rate
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Approved rate"
+msgstr "Tarifa aprobada"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_attachment_count
+msgid "Attachment Count"
+msgstr "Recuento de archivos adjuntos"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Business Trip"
+msgstr "Viaje de negocios"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__can_approve
+msgid "Can Approve"
+msgstr "Puede aprobar"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__can_reset
+msgid "Can Reset"
+msgstr "Puede reiniciarse"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__cannot_approve_reason
+msgid "Cannot Approve Reason"
+msgstr "No se puede aprobar la razón"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Cantidad de Personas"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Cantidad de Personas:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.hr_expense_employee_view_form_easi_inherit
+msgid "Cantidad de dias"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.hr_expense_employee_view_form_easi_inherit
+msgid "Cantidad de personas"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__product_ids
+msgid "Categories"
+msgstr "Categorías"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__product_id
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Category"
+msgstr "Categoría"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model,name:hr_hn_viatic_portal.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__company_id
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__company_id
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_expense__payment_mode__company_account
+msgid "Company"
+msgstr "Compañía"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model,name:hr_hn_viatic_portal.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__create_uid
+#, fuzzy
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__create_date
+#, fuzzy
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Credit Card"
+msgstr "Tarjeta de crédito"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Date"
+msgstr "Fecha"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__date
+msgid "Date to travel"
+msgstr "Fecha de viaje"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Delete"
+msgstr "Borrar"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__department_id
+msgid "Department"
+msgstr "Departamento"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Detalle"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Detalle:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__display_name
+#, fuzzy
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__state__done
+msgid "Done"
+msgstr "Hecho"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Done viatic sheet"
+msgstr "Hoja de viatico hecha"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Días"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Días:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Empleado responsable"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Empleados que participan en el viaje"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_expense__payment_mode__own_account
+msgid "Employee (to reimburse)"
+msgstr "Empleado (a reembolsar)"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__employees_ids
+msgid "Employees related to expense"
+msgstr "Empleados relacionados al gasto"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__date_end
+msgid "End date"
+msgstr "Fecha fin"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Enviar"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model,name:hr_hn_viatic_portal.model_hr_expense
+msgid "Expense"
+msgstr "Gasto"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__journal_id
+msgid "Expense Journal"
+msgstr "Diario de gasto"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__expense_line_ids
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Expense Lines"
+msgstr "Líneas de gasto"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__is_editable
+msgid "Expense Lines Are Editable By Current User"
+msgstr "Las líneas de gastos son editables por el usuario actual"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model,name:hr_hn_viatic_portal.model_hr_expense_sheet
+#: model:ir.model,name:hr_hn_viatic_portal.model_hr_hn_viatic
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__viatic_id
+msgid "Expense Report"
+msgstr "Reporte de gastos"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__sheet_id
+msgid "Expense Sheet"
+msgstr "Hoja de gastos"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_account_bank_statement_line__expense_viatic_sheet_id
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_account_move__expense_viatic_sheet_id
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_account_payment__expense_viatic_sheet_id
+msgid "Expense Viatic Sheet"
+msgstr "Hoja de gastos viáticos"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/account_move.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/account_move.py:0
+#, python-format
+msgid "Expense entry created from: %s"
+msgstr "Entrada de gasto creada a partir de: %s"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+#, python-format
+msgid "Expenses"
+msgstr "Gastos"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.actions.report,name:hr_hn_viatic_portal.action_report_hr_expense_sheet
+msgid "Expenses Viatic Report"
+msgstr "Informe de Gastos Viáticos"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Fecha Hasta:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Fecha:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Fechas Desde:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Fechas del viaje"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.hr_expense_view_search_inherit_viatic_id
+msgid "Filtrar por Viático"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Flight Ticket"
+msgstr "Billete de avión"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Socios)"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Ícono de Font Awesome, por ejemplo, fa-tasks"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__is_multiple_currency
+msgid "Handle lines with different currencies"
+msgstr "Manejar líneas con diferentes monedas"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__id
+#, fuzzy
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcada, los mensajes nuevos requieren su atención."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__message_has_error
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcada, algunos mensajes tendrán un error de entrega."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__date_ini
+msgid "Initial date"
+msgstr "Fecha inicial"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__journal_viatic_id
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__employee_journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__account_move_ids
+msgid "Journal Entries"
+msgstr "Asiento contable"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model,name:hr_hn_viatic_portal.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model,name:hr_hn_viatic_portal.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "Journal entries"
+msgstr "Asiento contable"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__write_uid
+#, fuzzy
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__write_date
+#, fuzzy
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.template_list_of_viatic
+msgid "Lugar y fecha"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Lugar:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjunto Principal"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__user_id
+msgid "Manager"
+msgstr "Gerente"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Marc Demo"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_has_error
+msgid "Message Delivery error"
+msgstr "Error en la entrega del mensaje"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.ui.menu,name:hr_hn_viatic_portal.menu_my_expenses
+msgid "Mis Viaticos"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Mitchell Admin"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.hr_expense_employee_view_form_easi_inherit
+msgid "Monto aprovado"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Motivo del Viaje:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.template_list_of_viatic
+msgid "Motivo del viaje"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+#, fuzzy
+msgid "Name"
+msgstr "Nombre"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Próximo evento del calendario de actividades"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite para la próxima actividad"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la próxima actividad"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "No work contact found for the employee %s, please configure one."
+msgstr ""
+"No se encontró ningún contacto laboral para el empleado %s, configure uno."
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.template_list_of_viatic
+msgid "Nombre"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Nombre:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__nb_expense
+msgid "Number of Expenses"
+msgstr "Número de gastos"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__nb_account_move
+msgid "Number of Journal Entries"
+msgstr "Número de entradas de diario"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "Only HR Officers or the concerned employee can reset to draft."
+msgstr ""
+"Sólo los responsables de Recursos Humanos o el empleado en cuestión pueden "
+"restablecer el borrador."
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.template_list_of_viatic
+msgid "Page navigation"
+msgstr "Navegación de página"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__payment_mode
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__payment_mode
+msgid "Paid By"
+msgstr "Pagado por"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__payment_method_line_id
+msgid "Payment Method"
+msgstr "Método de pago"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__payment_state
+msgid "Payment Status"
+msgstr "Estado del pago"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__place
+msgid "Place"
+msgstr "Lugar"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__place_and_date
+msgid "Place and date"
+msgstr "Lugar y fecha"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__state__post
+msgid "Posted"
+msgstr "Publicado"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__qty_person
+#, fuzzy
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Quantity Days"
+msgstr "Cantidad Días"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Quantity Person"
+msgstr "Cantidad Persona"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense__qty_days
+msgid "Quantity days"
+msgstr "Cantidad de días"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__rating_ids
+msgid "Ratings"
+msgstr "Calificaciones"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__reason_description
+msgid "Reason for the trip"
+msgstr "Motivo del viaje"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_expense_sheet__viatic_id
+msgid "Reference to the related viatic report."
+msgstr "Referencia al informe viático relacionado."
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Refuse"
+msgstr "Denegar"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__approval_state__cancel
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__state__cancel
+msgid "Refused"
+msgstr "Rechazado"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__company_currency_id
+msgid "Report Company Currency"
+msgstr "Informe Moneda de la empresa"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Reset to Draft"
+msgstr "Restablecer al borrador"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.template_list_of_viatic
+msgid "Sel."
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__selectable_payment_method_line_ids
+msgid "Selectable Payment Method Line"
+msgstr "Línea de método de pago seleccionable"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "Show missing work email employees"
+msgstr "Mostrar correo electrónico de trabajo faltante para empleados"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.my_custom_viatic_template
+msgid "Solicite el pago de sus viaticos, o dele seguimiento"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Solicitud de Viaje"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Solicitud de viaje"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "Specify expense journal to generate accounting entries."
+msgstr "Especifique el diario de gastos para generar asientos contables."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__state
+msgid "Status"
+msgstr "Estado de pago"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencido: la fecha de vencimiento ya pasó\n"
+"Hoy: la fecha de la actividad es hoy\n"
+"Planificado: actividades futuras."
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Submit to Manager"
+msgstr "Enviar al gerente"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__approval_state__submit
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__state__submit
+msgid "Submitted"
+msgstr "Enviado"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+msgid "Subtotal"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.my_custom_viatic_template
+msgid "Sus gastos"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Tarifa Aprobada"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Tarifa Aprobada:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__total_tax_amount
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__total_tax_amount_viatic
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.constraint,message:hr_hn_viatic_portal.constraint_hr_hn_viatic_journal_id_required_posted
+msgid "The journal must be set on posted expense"
+msgstr "El diario debe configurarse en gastos contabilizados."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__employee_journal_id
+msgid "The journal used when the expense is paid by employee."
+msgstr "El diario que se utiliza cuando el gasto lo paga el empleado."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__payment_method_line_id
+msgid "The payment method used when the expense is paid by the company."
+msgstr "El método de pago utilizado cuando el gasto lo paga la empresa."
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid ""
+"The work email of some employees is missing. Please add it on the employee form"
+msgstr ""
+"Falta el correo electrónico laboral de algunos empleados. Por favor, agréguelo "
+"en el formulario del empleado."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__state__draft
+msgid "To send"
+msgstr "Enviar"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__total_amount
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.report_expense_sheet
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Total"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.template_list_of_viatic
+msgid "Total aprovado"
+msgstr "Total aprobado"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__total_amount_viatic
+msgid "Total viatic"
+msgstr "Total viatico"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__travel_to
+msgid "Travel to"
+msgstr "Viajar a"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción registrada."
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__untaxed_amount
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__untaxed_amount_viatic
+msgid "Untaxed Amount"
+msgstr "Monto libre de impuestos"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.viatic_form_template
+msgid "Viaje a:"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.actions.act_window,name:hr_hn_viatic_portal.action_hr_hn_viatic
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_expense__payment_mode__viatic
+msgid "Viatic"
+msgstr "Viático"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_res_company__account_viatic_id
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_res_config_settings__account_viatic_id
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.res_config_settings_viatic_view_form
+msgid "Viatic Account"
+msgstr "Cuenta Viática"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_res_company__journal_viatic_cash_bank_id
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_res_config_settings__journal_viatic_cash_bank_id
+msgid "Viatic Cash Account Journal"
+msgstr "Diario de cuenta de efectivo de Viatic"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.res_config_settings_viatic_view_form
+msgid "Viatic Cash and Banck Journal Account"
+msgstr "Cuenta de diario bancario y de efectivo de Viático"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_res_company__account_viatic_cash_bank_id
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_res_config_settings__account_viatic_cash_bank_id
+msgid "Viatic Cash and Bank Account"
+msgstr "Cuenta bancaria y efectivo de Viatic"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_form
+msgid "Viatic Form"
+msgstr "Formulario Viático"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_expense_sheet__viatic_id
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.hr_expense_sheet_form_inherit_viatic
+msgid "Viatic Reference"
+msgstr "Referencia Viático"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__name
+msgid "Viatic Report Summary"
+msgstr "Resumen del informe de viáticos"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.view_hr_hn_viatic_tree
+msgid "Viatic Tree"
+msgstr "Árbol Viático"
+
+#. module: hr_hn_viatic_portal
+#: model_terms:ir.ui.view,arch_db:hr_hn_viatic_portal.hr_expense_view_search_inherit_viatic_id
+msgid "Viático"
+msgstr ""
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,field_description:hr_hn_viatic_portal.field_hr_hn_viatic__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields,help:hr_hn_viatic_portal.field_hr_hn_viatic__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "You can only generate accounting entry for approved expense(s)."
+msgstr "Sólo puede generar entradas contables para gastos aprobados."
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "You cannot add expenses of another employee."
+msgstr "No se pueden agregar gastos de otro empleado."
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid ""
+"You cannot approve:\n"
+" %s"
+msgstr ""
+"No puedes aprobar:\n"
+"%s"
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid "You cannot delete a report with posted or paid journal entries."
+msgstr ""
+"No se puede eliminar un informe con entradas de diario contabilizadas o pagadas."
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/account_move.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/account_move.py:0
+#, python-format
+msgid ""
+"You cannot delete only some entries linked to an expense report. All entries "
+"must be deleted at the same time."
+msgstr ""
+"No es posible eliminar solo algunas entradas vinculadas a un informe de gastos. "
+"Se deben eliminar todas las entradas al mismo tiempo."
+
+#. module: hr_hn_viatic_portal
+#. odoo-python
+#: code:addons/hr_hn_viatic_portal/models/hr_viatic.py:0
+#: code:addons/l10n_hn_rrhh/hr_hn_viatic_portal/models/hr_viatic.py:0
+#, python-format
+msgid ""
+"You cannot refuse:\n"
+" %s"
+msgstr ""
+"No puedes rechazar:\n"
+"%s"
+
+#. module: hr_hn_viatic_portal
+#: model:ir.model.fields.selection,name:hr_hn_viatic_portal.selection__hr_hn_viatic__state__viatic
+msgid "advance"
+msgstr "avance"

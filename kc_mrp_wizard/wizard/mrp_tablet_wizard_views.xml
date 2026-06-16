@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- <record id="mrp_tablet_wizard_employee_line_tree" model="ir.ui.view">
+            <field name="name">mrp.tablet.wizard.employee.line.tree</field>
+            <field name="model">mrp.tablet.wizard.employee.line</field>
+            <field name="arch" type="xml">
+                <list create="0" delete="0" edit="0" class="oe_tablet_employee_list o_list_no_open">
+                    <field name="employee_wizard_id" column_invisible="1"/>
+                    <field name="employee_id" column_invisible="1"/>
+                    <field name="employee_name" nolabel="1" class="oe_tablet_employee_name"/>
+                    <button name="action_select_employee" type="object" string="Seleccionar" class="btn-primary btn-lg py-3" icon="fa-check"/>
+                </list>
+            </field>
+        </record> -->
+
+        <record id="mrp_tablet_wizard_employee_line_kanban" model="ir.ui.view">
+            <field name="name">mrp.tablet.wizard.employee.line.kanban</field>
+            <field name="model">mrp.tablet.wizard.employee.line</field>
+            <field name="arch" type="xml">
+                <kanban create="0" delete="0" edit="0" can_open="0" class="oe_tablet_employee_kanban">
+                    <field name="employee_wizard_id"/>
+                    <field name="employee_id"/>
+                    <field name="employee_name"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="card position-relative h-100 border-0 shadow-sm rounded-3 overflow-hidden text-center py-3">
+                                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                                    <div class="mb-2">
+                                        <i class="fa fa-user-circle fa-2x text-primary" title="Empleado"/>
+                                    </div>
+                                    <div class="fw-semibold fs-5">
+                                        <field name="employee_name" nolabel="1" class="oe_tablet_employee_name"/>
+                                    </div>
+                                </div>
+                                <!-- Botón transparente que cubre toda la tarjeta: al hacer clic se ejecuta la acción -->
+                                <button name="action_select_employee" type="object"
+                                        class="position-absolute top-0 start-0 w-100 h-100 border-0 p-0 m-0"
+                                        style="z-index: 1; opacity: 0; cursor: pointer;"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="mrp_tablet_employee_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.employee.wizard.form</field>
+            <field name="model">mrp.tablet.employee.wizard</field>
+            <field name="arch" type="xml">
+                <form class="oe_tablet_wizard_no_nav">
+                    <group>
+                        <group>
+                            <field name="workcenter_id" placeholder="Centro de trabajo" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="allowed_employee_ids" invisible="1"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-info mb-0" role="alert">
+                                <strong><i class="fa fa-user me-1"/>Seleccione su empleado para continuar al paso de PIN.</strong><br/>
+                            </div>                        
+                        </group>
+                    </group>
+                    <br/>
+                    <field name="employee_line_ids" nolabel="1" mode="kanban"
+                           view_id="mrp_tablet_wizard_employee_line_kanban"
+                           options="{'create': false, 'delete': false, 'edit': false}"/>
+                           
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-4" special="cancel"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Paso 2: PIN del empleado seleccionado -->
+        <record id="mrp_tablet_employee_pin_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.employee.pin.wizard.form</field>
+            <field name="model">mrp.tablet.employee.wizard</field>
+            <field name="arch" type="xml">
+                <form class="oe_tablet_wizard_no_nav">
+                    <group>
+                        <group>
+                            <field name="workcenter_id" placeholder="Centro de trabajo" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="employee_id" string="Empleado" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="pin_masked" string="PIN" readonly="1"
+                                    class="oe_tablet_pin_input oe_tablet_pin_display"/>
+                            <field name="pin_input" invisible="1"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-info mb-0" role="alert">
+                                <strong><i class="fa fa-lock me-1"/> Ingrese su PIN en el teclado numérico para acceder a producción.</strong><br/>
+                            </div>
+                        </group>
+                    </group>
+                    <br/>
+
+                    <div class="oe_tablet_pin_pad">
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '1'}" string="1"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '2'}" string="2"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '3'}" string="3"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '4'}" string="4"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '5'}" string="5"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '6'}" string="6"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '7'}" string="7"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '8'}" string="8"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '9'}" string="9"/>
+                        <button type="object" class="btn btn-outline-danger btn-lg"
+                                name="action_pin_clear" string="Limpiar"/>
+                        <button type="object" class="btn btn-outline-secondary btn-lg"
+                                name="action_pin_add_digit" context="{'pin_digit': '0'}" string="0"/>
+                        <button type="object" class="btn btn-outline-warning btn-lg"
+                                name="action_pin_backspace" string="Borrar"/>
+                    </div>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <!-- <button name="action_cancel_pin" string="Volver a centros" type="object"
+                                    class="btn-secondary btn-lg py-4"/> -->
+                            <button name="action_validate_pin" string="Validar PIN" type="object"
+                                    class="btn-primary btn-lg py-4"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!-- <record id="mrp_tablet_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.wizard.form</field>
+            <field name="model">mrp.tablet.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="alert alert-success mb-0" role="alert">
+                        <strong><i class="fa fa-check-circle me-1"/> Sesión iniciada</strong><br/>
+                        Empleado identificado. Continúe con la operatividad de producción.
+                    </div>
+                    <group>
+                        <group string="Sesión">
+                            <field name="employee_id" readonly="1"/>
+                            <field name="workcenter_id" readonly="1"/>
+                        </group>
+                        <group string="Orden activa">
+                            <field name="production_id" readonly="1"/>
+                            <field name="workorder_id" readonly="1"/>
+                            <field name="batch_qty" readonly="1"/>
+                        </group>
+                    </group>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar sesión" class="btn-secondary btn-lg py-4" special="cancel"/>
+                            <button name="action_open_production_board" string="Entrar a producción" type="object" class="btn-primary btn-lg py-4"/>
+                            <button name="action_create_batch_lot" string="Crear lote" type="object" class="btn-primary btn-lg py-4"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record> -->
+        <!-- Wizard confirmación crear lote: muestra Producto, cantidad, unidad; Aceptar crea el lote -->
+        <record id="mrp_tablet_confirm_batch_lot_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.confirm.batch.lot.wizard.form</field>
+            <field name="model">mrp.tablet.confirm.batch.lot.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Confirmar datos del lote" class="oe_tablet_wizard_no_nav">
+                    <group>
+                        <group>
+                            <field name="workorder_id" invisible="1"/>
+                            <field name="employee_id" string="Empleado" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_id" string="Producto" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="qty_to_produce" string="Cantidad (este lote)" readonly="1"/>
+                            <field name="product_uom_id" string="Unidad" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="batches_remaining_hint" readonly="1"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-info mb-0" role="alert">
+                                <strong><i class="fa fa-cubes me-1"/> Un lote por pulsación.</strong><br/>
+                                La cantidad es el fardo según la LdM (cantidad base), no el total de la OF.
+                                El consumo de materia prima será proporcional solo a esta cantidad.
+                            </div>
+                        </group>
+                    </group>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-3" special="cancel"/>
+                            <button name="action_confirm" string="Aceptar" type="object" class="btn-primary btn-lg py-3"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Wizard producción manual: cantidad editable, elegir o crear lote -->
+        <record id="mrp_tablet_material_scrap_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.material.scrap.wizard.form</field>
+            <field name="model">mrp.tablet.material.scrap.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Merma de material" class="oe_tablet_wizard_no_nav">
+                    <group>
+                        <group>
+                            <field name="workorder_id" invisible="1"/>
+                            <field name="production_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="allowed_move_raw_ids" invisible="1"/>
+                            <field name="allowed_lot_ids" invisible="1"/>
+                            <field name="tracking" invisible="1"/>
+                            <field name="move_raw_id" string="Componente"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_id" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_uom_id" string="Unidad" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="type_id" string="Tipo de merma" required="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="quantity" string="Cantidad a desechar"/>
+                            <field name="lot_id" invisible="tracking == 'none'" required="tracking != 'none'"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-warning mb-0" role="alert">
+                                <strong><i class="fa fa-trash me-1"/> Merma de componente de la orden.</strong><br/>
+                                Se valida existencia en la ubicación de consumo y se genera un movimiento a ubicación de desecho.
+                            </div>
+                            <field name="employee_id" string="Empleado" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="location_id" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-3" special="cancel"/>
+                            <button name="action_confirm" string="Registrar merma" type="object" class="btn-danger btn-lg py-3"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_tablet_semi_ticket_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.semi.ticket.wizard.form</field>
+            <field name="model">mrp.tablet.semi.ticket.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Registrar semiterminado" class="oe_tablet_wizard_no_nav">
+                    <group>
+                        <group>
+                            <field name="workorder_id" invisible="1"/>
+                            <field name="operation_id" invisible="1"/>
+                            <field name="employee_id" string="Empleado" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_id" string="Código semiterminado" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   placeholder="(Sin producto, solo conteo)"/>
+                            <field name="uom_id" string="Unidad" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="quantity" string="Cantidad a registrar"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-info mb-0" role="alert">
+                                <strong><i class="fa fa-cube me-1"/> Semiterminado (no es lote de stock de PT en Odoo).</strong><br/>
+                                Se genera un ticket con referencia única e impresión de etiqueta.
+                            </div>
+                        </group>
+                    </group>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-3" special="cancel"/>
+                            <button name="action_confirm" string="Registrar" type="object" class="btn-primary btn-lg py-3"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_tablet_confirm_batch_lot_bad_qty_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.confirm.batch.lot.bad.qty.wizard.form</field>
+            <field name="model">mrp.tablet.confirm.batch.lot.bad.qty.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Producción manual" class="oe_tablet_wizard_no_nav">
+                    <group>
+                        <group>
+                            <field name="workorder_id" invisible="1"/>
+                            <field name="production_id" invisible="1"/>
+                            <field name="employee_id" string="Empleado" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_id" string="Producto" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_uom_id" string="Unidad" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="qty_to_produce" string="Cantidad a producir"/>
+                            <field name="lot_id" string="Lote" placeholder="Vacío = crear lote nuevo"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-secondary mb-0" role="alert">
+                                <strong><i class="fa fa-pencil-square-o me-1"/> Producción manual por lote.</strong><br/>
+                                Indique la cantidad (no puede superar lo pendiente de la orden).
+                                Solo puede elegir lotes ya vinculados a esta orden de fabricación; vacío crea un lote nuevo con esa vinculación.
+                                No use pre-etiquetas pendientes (use «Escanear pre-etiqueta»).
+                                El consumo de componentes sigue la lista de materiales de la orden.
+                            </div>
+                        </group>
+                    </group>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-3" special="cancel"/>
+                            <button name="action_confirm" string="Registrar producción" type="object" class="btn-primary btn-lg py-3"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_tablet_prelabel_lot_print_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.prelabel.lot.print.wizard.form</field>
+            <field name="model">mrp.tablet.prelabel.lot.print.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Imprimir pre-etiquetas" class="oe_tablet_wizard_no_nav">
+                    <group>
+                        <group>
+                            <field name="workorder_id" invisible="1"/>
+                            <field name="employee_id"
+                                   widget="many2one_avatar_employee"
+                                   options="{'no_create': True, 'no_open': True, 'relation': 'hr.employee'}"
+                                   placeholder="Opcional (vacío = sin empleado en lote)"/>
+                            <field name="prelabel_limit_policy" invisible="1"/>
+                            <field name="workcenter_code" readonly="1"/>
+                            <field name="label_count"/>
+                            <field name="prelabel_shift" widget="radio"/>
+                            <field name="confirm_responsible" invisible="prelabel_limit_policy != 'warn'"/>
+                        </group>
+                        <!-- <group>
+                            <div class="alert alert-info mb-0" role="alert">
+                                <strong><i class="fa fa-print me-1"/> Etiquetas anticipadas.</strong><br/>
+                                Se crean lotes en estado «pendiente», sin inventario hasta producirlos.
+                                Con impresora configurada en el centro, se envía por red (GS1 en ZPL, RAW puerto 9100), misma lógica que el PT.
+                                Si no hay impresora, no hay impresión física.
+                                Si la suma de tiradas supera lo pendiente por fabricar, se aplica la política de la orden (bloquear o advertencia).
+                            </div>
+                        </group> -->
+                    </group>
+                    <group string="Resumen etiquetas" colspan="2">
+                        <field name="production_id" invisible="1"/>
+                        <field name="product_uom_id" invisible="1"/>
+                        <group>
+                            <field name="prelabel_pending_count" string="Pendientes Producción"/>
+                            <field name="prelabel_to_generate_count" string="Por Generar"/>
+                            <field name="prelabel_produced_count" string="Producidas"/>
+                        </group>
+                    </group>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-3" special="cancel"/>
+                            <button name="action_confirm" string="Generar e imprimir" type="object" class="btn-primary btn-lg py-3"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_supervisor_consume_prelabel_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.supervisor.consume.prelabel.wizard.form</field>
+            <field name="model">mrp.supervisor.consume.prelabel.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Registrar pre-etiquetas (supervisor)" class="oe_tablet_wizard_no_nav" js_class="kc_prelabel_scan_wizard">
+                    <field name="kc_focus_token" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="workcenter_id" readonly="1" options="{'no_open': True}"/>
+                            <!-- <field name="production_id" readonly="1" string="Orden de fabricación"/> -->
+                            <field name="employee_id" string="Operador"
+                                   options="{'no_create': True, 'no_open': True, 'relation': 'hr.employee'}"/>
+                        </group>
+                        <group>
+                            <!-- <div class="alert alert-info mb-0" role="alert">
+                                <strong><i class="fa fa-user-secret me-1"/> Modo supervisor (sin sesión tablet).</strong><br/>
+                                El <strong>primer escaneo</strong> fija la orden de fabricación y la OT en este centro (debe estar <strong>en progreso</strong>).
+                                Las siguientes pre-etiquetas deben ser de la <strong>misma MO y OT</strong>.
+                                Pulse «Añadir a la lista» por cada lectura; al confirmar no se reimprime la etiqueta.
+                            </div> -->
+                            <field name="workorder_id" readonly="1" string="Orden - Operación"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <label for="lot_barcode" string="Escanear QR"/>
+                        <field name="lot_barcode"
+                               nolabel="1"
+                               widget="kc_prelabel_barcode_scan"
+                               default_focus="1"
+                               placeholder="Escanee o pegue el código…"
+                               class="o_input fs-3"/>
+                    </group>
+                    <group string="Pre-etiquetas a producir" colspan="2">
+                        <field name="line_ids" nolabel="1" colspan="2">
+                            <list create="0" delete="1" editable="bottom"
+                                  default_order="sequence desc, id desc">
+                                <field name="sequence" string="#"/>
+                                <field name="lot_name" string="Lote"/>
+                                <field name="qty" string="Cantidad"/>
+                            </list>
+                        </field>
+                    </group>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-3" special="cancel"/>
+                            <button name="action_add_scan" string="Añadir a la lista" type="object" class="btn-secondary btn-lg py-3"/>
+                            <button name="action_confirm" string="Confirmar y producir" type="object" class="btn-primary btn-lg py-3"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_tablet_consume_prelabel_lot_wizard_form" model="ir.ui.view">
+            <field name="name">mrp.tablet.consume.prelabel.lot.wizard.form</field>
+            <field name="model">mrp.tablet.consume.prelabel.lot.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Escanear pre-etiqueta" class="oe_tablet_wizard_no_nav" js_class="kc_prelabel_scan_wizard">
+                    <field name="kc_focus_token" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="workorder_id" invisible="1"/>
+                            <field name="employee_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-secondary mb-0" role="alert">
+                                <strong><i class="fa fa-barcode me-1"/> Misma etiqueta física que al generar pre-etiquetas.</strong><br/>
+                                Pulse «Añadir a la lista» por cada lectura; puede acumular varias filas y confirmar una sola vez.
+                                Si falla validación o stock de algún componente, no se producirá ninguna de las de la lista.
+                                Al confirmar <strong>no</strong> se vuelve a imprimir (la pre-etiqueta ya es la etiqueta final).
+                            </div>
+                        </group>
+                    </group>
+                    <group>
+                        <label for="lot_barcode" string="Escanear pre-etiqueta"/>
+                        <field name="lot_barcode"
+                               nolabel="1"
+                               widget="kc_prelabel_barcode_scan"
+                               default_focus="1"
+                               placeholder="Escanee o pegue el código…"
+                               class="o_input fs-3"/>
+                    </group>
+                    <group string="Pre-etiquetas a producir en este paso" colspan="2">
+                        <field name="line_ids" nolabel="1" colspan="2">
+                            <list create="0" delete="1" editable="bottom"
+                                  default_order="sequence desc, id desc">
+                                <field name="sequence" string="#"/>
+                                <field name="lot_name" string="Lote"/>
+                                <field name="qty" string="Cantidad"/>
+                            </list>
+                        </field>
+                    </group>
+                    <footer class="w-100 oe_tablet_wizard_footer">
+                        <div class="d-flex justify-content-center flex-wrap gap-2 w-100">
+                            <button string="Cancelar" class="btn-secondary btn-lg py-3" special="cancel"/>
+                            <button name="action_add_scan" string="Añadir a la lista" type="object" class="btn-secondary btn-lg py-3"/>
+                            <button name="action_confirm" string="Confirmar y producir" type="object" class="btn-primary btn-lg py-3"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

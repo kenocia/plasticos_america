@@ -1,0 +1,71 @@
+.kc-movements-dashboard .kc-dash-kpi--movements-count .kc-dash-kpi__icon-wrap {
+    background: #e7f5ff;
+    color: #1971c2;
+}
+
+.kc-movements-dashboard .kc-dash-kpi--movements-qty .kc-dash-kpi__icon-wrap {
+    background: #f3ecfd;
+    color: #9333ea;
+}
+
+.kc-movements-dashboard .kc-dash-kpi--movements-in .kc-dash-kpi__icon-wrap {
+    background: #d3f9d8;
+    color: #2b8a3e;
+}
+
+.kc-movements-dashboard .kc-dash-kpi--movements-out .kc-dash-kpi__icon-wrap {
+    background: #ffe3e3;
+    color: #c92a2a;
+}
+
+.kc-movements-dashboard .kc-dash-kpi--movements-internal .kc-dash-kpi__icon-wrap {
+    background: #e7f5ff;
+    color: #4c6ef5;
+}
+
+.kc-movements-dashboard .kc-dash-kpis {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 1200px) {
+    .kc-movements-dashboard .kc-dash-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.kc-dash-hour-area-chart__line--purple {
+    stroke: #845ef7;
+}
+
+.kc-dash-card--inventory-trend .kc-dash-hour-area-chart__plot,
+.kc-dash-card--inventory-trend .kc-dash-hour-area-chart__canvas {
+    overflow: hidden;
+}
+
+.kc-dash-card--inventory-trend .kc-dash-hour-area-chart__svg {
+    overflow: hidden;
+}
+
+.kc-dash-hour-area-chart__x-axis--trend {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.kc-dash-badge--incoming {
+    background: #d3f9d8;
+    color: #2b8a3e;
+}
+
+.kc-dash-badge--outgoing {
+    background: #ffe3e3;
+    color: #c92a2a;
+}
+
+.kc-dash-badge--internal {
+    background: #e7f5ff;
+    color: #1971c2;
+}
+
+.kc-dash-badge--done {
+    background: #dcfce7;
+    color: #166534;
+}

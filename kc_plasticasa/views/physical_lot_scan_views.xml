@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kc_physical_lot_scan_session_list" model="ir.ui.view">
+        <field name="name">kc.physical.lot.scan.session.list</field>
+        <field name="model">kc.physical.lot.scan.session</field>
+        <field name="arch" type="xml">
+            <list string="Levantamiento físico previo">
+                <header>
+                    <button name="action_start_scan"
+                            type="object"
+                            string="Iniciar escaneo"
+                            class="btn-primary"
+                            display="always"/>
+                </header>
+                <field name="name"/>
+                <field name="created_date"/>
+                <field name="user_id"/>
+                <field name="location_default_id" optional="show"/>
+                <field name="line_count"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'done'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kc_physical_lot_scan_session_form" model="ir.ui.view">
+        <field name="name">kc.physical.lot.scan.session.form</field>
+        <field name="model">kc.physical.lot.scan.session</field>
+        <field name="arch" type="xml">
+            <form string="Levantamiento físico previo">
+                <header>
+                    <button name="action_open_scan_wizard"
+                            type="object"
+                            string="Escanear GS1"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_refresh_odoo_quantities"
+                            type="object"
+                            string="Actualizar existencia Odoo"
+                            class="btn-secondary"
+                            invisible="not line_ids"/>
+                    <button name="action_apply_session_adjustment"
+                            type="object"
+                            string="Aplicar ajuste de entrada"
+                            class="btn-primary"
+                            invisible="not line_ids or (adjustment_picking_id and adjustment_picking_state != 'cancel') or (return_picking_id and return_picking_state != 'cancel')"
+                            confirm="Se creará un albarán de entrada con todos los lotes de la sesión (cantidad = QR). ¿Continuar?"/>
+                    <button name="action_apply_session_return"
+                            type="object"
+                            string="Aplicar devolución completa"
+                            class="btn-warning"
+                            invisible="not line_ids or adjustment_picking_state != 'done' or (return_picking_id and return_picking_state != 'cancel')"
+                            confirm="Se creará un albarán de salida que retira todo el stock ingresado por esta sesión (cantidad = QR). ¿Continuar?"/>
+                    <button name="action_close_session"
+                            type="object"
+                            string="Cerrar sesión"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reopen_session"
+                            type="object"
+                            string="Reabrir"
+                            invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_adjustment_picking"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-truck"
+                                invisible="not adjustment_picking_id">
+                            <field name="adjustment_picking_id" widget="statinfo" string="Ajuste"/>
+                        </button>
+                        <button name="action_open_return_picking"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-undo"
+                                invisible="not return_picking_id">
+                            <field name="return_picking_id" widget="statinfo" string="Devolución"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <field name="adjustment_state" invisible="1"/>
+                    <field name="adjustment_picking_state" invisible="1"/>
+                    <field name="return_state" invisible="1"/>
+                    <field name="return_picking_state" invisible="1"/>
+                    <field name="kc_physical_allowed_location_ids" invisible="1"/>
+                    <field name="kc_physical_auto_location" invisible="1"/>
+                    <field name="kc_physical_require_location" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="state != 'draft'"/>
+                            <field name="location_default_id"
+                                   readonly="state != 'draft'"
+                                   invisible="kc_physical_auto_location"
+                                   required="not kc_physical_auto_location and state == 'draft'"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="created_date" readonly="1"/>
+                            <field name="closed_date" readonly="1"/>
+                            <field name="line_count"/>
+                            <field name="line_ready_count"
+                                   string="Listos entrada"
+                                   invisible="not line_ids"/>
+                            <field name="line_with_stock_count"
+                                   string="Con stock ubic."
+                                   invisible="not line_ids"/>
+                            <field name="odoo_last_refresh_date" invisible="not odoo_last_refresh_date"/>
+                            <field name="adjustment_state" widget="badge"
+                                   decoration-success="adjustment_state == 'applied'"
+                                   invisible="adjustment_state == 'none'"/>
+                            <field name="adjustment_date" invisible="adjustment_state != 'applied'"/>
+                            <field name="return_state" widget="badge"
+                                   decoration-warning="return_state == 'applied'"
+                                   invisible="return_state == 'none'"/>
+                            <field name="return_date" invisible="return_state != 'applied'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lotes escaneados" name="lines">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list create="0" edit="0" delete="state == 'draft'"
+                                      decoration-danger="has_stock_at_reported"
+                                      decoration-muted="location_mismatch"
+                                      default_order="ramp_index desc, session_line_no desc">
+                                    <field name="ramp_index" string="Rampla"/>
+                                    <field name="session_line_no" string="#"/>
+                                    <field name="scan_date"/>
+                                    <field name="lot_id"/>
+                                    <field name="product_id" optional="hide"/>
+                                    <field name="qty_gs1" string="Cant. QR" optional="show"/>
+                                    <field name="qty_physical" string="Cant. Odoo (ubic.)"/>
+                                    <field name="has_stock_at_reported" string="Stock ubic." optional="show"/>
+                                    <field name="location_reported_id"/>
+                                    <field name="location_system_id" string="Ubic. Odoo" optional="show"/>
+                                    <field name="location_mismatch" column_invisible="1"/>
+                                    <field name="odoo_refreshed_date" optional="hide"/>
+                                    <field name="last_movement_id" optional="show"/>
+                                    <field name="user_id" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_kc_physical_lot_scan_session_search" model="ir.ui.view">
+        <field name="name">kc.physical.lot.scan.session.search</field>
+        <field name="model">kc.physical.lot.scan.session</field>
+        <field name="arch" type="xml">
+            <search string="Levantamiento físico previo">
+                <field name="name"/>
+                <field name="user_id"/>
+                <filter string="En curso" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Cerradas" name="filter_done" domain="[('state', '=', 'done')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Responsable" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_kc_physical_lot_scan_session" model="ir.actions.act_window">
+        <field name="name">Inventario físico previo</field>
+        <field name="res_model">kc.physical.lot.scan.session</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_kc_physical_lot_scan_session_search"/>
+        <field name="context">{'search_default_filter_draft': 1}</field>
+    </record>
+
+    <record id="view_kc_physical_lot_scan_line_list" model="ir.ui.view">
+        <field name="name">kc.physical.lot.scan.line.list</field>
+        <field name="model">kc.physical.lot.scan.line</field>
+        <field name="arch" type="xml">
+            <list string="Detalle escaneos físicos" create="false" delete="false"
+                  decoration-danger="location_mismatch"
+                  default_order="session_id desc, ramp_index desc, session_line_no desc">
+                <field name="ramp_index" string="Rampla"/>
+                <field name="session_line_no" string="#"/>
+                <field name="scan_date"/>
+                <field name="session_id"/>
+                <field name="lot_id"/>
+                <field name="product_id"/>
+                <field name="qty_gs1" string="Cant. QR"/>
+                <field name="qty_physical" string="Cant. Odoo (ubic.)"/>
+                <field name="has_stock_at_reported" optional="show"/>
+                <field name="location_reported_id"/>
+                <field name="location_system_id"/>
+                <field name="last_movement_id"/>
+                <field name="last_movement_date" optional="hide"/>
+                <field name="last_movement_user_id" optional="hide"/>
+                <field name="user_id"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kc_physical_lot_scan_line_search" model="ir.ui.view">
+        <field name="name">kc.physical.lot.scan.line.search</field>
+        <field name="model">kc.physical.lot.scan.line</field>
+        <field name="arch" type="xml">
+            <search string="Escaneos físicos">
+                <field name="lot_id"/>
+                <field name="product_id"/>
+                <field name="session_id"/>
+                <field name="location_reported_id"/>
+                <filter string="Con stock en ubic. reportada" name="filter_has_stock_at_reported"
+                        domain="[('has_stock_at_reported', '=', True)]"/>
+                <filter string="Sin stock en ubic. reportada" name="filter_ready_entry"
+                        domain="[('has_stock_at_reported', '=', False)]"/>
+                <filter string="Diferencia ubicación" name="filter_mismatch"
+                        domain="[('location_mismatch', '=', True)]"/>
+                <filter string="Fecha escaneo" name="filter_scan_date" date="scan_date"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Sesión" name="group_session" context="{'group_by': 'session_id'}"/>
+                    <filter string="Rampla" name="group_ramp" context="{'group_by': 'ramp_index'}"/>
+                    <filter string="Lote" name="group_lot" context="{'group_by': 'lot_id'}"/>
+                    <filter string="Ubicación reportada" name="group_loc"
+                            context="{'group_by': 'location_reported_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_kc_physical_lot_scan_line" model="ir.actions.act_window">
+        <field name="name">Historial escaneos físicos</field>
+        <field name="res_model">kc.physical.lot.scan.line</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_kc_physical_lot_scan_line_search"/>
+    </record>
+
+    <record id="action_kc_physical_lot_scan_line_bulk_update" model="ir.actions.server">
+        <field name="name">Actualizar ubicación / movimiento</field>
+        <field name="model_id" ref="model_kc_physical_lot_scan_line"/>
+        <field name="binding_model_id" ref="model_kc_physical_lot_scan_line"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_bulk_update_wizard()</field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="view_kc_physical_lot_scan_wizard_form" model="ir.ui.view">
+        <field name="name">kc.physical.lot.scan.wizard.form</field>
+        <field name="model">kc.physical.lot.scan.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Escanear GS1 — físico previo" js_class="kc_gs1_scan_wizard">
+                <field name="state" invisible="1"/>
+                <field name="session_id" invisible="1"/>
+                <field name="scan_session_uid" invisible="1"/>
+                <field name="kc_physical_allowed_location_ids" invisible="1"/>
+                <field name="kc_physical_auto_location" invisible="1"/>
+                <field name="kc_physical_require_location" invisible="1"/>
+                <field name="kc_focus_token" invisible="1"/>
+                <field name="kc_scan_refresh" invisible="1"/>
+                <group string="Rampla">
+                    <group>
+                        <field name="ramp_index" string="Rampla n.º" readonly="1"/>
+                        <field name="next_line_no" string="Próximo #" readonly="1"/>
+                    </group>
+                    <group invisible="kc_physical_auto_location">
+                        <field name="location_reported_id"
+                               string="Ubicación / rampla"
+                               options="{'no_create': True}"
+                               required="not kc_physical_auto_location"/>
+                    </group>
+                </group>
+                <group>
+                    <label for="barcode_input" string="Escanear QR GS1"/>
+                    <field name="barcode_input"
+                           nolabel="1"
+                           widget="kc_gs1_barcode_scan"
+                           default_focus="1"
+                           class="o_input fs-3"/>
+                </group>
+                <group invisible="not message">
+                    <field name="ramp_line_count" string="Lotes en rampla: " readonly="1"/>
+                    <field name="message" nolabel="1" readonly="1"/>
+                </group>
+                <field name="line_ids" nolabel="1" readonly="1">
+                    <list create="0" edit="0" delete="0"
+                          decoration-danger="location_mismatch"
+                          default_order="session_line_no desc, scan_date desc">
+                        <field name="session_line_no" string="#"/>
+                        <field name="scan_date"/>
+                        <field name="lot_id"/>
+                        <field name="qty_gs1" string="Cant. QR"/>
+                        <field name="qty_physical" string="Cant. Odoo (ubic.)"/>
+                        <field name="location_reported_id" optional="hide"/>
+                        <field name="location_system_id" string="Ubic. Odoo" optional="show"/>
+                        <field name="user_id" optional="hide"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_process_qr"
+                            type="object"
+                            string="Procesar QR"
+                            class="btn-secondary"
+                            invisible="1"/>
+                    <button name="action_new_ramp"
+                            type="object"
+                            string="Nueva rampla"
+                            class="btn-warning"
+                            title="Conserva los lotes ya escaneados e inicia el conteo en otra rampla."/>
+                    <button name="action_close"
+                            type="object"
+                            string="Cerrar"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_kc_physical_lot_scan_bulk_update_wizard_form" model="ir.ui.view">
+        <field name="name">kc.physical.lot.scan.bulk.update.wizard.form</field>
+        <field name="model">kc.physical.lot.scan.bulk.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Actualización masiva">
+                <field name="kc_physical_allowed_location_ids" invisible="1"/>
+                <group>
+                    <field name="line_ids" widget="many2many_tags" readonly="1"/>
+                </group>
+                <group>
+                    <field name="update_location"/>
+                    <field name="location_reported_id"
+                           invisible="not update_location"
+                           required="update_location"/>
+                </group>
+                <group>
+                    <field name="update_movement"/>
+                    <field name="last_movement_id"
+                           invisible="not update_movement"
+                           required="update_movement"/>
+                    <field name="last_movement_date" invisible="not update_movement"/>
+                    <field name="last_movement_user_id" invisible="not update_movement"/>
+                </group>
+                <footer>
+                    <button name="action_apply"
+                            type="object"
+                            string="Aplicar"
+                            class="btn-primary"/>
+                    <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="menu_kc_physical_lot_scan_root"
+              name="Inventario físico previo"
+              parent="stock.menu_stock_warehouse_mgmt"
+              action="action_kc_physical_lot_scan_session"
+              sequence="27"
+              groups="stock.group_stock_user"/>
+
+    <menuitem id="menu_kc_physical_lot_scan_line"
+              name="Historial escaneos físicos"
+              parent="stock.menu_stock_warehouse_mgmt"
+              action="action_kc_physical_lot_scan_line"
+              sequence="28"
+              groups="stock.group_stock_manager"/>
+</odoo>

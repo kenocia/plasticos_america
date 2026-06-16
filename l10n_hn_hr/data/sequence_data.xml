@@ -1,0 +1,12 @@
+<odoo noupdate="1">
+
+    <record id="sequence_hr_employee" model="ir.sequence">
+        <field name="name">Código del empleado</field>
+        <field name="code">hr.employee.registration_number</field>
+        <field eval="6" name="padding"/>
+        <field name="prefix"></field>
+        <field name="number_next">19700</field>
+        <field name="number_increment">1</field>
+    </record>
+
+</odoo>

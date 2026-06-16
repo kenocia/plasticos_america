@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_payslip_by_employees_inh" model="ir.ui.view">
+        <field name="name">hr_payroll_payslip_employees_inh</field>
+        <field name="model">hr.payslip.employees</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/separator[3]" position="before">
+                <separator string="Horario Laboral" colspan="2"/>
+                <div class="o_row">
+                    <p class="text-muted w-50">Especifique el horario laboral.
+                    </p>
+                    <field name="resource_calendar_id" nolabel="1"/>
+                </div>
+                <separator string="Tipo de contrato" colspan="2"/>
+                <div class="o_row">
+                    <p class="text-muted w-50">Especifique el tipo de contrato.
+                    </p>
+                    <field name="contract_type_id" nolabel="1"/>
+                </div>
+                <div class="o_row">
+                    <p class="text-muted w-50">Especifique si todos va a cobrar horas extras.
+                    </p>
+                    <field name="overtime_hours_for_all"/>
+                </div>
+            </xpath>
+<!--            <field name="employee_ids" position="before">-->
+
+<!--            </field>-->
+
+
+        </field>
+    </record>
+
+</odoo>

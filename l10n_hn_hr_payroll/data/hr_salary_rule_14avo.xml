@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--     Reglas para 14 avo  -->
+
+    <record id="datec_l10n_hh_hr_payroll_total_gained_average" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">TOTAL GANADO</field>
+        <field name="code">TOTAL_GANADO</field>
+        <field name="sequence">18</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = amount_total_gained_average(payslip,employee, False, 'GROSS')
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+    <record id="datec_l10n_hh_hr_payroll_month" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">MESES</field>
+        <field name="code">MESES</field>
+        <field name="sequence">19</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = get_total_month(payslip,employee, False)
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_prom_month" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">PROMEDIO MENSUAL</field>
+        <field name="code">PROM_MONTH</field>
+        <field name="sequence">20</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+if MESES > 0:
+    result = TOTAL_GANADO/MESES
+else:
+    result = 0
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_prom_daily" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">PROMEDIO DIARIO</field>
+        <field name="code">PROM_DAILY</field>
+        <field name="sequence">21</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+if PROM_MONTH > 0:
+    result = PROM_MONTH/30
+else:
+    result = 0
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+    <record id="datec_l10n_hh_hr_payroll_total_days" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">DIAS TOTALES</field>
+        <field name="code">TOT_DAYS</field>
+        <field name="sequence">22</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = get_total_day(payslip,employee, False)
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_calc_days" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">DIAS CALCULO</field>
+        <field name="code">CAL_DAYS</field>
+        <field name="sequence">23</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+if TOT_DAYS > 360:
+    result = 360
+else:
+    result = TOT_DAYS
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_day_pay" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">DIAS A PAGAR</field>
+        <field name="code">DAYS_PAY</field>
+        <field name="sequence">24</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = CAL_DAYS/12
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_amount" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">TOTAL</field>
+        <field name="code">AMOUNT</field>
+        <field name="sequence">25</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = PROM_DAILY * DAYS_PAY
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_amount_to_pay" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">TOTAL A PAGAR</field>
+        <field name="code">AMOUNT_PAY</field>
+        <field name="sequence">50</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+if 'SAR14AVO' in inputs:
+    result = AMOUNT + SAR14AVO
+else:
+    result = AMOUNT
+        </field>
+        <field name="struct_id" ref="structure_14avo"/>
+    </record>
+
+</odoo>
+

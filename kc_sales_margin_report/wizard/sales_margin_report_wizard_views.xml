@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kc_sales_margin_report_wizard_form" model="ir.ui.view">
+        <field name="name">kc.sales.margin.report.wizard.form</field>
+        <field name="model">kc.sales.margin.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Margen de ventas (Excel)">
+                <group>
+                    <group string="Periodo">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group string="Documento">
+                        <field name="move_state"/>
+                    </group>
+                </group>
+                <group string="Compañías">
+                    <field name="company_ids" widget="many2many_tags" options="{'no_create': True}"
+                           domain="[('id', 'in', allowed_company_ids)]"/>
+                </group>
+                <group string="Filtros opcionales">
+                    <field name="partner_ids" widget="many2many_tags"/>
+                    <field name="product_ids" widget="many2many_tags"/>
+                    <field name="category_ids" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button name="action_generate_excel" type="object" string="Generar Excel" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kc_sales_margin_report_wizard" model="ir.actions.act_window">
+        <field name="name">Margen de Ventas Excel</field>
+        <field name="res_model">kc.sales.margin.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="menu_kc_sales_margin_report"
+        name="Margen de Ventas Excel"
+        parent="account.account_reports_management_menu"
+        action="action_kc_sales_margin_report_wizard"
+        sequence="55"
+        groups="kc_sales_margin_report.group_sales_margin_report"
+    />
+</odoo>

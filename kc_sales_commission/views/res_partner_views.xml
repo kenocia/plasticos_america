@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_commission" model="ir.ui.view">
+        <field name="name">res.partner.form.commission</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="inside">
+                <group string="Comisiones" name="commission_group" groups="kc_sales_commission.group_sales_commission_user">
+                    <field
+                        name="commission_employee_id"
+                        options="{'no_create': True}"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_kc_logistics_handheld" model="res.groups">
+        <field name="name">Operador Logística Handheld</field>
+        <field name="category_id" ref="base.module_category_inventory_inventory"/>
+        <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+        <field name="comment">Acceso a la app Logística en el menú principal. Los botones visibles se controlan con los campos booleanos en el usuario (Despachos, Internos, Toma física).</field>
+    </record>
+</odoo>

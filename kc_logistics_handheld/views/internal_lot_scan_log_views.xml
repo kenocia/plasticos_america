@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kc_internal_lot_scan_log_list" model="ir.ui.view">
+        <field name="name">kc.internal.lot.scan.log.list</field>
+        <field name="model">kc.internal.lot.scan.log</field>
+        <field name="arch" type="xml">
+            <list string="Log escaneos GS1 internos" create="false" delete="false">
+                <field name="scan_date"/>
+                <field name="user_id"/>
+                <field name="picking_type_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="qty"/>
+                <field name="product_uom_id"/>
+                <field name="location_id"/>
+                <field name="location_dest_id"/>
+                <field name="picking_id"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'scanned'"
+                       decoration-success="state == 'transferred'"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kc_internal_lot_scan_log_form" model="ir.ui.view">
+        <field name="name">kc.internal.lot.scan.log.form</field>
+        <field name="model">kc.internal.lot.scan.log</field>
+        <field name="arch" type="xml">
+            <form string="Log escaneo GS1" create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="session_name"/>
+                            <field name="scan_date"/>
+                            <field name="user_id"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="picking_type_id"/>
+                            <field name="picking_id"/>
+                            <field name="location_id"/>
+                            <field name="location_dest_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                            <field name="qty"/>
+                            <field name="product_uom_id"/>
+                        </group>
+                        <group>
+                            <field name="barcode_raw"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_kc_internal_lot_scan_log_search" model="ir.ui.view">
+        <field name="name">kc.internal.lot.scan.log.search</field>
+        <field name="model">kc.internal.lot.scan.log</field>
+        <field name="arch" type="xml">
+            <search string="Log escaneos GS1">
+                <field name="user_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="picking_id"/>
+                <field name="session_name"/>
+                <field name="barcode_raw"/>
+                <filter string="Escaneado" name="filter_scanned" domain="[('state', '=', 'scanned')]"/>
+                <filter string="Transferido" name="filter_transferred" domain="[('state', '=', 'transferred')]"/>
+                <filter string="Cancelado" name="filter_cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Fecha" name="filter_scan_date" date="scan_date"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Usuario" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Producto" name="group_product" context="{'group_by': 'product_id'}"/>
+                    <filter string="Lote" name="group_lot" context="{'group_by': 'lot_id'}"/>
+                    <filter string="Transferencia" name="group_picking" context="{'group_by': 'picking_id'}"/>
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Fecha" name="group_date" context="{'group_by': 'scan_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_kc_internal_lot_scan_log" model="ir.actions.act_window">
+        <field name="name">Historial escaneos GS1 internos</field>
+        <field name="res_model">kc.internal.lot.scan.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_kc_internal_lot_scan_log_search"/>
+        <field name="context">{'search_default_filter_transferred': 1}</field>
+    </record>
+</odoo>

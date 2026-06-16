@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Búsqueda por referencia del control o título (punto) -->
+    <record id="quality_check_view_search_kc_mrp" model="ir.ui.view">
+        <field name="name">quality.check.search.kc.mrp</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_control.quality_check_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='product_id']" position="before">
+                <field name="name" string="Referencia / título"
+                    filter_domain="['|', ('name', 'ilike', self), ('title', 'ilike', self)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Lista principal y centros de calidad (misma vista lista) -->
+    <record id="quality_check_view_tree_kc_mrp" model="ir.ui.view">
+        <field name="name">quality.check.tree.kc.mrp</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_control.quality_check_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_id']" position="after">
+                <field name="production_id" optional="show" string="Orden de producción"/>
+            </xpath>
+            <xpath expr="//field[@name='point_id']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="quality_check_view_form_point_domain_kc" model="ir.ui.view">
+        <field name="name">quality.check.form.point.domain.kc</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='point_id']" position="before">
+                <field name="kc_allowed_point_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='point_id']" position="attributes">
+                <attribute name="domain">[('id', 'in', kc_allowed_point_ids)]</attribute>
+            </xpath>
+            <!-- Cantidad probada: estándar solo si is_lot_tested_fractionally; aquí siempre con control por cantidad -->
+            <xpath expr="//label[@for='qty_tested']" position="attributes">
+                <attribute name="invisible">measure_on != 'move_line'</attribute>
+            </xpath>
+            <xpath expr="//div[field[@name='qty_tested']]" position="attributes">
+                <attribute name="invisible">measure_on != 'move_line'</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="quality_check_view_form_kc_mrp" model="ir.ui.view">
+        <field name="name">quality.check.form.kc.mrp</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_mrp.quality_check_view_form_inherit_mrp"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='production_id']" position="before">
+                <field name="kc_requires_production" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='production_id']" position="attributes">
+                <attribute name="required">kc_requires_production</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="kc_dashboards.SalesDashboard" owl="1">
+        <div class="kc-sales-dashboard">
+            <t t-if="state.loading">
+                <div class="kc-sales-dashboard__loading">Cargando dashboard de ventas...</div>
+            </t>
+            <t t-elif="state.error">
+                <div class="kc-sales-dashboard__loading kc-sales-dashboard__error">
+                    <t t-esc="state.error"/>
+                </div>
+            </t>
+            <t t-elif="state.data">
+                <div class="kc-sales-dashboard__header">
+                    <div>
+                        <div class="kc-sales-dashboard__title-row">
+                            <h1 class="kc-sales-dashboard__title" t-esc="state.data.title"/>
+                            <span class="kc-sales-dashboard__company" t-if="state.data.company">
+                                <i class="fa fa-building-o"></i>
+                                <t t-esc="state.data.company.name"></t>
+                            </span>
+                        </div>
+                        <p class="kc-sales-dashboard__updated" t-if="state.data.updated_at">
+                            Última actualización: <t t-esc="state.data.updated_at"></t>
+                        </p>
+                    </div>
+                    <button class="kc-sales-dashboard__refresh" t-on-click="onRefresh">
+                        <i class="fa fa-refresh"/> Actualizar
+                    </button>
+                </div>
+
+                <div t-att-class="'kc-sales-dashboard__filters-panel' + (state.filtersOpen ? '' : ' kc-sales-dashboard__filters-panel--collapsed')">
+                    <button type="button" class="kc-sales-dashboard__filters-toggle" t-on-click="toggleFilters">
+                        <span class="kc-sales-dashboard__filters-toggle-label">
+                            <i class="fa fa-filter"></i> Filtros
+                        </span>
+                        <i t-att-class="'fa ' + (state.filtersOpen ? 'fa-chevron-up' : 'fa-chevron-down')"></i>
+                    </button>
+                    <div class="kc-sales-dashboard__filters">
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Fecha desde</label>
+                        <input type="date" t-att-value="state.filters.date_from"
+                               t-on-change="(ev) => this.onFilterChange('date_from', ev)"/>
+                    </div>
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Fecha hasta</label>
+                        <input type="date" t-att-value="state.filters.date_to"
+                               t-on-change="(ev) => this.onFilterChange('date_to', ev)"/>
+                    </div>
+                    <div class="kc-sales-dashboard__filter kc-sales-filter--partner">
+                        <label>Cliente</label>
+                        <div class="kc-sales-partner-search">
+                            <input type="text"
+                                   class="kc-sales-partner-search__input"
+                                   placeholder="Escriba para buscar..."
+                                   t-att-value="state.partnerSearch"
+                                   t-on-input="onPartnerSearchInput"
+                                   t-on-focus="onPartnerSearchFocus"
+                                   t-on-blur="onPartnerSearchBlur"/>
+                            <button type="button"
+                                    class="kc-sales-partner-search__clear"
+                                    t-if="state.partnerSearch"
+                                    t-on-click="onClearPartnerSearch">
+                                ×
+                            </button>
+                            <ul class="kc-sales-partner-search__list"
+                                t-if="state.showPartnerDropdown and state.partnerResults.length">
+                                <t t-foreach="state.partnerResults" t-as="partner" t-key="partner.id">
+                                    <li class="kc-sales-partner-search__item"
+                                        t-on-mousedown.prevent="() => this.onSelectPartner(partner)">
+                                        <t t-esc="partner.name"/>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="kc-sales-dashboard__filter-actions">
+                        <button class="kc-sales-dashboard__btn kc-sales-dashboard__btn--primary" t-on-click="onApplyFilters">
+                            <i class="fa fa-filter"/> Filtrar
+                        </button>
+                        <button class="kc-sales-dashboard__btn kc-sales-dashboard__btn--secondary" t-on-click="onClearFilters">
+                            Limpiar
+                        </button>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="kc-dash-kpis">
+                    <div class="kc-dash-kpi kc-dash-kpi--sales" t-on-click="() => this.onDrillDown('kpi_sales')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-dollar kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Venta facturada</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.sales.value.formatted"/>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.sales.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.sales.delta_pct)"/>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.sales.delta_pct)"/>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('sales')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--customers" t-on-click="() => this.onDrillDown('kpi_customers')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-users kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Clientes atendidos</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.customers.value"/>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.customers.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.customers.delta_pct)"/>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.customers.delta_pct)"/>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('customers')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--orders" t-on-click="() => this.onDrillDown('kpi_invoices')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-file-text-o kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Facturas</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.orders.value"/>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.orders.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.orders.delta_pct)"/>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.orders.delta_pct)"/>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('orders')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--invoiced" t-on-click="() => this.onDrillDown('kpi_invoiced')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-check-circle kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Órdenes facturadas</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.invoiced_orders.value"/>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.invoiced_orders.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.invoiced_orders.delta_pct)"/>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.invoiced_orders.delta_pct)"/>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('invoiced_orders')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kc-dash-grid">
+                    <div class="kc-dash-card kc-dash-card--hour kc-dash-card--sales-trend">
+                        <div class="kc-dash-card__header">
+                            <h3 class="kc-dash-card__title" t-esc="state.data.sales_trend.title"/>
+                            <span class="kc-dash-card__info" t-att-title="state.data.sales_trend.info">
+                                <i class="fa fa-info-circle"/>
+                            </span>
+                        </div>
+                        <div class="kc-dash-hour-area-chart">
+                            <div class="kc-dash-hour-area-chart__y-axis">
+                                <t t-foreach="salesTrendChart.yTicks" t-as="tick" t-key="'y_tick_' + tick_index">
+                                    <span t-esc="tick.label"/>
+                                </t>
+                            </div>
+                            <div class="kc-dash-hour-area-chart__plot">
+                                <div class="kc-dash-hour-area-chart__canvas">
+                                    <svg class="kc-dash-hour-area-chart__svg"
+                                         t-att-viewBox="salesTrendChart.viewBox"
+                                         preserveAspectRatio="none">
+                                        <defs>
+                                            <linearGradient id="kcSalesTrendGradient"
+                                                            gradientUnits="userSpaceOnUse"
+                                                            x1="0"
+                                                            t-att-y1="salesTrendChart.yTicks[0].y"
+                                                            x2="0"
+                                                            t-att-y2="salesTrendChart.chartBottom">
+                                                <stop offset="0%" stop-color="#5b8def" stop-opacity="0.32"/>
+                                                <stop offset="100%" stop-color="#5b8def" stop-opacity="0.02"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <t t-foreach="salesTrendChart.gridLines" t-as="line" t-key="'grid_' + line_index">
+                                            <line class="kc-dash-hour-area-chart__grid"
+                                                  t-att-x1="line.x1"
+                                                  t-att-x2="line.x2"
+                                                  t-att-y1="line.y"
+                                                  t-att-y2="line.y"/>
+                                        </t>
+                                        <path class="kc-dash-hour-area-chart__area"
+                                              t-att-d="salesTrendChart.areaPath"
+                                              fill="url(#kcSalesTrendGradient)"/>
+                                        <path class="kc-dash-hour-area-chart__line"
+                                              t-att-d="salesTrendChart.linePath"/>
+                                    </svg>
+                                    <div class="kc-dash-hour-area-chart__overlay">
+                                        <t t-foreach="salesTrendChart.points" t-as="point" t-key="'pt_' + point_index">
+                                            <span class="kc-dash-hour-area-chart__value-label"
+                                                  t-if="showTrendValueLabels()"
+                                                  t-att-style="'left:' + point.xPct + '%;top:' + point.labelPct + '%'"
+                                                  t-esc="point.labelShort"/>
+                                            <button type="button"
+                                                    class="kc-dash-hour-area-chart__dot"
+                                                    t-att-title="point.amount_fmt"
+                                                    t-att-style="'left:' + point.xPct + '%;top:' + point.yPct + '%'"
+                                                    t-on-click="() => this.onTrendDrillDown(point)"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="kc-dash-hour-area-chart__x-axis kc-dash-hour-area-chart__x-axis--trend"
+                                     t-att-style="getTrendXAxisStyle()">
+                                    <t t-foreach="state.data.sales_trend.points" t-as="point" t-key="'x_' + point_index">
+                                        <span t-esc="point.label"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-card">
+                        <h3 class="kc-dash-card__title" t-esc="state.data.top_customers.title"/>
+                        <t t-foreach="state.data.top_customers.items" t-as="customer" t-key="customer.partner_id">
+                            <div class="kc-dash-bar-list__item"
+                                 t-on-click="() => this.onDrillDown('customer', customer.partner_id)">
+                                <div>
+                                    <div class="kc-dash-bar-list__name" t-esc="customer.name"/>
+                                    <div class="kc-dash-bar-list__track">
+                                        <span t-att-style="'width: ' + customer.pct + '%'"/>
+                                    </div>
+                                </div>
+                                <div class="kc-dash-bar-list__amount" t-esc="customer.amount_fmt"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="kc-dash-card">
+                        <h3 class="kc-dash-card__title">Ventas por canal</h3>
+                        <div class="kc-dash-donut">
+                            <div class="kc-dash-donut__chart" t-att-style="'background: ' + getDonutGradient()">
+                                <div class="kc-dash-donut__center">
+                                    <span>Total</span>
+                                    <strong t-esc="state.data.kpis.sales.value.formatted"/>
+                                </div>
+                            </div>
+                            <div class="kc-dash-donut__legend">
+                                <t t-foreach="state.data.sales_by_channel" t-as="channel" t-key="'channel_' + channel_index">
+                                    <div class="kc-dash-donut__legend-item"
+                                         t-on-click="() => this.onDrillDown('channel', channel.team_id)">
+                                        <span>
+                                            <span class="kc-dash-donut__dot"
+                                                  t-att-style="'background: ' + getChannelColor(channel_index)"/>
+                                            <t t-esc="channel.name"/>
+                                        </span>
+                                        <span>
+                                            <t t-esc="formatPct(channel.pct)"/> - <t t-esc="channel.amount_fmt"/>
+                                        </span>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-card">
+                        <h3 class="kc-dash-card__title">Contado vs. Crédito</h3>
+                        <div class="kc-dash-payment-chart">
+                            <t t-foreach="state.data.cash_vs_credit" t-as="payment" t-key="payment.key">
+                                <div class="kc-dash-payment-chart__item"
+                                     t-on-click="() => this.onDrillDown('payment', payment.key)">
+                                    <div class="kc-dash-payment-chart__bar-wrap">
+                                        <div t-attf-class="kc-dash-payment-chart__bar kc-dash-payment-chart__bar--{{payment.key}}"
+                                             t-att-style="'height: ' + payment.pct + '%'"/>
+                                    </div>
+                                    <strong t-esc="payment.label"/>
+                                    <div t-esc="payment.amount_fmt"/>
+                                    <small t-esc="formatPct(payment.pct)"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kc-dash-card kc-dashboard__detail-table">
+                    <h3 class="kc-dash-card__title" t-esc="state.data.orders_detail_title"/>
+                    <div class="kc-dash-table-wrap">
+                        <table class="kc-dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Pedido</th>
+                                    <th>Factura</th>
+                                    <th>Cliente</th>
+                                    <th>Vendedor</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.data.orders.lines" t-as="line" t-key="line.id">
+                                    <tr t-on-click="() => this.onOpenOrder(line.id)">
+                                        <td t-esc="line.datetime"/>
+                                        <td t-esc="line.name"/>
+                                        <td t-esc="line.invoice"/>
+                                        <td t-esc="line.partner"/>
+                                        <td t-esc="line.user"/>
+                                        <td t-esc="line.amount_fmt"/>
+                                        <td>
+                                            <span t-attf-class="kc-dash-badge kc-dash-badge--{{line.status_key}}"
+                                                  t-esc="line.status"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="kc-dash-pagination">
+                        <span>Mostrando <t t-esc="getPaginationLabel()"/> registros</span>
+                        <div class="kc-dash-pagination__buttons">
+                            <button t-on-click="() => this.onChangePage(state.data.orders.page - 1)">‹</button>
+                            <t t-foreach="getPageNumbers()" t-as="page" t-key="page">
+                                <button t-att-class="page === state.data.orders.page ? 'is-active' : None"
+                                        t-on-click="() => this.onChangePage(page)" t-esc="page"/>
+                            </t>
+                            <button t-on-click="() => this.onChangePage(state.data.orders.page + 1)">›</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="kc-sales-dashboard__loading">Sin datos para mostrar.</div>
+            </t>
+        </div>
+    </t>
+</templates>

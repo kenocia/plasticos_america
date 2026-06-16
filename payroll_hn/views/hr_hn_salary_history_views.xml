@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View hr.hn.salary.history View List -->
+    <record id="view_hr_hn_salary_history_list" model="ir.ui.view">
+        <field name="name">view.hr.hn.salary.history.list</field>
+        <field name="model">hr.hn.salary.history</field>
+        <field name="arch" type="xml">
+            <list create="False" string="Historial de salarios">
+                <field name="contract_id"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="schedule_pay"/>
+                <field name="salary"/>
+                <field name="montly_salary"/>
+                <field name="initial_date"/>
+                <field name="end_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- View hr.hn.salary.history search -->
+    <record id="view_hr_hn_salary_history_search" model="ir.ui.view">
+        <field name="name">view.hr.hn.salary.history.search</field>
+        <field name="model">hr.hn.salary.history</field>
+        <field name="arch" type="xml">
+            <search string="Historial de salarios">
+                <group expand="1" string="Group By">
+                    <filter string="Contrato" name="contract_id" domain="[]" context="{'group_by':'contract_id'}"/>
+                    <filter string="Empleado" name="employee_id" domain="[]" context="{'group_by':'employee_id'}"/>
+                    <filter string="Departamento" name="department_id" domain="[]" context="{'group_by':'department_id'}"/>
+                    <filter string="Puesto de trabajo" name="job_id" domain="[]" context="{'group_by':'job_id'}"/>
+                    <filter string="Pago programado" name="schedule_pay" domain="[]" context="{'group_by':'schedule_pay'}"/>
+                    <filter string="Fecha de incio" name="initial_date" domain="[]" context="{'group_by':'initial_date'}"/>
+                    <filter string="Fecha de fin" name="end_date" domain="[]" context="{'group_by':'end_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action hr.hn.salary.history -->
+    <record id="action_hr_hn_salary_history" model="ir.actions.act_window">
+        <field name="name">Historial de salarios</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.hn.salary.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Historial de salarios.
+            </p>
+        </field>
+    </record>
+
+</odoo>

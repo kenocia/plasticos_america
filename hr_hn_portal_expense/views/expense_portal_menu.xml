@@ -1,0 +1,11 @@
+<odoo>
+  <data>
+  <template id="portal_layout_inherit" inherit_id="portal.portal_layout" name="Custom Portal Menu">
+<!--        <xpath expr="//ul[@id='portal_sidebar']" position="inside">-->
+<!--            <li>-->
+<!--                <a href="/my/custom/page">Mi Página Personalizada</a>-->
+<!--            </li>-->
+<!--        </xpath>-->
+    </template>
+  </data>
+</odoo>

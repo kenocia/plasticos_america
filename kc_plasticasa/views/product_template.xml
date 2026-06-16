@@ -14,9 +14,16 @@
                         <label for="is_bag"/>
                     </span>
                 </xpath>
-                
 
-                
+                <!-- Slack: saldos (pestaña Inventario, debajo de descripciones recepción/entrega) -->
+                <xpath expr="//group[field[@name='description_pickingout']]" position="after">
+                    <group string="Slack Saldos" name="plasticasa_slack_saldos">
+                        <field name="slack_udm_id" options="{'no_create': True}"/>
+                        <field name="slack_location_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="slack_enviar_saldos"/>
+                    </group>
+                </xpath>
+
                 <!-- Agregar pestaña para bolsas -->
                 <xpath expr="//notebook" position="inside">
                     <page string="Información de Plasticos" name="plasticasa_info">
@@ -25,6 +32,7 @@
                             <field name="machine"/>
                             <field name="grammage"/>
                             <field name="units_per_bale"/>
+                            <field name="kc_gs1_code"/>
                         </group>
                         <group string="Unidad Secundaria" col="2">
                             <field name="uom_secondary_id"/>

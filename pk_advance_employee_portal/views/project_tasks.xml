@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--                     employee weekly/schedule form view template            -->
+
+    <template id="ad_project_tasks_temp_id" name="Project Task View">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="mt-3 text-start">
+                        <a href="/my/home" class="btn btn-secondary">
+                            <i class="fa fa-arrow-left me-1"></i>
+                            Back to home
+                        </a>
+                    </div>
+                    <h3>My Tasks</h3>
+                    <div class="mt-3 text-start">
+                        <a href="/my/home" class="btn btn-secondary">
+                           Back to home
+                            <i class="fa fa-arrow-right me-1"></i>
+                        </a>
+                    </div>
+                    <!--                    <a href="/" class="btn btn-primary">-->
+                    <!--                        <i class="fa fa-plus"/>-->
+                    <!--                        New Task Request-->
+                    <!--                    </a>-->
+                </div>
+                <form method="get" class="mb-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" name="search" class="form-control" t-att-value="search"
+                                   placeholder="Search..."/>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="search_in" class="form-select">
+                                <t t-foreach="search_input_values.items()" t-as="sval">
+                                    <option t-att-value="sval[0]" t-att-selected="search_in == sval[0]">
+                                        <t t-esc="sval[1]['label']"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+
+                        <!-- Date From -->
+                        <div class="col-md-2">
+                            <input type="text" name="date_start"
+                                   class="form-control"
+                                   t-att-value="date_start or ''"
+                                   placeholder="Date From"
+                                   onfocus="(this.type='date')"
+                                   onblur="if(!this.value)this.type='text'"/>
+                        </div>
+
+                        <!-- Date To -->
+                        <div class="col-md-2">
+                            <input type="text" name="date_end"
+                                   class="form-control"
+                                   t-att-value="date_end or ''"
+                                   placeholder="Date To"
+                                   onfocus="(this.type='date')"
+                                   onblur="if(!this.value)this.type='text'"/>
+                        </div>
+
+
+                        <div class="col-md-1">
+
+                            <button class="btn btn-primary" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+
+
+                <t t-if="checkouts">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Task Name</th>
+                                <th>Assignees</th>
+                                <th>Task Description</th>
+                                <th>Milestone</th>
+                                <th>Deadline</th>
+                                <th>Stage</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="checkouts" t-as="doc">
+                                <td>
+                                    <span t-field="doc.project_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.name"/>
+                                </td>
+
+
+                                <td>
+                                    <t t-foreach="doc.user_ids" t-as="user" t-separator=", ">
+                                        <span t-esc="user.name"/>
+                                    </t>
+
+                                </td>
+                                <td>
+                                    <span t-field="doc.description" t-options="{'widget': 'html'}"/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.milestone_id.name"/>
+                                </td>
+
+                                <td>
+                                    <span t-field="doc.date_deadline"/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.stage_id.name"/>
+                                </td>
+                                <td>
+                                    <a t-att-href="'/task/my/%s' % doc.id" class="btn btn-sm btn-primary">
+                                        View
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+
+                <t t-else="">
+                    <div class="alert alert-warning" role="alert">
+                        No Record found.
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+
+    <!--    view task template-->
+
+    <template id="ad_portal_task_view" name="Task View Page">
+        <t t-call="portal.portal_layout">
+            <t t-set="title">Task Detail</t>
+            <div class="card-footer text-start">
+                <a href="/tasks/my" class="btn btn-outline-secondary">
+                    <i class="fa fa-arrow-left me-1"/>
+                    Back
+                </a>
+            </div>
+            <div class="container my-4">
+                <div class="o_portal_wrap">
+                    <div class="o_portal_card card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">
+                                <i class="fa fa-tasks me-2"/>
+                                Task:
+                                <t t-esc="task.name"/>
+                            </h4>
+                        </div>
+
+                        <div class="card-body">
+                            <form method="post" t-att-action="'/update/tasks/%s/update' % task.id">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Task Name</label>
+                                        <input type="text" name="name" class="form-control" t-att-value="task.name"/>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Project</label>
+                                        <select name="project_id" class="form-select">
+                                            <t t-foreach="projects" t-as="project">
+                                                <option t-att-value="project.id"
+                                                        t-att-selected="project.id == task.project_id.id">
+                                                    <t t-esc="project.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Milestone</label>
+                                        <select name="milestone_id" class="form-select">
+                                            <t t-foreach="milestones" t-as="milestone">
+                                                <option t-att-value="milestone.id"
+                                                        t-att-selected="milestone.id == task.milestone_id.id">
+                                                    <t t-esc="milestone.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Deadline</label>
+                                        <input type="date" name="date_deadline" class="form-control"
+                                               t-att-value="task.date_deadline"/>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Stage</label>
+                                        <select name="stage_id" class="form-select">
+                                            <t t-foreach="stages" t-as="stage">
+                                                <option t-att-value="stage.id"
+                                                        t-att-selected="stage.id == task.stage_id.id">
+                                                    <t t-esc="stage.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Assignees</label>
+                                        <select name="user_ids" class="form-select">
+                                            <t t-foreach="users" t-as="user">
+                                                <option t-att-value="user.id"
+                                                        t-att-selected="user.id in task.user_ids.ids">
+                                                    <t t-esc="user.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label class="form-label">Description</label>
+                                        <textarea name="description" class="form-control" rows="4">
+                                            <t t-esc="task.description"/>
+                                        </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="text-end mt-4">
+                                    <button class="btn btn-success" type="submit">
+                                        <i class="fa fa-save me-1"/>
+                                        Update Task
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card-footer text-end">
+                            <a href="/tasks/my" class="btn btn-outline-secondary">
+                                <i class="fa fa-arrow-left me-1"/>
+                                Back to Task List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

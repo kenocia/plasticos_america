@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_commission" model="ir.ui.view">
+        <field name="name">hr.employee.form.commission</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    name="action_open_commission_clients"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-users"
+                    groups="kc_sales_commission.group_sales_commission_user"
+                >
+                    <field name="assigned_commission_client_count" widget="statinfo" string="Clientes comisión"/>
+                </button>
+            </div>
+            <xpath expr="//notebook" position="inside">
+                <page
+                    string="Comisiones"
+                    name="commission_page"
+                    groups="kc_sales_commission.group_sales_commission_user"
+                >
+                    <group>
+                        <group string="Parámetros de comisión">
+                            <field name="commission_type"/>
+                            <field name="commission_rate"/>
+                        </group>
+                    </group>
+                    <group string="Clientes asignados (por contacto)">
+                        <field name="assigned_commission_client_ids" nolabel="1" colspan="2" readonly="1">
+                            <list>
+                                <field name="display_name"/>
+                                <field name="email" optional="hide"/>
+                                <field name="phone" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

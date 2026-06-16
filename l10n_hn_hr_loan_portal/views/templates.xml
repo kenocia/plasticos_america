@@ -1,0 +1,209 @@
+<odoo>
+    <data>
+        <template id="hr_hn_portal_my_home_loan" name="Prestamo" customize_show="True"
+                  inherit_id="portal.portal_my_home" priority="20">
+            <xpath expr="//div[@id='portal_common_category']" position="inside">
+                <t t-if="is_empl">
+                    <t t-call="portal.portal_docs_entry">
+                        <t t-set="icon" t-value="'/l10n_hn_hr_loan_portal/static/src/img/loan.png'"/>
+                        <t t-set="title">Préstamos</t>
+                        <t t-set="text">Solicite sus préstamos por esta via</t>
+                        <t t-set="url" t-value="'/my/loan/list'"/>
+                        <t t-set="config_card" t-value="True"/>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+        <template id="template_list_of_loan" name="Página Portal">
+            <t t-call="portal.portal_layout">
+                <div class="container list_js_expense_class">
+                    <div class="mb-2">
+                        <a href="/create_loan/new" class="btn btn-primary">Adicionar préstamo</a>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Préstamo</th>
+                                <th>Empleado</th>
+                                <th>Pago programado</th>
+                                <th>Importe</th>
+                                <th>Plazos</th>
+                                <th>Fecha de inicio</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="items" t-as="item">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" t-att-id="'checkbox_' + str(item.id)"
+                                               t-att-disabled="'disabled' if item.state != 'draft' else None"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.employee_id.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.schedule_pay"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.loan_amount"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.installment"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.payment_date"/>
+                                    </td>
+                                    <td name="loan_status">
+                                        <t t-if="item.state == 'draft'" name="loan_status_draft">
+                                            <span class="badge rounded-pill text-primary">
+                                                <i class="fa fa-fw fa-star" aria-label="borrador"
+                                                   title="Borrador"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Borrador</span>
+                                            </span>
+                                        </t>
+                                        <t t-if="item.state == 'waiting_approval_1'" name="loan_status_waiting_approval_1">
+                                            <span class="badge rounded-pill text-bg-light">
+                                                <i class="fa fa-fw fa-clock-o" aria-label="Enviado"
+                                                   title="Enviado"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Enviado</span>
+                                            </span>
+                                        </t>
+                                        <t t-if="item.state == 'refuse'" name="loan_status_refuse">
+                                            <span class="badge rounded-pill text-bg-danger">
+                                                <i class="fa fa-fw fa-clock-o" aria-label="Rechazada" title="Rechazada"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Rechazada</span>
+                                            </span>
+                                        </t>
+                                        <t t-elif="item.state == 'cancel'">
+                                            <span class="badge rounded-pill text-bg-warning">
+                                                <i class="fa fa-fw fa-remove" aria-label="Cancelado" title="Cancelado"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Cancelado</span>
+                                            </span>
+                                        </t>
+                                        <t t-elif="item.state == 'approve'">
+                                            <span class="badge rounded-pill text-bg-success">
+                                                <i class="fa fa-fw fa-circle text-success" aria-label="Aprobado"
+                                                   title="Aprobado"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Aprobado</span>
+                                            </span>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <a t-att-href="'/detail/loan?loan_id=' + str(item.id)"
+                                           class="btn btn-primary">Ver detalle
+                                        </a>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Paginación -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <t t-foreach="range(total_pages)" t-as="p">
+                                <li t-att-class="'page-item' + (' active' if page == p else '')">
+                                    <a class="page-link" t-att-href="'/my/loan/list?page=' + str(p)">
+                                        <t t-esc="p+1"/>
+                                    </a>
+                                </li>
+                            </t>
+                        </ul>
+                    </nav>
+                </div>
+            </t>
+        </template>
+        <template id="model_record_loan" name="Record Loan">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">Detalle del Registro</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Préstamo:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.name"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Programado:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.schedule_pay"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Importe:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.loan_amount"/>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Fecha de pago:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.payment_date"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Plazos:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.installment"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Estado:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <!--                                        <t t-esc="record.state"/>-->
+                                        <t t-if="record.state == 'draft'" name="leave_state_draft">
+                                            <span class="d-none d-md-inline">A enviar</span>
+                                        </t>
+                                        <t t-if="record.state == 'waiting_approval_1'" name="leave_state_waiting_approval_1">
+                                            <span class="d-none d-md-inline">Enviado</span>
+                                        </t>
+                                        <t t-if="record.state == 'refuse'" name="leave_state_refuse">
+                                            <span class="d-none d-md-inline">Rechazada</span>
+                                        </t>
+                                        <t t-if="record.state == 'cancel'" name="leave_state_cancel">
+                                            <span class="d-none d-md-inline">Cancelada</span>
+                                        </t>
+                                        <t t-if="record.state == 'approve'" name="leave_state_approve">
+                                            <span class="d-none d-md-inline">Aprobado</span>
+                                        </t>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    </data>
+</odoo>

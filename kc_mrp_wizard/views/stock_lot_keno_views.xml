@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_production_lot_form_inherit_kc_mrp_wizard_mo" model="ir.ui.view">
+        <field name="name">stock.production.lot.form.inherit.kc.mrp.wizard.mo</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="kc_prelabel_production_id"
+                       string="Orden de fabricación"
+                       options="{'no_create': True}"
+                       readonly="kc_prelabel_state != 'pending'"/>
+                <field name="kc_prelabel_state" invisible="1"/>
+                <field name="kc_prelabel_qty" invisible="kc_prelabel_state != 'pending'"/>
+                <field name="kc_prelabel_shift" invisible="kc_prelabel_state != 'pending'"/>
+                <field name="kc_prelabel_workcenter_id"/>
+                <field name="kc_reprint_count" readonly="1"/>
+                <field name="kc_last_reprint_employee_id" readonly="1"/>
+                <field name="kc_last_reprint_date" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_production_lot_tree_inherit_kc_mrp_wizard_mo" model="ir.ui.view">
+        <field name="name">stock.production.lot.list.inherit.kc.mrp.wizard.mo</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="kc_prelabel_production_id"
+                       string="Orden fabricación"
+                       optional="show"
+                       readonly="kc_prelabel_state != 'pending'"/>
+                <field name="kc_prelabel_state" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

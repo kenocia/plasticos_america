@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Loan Tree view-->
+    <record id="hr_quit_request_tree_view" model="ir.ui.view">
+        <field name="name">hr.quit.request.tree</field>
+        <field name="model">hr.quit.request</field>
+        <field name="arch" type="xml">
+            <list string="Solicitud de renuncia">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="quit_date"/>
+                <field name="expected_date"/>
+                <field name="accepted_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Loan Form view-->
+    <record id="hr_quit_request_form_view" model="ir.ui.view">
+        <field name="name">hr.quit.request.form</field>
+        <field name="model">hr.quit.request</field>
+        <field name="arch" type="xml">
+            <form string="Loan Request">
+                <header>
+                    <button name="action_open" type="object" string="Submit" invisible="state != 'draft'"
+                            class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state != 'draft'"/>
+                    <button name="action_accepted" type="object" string="Approve" invisible="state != 'open'"
+                            class="oe_highlight" groups="hr.group_hr_manager,hr.group_hr_user"/>
+                    <button name="action_refuse" type="object" string="Refuse" invisible="state not in ('draft')"
+                            class="oe_highlight" groups="hr.group_hr_manager,hr.group_hr_user"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,refuse,cancel,accepted"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="employee_id" readonly="state != 'draft'"/>
+                        <field name="department_id"/>
+                        <field name="job_position"/>
+                        <field name="quit_date" readonly="state != 'draft'"/>
+                        <field name="expected_date"/>
+                        <field name="accepted_date" readonly="state != 'draft'"/>
+                        <field name="penalty_to_be_applied" readonly="state != 'draft'"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--request quit view-->
+    <record id="view_quit_request_search_form" model="ir.ui.view">
+        <field name="name">hr.quit.request.search.form</field>
+        <field name="model">hr.quit.request</field>
+        <field name="arch" type="xml">
+            <search string="Solicitud">
+                <field name="employee_id" string="Employee"/>
+                <field name="department_id" string="Department"/>
+                <filter string="Employee" name="employee_id" context="{'group_by':'employee_id'}"/>
+                <filter string="Department" name="department_id" context="{'group_by':'department_id'}"/>
+<!--                <filter string="Status" name="status" context="{'group_by':'state'}"/>-->
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_hr_quit_request" model="ir.actions.act_window">
+        <field name="name">Solicitud de renuncia</field>
+        <field name="res_model">hr.quit.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_quit_request_search_form"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click para crear una nueva solicitud de renuncia.
+            </p>
+            <p>
+                Use este menu para solicitar una renuncia.
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Solicitud de renuncia"
+              parent="hr.menu_hr_employee_payroll"
+              id="menu_hr_quit_request"
+              action="action_hr_quit_request"/>
+
+</odoo>

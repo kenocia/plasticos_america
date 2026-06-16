@@ -1,0 +1,393 @@
+<odoo>
+    <data>
+        <template id="tu_nuevo_template" inherit_id="website_hr_recruitment.index">
+            <xpath expr="//div[@class='col-lg mb32']" position="replace">
+                <div t-foreach="jobs" t-as="job" class="col-lg mb32">
+
+                    <t t-if="job.internal_published and is_empl">
+                        <div t-attf-class="card #{not job.website_published and not job.internal_published and 'o_jobs_unpublished'}">
+                            <a t-attf-href="/jobs/#{ slug(job) }" t-attf-class="text-decoration-none text-reset" draggable="false">
+                                <div class="card-body p-4">
+                                    <div class="mt0 d-flex justify-content-between align-items-center">
+                                        <h3 t-field="job.name" />
+                                        <span t-if="not job.website_published and not job.internal_published" class="badge bg-danger mb8 p-2">unpublished
+                                        </span>
+                                    </div>
+                                    <h5 t-if="job.no_of_recruitment >= 3" class="text-reset">
+                                        <span t-field="job.no_of_recruitment" />
+                                        open positions
+                                    </h5>
+                                    <t t-set="job_desc_edition_placeholder">Insert a Job Description...</t>
+                                    <div class="oe_empty text-muted mb16" t-field="job.description" t-att-data-editor-message="job_desc_edition_placeholder" />
+                                    <div class="o_job_infos d-flex flex-column">
+                                        <span t-field="job.address_id" class="fw-light" t-options='{"widget": "contact", "fields": ["city"], "no_tag_br": True, "null_text": "Remote"}' />
+                                        <div t-if="job.department_id" class="d-inline-flex align-items-center">
+                                            <i class="fa fa-sitemap fa-fw" />
+                                            <span t-field="job.department_id" class="fw-light" t-options='{"fields": ["name"], "no_tag_br": True}' />
+                                        </div>
+                                        <div t-if="job.contract_type_id" class="d-inline-flex align-items-center">
+                                            <i class="fa fa-suitcase fa-fw" title="Employment type" role="img" aria-label="Employment type" />
+                                            <span t-field="job.contract_type_id" class="fw-light" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a t-if="empl_sel" t-attf-href="/candidatos/solicitudes?job={{job.id}}" class="page-link">
+                                <div class="card-body p-4">
+                                    <h4>Candidatos del puesto</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+                    <t t-if="job.website_published and not is_empl">
+                        <div t-attf-class="card #{not job.website_published and not job.internal_published and 'o_jobs_unpublished'}">
+                            <a t-attf-href="/jobs/#{ slug(job) }" t-attf-class="text-decoration-none text-reset" draggable="false">
+                                <div class="card-body p-4">
+                                    <div class="mt0 d-flex justify-content-between align-items-center">
+                                        <h3 t-field="job.name" />
+                                        <span t-if="not job.website_published and not job.internal_published" class="badge bg-danger mb8 p-2">unpublished
+                                        </span>
+                                    </div>
+                                    <h5 t-if="job.no_of_recruitment >= 3" class="text-reset">
+                                        <span t-field="job.no_of_recruitment" />
+                                        open positions
+                                    </h5>
+                                    <t t-set="job_desc_edition_placeholder">Insert a Job Description...</t>
+                                    <div class="oe_empty text-muted mb16" t-field="job.description" t-att-data-editor-message="job_desc_edition_placeholder" />
+                                    <div class="o_job_infos d-flex flex-column">
+                                        <span t-field="job.address_id" class="fw-light" t-options='{"widget": "contact", "fields": ["city"], "no_tag_br": True, "null_text": "Remote"}' />
+                                        <div t-if="job.department_id" class="d-inline-flex align-items-center">
+                                            <i class="fa fa-sitemap fa-fw" />
+                                            <span t-field="job.department_id" class="fw-light" t-options='{"fields": ["name"], "no_tag_br": True}' />
+                                        </div>
+                                        <div t-if="job.contract_type_id" class="d-inline-flex align-items-center">
+                                            <i class="fa fa-suitcase fa-fw" title="Employment type" role="img" aria-label="Employment type" />
+                                            <span t-field="job.contract_type_id" class="fw-light" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a t-if="empl_sel" t-attf-href="/candidatos/solicitudes/#{ slug(job) }" class="page-link">
+                                <div class="card-body p-4">
+                                    <h4>Candidatos del puesto</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="form_fields_template" inherit_id="website_hr_recruitment.apply">
+            <!-- Email is no longer required -->
+            <xpath expr="//form/div/div[2]" position="attributes">
+                <attribute name="class" separator=" " remove="s_website_form_required"></attribute>
+            </xpath>
+
+            <xpath expr="//form/div/div[2]/div/label/span[2]" position="replace">
+            </xpath>
+
+            <xpath expr="//form/div/div[2]/div/div/input" position="attributes">
+                <attribute name="required" value="False"></attribute>
+            </xpath>
+
+            <!-- Remove the span with the message -->
+            <xpath expr="//form/div/div[5]/div/div/span" position="replace">
+            </xpath>
+
+            <!-- Add the first name and last name fields -->
+            <xpath expr="//form/div/div" position="replace">
+                <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment1">
+                            <span class="s_website_form_label_content">First Name</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment1" type="text" class="form-control s_website_form_input" name="firstname" required="" t-att-value="firstname" data-fill-with="firstname" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-0 py-2 s_website_form_field" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment10">
+                            <span class="s_website_form_label_content">Second Name</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment10" type="text" class="form-control s_website_form_input" name="firstname2" t-att-value="firstname2" data-fill-with="firstname2" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment11">
+                            <span class="s_website_form_label_content">Last Name</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment11" type="text" class="form-control s_website_form_input" name="lastname" required="" t-att-value="lastname" data-fill-with="lastname" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-0 py-2 s_website_form_field" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment12">
+                            <span class="s_website_form_label_content">Second Last Name</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment12" type="text" class="form-control s_website_form_input" name="lastname2" t-att-value="lastname2" data-fill-with="lastname2" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment13">
+                            <span class="s_website_form_label_content">Identification</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment13" type="text" class="form-control s_website_form_input" name="identification_id" t-att-value="identification_id" data-fill-with="identification_id" maxlength="13" required="" />
+                            <div class="alert alert-warning mt-2" id="identification-message" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+            <!-- Add more fields -->
+            <xpath expr="//form/div/div[7]" position="inside">
+                <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required" data-type="char" data-name="Field" id="recruitment15_field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment15">
+                            <span class="s_website_form_label_content">State</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment15" class="form-control" name="state_id" required="" t-att-value="state_id" />
+                            <div class="alert alert-danger mt-2" id="state-message" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment16">
+                            <span class="s_website_form_label_content">City</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment16" type="text" class="form-control s_website_form_input" name="city" required="" t-att-value="city" maxlength="30" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment17">
+                            <span class="s_website_form_label_content">Street</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment17" type="text" class="form-control s_website_form_input" name="street" required="" t-att-value="street" minlength="30" />
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-0 py-2 s_website_form_field" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment18">
+                            <span class="s_website_form_label_content">Street 2</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment18" type="text" class="form-control s_website_form_input" name="street2" t-att-value="street2" maxlength="30" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment19">
+                            <span class="s_website_form_label_content">Salary Expected</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment19" class="form-control s_website_form_input" name="salary_expected" required="" t-att-value="salary_expected" type="text" />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="jobs_candidates_applicant_list" name="List Applicant Jobs">
+            <t t-call="website.layout">
+
+                <div class="container js_list_applicant_job">
+                    <div class="text-center">
+                        <h3 class="mt-4 align-items-center">Candidatos que solicitaron las plaza</h3>
+                    </div>
+
+                    <t t-if="show_list">
+                        <a id="list_button_app_id" class="btn btn-primary d-none">Aprobar</a>
+                        <input id="input_job" type="hidden" t-att-value="job_id" />
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <div t-foreach="applicant_ids" t-as="app_id" class="col-lg mb32">
+                                    <tr t-if="app_id.process_state != 'processed'">
+                                        <td>
+                                            <input name="checkbox_list_app" type="checkbox" t-att-id="'checkbox_' + str(app_id.id)" />
+                                        </td>
+                                        <td>
+                                            <span t-field="app_id.name" />
+                                        </td>
+                                        <td>
+                                            <span t-field="app_id.email_from" />
+                                        </td>
+                                        <td>
+                                            <span t-field="app_id.process_state" />
+                                        </td>
+                                    </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </t>
+                    <t t-else="">
+                        <h3>No hay solicitantes</h3>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="hr_hn_portal_jobs_sale" name="Jobs" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+                <t t-call="l10n_hn_hr_recruitment.jobs_internal_template" />
+            </xpath>
+        </template>
+
+        <template id="jobs_internal_template" name="Trabajos publicados ">
+            <div class="o_portal_category row g-2 mt-3" id="jobs_client">
+                <div class="o_portal_index_card col-md-6 order-2">
+                    <a href="/jobs" title="Trabajos publicados" class="d-flex justify-content-start gap-2 gap-md-3 align-items-center py-3 pe-2 px-md-3 h-100 rounded text-decoration-none text-reset text-bg-light">
+                        <div class="o_portal_icon align-self-start">
+                            <img src="/hr_expense/static/description/icon.png" width="64" height="64" />
+                        </div>
+                        <div>
+                            <h5 class="mt-0 mb-1 d-flex gap-2">
+                                <span>Trabajos</span>
+                            </h5>
+                            <p class="m-0 text-600">
+                                Listado de puestos de trabajo publicados
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </template>
+
+        <template id="hr_hn_portal_jobs_position_sale" name="Jobs" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+                <t t-if="is_manager">
+                    <t t-call="l10n_hn_hr_recruitment.position_internal_template" />
+                </t>
+            </xpath>
+        </template>
+
+        <template id="position_internal_template" name="Plazas publicadas">
+            <div class="o_portal_category row g-2 mt-3" id="jobs_client">
+                <div class="o_portal_index_card col-md-6 order-2">
+                    <a href="/request/position/list" title="Plazas publicadas" class="d-flex justify-content-start gap-2 gap-md-3 align-items-center py-3 pe-2 px-md-3 h-100 rounded text-decoration-none text-reset text-bg-light">
+                        <div class="o_portal_icon align-self-start">
+                            <img src="/hr_expense/static/description/icon.png" width="64" height="64" />
+                        </div>
+                        <div>
+                            <h5 class="mt-0 mb-1 d-flex gap-2">
+                                <span>Plazas</span>
+                            </h5>
+                            <p class="m-0 text-600">
+                                Aquí puede solicitar agregar nuevas plazas a su dependencia
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </template>
+
+        <template id="template_list_of_position" name="Página Portal">
+            <t t-call="portal.portal_layout">
+                <div class="container list_js_position_class">
+                    <div class="d-flex align-items-center mb-2">
+                        <button class="btn btn-primary me-2" id="first_pos">Solicitar</button>
+                        <button class="btn btn-primary d-none me-2" id="custom_position_id">Crear</button>
+                        <select class="form-select me-2 d-none" id="selection_pos_id">
+                            <option selected="selected" value="0">Selecciona un tipo de plaza</option>
+                            <t t-foreach="position_ids" t-as="pos_id">
+                                <option t-att-value="pos_id.id">
+                                    <t t-esc="pos_id.name" />
+                                </option>
+                            </t>
+                        </select>
+                        <small class="d-none text-danger" id="text_error_id">Debe seleccionar alguna plaza</small>
+                        <input type="number" name="qty" placeholder="Cantidad de plazas" class="form-control me-2 d-none" id="qty_id" min="1" />
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Plaza</th>
+                                <th>Fecha de solicitado</th>
+                                <th>Departamento</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="request_position_ids" t-as="item">
+                                <tr>
+
+                                    <td>
+                                        <t t-esc="item.position_id.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.request_date" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.department_id.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.state" />
+                                    </td>
+
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Paginación -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <t t-foreach="range(total_pages)" t-as="p">
+                                <li t-att-class="'page-item' + (' active' if page == p else '')">
+                                    <a class="page-link" t-att-href="'/my/expense/list?page=' + str(p)">
+                                        <t t-esc="p+1" />
+                                    </a>
+                                </li>
+                            </t>
+                        </ul>
+                    </nav>
+
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

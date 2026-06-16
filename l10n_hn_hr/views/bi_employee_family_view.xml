@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Familiares-->
+        <record id="hr_employee_family_report_view_pivot" model="ir.ui.view">
+            <field name="name">hr.employee.family.report.view.pivot</field>
+            <field name="model">hr.employee.family.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Actividad">
+                    <field name="employee_id"/>
+                    <field name="gender" type="col"/>
+                    <field name="kindred" type="col"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="hr_employee_family_report_view_graph" model="ir.ui.view">
+            <field name="name">hr.employee.family.report.view.graph</field>
+            <field name="model">hr.employee.family.report</field>
+            <field name="arch" type="xml">
+                <graph string="Datos familiares">
+                    <field name="hr_employee_company"/>
+                    <field name="hr_employee_sucursal"/>
+                    <field name="gender" type="col"/>
+                    <field name="kindred" type="col"/>
+                    <field name="employee_id" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="hr_employee_family_report_view_search" model="ir.ui.view">
+            <field name="name">hr.employee.family.report.view.search</field>
+            <field name="model">hr.employee.family.report</field>
+            <field name="arch" type="xml">
+                <search string="Datos familiares">
+                    <field name="employee_id"/>
+                    <field name="kindred"/>
+                    <field name="gender"/>
+<!--                    <field name="gender" type="col"/>-->
+<!--                    <group expand="0" string="Group By">-->
+<!--                        <filter string="Sub división de personal" name="staffing_subdivision_id" domain="[]" context="{'group_by':'staffing_subdivision_id'}"/>-->
+<!--                    </group>-->
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_employee_family_report_view_tree" model="ir.ui.view">
+            <field name="name">hr.employee.family.report.view.tree</field>
+            <field name="model">hr.employee.family.report</field>
+            <field name="arch" type="xml">
+                <list string="Familiares" create="false" delete="false">
+                    <field name="employee_id"/>
+                    <field name="hr_employee_company"/>
+                    <field name="hr_employee_sucursal"/>
+                    <field name="nombre_familiar"/>
+                    <field name="kindred"/>
+                    <field name="date_of_birth" optional="hide"/>
+                    <field name="gender" optional="hide"/>
+                    <field name="conviviality" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_employee_family_report_action" model="ir.actions.act_window">
+            <field name="name">Actividad</field>
+            <field name="res_model">hr.employee.family.report</field>
+            <field name="view_mode">pivot,graph,tree</field>
+            <field name="context">{
+                'group_by': ['hr_employee_company', 'hr_employee_sucursal'],
+                'opened_group_by': ['hr_employee_company', 'hr_employee_sucursal']
+            }</field>
+            <field name="search_view_id" ref="hr_employee_family_report_view_search"/>
+            <field name="view_id" ref="hr_employee_family_report_view_tree"/>
+        </record>
+
+        <menuitem
+            id="menu_employee_family"
+            name="Datos familiares"
+            parent="hr.hr_menu_hr_reports"
+            action="hr_employee_family_report_action"
+            sequence="60"
+            groups="hr.group_hr_user"/>
+
+    </data>
+</odoo>

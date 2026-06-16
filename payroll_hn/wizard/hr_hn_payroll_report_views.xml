@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_hn_payroll_report_form" model="ir.ui.view">
+        <field name="name">hr.hn.payroll.report.form</field>
+        <field name="model">hr.hn.payroll.report</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de Nomina">
+                <sheet>
+                    <group>
+                        <field name="lot_id" required="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Reporte de Nómina"
+                            name="action_generate_payroll_report"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Reporte de Deducciones"
+                            name="action_generate_deductions_report"
+                            type="object"
+                            class="btn-secondary"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_hn_payroll_report" model="ir.actions.act_window">
+        <field name="name">Reporte de Nomina</field>
+        <field name="res_model">hr.hn.payroll.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hr_hn_payroll_report_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

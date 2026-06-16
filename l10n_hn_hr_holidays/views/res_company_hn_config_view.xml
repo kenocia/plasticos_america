@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_company_co_config_inherit_form">
+            <field name="name">res.company.form.inherit</field>
+            <field name="inherit_id" ref="l10n_hn_hr.view_company_hn_config_inherit_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//page[@name='conf_honduras']" position="inside">
+                    <group string="Contingente de Vacaciones">
+                        <field name="init_load_vacation_date"/>
+                        <field name="vacation_quota_table_ids">
+                            <list>
+                                <field name="years_of_service_start"/>
+                                <field name="years_of_service_end"/>
+                                <field name="vacation_days"/>
+                            </list>
+                        </field>
+                    </group>
+<!--                    <group string="Bono de Antigüedad">-->
+<!--                        <field name="antiquity_bonus_table_ids">-->
+<!--                            <tree>-->
+<!--                                <field name="description"/>-->
+<!--                                <field name="years_of_antiquity_bonus_start"/>-->
+<!--                                <field name="years_of_antiquity_bonus_end"/>-->
+<!--                                <field name="percentage"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </group>-->
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ampliación ayuda protocolos: Zebra (KC). El módulo network_printer puede ser de solo lectura en el servidor. -->
+<odoo>
+    <data>
+        <record id="view_network_printer_form_kc_protocol_zebra_help" model="ir.ui.view">
+            <field name="name">network.printer.form.kc.protocol.zebra.help</field>
+            <field name="model">network.printer</field>
+            <field name="inherit_id" ref="network_printer.view_network_printer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='network_config']/group[2]/p[@class='text-muted']" position="replace">
+                    <p class="text-muted">
+                        <small>
+                            <strong>Protocolos disponibles:</strong>
+                            <ul>
+                                <li><strong>RAW (Puerto 9100):</strong> Envío directo al puerto estándar. Sirve para térmicas <strong>ESC/POS</strong>, algunas <strong>inyección</strong> (p. ej. Canon Pixma) y <strong>Zebra</strong> con lenguaje nativo (<strong>ZPL</strong>, EPL, CPCL según equipo). En Zebra <strong>ZD/ZT/TD</strong> con <strong>Link-OS</strong> (Ethernet/Wi‑Fi) es lo habitual.</li>
+                                <li><strong>IPP (Puerto 631):</strong> Internet Printing Protocol; suele implicar CUPS en el servidor. No es lo habitual para trabajos <strong>ZPL</strong> en bruto desde Odoo.</li>
+                                <li><strong>LPR (Puerto 515):</strong> Line Printer Remote; alternativa clásica a IPP.</li>
+                            </ul>
+                            <strong>Canon Pixma (Wi‑Fi):</strong> suele ir mejor con <strong>RAW</strong>; IPP/LPR pueden necesitar CUPS.<br/>
+                            <strong>Zebra (etiquetas; p. ej. ZD421):</strong> configure <strong>RAW</strong> y la IP de la impresora (9100 por defecto). El servidor donde corre Odoo debe tener ruta de red hasta esa IP. Para ZPL binario use envío bruto (no el flujo ESC/POS de listín) según el módulo que imprima.
+                        </small>
+                    </p>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

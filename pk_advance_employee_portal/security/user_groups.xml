@@ -1,0 +1,50 @@
+<odoo>
+    <data noupdate="1">
+
+        <!-- Custom group: My Sales Access -->
+        <record id="ad_group_portal_sales" model="res.groups">
+            <field name="name">Custom Portal - Sales Access</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <!-- Custom group: Time Off -->
+        <record id="ad_group_portal_leaves" model="res.groups">
+            <field name="name">Custom Portal - Time Off Access</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <!-- Custom group: Weekly Schedule -->
+        <record id="ad_group_portal_schedule" model="res.groups">
+            <field name="name">Custom Portal - Weekly Schedule Access</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <!-- Custom group: Tasks -->
+        <record id="ad_group_portal_tasks" model="res.groups">
+            <field name="name">Custom Portal - Tasks Access</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <!-- Custom group: Expenses -->
+        <record id="ad_group_portal_expenses" model="res.groups">
+            <field name="name">Custom Portal - Expenses Access</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+        <!-- Custom group: Attendance -->
+        <record id="ad_group_portal_attendance_access" model="res.groups">
+            <field name="name">Custom Portal - Attendance Access</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+        <!-- Custom group: My Profile -->
+        <record id="ad_group_emp_profile" model="res.groups">
+            <field name="name">Custom Portal - My Profile Access</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+        <!-- Custom group: PayRoll -->
+        <record id="ad_group_payroll" model="res.groups">
+            <field name="name">Custom Portal - Payroll Access</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+    </data>
+</odoo>

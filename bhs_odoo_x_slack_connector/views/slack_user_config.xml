@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="slack_user_config_tree_view" model="ir.ui.view">
+        <field name="name">slack.user.config.tree.view</field>
+        <field name="model">slack.user.config</field>
+        <field name="arch" type="xml">
+                <list string="Slack User Config" editable="bottom">
+                    <field name="slack_connector" required="1" options='{"no_create": True}'/>
+                    <field name="user_id" required="1" options='{"no_create": True}'/>
+                    <field name="member_id" required="1"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+        </field>
+    </record>
+
+    <record id="slack_user_config_search" model="ir.ui.view">
+            <field name="name">slack.user.config.search</field>
+            <field name="model">slack.user.config</field>
+            <field name="arch" type="xml">
+                <search string="Search Slack User Config">
+
+                    <field name="user_id" filter_domain="['|', ('user_id','ilike',self), ('user_id.login', 'ilike', self)]"
+                           string="User"/>
+                    <separator/>
+                    <field name="slack_connector" filter_domain="[('slack_connector', 'ilike', self)]"
+                           string="Slack Connector"/>
+                    <separator/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="User" name="group_by_user_id" context="{'group_by': 'user_id'}"/>
+                        <filter string="Slack Connector" name="group_by_slack_connector" context="{'group_by': 'slack_connector'}"/>
+
+                    </group>
+                </search>
+            </field>
+    </record>
+
+    <record id="slack_user_config_act" model="ir.actions.act_window">
+        <field name="name">Slack User Config</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">slack.user.config</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_group_by_user_id': True}</field>
+    </record>
+
+    <menuitem id="slack_user_config_menu"
+              name="Slack User Config"
+              parent="base.menu_users"
+              action="slack_user_config_act"
+              groups="base.group_system"
+              sequence="6"/>
+
+    <record id="view_users_form_slack_user_config_inherit" model="ir.ui.view">
+        <field name="name">res.users.slack.user.config.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//page[@name='preferences']" position="inside">
+                    <h5>Slack User Config</h5>
+                    <hr/>
+                    <field name="slack_user_config" nolabel="1">
+                        <list string="Slack User Config" editable="bottom">
+                            <field name="slack_connector" required="1" options='{"no_open": True, "no_create": True}'/>
+                            <field name="member_id" required="1"/>
+                            <field name="active" widget="boolean_toggle" groups="base.group_system" optional="hide"/>
+                        </list>
+                    </field>
+                </xpath>
+        </field>
+    </record>
+
+    <record id="view_users_form_simple_modif_slack_connector_inherit" model="ir.ui.view">
+        <field name="name">res.users.preferences.form.slack.connector.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+                <xpath expr="//page[@name='preferences_page']" position="inside">
+                    <h5>Slack User Config</h5>
+                    <hr/>
+                    <field name="slack_user_config" nolabel="1">
+                        <list string="Slack User Config" editable="bottom">
+                            <field name="slack_connector" required="1" options='{"no_open": True, "no_create": True}'/>
+                            <field name="member_id" required="1"/>
+                            <field name="active" widget="boolean_toggle" groups="base.group_system" optional="hide"/>
+                        </list>
+                    </field>
+                </xpath>
+        </field>
+    </record>
+</odoo>

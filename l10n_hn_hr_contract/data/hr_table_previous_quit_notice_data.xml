@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Contingente de Vacaciones -->
+        <record id="hr_table_previous_quit_notice_0" model="hr.table.previous.quit.notice">
+            <field name="years_of_service_start">0</field>
+            <field name="month_of_service_start">3</field>
+            <field name="years_of_service_end">0</field>
+            <field name="month_of_service_end">6</field>
+            <field name="previous_days">7</field>
+        </record>
+        <record id="hr_table_previous_quit_notice_1" model="hr.table.previous.quit.notice">
+            <field name="years_of_service_start">0</field>
+            <field name="month_of_service_start">6</field>
+            <field name="years_of_service_end">1</field>
+            <field name="month_of_service_end">0</field>
+            <field name="previous_days">13</field>
+        </record>
+        <record id="hr_table_previous_quit_notice_2" model="hr.table.previous.quit.notice">
+            <field name="years_of_service_start">1</field>
+            <field name="month_of_service_start">0</field>
+            <field name="years_of_service_end">2</field>
+            <field name="month_of_service_end">0</field>
+            <field name="previous_days">30</field>
+        </record>
+        <record id="hr_table_previous_quit_notice_3" model="hr.table.previous.quit.notice">
+            <field name="years_of_service_start">2</field>
+            <field name="month_of_service_start">0</field>
+            <field name="years_of_service_end">40</field>
+            <field name="month_of_service_end">0</field>
+            <field name="previous_days">60</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--     Reglas para prestaciones   -->
+
+
+    <record id="datec_l10n_hh_hr_payroll_total_month" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">TOTAL MENSUAL</field>
+        <field name="code">TOTAL_MENSUAL</field>
+        <field name="sequence">18</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = amount_prestaciones(payslip,employee, 'TOTAL_MENSUAL')
+        </field>
+        <field name="struct_id" ref="structure_finiquito"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_average_month" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">PROMEDIO MENSUAL</field>
+        <field name="code">PROMEDIO_MENSUAL</field>
+        <field name="sequence">19</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = amount_prestaciones(payslip,employee, 'PROMEDIO_MENSUAL')
+        </field>
+        <field name="struct_id" ref="structure_finiquito"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_total_prest" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">PRESTACIONES</field>
+        <field name="code">PRESTACIONES</field>
+        <field name="sequence">25</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = amount_prestaciones(payslip,employee, 'PRESTACIONES')
+        </field>
+        <field name="struct_id" ref="structure_finiquito"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_derechos" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">DERECHOS</field>
+        <field name="code">DERECHOS</field>
+        <field name="sequence">30</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = amount_prestaciones(payslip,employee, 'DERECHOS')
+        </field>
+        <field name="struct_id" ref="structure_finiquito"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_deducciones" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">DEDUCCIONES</field>
+        <field name="code">DEDUCCIONES</field>
+        <field name="sequence">40</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = amount_prestaciones(payslip,employee, 'DEDUCCIONES')
+        </field>
+        <field name="struct_id" ref="structure_finiquito"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_benefits" model="hr.salary.rule">
+        <field name="category_id" ref="BASIC_INF"/>
+        <field name="name">BENEFICIOS</field>
+        <field name="code">BENEFICIOS</field>
+        <field name="sequence">55</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = amount_prestaciones(payslip,employee, 'BENEFICIOS')
+        </field>
+        <field name="struct_id" ref="structure_finiquito"/>
+    </record>
+
+</odoo>
+

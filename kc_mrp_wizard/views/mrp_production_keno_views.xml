@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_keno_tablet" model="ir.ui.view">
+        <field name="name">mrp.production.form.keno.tablet</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Consumo MP: edición manual de location_src_id; si hay reserva, traslado interno + quitar reserva. -->
+
+            <xpath expr="//page[@name='miscellaneous']/group/group/field[@name='location_src_id'][@options]" position="attributes">
+                <attribute name="readonly">state in ('done', 'cancel')</attribute>
+            </xpath>
+            <xpath expr="//page[@name='miscellaneous']/group/group/field[@name='location_dest_id'][@options]" position="attributes">
+                <attribute name="readonly">state in ('done', 'cancel')</attribute>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_kc_relink_workorders_tablet"
+                        type="object"
+                        string="Recalcular secuencia WO"
+                        class="btn btn-secondary"
+                        groups="mrp.group_mrp_manager"
+                        invisible="state in ('done', 'cancel')"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_kc_semi_tickets" type="object" class="oe_stat_button" icon="fa-cubes" groups="mrp.group_mrp_user">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="kc_semi_ticket_count"/>
+                        </span>
+                        <span class="o_stat_text">Semis (Asistente MRP)</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//page[@name='finished_products']" position="after">
+                <page string="Mermas material" name="kenocia_resin" groups="mrp.group_mrp_user">
+                    <group>
+                        <field name="kc_resin_scrap_qty_total" readonly="1"/>
+                    </group>
+                    <p class="text-muted">
+                        Las líneas se crean desde el asistente tablet (botón «Merma Material»); aquí solo consulta.
+                    </p>
+                    <field name="kc_resin_scrap_line_ids" nolabel="1" context="{'default_production_id': id, 'default_company_id': company_id}">
+                        <list create="0" delete="0" edit="0">
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="product_uom_id"/>
+                            <field name="type_id"/>
+                            <field name="workorder_id"/>
+                            <field name="employee_id"/>
+                            <field name="scrap_id"/>
+                            <field name="stock_move_id" optional="hide"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Pre-etiquetas" name="kenocia_prelabel" groups="mrp.group_mrp_user">
+                    <group>
+                        <group>
+                            <field name="kc_prelabel_limit_policy"/>
+                        </group>
+                        <group>
+                            <field name="kc_prelabel_pending_qty" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <p class="text-muted mb-2" colspan="2">
+                            Listado de lotes en estado «Pendiente de producir». No se pueden crear ni borrar aquí;
+                            use el asistente MRP tablet (imprimir pre-etiquetas / consumir) o cancele desde el lote.
+                        </p>
+                        <field name="kc_prelabel_lot_pending_ids" nolabel="1" colspan="2" options="{'no_create': True, 'no_open': True}">
+                            <list create="0" delete="0">
+                                <field name="name" string="Lote" readonly="1"/>
+                                <field name="kc_employee_id" string="Empleado" widget="many2one_avatar_employee" optional="show" readonly="1"/>
+                                <field name="kc_prelabel_qty" string="Cantidad" widget="float" digits="[16, 2]" readonly="1"/>
+                                <field name="create_date" string="Creado el" readonly="1"/>
+                                <field name="create_uid" string="Creado por" widget="many2one_avatar_employee" readonly="1"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+                <page string="Semi / inventario" name="kenocia_semi_stock" groups="mrp.group_mrp_user">
+                    <group string="Totales por ajustes registrados desde esta orden">
+                        <group>
+                            <field name="kc_semi_adjust_scrap_qty_total" readonly="1"/>
+                            <field name="kc_semi_adjust_other_qty_total" readonly="1"/>
+                        </group>
+                        <group>
+                            <button name="action_kc_semi_stock_adjustment_wizard"
+                                    type="object"
+                                    string="Asistente: salida / ajuste semi"
+                                    class="btn-primary"
+                                    invisible="state == 'cancel'"/>
+                        </group>
+                    </group>
+                    <group string="Tickets semi y existencias en ubicación semi">
+                        <p class="text-muted mb-2" colspan="2">
+                            «Existencias» refleja el stock en la ubicación semi de la operación (por lote si aplica).
+                            Sin movimiento de inventario o sin producto almacenable el ticket no suma cantidad en ubicación.
+                        </p>
+                        <field name="kc_semi_ticket_ids" nolabel="1" colspan="2" readonly="1" options="{'no_create': True, 'no_open': True}">
+                            <list create="0" delete="0">
+                                <field name="name" string="Ticket"/>
+                                <field name="workorder_id" optional="show"/>
+                                <field name="product_id" string="Semi"/>
+                                <field name="quantity" string="Cant. ticket"/>
+                                <field name="uom_id"/>
+                                <field name="kc_semi_qty_available_in_semi" string="Existencias semi"/>
+                                <field name="stock_move_id" optional="show" string="Movimiento"/>
+                                <field name="stock_picking_id" optional="hide" string="Albarán"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Movimientos de ajuste vinculados a esta orden">
+                        <field name="kc_semi_adjustment_line_ids" nolabel="1" colspan="2" readonly="1" options="{'no_create': True}">
+                            <list create="0" delete="0">
+                                <field name="picking_id" string="Albarán"/>
+                                <field name="stock_move_id" optional="hide"/>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="product_uom_id"/>
+                                <field name="is_scrap_desecho"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

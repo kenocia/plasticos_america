@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="kc_dashboards.InventoryDashboard" owl="1">
+        <div class="kc-sales-dashboard kc-inventory-dashboard">
+            <t t-if="state.loading">
+                <div class="kc-sales-dashboard__loading">Cargando inventario general...</div>
+            </t>
+            <t t-elif="state.error">
+                <div class="kc-sales-dashboard__loading kc-sales-dashboard__error">
+                    <t t-esc="state.error"/>
+                </div>
+            </t>
+            <t t-elif="state.data">
+                <div class="kc-sales-dashboard__header">
+                    <div>
+                        <div class="kc-sales-dashboard__title-row">
+                            <h1 class="kc-sales-dashboard__title" t-esc="state.data.title"/>
+                            <span class="kc-sales-dashboard__company" t-if="state.data.company">
+                                <i class="fa fa-building-o"></i>
+                                <t t-esc="state.data.company.name"></t>
+                            </span>
+                        </div>
+                        <p class="kc-sales-dashboard__updated">
+                            Última actualización: <t t-esc="state.data.updated_at"/>
+                        </p>
+                    </div>
+                    <button class="kc-sales-dashboard__refresh" t-on-click="onRefresh">
+                        <i class="fa fa-refresh"/> Actualizar
+                    </button>
+                </div>
+
+                <div t-att-class="'kc-sales-dashboard__filters-panel' + (state.filtersOpen ? '' : ' kc-sales-dashboard__filters-panel--collapsed')">
+                    <button type="button" class="kc-sales-dashboard__filters-toggle" t-on-click="toggleFilters">
+                        <span class="kc-sales-dashboard__filters-toggle-label">
+                            <i class="fa fa-filter"></i> Filtros
+                        </span>
+                        <i t-att-class="'fa ' + (state.filtersOpen ? 'fa-chevron-up' : 'fa-chevron-down')"></i>
+                    </button>
+                    <div class="kc-sales-dashboard__filters">
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Almacén</label>
+                        <select t-on-change="(ev) => this.onFilterChange('warehouse_id', ev)">
+                            <option value="">Todos</option>
+                            <t t-foreach="state.filterOptions.warehouses" t-as="warehouse" t-key="warehouse.id">
+                                <option t-att-value="warehouse.id"
+                                        t-att-selected="isSelected('warehouse_id', warehouse.id) ? 'selected' : None"
+                                        t-esc="warehouse.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Ubicaciones</label>
+                        <select t-on-change="(ev) => this.onFilterChange('location_id', ev)">
+                            <option value="">Todas</option>
+                            <t t-foreach="state.filterOptions.locations" t-as="location" t-key="location.id">
+                                <option t-att-value="location.id"
+                                        t-att-selected="isSelected('location_id', location.id) ? 'selected' : None"
+                                        t-esc="location.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Categoría</label>
+                        <select t-on-change="(ev) => this.onFilterChange('categ_id', ev)">
+                            <option value="">Todas</option>
+                            <t t-foreach="state.filterOptions.categories" t-as="category" t-key="category.id">
+                                <option t-att-value="category.id"
+                                        t-att-selected="isSelected('categ_id', category.id) ? 'selected' : None"
+                                        t-esc="category.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="kc-sales-dashboard__filter kc-inventory-filter--product">
+                        <label>Producto</label>
+                        <div class="kc-inventory-product-search">
+                            <input type="text"
+                                   class="kc-inventory-product-search__input"
+                                   placeholder="Escriba para buscar..."
+                                   t-att-value="state.productSearch"
+                                   t-on-input="onProductSearchInput"
+                                   t-on-focus="onProductSearchFocus"
+                                   t-on-blur="onProductSearchBlur"></input>
+                            <button type="button"
+                                    class="kc-inventory-product-search__clear"
+                                    t-if="state.productSearch"
+                                    t-on-click="onClearProductSearch">
+                                ×
+                            </button>
+                            <ul class="kc-inventory-product-search__list"
+                                t-if="state.showProductDropdown and state.productResults.length">
+                                <t t-foreach="state.productResults" t-as="product" t-key="product.id">
+                                    <li class="kc-inventory-product-search__item"
+                                        t-on-mousedown.prevent="() => this.onSelectProduct(product)">
+                                        <t t-esc="product.name"/>
+                                    </li>
+                                </t>
+                            </ul>
+                            <div class="kc-inventory-product-search__empty"
+                                 t-if="state.showProductDropdown and !state.productSearchLoading and !state.productResults.length and state.productSearch.trim()">
+                                Sin resultados
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-sales-dashboard__filter">
+                        <label>Estado</label>
+                        <select t-on-change="(ev) => this.onFilterChange('state', ev)">
+                            <option value="">Todos</option>
+                            <t t-foreach="state.filterOptions.states" t-as="status" t-key="status.id">
+                                <option t-att-value="status.id"
+                                        t-att-selected="isSelected('state', status.id) ? 'selected' : None"
+                                        t-esc="status.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="kc-sales-dashboard__filter-actions">
+                        <button class="kc-sales-dashboard__btn kc-sales-dashboard__btn--primary" t-on-click="onApplyFilters">
+                            <i class="fa fa-filter"/> Filtrar
+                        </button>
+                        <button class="kc-sales-dashboard__btn kc-sales-dashboard__btn--secondary" t-on-click="onClearFilters">
+                            Limpiar
+                        </button>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="kc-dash-kpis">
+                    <div class="kc-dash-kpi kc-dash-kpi--inventory-stock">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-cube kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Stock total (kg)</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.total_stock.formatted"/>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--inventory-value">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-dollar kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Valor del inventario</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.inventory_value.value.formatted"/>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.inventory_value.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.inventory_value.delta_pct)"/>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.inventory_value.delta_pct)"/>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('inventory_value')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--inventory-coverage">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-calendar kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Días de cobertura</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.coverage_days.value"/>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.coverage_days.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.coverage_days.delta_pct)"/>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.coverage_days.delta_pct)"/>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('coverage_days')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--inventory-critical"
+                         t-on-click="() => this.onDrillDown('kpi_critical')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-exclamation-triangle kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Lotes críticos</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.critical_lots.value"/>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.critical_lots.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.critical_lots.delta_pct)"/>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.critical_lots.delta_pct)"/>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('critical_lots')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-kpi kc-dash-kpi--inventory-expiring"
+                         t-on-click="() => this.onDrillDown('kpi_expiring')">
+                        <div class="kc-dash-kpi__icon-wrap">
+                            <i class="fa fa-clock-o kc-dash-kpi__icon"/>
+                        </div>
+                        <div class="kc-dash-kpi__body">
+                            <div class="kc-dash-kpi__label">Lotes por vencer</div>
+                            <div class="kc-dash-kpi__value" t-esc="state.data.kpis.expiring_lots.value"/>
+                            <div class="kc-dash-kpi__trend">
+                                <span t-att-class="'kc-dash-kpi__delta ' + getDeltaClass(state.data.kpis.expiring_lots.delta_pct)">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.kpis.expiring_lots.delta_pct)"/>
+                                    <t t-esc="formatDeltaAbs(state.data.kpis.expiring_lots.delta_pct)"/>%
+                                </span>
+                                <span class="kc-dash-kpi__compare" t-esc="getKpiComparison('expiring_lots')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kc-dash-grid">
+                    <div class="kc-dash-card">
+                        <h3 class="kc-dash-card__title">Stock por categoría (kg)</h3>
+                        <t t-foreach="state.data.stock_by_category" t-as="category" t-key="category.id">
+                            <div class="kc-dash-bar-list__item kc-dash-bar-list__item--horizontal"
+                                 t-on-click="() => this.onDrillDown('category', category.id)">
+                                <div class="kc-dash-bar-list__name" t-esc="category.name"/>
+                                <div class="kc-dash-bar-list__track kc-dash-bar-list__track--horizontal">
+                                    <span t-att-style="'width: ' + category.pct + '%'"/>
+                                </div>
+                                <div class="kc-dash-bar-list__amount" t-esc="category.qty_fmt"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="kc-dash-card kc-dash-card--hour kc-dash-card--inventory-trend">
+                        <div class="kc-dash-card__header">
+                            <h3 class="kc-dash-card__title">Tendencia de inventario (kg)</h3>
+                        </div>
+                        <div class="kc-dash-hour-area-chart">
+                            <div class="kc-dash-hour-area-chart__y-axis">
+                                <t t-foreach="trendChart.yTicks" t-as="tick" t-key="'y_tick_' + tick_index">
+                                    <span t-esc="tick.label"/>
+                                </t>
+                            </div>
+                            <div class="kc-dash-hour-area-chart__plot">
+                                <div class="kc-dash-hour-area-chart__canvas">
+                                    <svg class="kc-dash-hour-area-chart__svg"
+                                         t-att-viewBox="trendChart.viewBox"
+                                         preserveAspectRatio="none">
+                                        <defs>
+                                            <linearGradient id="kcInventoryTrendGradient"
+                                                            gradientUnits="userSpaceOnUse"
+                                                            x1="0"
+                                                            t-att-y1="trendChart.chartTop"
+                                                            x2="0"
+                                                            t-att-y2="trendChart.chartBottom">
+                                                <stop offset="0%" stop-color="#40c057" stop-opacity="0.32"/>
+                                                <stop offset="100%" stop-color="#40c057" stop-opacity="0.02"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <t t-foreach="trendChart.gridLines" t-as="line" t-key="'grid_' + line_index">
+                                            <line class="kc-dash-hour-area-chart__grid"
+                                                  t-att-x1="line.x1"
+                                                  t-att-x2="line.x2"
+                                                  t-att-y1="line.y"
+                                                  t-att-y2="line.y"/>
+                                        </t>
+                                        <path class="kc-dash-hour-area-chart__area"
+                                              t-att-d="trendChart.areaPath"
+                                              fill="url(#kcInventoryTrendGradient)"/>
+                                        <path class="kc-dash-hour-area-chart__line kc-dash-hour-area-chart__line--green"
+                                              t-att-d="trendChart.linePath"/>
+                                    </svg>
+                                </div>
+                                <div class="kc-dash-hour-area-chart__x-axis kc-dash-hour-area-chart__x-axis--trend">
+                                    <t t-foreach="state.data.stock_trend" t-as="point" t-key="'x_' + point.label">
+                                        <span t-esc="point.label"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-card">
+                        <h3 class="kc-dash-card__title">Distribución por ubicación (kg)</h3>
+                        <div class="kc-dash-donut">
+                            <div class="kc-dash-donut__chart" t-att-style="'background: ' + getDonutGradient()">
+                                <div class="kc-dash-donut__center">
+                                    <span>Total</span>
+                                    <strong t-esc="state.data.kpis.total_stock.formatted"/>
+                                </div>
+                            </div>
+                            <div class="kc-dash-donut__legend">
+                                <t t-foreach="state.data.stock_by_location" t-as="location" t-key="location.location_id">
+                                    <div class="kc-dash-donut__legend-item"
+                                         t-on-click="() => this.onDrillDown('location', location.location_id)">
+                                        <span>
+                                            <span class="kc-dash-donut__dot"
+                                                  t-att-style="'background: ' + getLocationColor(location_index)"/>
+                                            <t t-esc="location.name"/>
+                                        </span>
+                                        <span>
+                                            <t t-esc="formatPct(location.pct)"/> - <t t-esc="location.qty_fmt"/>
+                                        </span>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kc-dash-card kc-dashboard__detail-table kc-dashboard__detail-table--always-visible">
+                        <h3 class="kc-dash-card__title">Alertas de reorden</h3>
+                        <div class="kc-dash-table-wrap">
+                            <table class="kc-dash-table kc-dash-table--compact">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Producto</th>
+                                        <th>Disponible</th>
+                                        <th>Mínimo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-if="state.data.reorder_alerts.length">
+                                        <t t-foreach="state.data.reorder_alerts" t-as="alert" t-key="alert.product_id">
+                                            <tr t-on-click="() => this.onOpenProduct(alert.product_id)">
+                                                <td t-esc="alert.code"/>
+                                                <td t-esc="alert.name"/>
+                                                <td t-esc="alert.available_fmt"/>
+                                                <td t-esc="alert.min_fmt"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <tr>
+                                            <td colspan="4" class="text-muted">Sin alertas de reorden.</td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kc-dash-card kc-dashboard__detail-table">
+                    <h3 class="kc-dash-card__title">Detalle de inventario general</h3>
+                    <div class="kc-dash-table-wrap">
+                        <table class="kc-dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Lote</th>
+                                    <th>Stock kg</th>
+                                    <th>Reservado</th>
+                                    <th>Disponible</th>
+                                    <th>Mínimo</th>
+                                    <th>Ubicación</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.data.lines.rows" t-as="line" t-key="line.id + '_' + line.lot">
+                                    <tr t-on-click="() => this.onOpenProduct(line.id)">
+                                        <td t-esc="line.code"/>
+                                        <td t-esc="line.product"/>
+                                        <td t-esc="line.category"/>
+                                        <td t-esc="line.lot"/>
+                                        <td t-esc="line.stock_kg_fmt"/>
+                                        <td t-esc="line.reserved_kg_fmt"/>
+                                        <td t-esc="line.available_kg_fmt"/>
+                                        <td t-esc="line.min_kg_fmt"/>
+                                        <td t-esc="line.location"/>
+                                        <td>
+                                            <span t-attf-class="kc-dash-badge kc-dash-badge--{{line.status_key}}"
+                                                  t-esc="line.status"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="kc-dash-pagination">
+                        <span>Mostrando <t t-esc="getPaginationLabel()"/> registros</span>
+                        <div class="kc-dash-pagination__buttons">
+                            <button t-on-click="() => this.onChangePage(state.data.lines.page - 1)">‹</button>
+                            <t t-foreach="getPageNumbers()" t-as="page" t-key="page">
+                                <button t-att-class="page === state.data.lines.page ? 'is-active' : None"
+                                        t-on-click="() => this.onChangePage(page)" t-esc="page"/>
+                            </t>
+                            <button t-on-click="() => this.onChangePage(state.data.lines.page + 1)">›</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="kc-sales-dashboard__loading">Sin datos para mostrar.</div>
+            </t>
+        </div>
+    </t>
+</templates>

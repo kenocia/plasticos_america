@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+<!--    PAYROLL CLOSING TABLE    -->
+        <record id="hr_payroll_closing_table_view_form" model="ir.ui.view">
+            <field name="name">hr.payroll.closing.table.form</field>
+            <field name="model">hr.payroll.closing.table</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <label for="date_from" string="Period"/>
+                                <div>
+                                    <field name="date_from" class="oe_inline" required="1" readonly="have_payslip" /> -
+                                    <field name="date_to" class="oe_inline" required="1" readonly="have_payslip"/>
+                                    <field name="have_payslip" invisible="1" />
+                                </div>
+                            </group>
+                            <group>
+                                <field name="employee_id" readonly="have_payslip"/>
+                                <field name="contract_id" domain="[('employee_id', '=', employee_id), ('state', '=', 'open')]" readonly="have_payslip"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <group>
+                                <field name="worked_days" readonly="have_payslip" />
+                                <field name="worked_hours" readonly="have_payslip" />
+                            </group>
+                            <group>
+                                <field name="overtime" readonly="have_payslip" />
+                            </group>
+                            <group>
+                                <field name="basic" readonly="have_payslip" />
+                                <field name="bonus" readonly="have_payslip" />
+                            </group>
+                            <group>
+                                <field name="net_salary" readonly="have_payslip" />
+                                <field name="gross" readonly="have_payslip" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <notebook>
+                        <page string="Nóminas">
+                            <field name="closing_table_details_ids" nolabel="1">
+                                <list create="0" delete="0">
+                                    <field name="employee_id" string="Empleado" readonly="1"/>
+                                    <field name="contract_id"  readonly="1"/>
+                                    <field name="date_from" readonly="1"/>
+                                    <field name="date_to" readonly="1"/>
+                                    <field name="worked_days" readonly="1"/>
+                                    <field name="worked_hours" readonly="1"/>
+                                    <field name="basic" readonly="1"/>
+                                    <field name="bonus" readonly="1"/>
+                                    <field name="gross" readonly="1"/>
+                                    <field name="net_salary" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payroll_closing_table_view_tree" model="ir.ui.view">
+            <field name="name">hr.payroll.closing.table.tree</field>
+            <field name="model">hr.payroll.closing.table</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="employee_id" string="Empleado" readonly="1"/>
+                    <field name="contract_id" string="Documento" readonly="1"/>
+                    <field name="date_from" string="Desde" readonly="1" optional="show"/>
+                    <field name="date_to" string="Hasta" readonly="1" optional="show"/>
+                    <field name="worked_days" optional="show"/>
+                    <field name="basic" optional="show"/>
+                    <field name="worked_hours" optional="hide"/>
+                    <field name="overtime" optional="hide"/>
+                    <field name="net_salary"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_payroll_closing_table_view_search" model="ir.ui.view">
+            <field name="name">hr.payroll.closing.table.search</field>
+            <field name="model">hr.payroll.closing.table</field>
+            <field name="arch" type="xml">
+                <search>
+                   <field name="employee_id"/>
+                   <field name="contract_id"/>
+                    <field name="have_payslip" invisible="1"/>
+                    <separator/>
+                    <filter string="Generados de la nómina" name="generate_by_payroll" domain="[('have_payslip', '!=', False)]"/>
+                    <filter string="Carga inicial" name="initial_charge" domain="[('have_payslip', '=', False)]"/>
+                    <separator/>
+                    <filter string="Employee" name="employee" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Nómina" name="payslip" context="{'group_by': 'have_payslip'}"/>
+                    <separator/>
+                    <filter string="Mes actual" name="current_month" domain="[
+                    ('date_to', '&gt;=', (context_today()).strftime('%Y-%m-01')),
+                    ('date_to', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                    <filter string="Ultimo mes" name="last_month" domain="[
+                    ('date_to', '&lt;', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
+                    ('date_to', '&gt;=', (context_today() + relativedelta(months=-1, day=1)).strftime('%Y-%m-%d'))]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_payroll_closing_table" model="ir.actions.act_window">
+            <field name="name">Cierres</field>
+            <field name="res_model">hr.payroll.closing.table</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{
+                'search_default_employee': 1,
+                'search_default_current_month': 1,
+                'search_default_generate_by_payroll': 1,
+            }</field>
+            <field name="search_view_id" ref="hr_payroll_closing_table_view_search"/>
+        </record>
+
+        <menuitem
+            id="hr_hn_menu_hr_payroll_closing_table"
+            action="action_hr_payroll_closing_table"
+            parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root"
+            sequence="45"
+            groups="hr_payroll.group_hr_payroll_manager" />
+
+      <record id="hr_payroll_closing_table_details_view_form" model="ir.ui.view">
+            <field name="name">hr.payroll.closing.table.details.form</field>
+            <field name="model">hr.payroll.closing.table.details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="payslip_id" invisible="1" />
+                             <field name="employee_id"  readonly="payslip_id"/>
+                             <field name="contract_id"  readonly="payslip_id"/>
+                             <field name="date_from"  readonly="payslip_id"/>
+                             <field name="date_to"  readonly="payslip_id"/>
+                             <field name="worked_days"  readonly="payslip_id"/>
+                             <field name="worked_hours"  readonly="payslip_id"/>
+                             <field name="overtime"  readonly="payslip_id"/>
+                        </group>
+                        <group>
+                             <field name="payslip_id" readonly="payslip_id"/>
+                             <field name="basic" readonly="payslip_id"/>
+                             <field name="bonus" readonly="payslip_id"/>
+                             <field name="net_salary" readonly="payslip_id"/>
+                             <field name="gross" readonly="payslip_id"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+      </record>
+</odoo>

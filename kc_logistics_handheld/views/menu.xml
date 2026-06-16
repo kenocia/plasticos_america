@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_kc_logistics_handheld_root"
+              name="Logística"
+              web_icon="stock,static/description/icon.png"
+              groups="kc_logistics_handheld.group_kc_logistics_handheld"
+              sequence="55"/>
+
+    <menuitem id="menu_kc_logistics_handheld_launcher"
+              name="Operaciones"
+              parent="menu_kc_logistics_handheld_root"
+              action="action_kc_logistics_handheld_launcher"
+              sequence="5"/>
+
+    <menuitem id="menu_kc_internal_lot_scan_log"
+              name="Historial escaneos GS1 internos"
+              parent="menu_kc_logistics_handheld_root"
+              action="action_kc_internal_lot_scan_log"
+              sequence="20"
+              groups="stock.group_stock_manager"/>
+</odoo>

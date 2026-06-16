@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="b360_hr_payslip_run_form_view_inherit" model="ir.ui.view">
+        <field name="name">b360.hr.payslip.run.form.view.inherit</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button string="Enviar por correo" name="send_payment_voucher_email" type="object"/>
+                <button string="Generar TXT Bancario" name="generate_txt_file" type="object" class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//field[@name='date_end']" position="after">
+                <field name="txt_file" filename="txt_filename" widget="binary" string="Archivo TXT Bancario" readonly="1" invisible="not txt_file"/>
+                <field name="txt_filename" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

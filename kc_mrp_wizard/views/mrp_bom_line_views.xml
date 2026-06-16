@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_mrp_bom_line_form_inherit" model="ir.ui.view">
+            <field name="name">mrp.bom.form.inherit.keno.uom.label</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bom_line_ids']/list//field[@name='product_uom_id']" position="attributes">
+                    <attribute name="string">UdM</attribute>
+                </xpath>
+                <xpath expr="//field[@name='bom_line_ids']/list//field[@name='product_uom_id']" position="after">
+                    <field name="kc_planning_critical_component" string="Crítico planif. (ventas)" optional="hide"/>
+                    <field name="kc_tablet_manual_consumption_optional"
+                           string="Opcional prod. manual (tablet)"
+                           optional="show"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

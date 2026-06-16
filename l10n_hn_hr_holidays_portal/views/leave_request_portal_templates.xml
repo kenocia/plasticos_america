@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="hr_hn_portal_my_home_leave" name="Ausencias" customize_show="True"
+              inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[@id='portal_common_category']" position="inside">
+            <t t-if="is_empl">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/l10n_hn_hr_holidays_portal/static/src/img/icon.png'"/>
+                    <t t-set="title">Sus ausencias</t>
+                    <t t-set="text">Solicite su ausencias por esta vía y conozca su estado</t>
+                    <t t-set="url" t-value="'/my/leaves'"/>
+                    <t t-set="config_card" t-value="True"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="template_list_of_leave" name="Página Portal">
+        <t t-call="portal.portal_layout">
+            <div class="container list_js_expense_class">
+                <div class="mb-2">
+                    <a href="/my/leave/add" class="btn btn-primary">Adicionar Ausencia</a>
+                    <a href="/my/accumulate" class="btn btn-primary">Información</a>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Empleado</th>
+                            <th>Modo</th>
+                            <th>Tipo de ausencia</th>
+                            <th>Fecha inicio</th>
+                            <th>Fecha finalización</th>
+                            <th>Duración</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="items" t-as="item">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" t-att-id="'checkbox_' + str(item.id)"
+                                           t-att-disabled="'disabled' if item.state != 'draft' else None"/>
+                                </td>
+                                <td style="display: none;">
+                                    <t t-esc="item.employee_id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.employee_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.holiday_type"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.holiday_status_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.request_date_from"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.request_date_to"/>
+                                </td>
+                                <td>
+                                    <t t-esc="item.number_of_days_display"/>
+                                </td>
+                                <td name="status">
+                                    <t t-if="item.state == 'draft'" name="leave_state_draft">
+                                        <span class="badge rounded-pill text-primary">
+                                            <i class="fa fa-fw fa-star" aria-label="borrador" title="Borrador"
+                                               role="img"/>
+                                            <span class="d-none d-md-inline">A enviar</span>
+                                        </span>
+                                    </t>
+                                    <t t-if="item.state == 'confirm'" name="leave_state_confirm">
+                                        <span class="badge rounded-pill text-bg-light">
+                                            <i class="fa fa-fw fa-clock-o" aria-label="A aprobar"
+                                               title="A aprobar" role="img"/>
+                                            <span class="d-none d-md-inline">A aprobar</span>
+                                        </span>
+                                    </t>
+                                    <t t-if="item.state == 'refuse'" name="leave_state_refuse">
+                                        <span class="badge rounded-pill text-bg-danger">
+                                            <i class="fa fa-fw fa-clock-o" aria-label="Rechazada" title="Rechazada"
+                                               role="img"/>
+                                            <span class="d-none d-md-inline">Rechazada</span>
+                                        </span>
+                                    </t>
+                                    <t t-elif="item.state == 'validate1'">
+                                        <span class="badge rounded-pill text-bg-warning">
+                                            <i class="fa fa-fw fa-remove" aria-label="Cancelado"
+                                               title="Segunda aprobación"
+                                               role="img"/>
+                                            <span class="d-none d-md-inline">Segunda aprobación</span>
+                                        </span>
+                                    </t>
+                                    <t t-elif="item.state == 'validate'">
+                                        <span class="badge rounded-pill text-bg-success">
+                                            <i class="fa fa-fw fa-circle text-success" aria-label="Aprobado"
+                                               title="Aprobado"
+                                               role="img"/>
+                                            <span class="d-none d-md-inline">Aprobada</span>
+                                        </span>
+                                    </t>
+                                </td>
+                                <td>
+                                    <a t-att-href="'/detail/leave?leave_id=' + str(item.id)"
+                                       class="btn btn-primary">Ver detalle
+                                    </a>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <!-- Paginación -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <t t-foreach="range(total_pages)" t-as="p">
+                            <li t-att-class="'page-item' + (' active' if page == p else '')">
+                                <a class="page-link" t-att-href="'/my/leaves?page=' + str(p)">
+                                    <t t-esc="p+1"/>
+                                </a>
+                            </li>
+                        </t>
+                    </ul>
+                </nav>
+            </div>
+        </t>
+    </template>
+
+    <template id="leave_form_template" name="Ausencia">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-5 list_js_leave_class">
+                <form action="/#" method="post" string="Solicitud de Ausencia"
+                      class="o_mark_required needs-validation" data-mark="*" data-pre-fill="true"
+                      data-model_name="hr.leave">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="form-group row  mt-2 text-center">
+                        <h2>Solicitud de ausencia</h2>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="employee_id" class="col-sm-2 col-form-label">Nombre del Empleado:</label>
+                        <div class="col-sm-10">
+                            <input type="hidden" name="employee_id" id="employee_id" t-att-value="employee_id.id"/>
+                            <input type="text" class="form-control" id="employee_id_name" name="employee_id_name"
+                                   t-att-value="employee_id.name" readonly="readonly"/>
+                            <p class="d-none" id="input_employee_id"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="description" class="col-sm-2 col-form-label">Descripción:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name" id="name"
+                                   required="required" placeholder="name"/>
+                            <p class="d-none" id="input_name"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="leave_type" class="col-sm-2 col-form-label">Tipo de ausencia</label>
+                        <div class="col-sm-10">
+                            <select name="leave_type_id" id="leave_type_id" class="form-control leave_type-leave"
+                                    required="True">
+                                <option value="">--Seleccione--</option>
+                                <t t-foreach="leaves_type" t-as="leave_type">
+                                    <option t-att-value="leave_type.id">
+                                        <t t-esc="leave_type.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <p class="d-none" id="input_leave_type"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2 allocation_div" style="display: none;">
+                        <label class="col-sm-2 col-form-label" for="allocation">Días acumulados</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="number" name="allocation" id="allocation" disabled=""/>
+                            <p class="d-none" id="input_allocation"/>
+                        </div>
+                        <span class="d-none" id="have_allocation" data-value="False"></span>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="date_from" class="col-sm-2 col-form-label">Fecha de Inicio:</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control date_from-leave" id="date_from" name="date_from"
+                                   t-att-value="date_from.strftime('%Y-%m-%d')"/>
+                            <p class="d-none" id="input_date_from"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="date_to" class="col-sm-2 col-form-label">Fecha fin:</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control date_to-leave" id="date_to" name="date_to"
+                                   t-att-value="date_to.strftime('%Y-%m-%d')"/>
+                            <p class="d-none" id="input_date_to"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2 days_div" style="display: none;">
+                        <label class="control-label col-sm-2" for="days">Días a solicitar</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="number" name="days" id="days" disabled=""/>
+                        </div>
+                        <span class="d-none" id="requires_day" data-value="False"></span>
+                    </div>
+                    <div class="form-group row mt-2 hours_div" style="display: none;">
+                        <label class="control-label col-sm-2" for="days">Horas a solicitar</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="number" name="days" id="hours" disabled=""/>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <div class="col-sm-10">
+                            <button type="submit" id="add_leave" t-on-click="addLeave"
+                                    class="btn btn-primary">Agregar ausencia
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="answer_form" name="Answer Form">
+        <t t-call="portal.portal_layout">
+            <div class="text-center">
+                <h2>Solicitud procesada satisfactoriamente</h2>
+                <img src="/l10n_hn_hr_holidays_portal/static/src/img/icon.png" alt="Imagen Satisfactoria" width="50%"
+                     height="50%"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="model_record_leave" name="Record Leave">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">Detalle del Registro</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Descripción:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.name"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Fecha desde:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.date_from"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <t t-if="record.holiday_status_id.request_unit == 'day'">
+                                            <strong>Días:</strong>
+                                        </t>
+                                        <t t-else="">
+                                            <strong>Horas:</strong>
+                                        </t>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.number_of_days_display"/>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Tipo de ausencia:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.holiday_status_id.name"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Fecha hasta:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record.date_to"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Estado:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <!--                                        <t t-esc="record.state"/>-->
+                                        <t t-if="record.state == 'draft'" name="leave_state_draft">
+                                            <span class="d-none d-md-inline">A enviar</span>
+                                        </t>
+                                        <t t-if="record.state == 'confirm'" name="leave_state_draft">
+                                            <span class="d-none d-md-inline">A aprobar</span>
+                                        </t>
+                                        <t t-if="record.state == 'refuse'" name="leave_state_draft">
+                                            <span class="d-none d-md-inline">Rechazada</span>
+                                        </t>
+                                        <t t-if="record.state == 'validate1'" name="leave_state_draft">
+                                            <span class="d-none d-md-inline">Segunda aprobación</span>
+                                        </t>
+                                        <t t-if="record.state == 'validate'" name="leave_state_draft">
+                                            <span class="d-none d-md-inline">Aprobada</span>
+                                        </t>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="accumulate_record_template" name="Información del empleado">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">Detalle del Empleado</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Fecha de contratación:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['date_hired']"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Años de antigüedad:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['years_of_service']"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Meses de antigüedad:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['months_of_service']"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Días de antigüedad:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['days_of_service']"/>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Vacaciones permitidas:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['allowed_vacation_days']"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Días de vacaciones:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['allowed_vacation_days']"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Vacaciones que quedan:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['remaining_leave_year']"/>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Días libres acumulado:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['accumulated_day_free']"/>
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <strong>Días libres que quedan:</strong>
+                                    </label>
+                                    <p class="form-control-plaintext">
+                                        <t t-esc="record['remaining_day_free']"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

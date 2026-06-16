@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_kc_lot_label" model="report.paperformat">
+        <field name="name">KC etiqueta lote</field>
+        <field name="format">custom</field>
+        <!-- 50×45 mm: cabe QR + textos en una sola página (38 mm cortaba y partía el flex/QR) -->
+        <field name="page_height">45</field>
+        <field name="page_width">50</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+    </record>
+
+    <record id="action_report_kc_lot_label" model="ir.actions.report">
+        <field name="name">Etiqueta lote (GS1)</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kc_plasticasa.report_lot_label_document</field>
+        <field name="report_file">kc_plasticasa.report_lot_label_document</field>
+        <field name="print_report_name">'Etiqueta_lote_%s' % (object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="kc_plasticasa.paperformat_kc_lot_label"/>
+    </record>
+</odoo>

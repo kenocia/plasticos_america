@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="contract_employee_report_view_pivot_inherit" model="ir.ui.view">
+            <field name="name">contract.employee.report.view.inherit.pivot</field>
+            <field name="model">hr.contract.employee.report</field>
+            <field name="inherit_id" ref="hr_contract_reports.contract_employee_report_view_pivot"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='wage']" position="after">
+                    <field name="count_employee_permanently" type="measure"/>
+                    <field name="count_employee_temporary" type="measure"/>
+                    <field name="count_employee_recruit_perm" type="measure"/>
+                    <field name="count_employee_recruit_temp" type="measure"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="contract_employee_report_view_search_inherit" model="ir.ui.view">
+            <field name="name">contract.employee.report.view.inherit.search</field>
+            <field name="model">hr.contract.employee.report</field>
+            <field name="inherit_id" ref="hr_contract_reports.contract_employee_report_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group//filter[@name='company']" position="after">
+                    <filter string="Job Position" name="group_by_job" domain="[]" context="{'group_by': 'job_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="type_contract_employee_report_action" model="ir.actions.act_window">
+            <field name="name">Employees Analysis</field>
+            <field name="res_model">hr.contract.employee.report</field>
+            <field name="view_mode">graph,pivot</field>
+            <field name="search_view_id" ref="contract_employee_report_view_search_inherit"/>
+            <field name="context">{
+                'search_default_year': True,
+                'search_default_group_by_job': True
+            }</field>
+            <field name="help">This report performs analysis on your contracts.</field>
+        </record>
+
+        <menuitem id="menu_report_type_contract_employee_all"
+            name="Permanently and Temporary Contracts"
+            action="type_contract_employee_report_action"
+            parent="hr.hr_menu_hr_reports"
+            groups="hr_contract.group_hr_contract_manager"
+            sequence="1"/>
+
+    </data>
+</odoo>

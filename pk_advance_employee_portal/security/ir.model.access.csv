@@ -1,0 +1,20 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_leave_portal_user,hr.leave portal user,hr_holidays.model_hr_leave,base.group_portal,1,1,1,0
+access_planning_slot_portal_user,planning.slot portal user,planning.model_planning_slot,base.group_portal,1,1,1,0
+access_mail_activity_type_portal_user,mail.activity.type portal user,mail.model_mail_activity_type,base.group_portal,1,1,1,0
+access_mail_activity_portal_user,mail.activity portal user,mail.model_mail_activity,base.group_portal,1,1,1,0
+access_calendar_event_portal_user,calendar.event portal user,calendar.model_calendar_event,base.group_portal,1,1,1,0
+access_calendar_attendee_portal_user,calendar.attendee portal user,calendar.model_calendar_attendee,base.group_portal,1,1,1,0
+access_hr_expense_portal_user,hr.expense portal user,hr_expense.model_hr_expense,base.group_portal,1,1,1,0
+access_sale_order_portal_user,sale_order portal user,sale.model_sale_order,base.group_portal,1,1,1,0
+access_sale_order_line_portal_user,sale_order_line portal user,sale.model_sale_order_line,base.group_portal,1,1,1,0
+access_project_task_portal_user,project_task portal user,project.model_project_task,base.group_portal,1,1,1,0
+access_project_project_portal_user,project_project portal user,project.model_project_project,base.group_portal,1,1,1,0
+access_project_milestone_portal_user,project.milestone portal user,project.model_project_milestone,base.group_portal,1,1,1,0
+access_res_users_portal_user,res.users portal user,base.model_res_users,base.group_portal,1,1,1,0
+access_project_task_type_portal_user,project.task.type portal user,project.model_project_task_type,base.group_portal,1,1,1,0
+access_hr_employee_portal_user,hr_employee portal user,hr.model_hr_employee,base.group_portal,1,1,1,0
+access_portal_product,product.portal,product.model_product_product,base.group_portal,1,1,1,0
+access_portal_product_template,product.template portal,product.model_product_template,base.group_portal,1,1,1,0
+access_portal_user_read,portal.user.read,base.model_res_users,base.group_portal,1,1,1,0
+access_hr_payslip,hr.payslip,hr_payroll.model_hr_payslip,base.group_portal,1,0,0,0

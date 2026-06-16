@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_hn_viatic_portal_hr_hn_viatic,hr_hn_viatic_portal.hr.hn.viatic,model_hr_hn_viatic,base.group_user,1,1,1,1
+access_hr_hn_viatic_portal_hr_hn_viatic_user,hr.hn.viatic.user,model_hr_hn_viatic,hr_expense.group_hr_expense_team_approver,1,1,1,1
+access_hr_hn_viatic_portal_hr_hn_viatic_manager,hr.hn.viatic.manager,model_hr_hn_viatic,hr_expense.group_hr_expense_manager,1,1,1,1

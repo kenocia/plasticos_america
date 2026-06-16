@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kc_sales_margin_report_wizard_user,access.kc.sales.margin.report.wizard.user,model_kc_sales_margin_report_wizard,group_sales_margin_report,1,1,1,1

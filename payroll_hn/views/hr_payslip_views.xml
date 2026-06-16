@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_payslip_form_view_inherit" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.view.inherit</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr = "//field[@name='line_ids']/list/field[@name='salary_rule_id']" position="replace"/>
+
+            <xpath expr = "//field[@name='line_ids']/list/field[@name='name']" position="replace">
+                <field name="salary_rule_id" readonly="1" force_save="1"/>
+            </xpath>
+
+            <button name="action_print_payslip" position="after">
+                <button string="Editar y enviar" name="send_payment_voucher_email_edi" type="object"/>
+                <button string="Enviar" name="send_payment_voucher_email" type="object"/>
+            </button>
+            
+        </field>
+    </record>
+
+</odoo>

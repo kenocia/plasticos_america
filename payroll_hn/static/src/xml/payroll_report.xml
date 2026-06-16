@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="payroll_hn.PayrollReport" owl="1">
+        <div class="o_action_manager">
+            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                <style>
+                    .payroll-report-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    .payroll-report-table td, .payroll-report-table th {
+                        border: 1px solid #ddd;
+                        padding: 5px;
+                    }
+                    .input-container {
+                        display: flex;
+                        justify-content: center;
+                        padding: 15px;
+                        gap: 10px;
+                    }
+                    .odoo-input {
+                        margin-bottom: 15px;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    .odoo-input input {
+                        padding: 8px 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        font-size: 14px;
+                        width: 200px;
+                    }
+                    .odoo-button {
+                        padding: 8px 20px;
+                        font-size: 14px;
+                        border: 2px solid #624159;
+                        border-radius: 4px;
+                        background-color: #714B67;
+                        cursor: pointer;
+                        color: #fff;
+                        margin-left: 10px;
+                    }
+                    .odoo-button:hover {
+                        background-color: #624159;
+                    }
+                    .odoo-button:disabled {
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                    }
+                    .table-container {
+                        max-height: 600px;
+                        overflow-y: auto;
+                        border: 1px solid #ddd;
+                        margin: 10px;
+                    }
+                    .w-100 { width: 100%; }
+                    .l-10 { padding-left: 10px; }
+                    .r-10 { padding-right: 10px; }
+                    .center { text-align: center; }
+                    .left { text-align: left; }
+                    .right { text-align: right; }
+                </style>
+
+                <div class="input-container">
+                    <div class="odoo-input">
+                        <input
+                            type="text"
+                            placeholder="Lote"
+                            id="lot_text"
+                            name="lot_text"
+                            t-model="state.lotText"
+                            t-on-input="onLotTextChange"
+                        />
+                    </div>
+                    <button
+                        class="odoo-button"
+                        id="lot_search"
+                        name="lot_search"
+                        t-on-click="lotSearch"
+                        t-att-disabled="state.isLoading"
+                    >
+                        <t t-if="state.isLoading">Cargando...</t>
+                        <t t-else="">Buscar</t>
+                    </button>
+                    <button
+                        class="odoo-button"
+                        id="export_xlsx"
+                        name="export_xlsx"
+                        t-on-click="exportXlsx"
+                        t-att-disabled="state.isLoading or !state.lotText"
+                    >
+                        EXCEL
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="payroll_table" class="w-100 payroll-report-table">
+                        <!-- Table content will be populated by JavaScript -->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

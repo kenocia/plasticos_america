@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_plc_event_log_tree" model="ir.ui.view">
+        <field name="name">plc.event.log.tree</field>
+        <field name="model">plc.event.log</field>
+        <field name="arch" type="xml">
+            <tree string="Eventos PLC" decoration-success="state == 'success'" 
+                  decoration-danger="state in ('rejected', 'error')" 
+                  decoration-warning="state == 'pending'">
+                <field name="timestamp"/>
+                <field name="station_id"/>
+                <field name="event_uuid"/>
+                <field name="qr_raw"/>
+                <field name="lot_id"/>
+                <field name="product_id"/>
+                <field name="state" widget="badge" 
+                       decoration-success="state == 'success'"
+                       decoration-danger="state in ('rejected', 'error')"
+                       decoration-warning="state == 'pending'"/>
+                <field name="reason_code"/>
+                <field name="from_location_id"/>
+                <field name="to_location_id"/>
+                <field name="qty"/>
+                <field name="picking_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_plc_event_log_form" model="ir.ui.view">
+        <field name="name">plc.event.log.form</field>
+        <field name="model">plc.event.log</field>
+        <field name="arch" type="xml">
+            <form string="Evento PLC">
+                <header>
+                    <button name="action_view_picking" type="object" 
+                            string="Ver Traslado" 
+                            class="oe_stat_button" 
+                            icon="fa-truck"
+                            attrs="{'invisible': [('picking_count', '=', 0)]}">
+                        <field name="picking_count" widget="statinfo" string="Traslado"/>
+                    </button>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="timestamp" readonly="1"/>
+                            <field name="station_id"/>
+                            <field name="event_uuid"/>
+                            <field name="state" widget="badge" 
+                                   decoration-success="state == 'success'"
+                                   decoration-danger="state in ('rejected', 'error')"
+                                   decoration-warning="state == 'pending'"/>
+                            <field name="qr_raw"/>
+                        </group>
+                        <group>
+                            <field name="lot_id"/>
+                            <field name="product_id"/>
+                            <field name="from_location_id"/>
+                            <field name="to_location_id"/>
+                            <field name="qty"/>
+                            <field name="picking_id"/>
+                            <field name="attempts"/>
+                            <field name="processed_at"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="reason_code"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Mensaje de Razón">
+                            <field name="reason_message" nolabel="1" placeholder="Mensaje detallado del error o razón..."/>
+                        </page>
+                        <page string="Payload JSON">
+                            <field name="payload_json" nolabel="1" widget="text" 
+                                   placeholder="Payload completo recibido del PLC/Gateway..."/>
+                        </page>
+                        <page string="Response JSON">
+                            <field name="response_json" nolabel="1" widget="text" 
+                                   placeholder="Respuesta completa enviada al PLC/Gateway..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_plc_event_log_search" model="ir.ui.view">
+        <field name="name">plc.event.log.search</field>
+        <field name="model">plc.event.log</field>
+        <field name="arch" type="xml">
+            <search string="Eventos PLC">
+                <field name="event_uuid"/>
+                <field name="station_id"/>
+                <field name="qr_raw"/>
+                <field name="lot_id"/>
+                <field name="product_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter string="Pendiente" name="pending" domain="[('state', '=', 'pending')]"/>
+                <filter string="Éxito" name="success" domain="[('state', '=', 'success')]"/>
+                <filter string="Rechazado" name="rejected" domain="[('state', '=', 'rejected')]"/>
+                <filter string="Error" name="error" domain="[('state', '=', 'error')]"/>
+                <filter string="Duplicado" name="duplicate" domain="[('state', '=', 'duplicate')]"/>
+                <filter string="Timeout" name="timeout" domain="[('state', '=', 'timeout')]"/>
+                <separator/>
+                <filter string="Lote No Encontrado" name="lot_not_found" 
+                        domain="[('reason_code', '=', 'LOT_NOT_FOUND')]"/>
+                <filter string="Formato QR Inválido" name="invalid_qr" 
+                        domain="[('reason_code', '=', 'INVALID_QR_FORMAT')]"/>
+                <filter string="Sin Stock" name="no_stock" 
+                        domain="[('reason_code', '=', 'NO_STOCK')]"/>
+                <filter string="Ubicación Incorrecta" name="wrong_location" 
+                        domain="[('reason_code', '=', 'WRONG_LOCATION')]"/>
+                <filter string="Lote Dividido" name="lot_split" 
+                        domain="[('reason_code', '=', 'LOT_SPLIT_MULTIPLE_LOCATIONS')]"/>
+                <filter string="Origen No Permitido" name="source_not_allowed" 
+                        domain="[('reason_code', '=', 'SOURCE_NOT_ALLOWED')]"/>
+                <filter string="Excepción Odoo" name="odoo_exception" 
+                        domain="[('reason_code', '=', 'ODOO_EXCEPTION')]"/>
+                <filter string="Timeout Sensor" name="sensor_timeout" 
+                        domain="[('reason_code', '=', 'SENSOR_TIMEOUT')]"/>
+                <separator/>
+                <filter string="Hoy" name="today" 
+                        domain="[('timestamp', '>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter string="Últimos 7 días" name="last_7_days" 
+                        domain="[('timestamp', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter string="Últimos 30 días" name="last_30_days" 
+                        domain="[('timestamp', '>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Código de Razón" name="group_reason_code" 
+                            context="{'group_by': 'reason_code'}"/>
+                    <filter string="Estación" name="group_station" 
+                            context="{'group_by': 'station_id'}"/>
+                    <filter string="Lote" name="group_lot" context="{'group_by': 'lot_id'}"/>
+                    <filter string="Fecha" name="group_timestamp" 
+                            context="{'group_by': 'timestamp:day'}"/>
+                    <filter string="Compañía" name="group_company" 
+                            context="{'group_by': 'company_id'}" 
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_plc_event_log" model="ir.actions.act_window">
+        <field name="name">Eventos PLC</field>
+        <field name="res_model">plc.event.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_plc_event_log_search"/>
+        <field name="context">{'search_default_today': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay eventos registrados
+            </p>
+            <p>
+                Los eventos se registran automáticamente cuando se procesan escaneos desde el PLC/Gateway.
+            </p>
+        </field>
+    </record>
+</odoo>

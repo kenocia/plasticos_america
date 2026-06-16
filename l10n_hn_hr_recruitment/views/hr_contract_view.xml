@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="my_hr_contract_view_form" model="ir.ui.view">
+        <field name="name">my.hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other']" position="after">
+                <page string="Documentos" name="documents" groups="hr_contract.group_hr_contract_manager">
+                    <group name="documentos">
+                        <field name="contract_document_ids" nolabel="1" colspan="2">
+                            <list editable="top" expand="true">
+                                <field name="name" string="Nombre"/>
+                                <field name="document_type" string="Nombre"/>
+                                <field name="attachment_ids" widget="many2many_binary"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

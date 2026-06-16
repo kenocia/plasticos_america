@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="kc_mrp_semi_stock_adjustment_wizard_form" model="ir.ui.view">
+        <field name="name">kc.mrp.semi.stock.adjustment.wizard.form</field>
+        <field name="model">kc.mrp.semi.stock.adjustment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Salida / ajuste de semi" class="oe_tablet_wizard_no_nav">
+                <group>
+                    <field name="production_id" readonly="1"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <field name="company_id" invisible="1"/>
+                </group>
+                <p class="text-muted">
+                    Crea albaranes internos desde la ubicación semi hacia merma (desecho) u otra ubicación interna.
+                    Productos con trazabilidad por lote requieren lote; por serie no están soportados en este asistente.
+                </p>
+                <field name="line_ids" nolabel="1">
+                    <list editable="bottom" create="1" delete="1" class="o_list_no_open">
+                        <field name="wizard_id" column_invisible="1"/>
+                        <field name="production_id" column_invisible="1"/>
+                        <field name="company_id" column_invisible="1"/>
+                        <field name="ticket_id" optional="show" required="1"
+                               domain="[('production_id', '=', parent.production_id), ('stock_move_id', '!=', False), ('product_id', '!=', False)]"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="product_uom_id" optional="hide"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="quantity"/>
+                        <field name="kc_available_qty_help" string="Disp. ref." optional="show" readonly="1"/>
+                        <field name="location_src_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="lot_id" optional="show"
+                               domain="[('product_id', '=', product_id), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="is_scrap_desecho"/>
+                        <field name="location_dest_id"
+                               invisible="is_scrap_desecho"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_apply" string="Validar y crear movimientos" type="object" class="btn-primary"/>
+                    <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_kc_mrp_wizard_user" model="res.groups">
+        <field name="name">Operador Asistente MRP (tablet)</field>
+        <field name="category_id" ref="base.module_category_manufacturing"/>
+        <field name="comment">Acceso al asistente MRP KenoCia: centros de trabajo, órdenes de fabricación y registro de lotes. Las acciones permitidas se controlan por empleado (campos kc_tablet_allow_* y PIN), no por el grupo de fabricación estándar de Odoo. Incluye lectura de Empresas (res.company) y contactos (res.partner) necesarios para el selector de empleado en pre-etiquetas (ver ir.model.access.csv).</field>
+    </record>
+
+    <record id="group_kc_mrp_wizard_manager" model="res.groups">
+        <field name="name">Responsable Asistente MRP</field>
+        <field name="category_id" ref="base.module_category_manufacturing"/>
+        <field name="implied_ids" eval="[(4, ref('kc_mrp_wizard.group_kc_mrp_wizard_user'))]"/>
+        <field name="comment">Configuración del asistente (permisos por empleado, tipos de parada/merma, planificación). Incluye todos los permisos de operador (entre ellos lectura de res.company / res.partner para many2one de empleado).</field>
+    </record>
+</odoo>

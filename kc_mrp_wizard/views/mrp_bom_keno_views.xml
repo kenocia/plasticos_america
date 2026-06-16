@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="view_mrp_bom_line_keno_resin" model="ir.ui.view">
+        <field name="name">mrp.bom.form.keno.resin.grams</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bom_line_ids']/list//field[@name='product_uom_id']" position="after">
+                <field name="kc_theoretical_resin_grams" optional="hide" string="G resina teóricos / UdM lista" groups="mrp.group_mrp_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Asistente MRP en pestaña; el guardado fiable desde el diálogo de la LdM lo cubre el
+         parche JS x2many_dialog_ask_changes_patch.js (_askChanges antes de cerrar el diálogo). -->
+    <record id="mrp_routing_workcenter_form_keno_tablet" model="ir.ui.view">
+        <field name="name">mrp.routing.workcenter.form.keno.tablet</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Asistente MRP" name="kc_tablet_semi" groups="mrp.group_mrp_routings">
+                    <group string="Secuencia de órdenes de trabajo">
+                        <field name="kc_skip_sequential_wo_dependency" widget="boolean_toggle" force_save="1"/>
+                    </group>
+                    <group string="Semiterminado (MRP)">
+                        <group>
+                            <field name="kc_tablet_register_semi" widget="boolean_toggle" force_save="1"/>
+                            <field name="kc_semi_product_id"
+                                options="{'no_create_edit': True}"
+                                invisible="not kc_tablet_register_semi"
+                                force_save="1"/>
+                            <field name="kc_semi_uom_id"
+                                invisible="not kc_tablet_register_semi"
+                                readonly="kc_semi_product_id"
+                                force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="kc_semi_location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                            <field name="kc_semi_picking_type_id" options="{'no_create': True}" domain="[('code', '=', 'internal')]"/>
+                            <field name="kc_semi_print_ticket" widget="boolean_toggle" force_save="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_routing_workcenter_bom_tree_keno" model="ir.ui.view">
+        <field name="name">mrp.routing.workcenter.bom.list.keno</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_bom_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='workcenter_id']" position="after">
+                <!-- Sin readonly: si el list marcase solo lectura y se fusiona mal con el formulario,
+                     _getChanges puede excluir estos campos del UPDATE al guardar la LdM. La lista
+                     del BoM no es editable en línea igualmente. -->
+                <field name="kc_skip_sequential_wo_dependency" string="Sin dep. ant." optional="hide"/>
+                <field name="kc_tablet_register_semi" string="Reg. semi" optional="show"/>
+                <field name="kc_semi_product_id" string="Cód. semi" optional="hide"/>
+                <field name="kc_semi_uom_id" string="UdM decl." optional="hide"/>
+                <field name="kc_semi_picking_type_id" string="Tipo op. semi" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    </data>
+</odoo>

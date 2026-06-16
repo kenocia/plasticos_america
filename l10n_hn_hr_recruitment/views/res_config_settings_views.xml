@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+   <record id="hr_recruitment_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">hr.recruitment.res.config.settings.view.form.inherit.hr.recruitment</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="80"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//app[@name='hr_recruitment']" position="inside">
+                   <block title="Publicación Interna" name="online_posting_setting_container">
+                            <setting id="day_internal_published_setting" string="Fecha de publicación" help="Fecha de publicación del trabajo">
+                                <field name="day_internal_published"/><span>Días</span>
+                            </setting>
+                        </block>
+                    <block title="Selecciones del portal" name="online_posting_setting_container">
+                            <setting id="selection_portal_setting" string="Empleados portal" help="Empleados para modificar informacion de los candidatos en el portal">
+                                <field name="selection_portal"/>
+                            </setting>
+                        </block>
+                </xpath>
+            </field>
+   </record>
+  </data>
+</odoo>

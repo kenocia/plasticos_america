@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="report_l10n_hn_bank_summary">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout_standard">
+                        <div class="page">
+                            <t t-set="lines_values" t-value="o.get_payslip()"></t>
+                            <div class="row border">
+                                <div class="col-4 border-end">
+                                    <strong>From:</strong>
+                                    <span t-esc="o.date_from.strftime('%d/%m/%Y')"/>
+                                </div>
+                                <div class="col-4">
+                                    <strong>To:</strong>
+                                    <span t-esc="o.date_to.strftime('%d/%m/%Y')"/>
+                                </div>
+                            </div>
+                            <table class="table table-sm table-bordered" style="text-align: left;">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <strong>Cuenta</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Nombre</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Total a pagar</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Tipo</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="lines_values['employees_data']" t-as="line">
+                                        <tr>
+                                            <td class="text-start">
+                                                <span t-esc="line['member_account']"/>
+                                            </td>
+                                            <td class="text-start">
+                                                <span t-esc="line['name']"/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-esc="line['amount_net']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="line['type']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <t t-set="totals" t-value="lines_values['total_data']"/>
+
+                                        <t t-foreach="totals" t-as="line">
+                                           <td>
+                                                <strong><span t-esc="o.partner_bank_id.acc_number"/></strong>
+                                            </td>
+                                            <td>
+                                                <strong><span t-esc="o.partner_bank_id.bank_id.name"/></strong>
+                                            </td>
+                                            <td class="text-end" t-if="totals[line]">
+                                                <strong>
+                                                    <t t-out="o.company_id.currency_id.symbol or ''">$</t>
+                                                    <t t-out="'%0.2f' % float(totals[line]) or ''">0.00</t>
+                                                </strong>
+                                            </td>
+                                            <td t-else=""></td>
+                                             <td class="text-center">
+                                                <strong>1</strong>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p style="page-break-after: always;"/>
+                    </t>
+
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

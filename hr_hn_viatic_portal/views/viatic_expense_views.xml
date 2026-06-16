@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <data>
+
+    
+    <template id="viatic_form_template" name="Viatico">
+         <t t-call="portal.portal_layout">
+              <div class="container mt-5 viatic_expense_form_js_class">
+    <form action="/#" method="post" string="Solicitud de Viaje" class="o_mark_required needs-validation" data-mark="*" data-pre-fill="true" data-model_name="hr.expense">
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <div class="form-group row  mt-2 text-center">
+            <h2>Solicitud de viaje</h2>
+        </div>
+        <div class="form-group row  mt-2">
+            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nombre" name="nombre"/>
+                <p class="d-none" id="input_nombre"/>
+            </div>
+        </div>
+        <div class="form-group row  mt-2">
+            <label for="lugar_fecha" class="col-sm-2 col-form-label">Lugar: </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="place" name="place"/>
+                <p class="d-none" id="input_place"/>
+            </div>
+        </div>
+        <div class="form-group row  mt-2">
+            <label for="date_travel" class="col-sm-2 col-form-label">Fecha:</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="date_travel" name="date_travel"/>
+                <p class="d-none" id="input_date_travel"/>
+            </div>
+        </div>
+
+        <div class="form-group row  mt-2">
+            <label for="viaje_a" class="col-sm-2 col-form-label">Viaje a:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="viaje_a" name="viaje_a"/>
+                 <p class="d-none" id="input_viaje_a"/>
+            </div>
+        </div>
+        <div class="form-group row  mt-2">
+            <label for="motivo_viaje" class="col-sm-2 col-form-label">Motivo del Viaje:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="motivo_viaje" name="motivo_viaje"/>
+                <p class="d-none" id="input_motivo_viaje"/>
+            </div>
+        </div>
+        <div class="form-group row  mt-2">
+            <label for="fecha_desde" class="col-sm-2 col-form-label">Fechas Desde:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fecha_desde" name="fecha_desde"/>
+                <p class="d-none" id="input_fecha_desde"/>
+            </div>
+             <label for="fecha_hasta" class="col-sm-2 col-form-label">Fecha Hasta:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fecha_hasta" name="fecha_hasta"/>
+                <p class="d-none" id="input_fecha_hasta"/>
+            </div>
+        </div>
+        <div class="form-group row  mt-2">
+             <label for="employee_id" class="col-sm-2 col-form-label">Empleado responsable</label>
+             <div class="col-sm-10">
+                        <input class="form-select" readonly="readonly" id="employee_id" name="employee_id">
+                          
+                        </input>
+                 <p class="d-none" id="input_employee_id"/>
+             </div>
+        </div>
+         <div class="form-group row  mt-2">
+             <label for="employees_ids" class="col-sm-2 col-form-label">Empleados que participan en el viaje</label>
+             <div class="col-sm-10">
+                <input class="form-select" id="employees_ids" name="employees_ids" multiple="multiple">
+                   
+                </input>
+             </div>
+        </div>
+
+
+        <hr class="form-group row mt-3" style="color: 1px solid gray;"/>
+        <p class="d-none" id="input_expenses_ids"/>
+        <div class="form-group row  mt-2">
+             <label for="product_ids" class="col-sm-2 col-form-label">Category</label>
+             <div class="col-sm-10">
+                        <select class="form-select" id="product_id" name="product_id">
+                           
+                        </select>
+                 <p class="d-none" id="input_product_id"/>
+             </div>
+        </div>
+        <div class="form-group row  mt-2">
+            <label for="detalle" class="col-sm-2 col-form-label">Detalle:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="detalle" name="detalle"></textarea>
+                <p class="d-none" id="input_detalle"/>
+            </div>
+        </div>
+        <div class="form-group row  mt-2">
+            <label for="tarifa_aprobada" class="col-sm-2 col-form-label">Tarifa Aprobada:</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control" id="tarifa_aprobada" name="tarifa_aprobada"/>
+                <p class="d-none" id="input_tarifa_aprobada"/>
+            </div>
+            <label for="cantidad_personas" class="col-sm-2 col-form-label">Cantidad de Personas:</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control" id="cantidad_personas" name="cantidad_personas"/>
+                <p class="d-none" id="input_cantidad_personas"/>
+            </div>
+             <label for="dias" class="col-sm-2 col-form-label">Días:</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control" id="dias" name="dias"/>
+                <p class="d-none" id="input_dias"/>
+            </div>
+        </div> 
+        <div class="form-group row mt-2">
+            <div class="col-sm-10">
+                <button type="submit" id="add_viatic_exp" t-on-click="addExpense" class="btn btn-primary">Agregar gasto</button>
+            </div>
+        </div>
+        <div class="form-group row mt-2">
+            <table class="table d-none" id="viaticos_table_id">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Detalle</th>
+                <th scope="col">Tarifa Aprobada</th>
+                <th scope="col">Cantidad de Personas</th>
+                <th scope="col">Días</th>
+                <th scope="col">Total</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody id="body_expense_viatic">
+
+        </tbody>
+    </table>
+        </div>
+        <hr class="form-group row mt-3" style="color: 1px solid gray;"/>
+
+
+        <div class="form-group row mt-2">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary" id="send_form">Enviar</button>
+            </div>
+        </div>
+    </form>
+</div>
+         </t>
+    </template>
+
+    </data>
+</odoo>

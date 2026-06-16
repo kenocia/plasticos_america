@@ -1,0 +1,79 @@
+/* Pantalla inicial y kanban de despachos optimizados para handheld */
+
+.o_logistics_handheld_launcher .oe_logistics_handheld_btn {
+    min-height: 7rem;
+    padding: 1.25rem 1rem;
+    border-radius: 0.75rem;
+    white-space: normal;
+}
+
+.o_logistics_handheld_launcher .oe_logistics_handheld_btn i {
+    opacity: 0.95;
+}
+
+.o_kanban_view.o_logistics_handheld_despachos_kanban .o_kanban_record {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (min-width: 768px) {
+    .o_kanban_view.o_logistics_handheld_despachos_kanban .o_kanban_record {
+        width: calc(50% - 0.5rem);
+    }
+}
+
+@media (min-width: 1200px) {
+    .o_kanban_view.o_logistics_handheld_despachos_kanban .o_kanban_record {
+        width: calc(33.333% - 0.67rem);
+    }
+}
+
+.o_kanban_view.o_logistics_handheld_despachos_kanban .o_kanban_group {
+    min-width: 100%;
+}
+
+@media (min-width: 992px) {
+    .o_kanban_view.o_logistics_handheld_despachos_kanban .o_kanban_group {
+        min-width: 50%;
+    }
+}
+
+.o_kanban_view.o_logistics_handheld_despachos_kanban button.btn-link:focus {
+    box-shadow: none;
+}
+
+.o_action_manager .o_control_panel .oe_handheld_back_menu_btn {
+    min-height: 2.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* Icono + texto en la misma línea (evita salto del widget fecha) */
+.o_kanban_view.o_logistics_handheld_despachos_kanban .oe_handheld_meta_line {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.35rem;
+    line-height: 1.35;
+}
+
+.o_kanban_view.o_logistics_handheld_despachos_kanban .oe_handheld_meta_line > i.fa {
+    flex-shrink: 0;
+    width: 1rem;
+    text-align: center;
+}
+
+.o_kanban_view.o_logistics_handheld_despachos_kanban .oe_handheld_meta_line .o_field_widget {
+    display: inline-block;
+    width: auto;
+    max-width: 100%;
+    margin: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.o_kanban_view.o_logistics_handheld_despachos_kanban .oe_handheld_meta_line .o_field_widget span {
+    display: inline;
+}

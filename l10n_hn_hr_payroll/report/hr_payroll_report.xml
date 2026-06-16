@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_monthly_summary" model="ir.actions.report">
+        <field name="name">Monthly Summary</field>
+        <field name="model">l10n.hn.monthly.summary</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_l10n_hn_monthly_summary</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_l10n_hn_monthly_summary</field>
+        <field name="binding_type">report</field>
+    </record>
+    <record id="action_report_bank_summary" model="ir.actions.report">
+        <field name="name">bank Summary</field>
+        <field name="model">l10n.hn.bank.summary</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_l10n_hn_bank_summary</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_l10n_hn_bank_summary</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_payroll"/>
+    </record>
+    <record id="action_report_payroll_summary" model="ir.actions.report">
+        <field name="name">Resumen de nómina</field>
+        <field name="model">l10n.hn.payroll.summary</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_l10n_hn_payroll_summary</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_l10n_hn_payroll_summary</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_payroll_landscape"/>
+    </record>
+</odoo>

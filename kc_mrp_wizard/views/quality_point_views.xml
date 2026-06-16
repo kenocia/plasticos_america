@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="quality_point_view_form_spc_limits_button" model="ir.ui.view">
+        <field name="name">quality.point.form.spc.limits.button</field>
+        <field name="model">quality.point</field>
+        <field name="inherit_id" ref="quality_control.quality_point_view_form_inherit_quality_control"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_see_spc_control']" position="after">
+                <button name="action_see_spc_control_with_limits" type="object" class="oe_stat_button"
+                    icon="fa-line-chart"
+                    invisible="check_count == 0 or test_type != 'measure'"
+                    title="Gráfico SPC con medida, norma y bandas de tolerancia en el mismo gráfico">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">SPC + límites</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -13,6 +13,16 @@ try:
 except ImportError:
     xlwt = None
 
+# Códigos de producto que no deben figurar en importe exento DMC (líneas auxiliares que no se declaran)
+_DMC_SKIP_EXENTO_PRODUCT_CODES = frozenset({'SADU-001'})
+
+
+def _dmc_product_skipped_for_exento(product):
+    if not product:
+        return False
+    code = (product.default_code or '').strip().upper()
+    return code in {c.upper() for c in _DMC_SKIP_EXENTO_PRODUCT_CODES}
+
 
 class ReportDmcLine(models.TransientModel):
     _name = 'kc_fiscal_hn.dmc.line'
@@ -471,6 +481,77 @@ class ReportDmcList(models.TransientModel):
                             return value
             return value.strftime('%d/%m/%Y')
 
+        # Base 15% para DMC: alineada con account.move._compute_importe_gravado en líneas no boletín
+        boletin_isv_divisor = 0.15
+
+        def _line_subtotal_boletin(line):
+            """Subtotal para regla boletín DMC (gravada o exenta): preferir price_subtotal."""
+            sub = line.price_subtotal or 0.0
+            if not sub and line.quantity and line.price_unit:
+                sub = line.quantity * line.price_unit
+                if line.discount:
+                    sub -= (sub * line.discount) / 100.0
+            return sub
+
+        def _line_gravado_15_standard(line):
+            subtotal_line = line.quantity * line.price_unit
+            if line.discount:
+                base_imponible = subtotal_line - (subtotal_line * line.discount) / 100
+            else:
+                base_imponible = subtotal_line
+            is_exempt = any(tax.tax_group_id.name == 'Exento' for tax in line.tax_ids)
+            is_exonerated = any(tax.tax_group_id.name == 'Exonerado' for tax in line.tax_ids)
+            if is_exempt or is_exonerated:
+                return 0.0
+            for tax in line.tax_ids:
+                if tax.amount == 15:
+                    return round(base_imponible, 2)
+            return 0.0
+
+        def _boletin_lines(move):
+            return move.invoice_line_ids.filtered(
+                lambda l: l.product_id and l.product_id.product_tmpl_id.es_boletin
+            )
+
+        def _dmc_amount_exento(move):
+            """Exento para DMC: igual que amount_exento de la factura pero sin líneas boletín.
+            Las boletín sin impuesto en línea se contabilizan como exento en Odoo, pero en DMC
+            van solo a importe base 15% (subtotal/0.15), no a columna 110/112.
+            Códigos en _DMC_SKIP_EXENTO_PRODUCT_CODES no suman (p. ej. línea auxiliar SADU-001)."""
+            exento = 0.0
+            for line in move.invoice_line_ids:
+                if line.product_id and line.product_id.product_tmpl_id.es_boletin:
+                    continue
+                if _dmc_product_skipped_for_exento(line.product_id):
+                    continue
+                subtotal_line = line.quantity * line.price_unit
+                total = (
+                    subtotal_line - (subtotal_line * line.discount) / 100
+                    if line.discount
+                    else subtotal_line
+                )
+
+                def _name(n):
+                    return (n or '').strip().lower()
+
+                if (not line.tax_ids) or any(
+                    'exento' in _name(tax.tax_group_id.name) for tax in line.tax_ids
+                ):
+                    exento += total
+            return round(exento, 2)
+
+        def _dmc_base_15(move):
+            """Importe base 15% para columnas DMC (1511 / 1512 / 1513)."""
+            boletin_lines = _boletin_lines(move)
+            if not boletin_lines:
+                return round(move.gravado_isv15, 2)
+            # Boletín gravado o exento: mismo criterio sum(subtotal) / 0.15
+            sub_boletin = sum(_line_subtotal_boletin(l) for l in boletin_lines)
+            parte_boletin = sub_boletin / boletin_isv_divisor
+            otras = move.invoice_line_ids - boletin_lines
+            parte_otras = sum(_line_gravado_15_standard(l) for l in otras)
+            return round(parte_boletin + parte_otras, 2)
+
         data = []
         for i in invoices:
             clase_documento = ''
@@ -478,9 +559,9 @@ class ReportDmcList(models.TransientModel):
             proveedor = ''
             f_documento = ''
             r_documento = ''
-            costo = ''
-            gasto = ''
-            deducible = ''
+            costo = 0.0
+            gasto = 0.0
+            deducible = 0.0
             if i.class_document_sar == 'FA':
                 cai_proveedor = i.cai_proveedor
                 f_documento = i.correlativo_proveedor
@@ -489,12 +570,21 @@ class ReportDmcList(models.TransientModel):
                 r_documento = i.correlativo_proveedor
                 clase_documento = 'OC-OTROS COMPROBANTES DE PAGO'
 
+            importe_isv15_dmc = _dmc_base_15(i)
+            importe_exento_dmc = _dmc_amount_exento(i)
+            # Monto SAR (270/280/290): base gravada + exento + exonerado. Solo la parte gravada
+            # iba antes y dejaba en 0 facturas 100% exentas aunque "Monto al Gasto" estuviera marcado.
+            base_gravada_total = importe_isv15_dmc + round(i.gravado_isv18, 2)
+            exento_exonerado = round(
+                importe_exento_dmc + (i.amount_exonerado or 0.0), 2
+            )
+            monto_sar_total = base_gravada_total + exento_exonerado
             if i.montos_sar == 'costo':
-                costo = i.amount_isv15 + i.amount_isv18
+                costo = monto_sar_total
             elif i.montos_sar == 'gasto':
-                gasto = i.amount_isv15 + i.amount_isv18
+                gasto = monto_sar_total
             elif i.montos_sar == 'no_deducible':
-                deducible = i.amount_isv15 + i.amount_isv18
+                deducible = monto_sar_total
 
             invoice = {
                 'rtn': i.partner_id.vat,
@@ -506,11 +596,11 @@ class ReportDmcList(models.TransientModel):
                 'fecha_emision': _format_date(i.femision_proveedor),
                 'fecha_contable': _format_date(i.date),
                 'oce': i.noOrdenCompraExenta if i.noOrdenCompraExenta else '',
-                'importe_exento': i.amount_exento,
+                'importe_exento': importe_exento_dmc,
                 'resolucion': '',
                 'importe_exonerado_15': i.amount_exonerado,
                 'importe_exonerado_18': 0.0,
-                'importe_isv15': i.gravado_isv15,
+                'importe_isv15': importe_isv15_dmc,
                 'importe_isv18': i.gravado_isv18,
                 'costo': costo,
                 'gasto': gasto,

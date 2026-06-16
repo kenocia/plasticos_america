@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Añadir columna Orden de trabajo en lista de alertas de calidad -->
+        <record id="quality_alert_view_tree_workorder" model="ir.ui.view">
+            <field name="name">quality.alert.tree.workorder</field>
+            <field name="model">quality.alert</field>
+            <field name="inherit_id" ref="quality.quality_alert_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="workorder_id" optional="show"/>
+                    <field name="by_stop_production" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- Añadir campos Orden de trabajo y Por paro de producción en formulario de alertas de calidad -->
+        <record id="quality_alert_view_form_workorder" model="ir.ui.view">
+            <field name="name">quality.alert.form.workorder</field>
+            <field name="model">quality.alert</field>
+            <field name="inherit_id" ref="quality_control.quality_alert_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="workorder_id" optional="show"/>
+                    <field name="by_stop_production" optional="show" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_hr_department_tree_custom" model="ir.ui.view">
+        <field name="name">hr.department.tree.custom</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="department_type" string="Tipo"/>
+            </field>
+            <field name="manager_id" position="after">
+                <field name="level" string="Nivel"/>
+            </field>
+            <xpath expr="//field[@name='manager_id']" position="attributes">
+                <attribute name="string">Jefe</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_department_form_custom" model="ir.ui.view">
+        <field name="name">hr.department.form.custom</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <!-- Mejorar el botón de empleados -->
+            <xpath expr="//button[@name='action_employee_from_department']" position="attributes">
+                <attribute name="string">Empleados</attribute>
+            </xpath>
+            
+            <!-- Mejorar el botón de planes -->
+            <xpath expr="//button[@name='action_plan_from_department']" position="attributes">
+                <attribute name="string">Planes</attribute>
+            </xpath>
+            
+            <!-- Agregar campos personalizados después del campo color -->
+            <xpath expr="//field[@name='color']" position="after">
+                <field name="department_type" string="Tipo de Departamento" 
+                       widget="radio" options="{'horizontal': true}"/>
+                <field name="level" string="Nivel Jerárquico" readonly="1"/>
+            </xpath>
+            
+            <!-- Mejorar etiquetas de campos existentes -->
+            <xpath expr="//field[@name='manager_id']" position="attributes">
+                <attribute name="string">Jefe de Departamento</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="string">Departamento Padre</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="string">Compañía</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_department_filter_inherit" model="ir.ui.view">
+        <field name="name">hr.department.search</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <!-- Agregar campos de búsqueda -->
+                <field name="department_type" string="Tipo de Departamento"/>
+                
+                <!-- Filtros por tipo de departamento -->
+                <separator/>
+                <filter string="Empresas" name="empresa" domain="[('department_type', '=', 'empresa')]"/>
+                <filter string="Sucursales" name="sucursal" domain="[('department_type', '=', 'sucursal')]"/>
+                <filter string="Departamentos" name="departamento" domain="[('department_type', '=', 'departamento')]"/>
+                <filter string="Áreas" name="area" domain="[('department_type', '=', 'area')]"/>
+                <filter string="Otros Niveles" name="otro_nivel" domain="[('department_type', '=', 'otro')]"/>
+                
+                <!-- Agrupaciones -->
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_department_type" string="Tipo de Departamento" 
+                            domain="[]" context="{'group_by':'department_type'}"/>
+                    <filter name="group_manager" string="Jefe de Departamento" 
+                            domain="[]" context="{'group_by':'manager_id'}"/>
+                    <filter name="group_company" string="Compañía" 
+                            domain="[]" context="{'group_by':'company_id'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

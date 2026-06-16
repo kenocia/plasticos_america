@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_hn_assign_benefit_deduction__form_view" model="ir.ui.view">
+        <field name="name">hr.hn.assign.benefit.deduction.form.view</field>
+        <field name="model">hr.hn.assign.benefit.deduction</field>
+        <field name="arch" type="xml">
+            <form string="Asignar beneficios y deducciones">
+                <header>
+                    <button name="get_employees" type="object" string="Obtener empleados" class="oe_highlight" invisible="state != 'draft'" />
+                    <button name="apply_assignment" type="object" string="Aplicar" invisible="state != 'draft'"/>
+                    <button name="process_file" type="object" string="Importar empleados" invisible="state !='draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+                <sheet>
+                    <group>
+                        <group string="Información General">
+                            <field name="company_id" options="{'no_create': true, 'no_open': true}" readonly="1" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Importar empleados">
+                            <field name="file"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Filtros de empleado">
+                            <field name="department_id" options="{'no_create': true, 'no_open': true}" readonly="state != 'draft'" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Beneficio/Deducción">
+                            <field name="category"
+                                   required="True"
+                                   readonly="state != 'draft'"/>
+                            <field name="rule_id"
+                                   domain="[('benefit_deduction','=',True),('category_id.category','=',category)]"
+                                   options="{'no_create': true, 'no_open': true}"
+                                   required="True"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Tipo">
+                            <field name="type"
+                                   required="True"
+                                   readonly="state != 'draft'"/>
+                            <field name="amount"
+                                   readonly="state != 'draft'"
+                                   required="type == 'fixed'"
+                                   invisible="type != 'fixed'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Pago programado">
+                            <field name="schedule_pay"
+                                   required="True"
+                                   readonly="state != 'draft'"/>
+                            <field name="apply_in" readonly="state != 'draft'"
+                                   required="schedule_pay == 'bi-weekly'"
+                                   invisible="schedule_pay != 'bi-weekly'"/>
+                            <field name="periodicity"
+                                   required="True"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Periodicidad Finita"
+                               invisible="periodicity != 'finite'">
+                            <field name="start_date" readonly="state != 'draft'"
+                                   required="periodicity == 'finite'"/>
+                            <field name="fee_numbers"
+                                   readonly="state != 'draft'"
+                                   required="periodicity == 'finite'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <button name="action_update_payment_status" string="Actualizar Estado de Pago" type="object" class="btn-primary" help="Actualiza el estado de pago y la vinculación con lotes de nóminas"/>
+                    </group>
+                    <notebook>
+                        <page string="Empleados" name="employees">
+                            <field name="line_ids"
+                                   readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="company_id" column_invisible="True"/>
+                                    <field name="payslip_batch_ids" widget="many2many_tags"/>
+                                    <field name="employee_id" options="{'no_create': true, 'no_open': true}"/>
+                                    <field name="description"/>
+                                    <field name="amount" sum="total"/>
+                                    <field name="payment_status" widget="badge" decoration-success="payment_status == 'paid'" decoration-danger="payment_status == 'cancelled'" decoration-muted="payment_status == 'pending'"/>
+                                    <button name="action_update_line_payment_status" string="Actualizar Estado" type="object" class="btn-sm btn-primary" help="Actualizar estado de pago de esta línea"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_hn_assign_benefit_deduction_list_view" model="ir.ui.view">
+		<field name="name">hr.hn.assign.benefit.deduction.list.view</field>
+		<field name="model">hr.hn.assign.benefit.deduction</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="name"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+				<field name="department_id"/>
+                <field name="rule_id"/>
+                <field name="state"/>
+			</list>
+		</field>
+	</record>
+
+    <record id="hr_hn_assign_benefit_deduction_search_view" model="ir.ui.view">
+        <field name="name">hr.hn.assign.benefit.deduction.search.view</field>
+        <field name="model">hr.hn.assign.benefit.deduction</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="rule_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter string="Borrador" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Aplicado" name="done" domain="[('state','=','done')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Compañía" name="group_by_company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    <filter string="Departamento" name="group_by_department" context="{'group_by':'department_id'}"/>
+                    <filter string="Regla" name="group_by_rule" context="{'group_by':'rule_id'}"/>
+                    <filter string="Estado" name="group_by_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_hn_assign_benefit_deduction_action" model="ir.actions.act_window">
+        <field name="name">Asignar Beneficio/Deducción</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.hn.assign.benefit.deduction</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Reporte de Beneficios y Deducciones.
+            </p>
+        </field>
+    </record>
+</odoo>

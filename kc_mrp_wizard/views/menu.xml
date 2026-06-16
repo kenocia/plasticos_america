@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Acción para empleados: solo lista de centros con botón "Abrir asistente" (sin acceso a Configuración) -->
+        <!-- Menú raíz: Asistente MRP como módulo aparte (mismo nivel que Manufactura) -->
+        <menuitem id="menu_tablet_root"
+            name="Asistente MRP"
+            web_icon="kc_mrp_wizard,static/description/icon.png"
+            groups="kc_mrp_wizard.group_kc_mrp_wizard_user"/>
+        <!-- Acción para empleados: solo lista de centros con botón "Abrir asistente" -->
+        <record id="action_mrp_workcenter_tablet" model="ir.actions.act_window">
+            <field name="name">Centros de trabajo</field>
+            <field name="res_model">mrp.workcenter</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="mrp_workcenter_kanban_tablet"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    <i class="fa fa-tablet fa-2x text-muted mb-2 d-block"/>
+                    Seleccione su centro de trabajo y pulse <strong>Abrir asistente</strong> para identificar con PIN y registrar lotes.
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_mrp_workcenter_tablet"
+            name="Centros de trabajo"
+            action="action_mrp_workcenter_tablet"
+            parent="menu_tablet_root"
+            sequence="5"/>
+        <menuitem id="menu_kc_sale_planning_root"
+            name="Planificación"
+            parent="menu_tablet_root"
+            sequence="8"
+            groups="kc_mrp_wizard.group_kc_mrp_wizard_manager,sales_team.group_sale_salesman"/>
+        <menuitem id="menu_kc_sale_planning_product"
+            name="Por producto"
+            action="action_kc_sale_planning_by_product"
+            parent="menu_kc_sale_planning_root"
+            sequence="10"/>
+        <menuitem id="menu_kc_sale_planning_line"
+            name="Por línea de pedido"
+            action="action_kc_sale_planning_by_line"
+            parent="menu_kc_sale_planning_root"
+            sequence="20"/>
+        <!-- Acción secundaria: abrir wizard desde formulario de centro (Configuración) -->
+        <record id="action_mrp_tablet_wizard" model="ir.actions.act_window">
+            <field name="name">Asistente MRP (PIN)</field>
+            <field name="res_model">mrp.tablet.employee.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="mrp.model_mrp_workcenter"/>
+        </record>
+        <!-- Vista de búsqueda definida antes de la acción que la referencia -->
+        <record id="mrp_batch_ticket_search" model="ir.ui.view">
+            <field name="name">mrp.batch.ticket.search</field>
+            <field name="model">mrp.batch.ticket</field>
+            <field name="arch" type="xml">
+                <search string="Buscar tickets">
+                    <field name="name"/>
+                    <field name="production_id"/>
+                    <field name="workcenter_id"/>
+                    <field name="lot_id"/>
+                    <field name="employee_id"/>
+                    <filter name="order" string="Recientes" domain="[]" context="{'order': 'create_date desc'}"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_mrp_batch_ticket" model="ir.actions.act_window">
+            <field name="name">Tickets de lote</field>
+            <field name="res_model">mrp.batch.ticket</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="mrp_batch_ticket_search"/>
+            <field name="context">{'search_default_order': 1}</field>
+        </record>
+        <menuitem id="menu_mrp_batch_ticket"
+            name="Tickets de lote"
+            action="action_mrp_batch_ticket"
+            parent="menu_tablet_root"
+            sequence="10"/>
+        <menuitem id="menu_mrp_semi_ticket"
+            name="Tickets semiterminado"
+            action="action_mrp_semi_ticket"
+            parent="menu_tablet_root"
+            sequence="12"/>
+        <menuitem id="menu_kc_mrp_resin_scrap_type"
+            name="Tipos merma material"
+            action="action_kc_mrp_resin_scrap_type"
+            parent="menu_tablet_root"
+            sequence="20"
+            groups="kc_mrp_wizard.group_kc_mrp_wizard_manager"/>
+    </data>
+</odoo>

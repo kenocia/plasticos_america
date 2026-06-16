@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--Vacation Leave -->
+        <record id="holiday_status_vacation" model="hr.leave.type">
+            <field name="name">Días de vacaciones</field>
+            <field name="requires_allocation">yes</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+            <field name="work_entry_type_id" ref="hr_work_entry_type_VAC"/>
+        </record>
+
+        <record id="holiday_status_vacation_anticipate" model="hr.leave.type">
+            <field name="name">Días de vacaciones Anticipadas</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="only_to_pay">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+            <field name="work_entry_type_id" ref="hr_work_entry_type_VAC_ANT"/>
+        </record>
+
+        <record id="holiday_status_day_free" model="hr.leave.type">
+            <field name="name">Días libres</field>
+            <field name="requires_allocation">yes</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+            <field name="work_entry_type_id" ref="hr_work_entry_type_DAY_FREE"/>
+        </record>
+
+        <record id="holiday_status_incapacidad_ihss" model="hr.leave.type">
+            <field name="name">INCAPACIDAD IHSS</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+            <field name="work_entry_type_id" ref="hr_work_entry_type_INCAPACIDAD_IHSS"/>
+        </record>
+
+        <record id="holiday_status_incapacidad_pre_natal" model="hr.leave.type">
+            <field name="name">INCAPACIDAD PRE-NATAL</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+            <field name="work_entry_type_id" ref="hr_work_entry_type_INCAPACIDAD_PRE_NATAL"/>
+        </record>
+
+        <record id="holiday_status_incapacidad_post_natal" model="hr.leave.type">
+            <field name="name">INCAPACIDAD POST-NATAL</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+            <field name="work_entry_type_id" ref="hr_work_entry_type_INCAPACIDAD_POST_NATAL"/>
+        </record>
+
+        <record id="holiday_status_familiar_death" model="hr.leave.type">
+            <field name="name">MUERTE FAMILIAR</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+<!--            <field name="work_entry_type_id" ref="hr_work_entry_type_INCAPACIDAD_POST_NATAL"/>-->
+        </record>
+
+        <record id="holiday_status_suspension_sueldo" model="hr.leave.type">
+            <field name="name">SUSPENCION SIN G. SUELDO</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+            <field name="work_entry_type_id" ref="hr_work_entry_type_suapension_sueldo"/>
+        </record>
+
+        <record id="holiday_status_incapacidad_privada" model="hr.leave.type">
+            <field name="name">INCAPACIDAD PRIVADA</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+<!--            <field name="work_entry_type_id" ref="hr_work_entry_type_suapension_sueldo"/>-->
+        </record>
+
+        <record id="holiday_status_incapacidad_privada" model="hr.leave.type">
+            <field name="name">INCAPACIDAD PRIVADA</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+<!--            <field name="work_entry_type_id" ref="hr_work_entry_type_suapension_sueldo"/>-->
+        </record>
+
+        <record id="holiday_status_matrimonio" model="hr.leave.type">
+            <field name="name">POR MATRIMONIO</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+<!--            <field name="work_entry_type_id" ref="hr_work_entry_type_suapension_sueldo"/>-->
+        </record>
+
+        <record id="holiday_status_visita_medico_ihss" model="hr.leave.type">
+            <field name="name">VISITA MEDICO IHSS</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+<!--            <field name="work_entry_type_id" ref="hr_work_entry_type_suapension_sueldo"/>-->
+        </record>
+
+        <record id="holiday_status_visita_medico_privado" model="hr.leave.type">
+            <field name="name">VISITA MEDICO PRIVADO</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+<!--            <field name="work_entry_type_id" ref="hr_work_entry_type_suapension_sueldo"/>-->
+        </record>
+
+        <record id="holiday_status_visita_medico_publico" model="hr.leave.type">
+            <field name="name">VISITA MEDICO PUBLICO</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+<!--            <field name="work_entry_type_id" ref="hr_work_entry_type_suapension_sueldo"/>-->
+        </record>
+
+        <record id="holiday_status_incapacidad_publico" model="hr.leave.type">
+            <field name="name">INCAPACIDAD PUBLICO</field>
+            <field name="requires_allocation">no</field>
+            <field name="employee_requests">yes</field>
+            <field name="request_unit">day</field>
+            <field name="color">2</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="leave_validation_type">both</field>
+            <field name="company_id" eval="False"/>
+<!--            <field name="work_entry_type_id" ref="hr_work_entry_type_suapension_sueldo"/>-->
+        </record>
+
+    </data>
+</odoo>

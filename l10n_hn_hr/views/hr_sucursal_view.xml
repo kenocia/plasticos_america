@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+<!--    EMPLOYEE EMPRESA   -->
+    <record id="hr_employee_sucursal_form" model="ir.ui.view">
+            <field name="name">hr.employee.sucursal.form</field>
+            <field name="model">hr.employee.sucursal</field>
+            <field name="arch" type="xml">
+                <form string="Área de personal">
+                    <group col="4">
+                        <field colspan="4" name="code"/>
+                        <field colspan="4" name="name"/>
+                        <field colspan="4" name="employee_company_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_employee_sucursal_tree" model="ir.ui.view">
+            <field name="name">hr.employee.sucursal.tree</field>
+            <field name="model">hr.employee.sucursal</field>
+            <field name="arch" type="xml">
+                <list string="Área de personal">
+                      <field colspan="4" name="code"/>
+                      <field colspan="4" name="name"/>
+                      <field colspan="4" name="employee_company_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_employee_sucursal_search" model="ir.ui.view">
+            <field name="name">hr.employee.sucursal.search</field>
+            <field name="model">hr.employee.sucursal</field>
+            <field name="arch" type="xml">
+                <search string="Search Área de personal">
+                    <field name="code" string="Code"/>
+                    <field name="name" string="Sucursal"/>
+                    <field name="employee_company_id" string="Empresa"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_hr_employee_sucursal" model="ir.actions.act_window">
+            <field name="name">Sucursal</field>
+            <field name="res_model">hr.employee.sucursal</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="hr_employee_sucursal_search"/>
+        </record>
+
+        <menuitem
+            id="menu_hr_employee_sucursal"
+            action="action_hr_employee_sucursal"
+            parent="hr_menu_empleado_honduras"
+            sequence="4"
+            groups="hr.group_hr_manager"/>
+
+</odoo>

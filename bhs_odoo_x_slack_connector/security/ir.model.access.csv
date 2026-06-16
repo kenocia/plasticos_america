@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_slack_connector_user,access.slack.connector.user,model_slack_connector,base.group_user,1,0,0,0
+access_slack_connector_manager,access.slack.connector.manager,model_slack_connector,base.group_system,1,1,1,1
+access_slack_user_config_user,access.slack.user.config.user,model_slack_user_config,base.group_user,1,1,1,1

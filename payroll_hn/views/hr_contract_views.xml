@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- Action hr.hn.salary.history -->
+    <record id="action_salary_history" model="ir.actions.act_window">
+        <field name="name">Historial de salarios</field>
+        <field name="res_model">hr.hn.salary.history</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="payroll_hn.view_hr_hn_salary_history_search"/>
+        <field name="context">{}</field>
+        <field name="domain"> [('contract_id', '=', active_id)]</field>
+    </record>
+
+    <!-- Action hr.hn.ihss.history -->
+    <record id="action_ihss_history" model="ir.actions.act_window">
+        <field name="name">Historial de IHSS</field>
+        <field name="res_model">hr.hn.ihss.history</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="payroll_hn.view_hr_hn_ihss_history_search"/>
+        <field name="context">{}</field>
+        <field name="domain"> [('contract_id', '=', active_id)]</field>
+    </record>
+
+    <!-- Action hr.hn.rap.history -->
+    <record id="action_rap_history" model="ir.actions.act_window">
+        <field name="name">Historial de RAP</field>
+        <field name="res_model">hr.hn.rap.history</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="payroll_hn.view_hr_hn_rap_history_search"/>
+        <field name="context">{}</field>
+        <field name="domain"> [('contract_id', '=', active_id)]</field>
+    </record>
+
+    <!-- Action hr.hn.rap.history -->
+    <record id="action_isr_history" model="ir.actions.act_window">
+        <field name="name">Historial de ISR</field>
+        <field name="res_model">hr.hn.isr.history</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="payroll_hn.view_hr_hn_isr_history_search"/>
+        <field name="context">{}</field>
+        <field name="domain"> [('contract_id', '=', active_id)]</field>
+    </record>
+
+    <!-- Action hr.hn.benefit.deduction.history -->
+    <record id="action_benefit_deduction_history" model="ir.actions.act_window">
+        <field name="name">Historial de Beneficios y deducciones</field>
+        <field name="res_model">hr.hn.benefit.deduction.history</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="payroll_hn.view_hr_hn_benefit_deduction_history_search"/>
+        <field name="context">{}</field>
+        <field name="domain"> [('contract_id', '=', active_id)]</field>
+    </record>
+
+    <record id="hr_contract_form_view" model="ir.ui.view">
+        <field name="name">hr.contract.form.view</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="%(action_salary_history)d" type="action" class="oe_stat_button" icon="fa-history" invisible="salary_count == 0">
+                    <div class="o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="salary_count"/>
+                        </span>
+                        <span class="o_stat_text">
+                            <span> Historial de salarios</span>
+                        </span>
+                    </div>
+                </button>
+                <button name="%(action_ihss_history)d" type="action" class="oe_stat_button" icon="fa-flag" invisible="ihss_count == 0">
+                    <div class="o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="ihss_count"/>
+                        </span>
+                        <span class="o_stat_text">
+                            <span> Historial de IHSS</span>
+                        </span>
+                    </div>
+                </button>
+                <button name="%(action_rap_history)d" type="action" class="oe_stat_button" icon="fa-flag" invisible="rap_count == 0">
+                    <div class="o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="rap_count"/>
+                        </span>
+                        <span class="o_stat_text">
+                            <span> Historial de RAP</span>
+                        </span>
+                    </div>
+                </button>
+                <button name="%(action_isr_history)d" type="action" class="oe_stat_button" icon="fa-flag" invisible="isr_count == 0">
+                    <div class="o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="isr_count"/>
+                        </span>
+                        <span class="o_stat_text">
+                            <span> Historial de ISR</span>
+                        </span>
+                    </div>
+                </button>
+                <button name="%(action_benefit_deduction_history)d" type="action" class="oe_stat_button" icon="fa-flag" invisible="benefit_deduction_count == 0">
+                    <div class="o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="benefit_deduction_count"/>
+                        </span>
+                        <span class="o_stat_text">
+                            <span> Historial de B y D</span>
+                        </span>
+                    </div>
+                </button>
+            </div>
+
+            <field name="wage_type" position="after">
+                <field name="schedule_pay"/>
+            </field>
+
+            <xpath expr="//div[@name='wage']" position="replace">
+                <div class="o_row mw-50" name="wage">
+                    <field name="wage" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                    <div invisible="schedule_pay != 'annually'" class="mb-3">/ Anualmente</div>
+                    <div invisible="schedule_pay != 'semi-annually'" class="mb-3">/ Semestralmente</div>
+                    <div invisible="schedule_pay != 'quarterly'" class="mb-3">/ Trimestral</div>
+                    <div invisible="schedule_pay != 'bi-monthly'" class="mb-3">/ Bimestral</div>
+                    <div invisible="schedule_pay != 'monthly'" class="mb-3">/ Mensual</div>
+                    <div invisible="schedule_pay != 'bi-weekly'" class="mb-3">/ Quincenal</div>
+                    <div invisible="schedule_pay != 'weekly'" class="mb-3">/ Semanal</div>
+                </div>
+            </xpath>
+            <group name="salary" position="inside">
+                <field name="montly_salary" force_save="1"/>
+            </group>
+            <xpath expr="//notebook" position="inside">
+                <page name="hn_deductions" string="Deducciones Honduras">
+                    <group>
+                        <group name="group_rap" string="RAP">
+                            <field name="apply_rap" widget="boolean_toggle"/>
+                            <field name="rap_id" required="apply_rap == True"
+                                   invisible="apply_rap == False"
+                                   options="{'no_create':True}"/>
+                            <field name="apply_in_rap" required="(schedule_pay == 'bi-weekly') and (apply_rap == True)"
+                                   invisible="(schedule_pay != 'bi-weekly') or (apply_rap == False)"/>
+                            <field name="amount_rap" readonly="1" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"
+                                   invisible="apply_rap == False"/>
+                            <field name="value_rap" readonly="1" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"
+                                   invisible="(schedule_pay == 'monthly') or (apply_rap == False)"/>
+                        </group>
+                        <group name="group_ihss" string="IHSS">
+                            <field name="apply_ihss" widget="boolean_toggle"/>
+                            <field name="ihss_id"
+                                   required="apply_ihss == True"
+                                   invisible="apply_ihss == False"
+                                   options="{'no_create':True}"/>
+                            <field name="apply_in_ihss" required="(schedule_pay == 'bi-weekly') and (apply_ihss == True)"
+                                   invisible="(schedule_pay != 'bi-weekly') or (apply_ihss == False)"/>
+                            <field name="amount_ihss" readonly="1" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"
+                                   invisible="apply_ihss == False"/>
+                            <field name="value_ihss" readonly="1" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"
+                                   invisible="(schedule_pay == 'monthly') or (apply_ihss == False)"/>
+                        </group>
+                        <group name="group_isr" string="ISR">
+                            <field name="apply_isr" widget="boolean_toggle"/>
+                            <field name="isr_id"
+                                   required="apply_isr == True"
+                                   invisible="apply_isr == False"
+                                   options="{'no_create':True}"/>
+                            <field name="other_income"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   invisible="apply_isr == False"
+                                   help="Otros ingresos adicionales para el cálculo del ISR (bonos, comisiones, etc.)"/>
+                            <field name="apply_in_isr"
+                                   required="(schedule_pay == 'bi-weekly') and (apply_isr == True)"
+                                   invisible="(schedule_pay != 'bi-weekly') or (apply_isr == False)"/>
+                            <field name="amount_isr"
+                                   readonly="1"
+                                   force_save="1"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   invisible="apply_isr == False"/>
+                            <field name="value_isr"
+                                   readonly="1"
+                                   force_save="1"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   invisible="(schedule_pay == 'monthly') or (apply_isr == False)"/>
+                            <button name="action_recalculate_isr" 
+                                    string="🔄 Recalcular ISR" 
+                                    type="object" 
+                                    class="btn-primary"
+                                    invisible="apply_isr == False"
+                                    help="Forzar recálculo del ISR y mostrar detalles"/>
+                        </group>
+                    </group>
+                </page>
+                <page name="benefit_deduction" string="Beneficios y deducciones">
+                    <field name="benefit_deduction_ids">
+                        <form string="Beneficios y deducciones">
+                            <header>
+                                <button name="action_progress"
+                                        type="object"
+                                        string="Activar"
+                                        class="oe_highlight"
+                                        invisible="state in ('progress','done','pause')"/>
+                                <button name="action_progress"
+                                        type="object"
+                                        string="Continuar"
+                                        invisible="state in ('draft','done','progress')"/>
+                                <button name="action_pause"
+                                        type="object"
+                                        string="Pausar"
+                                        invisible="state in ('draft','done','pause')"/>
+                                <button name="action_draft"
+                                        type="object"
+                                        string="Desactivar"
+                                        invisible="state in ('draft','done','pause')"/>
+                                <field name="state" widget="statusbar"/>
+                            </header>
+                            <group>
+                                <group string="Regla salarial">
+                                    <field name="category"
+                                           readonly="state != 'draft'"/>
+                                    <field name="rule_id"
+                                           readonly="state != 'draft'"
+                                           domain="[('benefit_deduction','=',True),('category_id.category','=',category)]"
+                                           options="{'no_create': true, 'no_open': true}"/>
+                                    <field name="description"/>
+                                </group>
+                                <group string="Periodicidad">
+                                    <field name="schedule_pay" readonly="1"/>
+                                    <field name="apply_in"
+                                           readonly="state != 'draft'"
+                                           required="schedule_pay == 'bi-weekly'"
+                                           invisible="schedule_pay != 'bi-weekly'"/>
+                                    <field name="periodicity"
+                                           readonly="state != 'draft'"/>
+                                    <field name="contract_id"
+                                           invisible="1"/>
+                                    <field name="currency_id"
+                                           invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="Montos">
+                                    <field name="fee_amount" readonly="state != 'draft'" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <label for="fee_amount_apply"/>
+                                    <div class="o_row mw-50" name="fee_amount_apply">
+                                        <field name="fee_amount_apply" class="oe_inline o_hr_narrow_field" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <div class="mb-3"
+                                             invisible="schedule_pay != 'annually'">/ Anualmente</div>
+                                        <div class="mb-3"
+                                             invisible="schedule_pay != 'semi-annually'">/ Semestralmente</div>
+                                        <div class="mb-3"
+                                             invisible="schedule_pay != 'quarterly'">/ Trimestral</div>
+                                        <div class="mb-3"
+                                             invisible="schedule_pay != 'bi-monthly'">/ Bimestral</div>
+                                        <div class="mb-3"
+                                             invisible="schedule_pay != 'monthly'">/ Mensual</div>
+                                        <div class="mb-3"
+                                             invisible="(schedule_pay != 'bi-weekly') or (apply_in not in ('first','second'))">/ Quincenal</div>
+                                        <div class="mb-3"
+                                             invisible="(schedule_pay != 'bi-weekly') or (apply_in not in ('second','both'))">/ Primera Quincena</div>
+                                        <div class="mb-3"
+                                             invisible="(schedule_pay != 'bi-weekly') or (apply_in not in ('first','both'))">/ Segunda Quincena</div>
+                                        <div class="mb-3"
+                                             invisible="schedule_pay != 'weekly'">/ Semanal</div>
+                                    </div>
+                                </group>
+                                <group string="Periodicidad Finita"
+                                       invisible="periodicity != 'finite'">
+                                    <field name="start_date"
+                                           readonly="state != 'draft'"
+                                           required="periodicity == 'finite'"/>
+                                    <field name="fee_numbers"
+                                           readonly="state != 'draft'"
+                                           required="periodicity == 'finite'"/>
+                                    <field name="fee_numbers_remaining"/>
+                                    <field name="fee_numbers_apply" readonly="1"/>
+                                    <field name="total_fee_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+                        </form>
+                        <list>
+                            <field name="contract_id" readonly="1" optional="hide"/>
+                            <field name="currency_id" readonly="1" optional="hide"/>
+                            <field name="category"/>
+                            <field name="rule_id"/>
+                            <field name="description"/>
+                            <field name="schedule_pay"/>
+                            <field name="fee_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="fee_amount_apply" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="state" widget="badge" decoration-success="state == 'progress'" decoration-primary="state == 'draft'" decoration-warning="state == 'done'" decoration-info="state == 'pause'"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

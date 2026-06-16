@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="inherit_hr_work_entry_view_form">
+            <field name="name">inherit.hr.work.entry.view.form</field>
+            <field name="model">hr.work.entry</field>
+            <field name="inherit_id" ref="hr_work_entry.hr_work_entry_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='duration']/.." position="after">
+                    <label for="total_overtime"/>
+                    <div class="o_row mw-50 mw-sm-25">
+                        <field name="total_overtime" nolabel="1" widget="float_time" class="o_hr_narrow_field" />
+                        <span>Hours</span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

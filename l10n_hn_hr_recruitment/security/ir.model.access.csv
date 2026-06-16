@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_hr_hn_recruitment_document_type,l10n_hr_hn_recruitment.document_type,model_document_type,base.group_user,1,1,1,1
+access_l10n_hr_hn_recruitment_hr_survey_profile,l10n_hr_hn_recruitment.hr_survey_profile,model_hr_survey_profile,base.group_user,1,1,1,1
+access_l10n_hr_hn_recruitment_request_new_positions,l10n_hr_hn_recruitment.request_new_positions,model_request_new_positions,base.group_user,1,1,1,1
+access_contract_documents,l10n_hr_hn_contract.documents,model_contract_documents,base.group_user,1,1,1,1

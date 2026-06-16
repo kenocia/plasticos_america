@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<record id="hr_hn_ihss_assign_form_view" model="ir.ui.view">
+        <field name="name">hr.hn.ihss.assign.form.view</field>
+        <field name="model">hr.hn.ihss.assign</field>
+        <field name="arch" type="xml">
+            <form string="Asignar IHSS a empleados">
+                <separator string="Departamento" colspan="2"/>
+                <div class="o_row">
+                    <p class="text-muted w-50">Establece un departamento específico si desea seleccionar todos los empleados de este departamento (y subdepartamentos) a la vez.</p>
+                    <field name="department_id" options="{'no_create': true, 'no_open': true}" nolabel="1"/>
+                </div>
+				<separator string="Pago Programado" colspan="2"/>
+                <div class="o_row">
+                    <p class="text-muted w-50">Establezca un Pago Programado específico si desea seleccionar todos los empleados de este Pago Programado a la vez.</p>
+                    <field name="schedule_pay" required="True" nolabel="1"/>
+                </div>
+				<separator string="Aplicar en" colspan="2" invisible="schedule_pay != 'bi-weekly'"/>
+                <div class="o_row" invisible="schedule_pay != 'bi-weekly'">
+                    <p class="text-muted w-50">Establezca en cual quincena desea aplicar la deducción.</p>
+                    <field name="apply_in" nolabel="1" required="schedule_pay == 'bi-weekly'"/>
+                </div>
+                <separator string="Empleados"/>
+                <field name="employee_ids" nolabel="1">
+                    <list>
+                        <field name="name"/>
+                        <field name="work_email"/>
+                        <field name="department_id"/>
+                    </list>
+                </field>
+                <footer>
+                    <button string="Asignar" name="action_assign" type="object" class="oe_highlight" data-hotkey="q"/>
+                    <button string="Cancelar" class="btn btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_hn_ihss_assign_action" model="ir.actions.act_window">
+        <field name="name">Asignar IHSS a empleados</field>
+        <field name="res_model">hr.hn.ihss.assign</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hr_hn_ihss_assign_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+	<!-- Action hr.contract -->
+    <record id="action_ihss_contract" model="ir.actions.act_window">
+        <field name="name">Contratos</field>
+        <field name="res_model">hr.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+        <field name="domain"> [('ihss_id', '=', active_id)]</field>
+    </record>
+
+    <!-- vista form de IHSS -->
+	<record id="hn_ihss_form_view" model="ir.ui.view">
+		<field name="name">hn.ihss.form.view</field>
+		<field name="model">hr.hn.ihss</field>
+		<field name="arch" type="xml">
+		<form string="IHSS">
+			<header>
+                <button name="action_active" type="object" string="Activar" class="oe_highlight" invisible="state == 'active'"/>
+				<button name="action_draft" type="object" string="Desactivar" invisible="state == 'draft'"/>
+				<button name="%(payroll_hn.hr_hn_ihss_assign_action)d" type="action" string="Asignar" invisible="state == 'draft'"/>
+				<field name="state" widget="statusbar"/>
+			</header>
+			<sheet>
+				<div class="oe_button_box" name="button_box">
+					<button class="oe_stat_button" name="%(action_ihss_contract)d" icon="fa-th-list" type="action">
+						<div class="o_field_widget o_stat_info">
+							<span class="o_stat_value"><field name="contract_count"/></span>
+							<span class="o_stat_text"> Contratos</span>
+						</div>
+					</button>
+				</div>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" placeholder="IHSS 2024" readonly="state != 'draft'"/>
+                    </h1>
+                </div>
+				<group>
+					<group string="ENF-MAT" name="enf_mat">
+						<field name="currency_id" invisible="1"/>
+						<field name="percentage_enf_mat" widget="percentage" readonly="state != 'draft'"/>
+						<field name="limit_enf_mat" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="state != 'draft'"/>
+						<field name="fee_enf_mat" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+					</group>
+					<group string="IVM" name="ivm">
+						<field name="percentage_ivm" widget="percentage" readonly="state != 'draft'"/>
+						<field name="limit_ivm" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="state != 'draft'"/>
+						<field name="fee_ivm" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+					</group>
+					<group string="IHSS" name="ihss">
+						<field name="fee_ihss" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+					</group>
+				</group>
+			</sheet>
+			<chatter/>
+			</form>
+		</field>
+	</record>
+
+    <!-- vista list de IHSS -->
+	<record id="hn_ihss_list_view" model="ir.ui.view">
+		<field name="name">hn.ihss.list.view</field>
+		<field name="model">hr.hn.ihss</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="name"/>
+				<field name="state" widget="badge" decoration-success="state == 'active'" decoration-primary="state == 'draft'"/>
+			</list>
+		</field>
+	</record>
+
+    <!-- accion de IHSS -->
+    <record id="action_hn_ihss" model="ir.actions.act_window">
+		<field name="name">IHSS</field>
+		<field name="res_model">hr.hn.ihss</field>
+		<field name="view_mode">list,form</field>
+	</record>
+</odoo>

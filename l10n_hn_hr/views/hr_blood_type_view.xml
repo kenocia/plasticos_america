@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+<!--    TIPO DE SANGRE   -->
+    <record id="hr_blood_type_form" model="ir.ui.view">
+            <field name="name">hr.blood.type.form</field>
+            <field name="model">hr.blood.type</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de sangre">
+                    <group col="4">
+                        <field colspan="4" name="code"/>
+                        <field colspan="4" name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_blood_type_tree" model="ir.ui.view">
+            <field name="name">hr.blood.type.tree</field>
+            <field name="model">hr.blood.type</field>
+            <field name="arch" type="xml">
+                <list string="Tipo de sangre">
+                      <field colspan="4" name="code"/>
+                      <field colspan="4" name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_blood_type_search" model="ir.ui.view">
+            <field name="name">hr.blood.type.search</field>
+            <field name="model">hr.blood.type</field>
+            <field name="arch" type="xml">
+                <search string="Search Tipo de sangre">
+                    <field name="code" string="Code"/>
+                    <field name="name" string="Tipo de sangre"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_hr_blood_type" model="ir.actions.act_window">
+            <field name="name">Tipo de sangre</field>
+            <field name="res_model">hr.blood.type</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="hr_blood_type_search"/>
+        </record>
+
+        <menuitem
+            id="menu_hr_blood_type"
+            action="action_hr_blood_type"
+            parent="hr_menu_empleado_honduras"
+            sequence="4"
+            groups="hr.group_hr_manager"/>
+
+</odoo>

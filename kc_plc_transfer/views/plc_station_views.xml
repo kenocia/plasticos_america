@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_plc_station_tree" model="ir.ui.view">
+        <field name="name">plc.station.tree</field>
+        <field name="model">plc.station</field>
+        <field name="arch" type="xml">
+            <tree string="Estaciones PLC">
+                <field name="name"/>
+                <field name="station_code"/>
+                <field name="mode"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="location_src_id"/>
+                <field name="location_dest_id"/>
+                <field name="auto_validate"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_plc_station_form" model="ir.ui.view">
+        <field name="name">plc.station.form</field>
+        <field name="model">plc.station</field>
+        <field name="arch" type="xml">
+            <form string="Estación PLC">
+                <header/>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Nombre de la estación"/>
+                            <field name="station_code" placeholder="Ej: RCV-01"/>
+                            <field name="mode" widget="radio" options="{'horizontal': true}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="picking_type_id" domain="[('code', '=', 'internal')]"/>
+                            <field name="location_src_id" 
+                                   attrs="{'required': [('mode', '=', 'receiving')]}"/>
+                            <field name="location_dest_id"/>
+                            <field name="allowed_source_parent_id" 
+                                   attrs="{'invisible': [('mode', '!=', 'reprocess')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="api_key" password="True" 
+                                   help="Clave API para autenticación del endpoint REST"/>
+                            <field name="auto_validate"/>
+                            <field name="require_sensor_confirm"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_plc_station_search" model="ir.ui.view">
+        <field name="name">plc.station.search</field>
+        <field name="model">plc.station</field>
+        <field name="arch" type="xml">
+            <search string="Estaciones PLC">
+                <field name="name"/>
+                <field name="station_code"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter string="Activas" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archivadas" name="inactive" domain="[('active', '=', False)]"/>
+                <filter string="Receiving" name="receiving" domain="[('mode', '=', 'receiving')]"/>
+                <filter string="Reproceso" name="reprocess" domain="[('mode', '=', 'reprocess')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Modo" name="group_mode" context="{'group_by': 'mode'}"/>
+                    <filter string="Compañía" name="group_company" 
+                            context="{'group_by': 'company_id'}" 
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_plc_station" model="ir.actions.act_window">
+        <field name="name">Estaciones PLC</field>
+        <field name="res_model">plc.station</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_plc_station_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear una nueva estación PLC
+            </p>
+            <p>
+                Configure las estaciones de banda/escaneo para automatizar traslados internos.
+            </p>
+        </field>
+    </record>
+</odoo>

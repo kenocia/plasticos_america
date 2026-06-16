@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--     Reglas para el pago quincenal  -->
+
+    <record id="custom_basic_salary_rule" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.BASIC"/>
+        <field name="name">Salario Basico</field>
+        <field name="code">BASIC</field>
+        <field name="sequence">2</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+day_free = 0
+if  'DAY_FREE' in worked_days:
+    day_free = worked_days['DAY_FREE'].number_of_days
+result = (worked_days['WORK100'].number_of_days + day_free) * payslip.paid_amount/30
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_ihss_rsa" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="name">IHSS R.A.S</field>
+        <field name="code">IHSS_RAS</field>
+        <field name="sequence">191</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not employee.has_not_ihss</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+techo_ihss_rsa = payslip._rule_parameter('T_IHSS_RSA')
+factor_ihss_rsa = payslip._rule_parameter('F_IHSS_RSA')
+if contract.wage > techo_ihss_rsa:
+    result = -(techo_ihss_rsa * factor_ihss_rsa/100)/2
+else:
+    result = -(BASIC * factor_ihss_rsa/100)
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_ihss_rps" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="name">IHSS R.P.S</field>
+        <field name="code">IHSS_RPS</field>
+        <field name="sequence">191</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not employee.has_not_ihss</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+techo_ihss_rps = payslip._rule_parameter('T_IHSS_RPS')
+factor_ihss_rps = payslip._rule_parameter('F_IHSS_RPS')
+if contract.wage > techo_ihss_rps:
+    result = -(techo_ihss_rps * factor_ihss_rps/100)/2
+else:
+    result = -(BASIC * factor_ihss_rps/100)
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_rap" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="name">RAP</field>
+        <field name="code">RAP</field>
+        <field name="sequence">191</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not employee.has_not_rap</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+techo_rap = payslip._rule_parameter('T_RAP')
+factor_rap = payslip._rule_parameter('F_RAP')
+rap_aplicar = contract.wage - techo_rap
+if rap_aplicar > 0:
+    result = -(rap_aplicar * factor_rap/100)/2
+else:
+    result = 0
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_ihss_rsa_patron" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.COMP"/>
+        <field name="name">IHSS R.A.S Patrono</field>
+        <field name="code">IHSS_RAS_PAT</field>
+        <field name="sequence">201</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not employee.has_not_ihss</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+techo_ihss_rsa = payslip._rule_parameter('T_IHSS_RSA')
+pfactor_ihss_rsa = payslip._rule_parameter('PF_IHSS_RAS')
+if BASIC > techo_ihss_rsa:
+    result = techo_ihss_rsa * pfactor_ihss_rsa/100/2
+else:
+    result = BASIC * pfactor_ihss_rsa/100
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_ihss_rps_patron" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.COMP"/>
+        <field name="name">IHSS R.P.S Patron</field>
+        <field name="code">IHSS_RPS_PAT</field>
+        <field name="sequence">201</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not employee.has_not_ihss</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+techo_ihss_rps = payslip._rule_parameter('T_IHSS_RPS')
+pfactor_ihss_rps = payslip._rule_parameter('PF_IHSS_RPS')
+if BASIC > techo_ihss_rps:
+    result = techo_ihss_rps * pfactor_ihss_rps/100/2
+else:
+    result = BASIC * pfactor_ihss_rps/100
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_rap_patron" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.COMP"/>
+        <field name="name">RAP Patron</field>
+        <field name="code">RAP_PAT</field>
+        <field name="sequence">201</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not employee.has_not_rap</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+techo_rap = payslip._rule_parameter('T_RAP')
+factor_rap_pat = payslip._rule_parameter('PF_RAP')
+rap_aplicar = contract.wage - techo_rap
+if rap_aplicar > 0:
+    result = rap_aplicar * factor_rap_pat/100/2
+else:
+    result = 0
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_infop_patron" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.COMP"/>
+        <field name="name">INFOP Patron</field>
+        <field name="code">INFOP_PAT</field>
+        <field name="sequence">201</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+factor_infop_pat = payslip._rule_parameter('PF_INFOP')
+result = BASIC * factor_infop_pat/100/2
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_prov_13avo" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.COMP"/>
+        <field name="name">Provisión 13avo</field>
+        <field name="code">PROV_13AVO</field>
+        <field name="sequence">202</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = NET/12/2
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_prov_14avo" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.COMP"/>
+        <field name="name">Provisión 14avo</field>
+        <field name="code">PROV_14AVO</field>
+        <field name="sequence">202</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = NET/12/2
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_vac" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">Vacaciones</field>
+        <field name="code">VAC</field>
+        <field name="sequence">5</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'VAC' in worked_days</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = payslip.paid_amount/30 * worked_days['VAC'].number_of_days
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_vac_ant" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">Vacaciones anticipadas</field>
+        <field name="code">VAC_ANT</field>
+        <field name="sequence">5</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'VAC_ANT' in worked_days</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = payslip.paid_amount/30 * worked_days['VAC_ANT'].number_of_days
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_day_free" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">Día libre</field>
+        <field name="code">DAY_FREE</field>
+        <field name="sequence">5</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'DAY_FREE' in worked_days</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = payslip.paid_amount/30 * worked_days['DAY_FREE'].number_of_days
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_inc_ihss" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">INCAPACIDAD IHSS</field>
+        <field name="code">INC_IHSS</field>
+        <field name="sequence">5</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'INC_IHSS' in worked_days</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = payslip.paid_amount/30 * worked_days['INC_IHSS'].number_of_days
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_inc_pre_natal" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">INCAPACIDAD PRE-NATAL</field>
+        <field name="code">INC_PRE_NATAL</field>
+        <field name="sequence">5</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'INC_PRE_NATAL' in worked_days</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = payslip.paid_amount/30 * worked_days['INC_PRE_NATAL'].number_of_days
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll_quincenal_inc_post_natal" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">INCAPACIDAD POST-NATAL</field>
+        <field name="code">INC_POST_NATAL</field>
+        <field name="sequence">5</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'INC_POST_NATAL' in worked_days</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = payslip.paid_amount/30 * worked_days['INC_POST_NATAL'].number_of_days
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+    <record id="datec_l10n_hh_hr_payroll__quincenal_sick_time_off" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">Ausencias por enfermedad</field>
+        <field name="code">LEAVE110</field>
+        <field name="sequence">5</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'LEAVE110' in worked_days</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = payslip.paid_amount/30 * worked_days['LEAVE110'].number_of_days
+        </field>
+        <field name="struct_id" ref="structure_biweekly"/>
+    </record>
+
+</odoo>
+

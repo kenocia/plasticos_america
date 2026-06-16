@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Integración con portal principal -->
+        <template id="l10n_hn_hr_holidays_portal_my_home_v18" name="Ausencias Portal" 
+                  inherit_id="portal.portal_my_home" priority="20">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+                <t t-call="l10n_hn_hr_holidays_portal.leave_portal_card"/>
+            </xpath>
+        </template>
+
+        <!-- Tarjeta de ausencias en el portal -->
+        <template id="leave_portal_card" name="Tarjeta de Ausencias">
+            <div class="o_portal_category row g-2 mt-3" id="leave_client">
+                <div class="o_portal_index_card col-md-6 order-2">
+                    <a href="/my/leaves" 
+                       title="Mis Ausencias"
+                       class="d-flex justify-content-start gap-2 gap-md-3 align-items-center py-3 pe-2 px-md-3 h-100 rounded text-decoration-none text-reset text-bg-light">
+                        <div class="o_portal_icon align-self-start">
+                            <i class="fa fa-calendar-alt fa-3x text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="mt-0 mb-1 d-flex gap-2">
+                                <span>Mis Ausencias</span>
+                            </h5>
+                            <p class="m-0 text-600">
+                                Solicite ausencias y consulte el estado de sus solicitudes
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </template>
+
+        <!-- Lista de ausencias -->
+        <template id="portal_my_leaves_v18" name="Lista de Ausencias Portal">
+            <t t-call="portal.portal_layout">
+                <div class="container-fluid">
+                    <!-- Header con acciones -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="mb-0">
+                                    <i class="fa fa-calendar-alt me-2"></i>Mis Ausencias
+                                </h2>
+                                <div>
+                                    <button type="button" 
+                                            class="btn btn-primary" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#leaveRequestModal">
+                                        <i class="fa fa-plus me-1"></i>Nueva Solicitud
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtros y búsqueda -->
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       placeholder="Buscar ausencias..."
+                                       id="leave_search"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="status_filter">
+                                <option value="">Todos los estados</option>
+                                <option value="draft">Borrador</option>
+                                <option value="confirm">Por Aprobar</option>
+                                <option value="validate1">Primera Aprobación</option>
+                                <option value="validate">Aprobado</option>
+                                <option value="refuse">Rechazado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="type_filter">
+                                <option value="">Todos los tipos</option>
+                                <!-- Se llenará dinámicamente -->
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-outline-secondary w-100" id="clear_filters">
+                                <i class="fa fa-times me-1"></i>Limpiar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de ausencias -->
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0" id="leave_table">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Tipo de Ausencia</th>
+                                            <th>Período</th>
+                                            <th class="text-center">Días</th>
+                                            <th>Estado</th>
+                                            <th>Fecha de Solicitud</th>
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="leaves" t-as="leave" t-key="leave.id" 
+                                            class="leave-row" 
+                                            t-att-data-status="leave.state">
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fa fa-calendar-check me-2 text-primary"></i>
+                                                    <strong t-esc="leave.holiday_status_id.name"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <span class="fw-bold" t-esc="leave.date_from"/>
+                                                    <small class="text-muted">hasta</small>
+                                                    <span class="fw-bold" t-esc="leave.date_to"/>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge bg-info fs-6" 
+                                                      t-esc="leave.number_of_days_display"/>
+                                            </td>
+                                            <td>
+                                                <span t-attf-class="badge #{
+                                                    'bg-secondary' if leave.state == 'draft' else
+                                                    'bg-warning' if leave.state == 'confirm' else
+                                                    'bg-info' if leave.state == 'validate1' else
+                                                    'bg-success' if leave.state == 'validate' else
+                                                    'bg-danger' if leave.state == 'refuse' else
+                                                    'bg-secondary'
+                                                }">
+                                                    <t t-esc="leave.state"/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="leave.create_date"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <a t-attf-href="/my/leaves/#{leave.id}" 
+                                                       class="btn btn-outline-primary btn-sm" 
+                                                       title="Ver detalles">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    <button type="button" 
+                                                            class="btn btn-outline-danger btn-sm" 
+                                                            title="Cancelar"
+                                                            t-att-data-id="leave.id"
+                                                            t-att-disabled="leave.state not in ['draft', 'confirm']">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="not leaves">
+                                            <td colspan="6" class="text-center py-4">
+                                                <div class="text-muted">
+                                                    <i class="fa fa-calendar-times fa-3x mb-3"></i>
+                                                    <p class="mb-0">No hay ausencias registradas</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paginación -->
+                    <div t-if="total_pages > 1" class="row mt-4">
+                        <div class="col-12">
+                            <nav aria-label="Paginación de ausencias">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" t-att-class="{'disabled': page == 0}">
+                                        <a class="page-link" 
+                                           t-attf-href="/my/leaves?page=#{page - 1 if page > 0 else 0}">
+                                            <i class="fa fa-chevron-left"></i> Anterior
+                                        </a>
+                                    </li>
+                                    
+                                    <t t-foreach="range(0, total_pages)" t-as="page_num">
+                                        <li class="page-item" 
+                                            t-att-class="{'active': page_num == page}">
+                                            <a class="page-link" 
+                                               t-attf-href="/my/leaves?page=#{page_num}"
+                                               t-esc="page_num + 1"/>
+                                        </li>
+                                    </t>
+                                    
+                                    <li class="page-item" t-att-class="{'disabled': page >= total_pages - 1}">
+                                        <a class="page-link" 
+                                           t-attf-href="/my/leaves?page=#{page + 1 if page &lt; total_pages - 1 else total_pages - 1}">
+                                            Siguiente <i class="fa fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Modal para solicitud de ausencia -->
+        <template id="leave_request_modal_v18" name="Modal de Solicitud de Ausencia">
+            <div class="modal fade" id="leaveRequestModal" tabindex="-1" aria-labelledby="leaveRequestModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="leaveRequestModalLabel">
+                                <i class="fa fa-calendar-plus me-2"></i>Nueva Solicitud de Ausencia
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Aquí se cargará el componente OWL -->
+                            <div id="leave_form_container"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="fa fa-times me-1"></i>Cancelar
+                            </button>
+                            <button type="button" class="btn btn-primary" id="submit_leave_request">
+                                <i class="fa fa-paper-plane me-1"></i>Enviar Solicitud
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Detalle de ausencia -->
+        <template id="portal_leave_detail_v18" name="Detalle de Ausencia">
+            <t t-call="portal.portal_layout">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="mb-0">
+                                    <i class="fa fa-calendar-alt me-2"></i>Detalle de Ausencia
+                                </h2>
+                                <a href="/my/leaves" class="btn btn-outline-secondary">
+                                    <i class="fa fa-arrow-left me-1"></i>Volver a la lista
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">
+                                        <i class="fa fa-info-circle me-2"></i>Información de la Ausencia
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6>Tipo de Ausencia</h6>
+                                            <p class="text-muted" t-esc="leave.holiday_status_id.name"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Estado</h6>
+                                            <span t-attf-class="badge #{
+                                                'bg-secondary' if leave.state == 'draft' else
+                                                'bg-warning' if leave.state == 'confirm' else
+                                                'bg-info' if leave.state == 'validate1' else
+                                                'bg-success' if leave.state == 'validate' else
+                                                'bg-danger' if leave.state == 'refuse' else
+                                                'bg-secondary'
+                                            }">
+                                                <t t-esc="leave.state"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <h6>Fecha de Inicio</h6>
+                                            <p class="text-muted" t-esc="leave.date_from"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Fecha de Fin</h6>
+                                            <p class="text-muted" t-esc="leave.date_to"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <h6>Número de Días</h6>
+                                            <p class="text-muted" t-esc="leave.number_of_days_display"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Fecha de Solicitud</h6>
+                                            <p class="text-muted" t-esc="leave.create_date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">
+                                        <i class="fa fa-clock me-2"></i>Historial
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="timeline">
+                                        <!-- Aquí se mostraría el historial de cambios -->
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker bg-primary"></div>
+                                            <div class="timeline-content">
+                                                <h6 class="timeline-title">Solicitud creada</h6>
+                                                <p class="timeline-text" t-esc="leave.create_date"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

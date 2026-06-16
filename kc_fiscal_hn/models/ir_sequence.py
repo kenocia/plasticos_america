@@ -603,26 +603,17 @@ class IrSequence(models.Model):
         Obtener el siguiente rango de fecha disponible
         """
         self.ensure_one()
-        
+
         if not self.use_date_range:
             return False
-        
+
         if not current_date:
             current_date = fields.Date.today()
-        
-        # Buscar el siguiente rango válido
-        next_range = self.date_range_ids.filtered(lambda r: 
-            r.cai and 
-            r.rangoInicial and 
-            r.rangoFinal and
-            r.rangoInicial < r.rangoFinal and
-            r.date_from and 
-            r.date_to and
-            r.date_from < r.date_to and
-            r.date_from > current_date
-        ).sorted('date_from')
-        
-        return next_range[0] if next_range else False
+
+        # Reutilizar la misma lógica de rangos futuros disponibles que get_available_future_ranges,
+        # y tomar el primero como "siguiente" rango utilizable
+        future_ranges = self.get_available_future_ranges(current_date)
+        return future_ranges[0] if future_ranges else False
     
     def validate_sequence_continuity(self, current_date=None):
         """

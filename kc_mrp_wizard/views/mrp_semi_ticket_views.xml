@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_semi_ticket_list" model="ir.ui.view">
+        <field name="name">mrp.semi.ticket.list</field>
+        <field name="model">mrp.semi.ticket</field>
+        <field name="arch" type="xml">
+            <list string="Tickets semiterminado" create="0">
+                <field name="name"/>
+                <field name="production_id"/>
+                <field name="workorder_id"/>
+                <field name="workcenter_id"/>
+                <field name="operation_id" optional="hide"/>
+                <field name="product_id" optional="show"/>
+                <field name="quantity" sum="Total"/>
+                <field name="uom_id"/>
+                <field name="employee_id" optional="hide"/>
+                <field name="print_count" optional="hide"/>
+                <field name="printed_at" optional="hide"/>
+                <field name="stock_picking_id" optional="hide"/>
+                <field name="kc_semi_qty_available_in_semi" optional="show" string="Existencias semi"/>
+                <field name="create_date" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    <record id="mrp_semi_ticket_form" model="ir.ui.view">
+        <field name="name">mrp.semi.ticket.form</field>
+        <field name="model">mrp.semi.ticket</field>
+        <field name="arch" type="xml">
+            <form string="Ticket semiterminado" create="0" edit="0">
+                <header>
+                    <button name="action_reprint" type="object" string="Reimprimir" class="btn-primary" groups="mrp.group_mrp_user"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="production_id"/>
+                            <field name="workorder_id"/>
+                            <field name="workcenter_id"/>
+                            <field name="operation_id"/>
+                        </group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                            <field name="employee_id"/>
+                            <field name="user_id"/>
+                            <field name="printed_at" readonly="1"/>
+                            <field name="print_count" readonly="1"/>
+                            <field name="stock_picking_id" readonly="1" invisible="not stock_picking_id"/>
+                            <field name="stock_move_id" readonly="1" invisible="not stock_move_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="mrp_semi_ticket_search" model="ir.ui.view">
+        <field name="name">mrp.semi.ticket.search</field>
+        <field name="model">mrp.semi.ticket</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="production_id"/>
+                <field name="workorder_id"/>
+                <field name="workcenter_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_mrp_semi_ticket" model="ir.actions.act_window">
+        <field name="name">Tickets semiterminado</field>
+        <field name="res_model">mrp.semi.ticket</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

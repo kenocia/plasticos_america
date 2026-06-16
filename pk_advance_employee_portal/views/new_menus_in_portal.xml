@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--    Remove the odoo default portal services-->
+    <template id="remove_portal_project_task_block" inherit_id="portal.portal_my_home" priority="100">
+        <xpath expr="//div[@id='portal_service_category']" position="replace"/>
+        <xpath expr="//div[@id='portal_client_category']" position="replace"/>
+        <xpath expr="//div[@id='portal_vendor_category']" position="replace"/>
+        <xpath expr="//div[@id='portal_common_category']" position="replace"/>
+        <xpath expr="//div[@id='portal_alert_category']" position="replace"/>
+    </template>
+    <template id="remove_portal_purchase_block" inherit_id="portal.portal_breadcrumbs" priority="100">
+        <xpath expr="//ol" position="replace"/>
+    </template>
+
+    <template id="pk_advance_portal_my_home" inherit_id="portal.portal_my_home"
+              name="Custom Portal Menus" priority="25" customize_show="True">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <div class="text-center mb-4 pb-8">
+                <!--                <h2 class="fw-bold">Welcome to Employee Dashboard</h2>-->
+            </div>
+            <section class="container my-5">
+                <div class="row g-4">
+
+                        <!-- Employee Profile -->
+                    <t t-if="request.env.user.has_group('pk_advance_employee_portal.ad_group_emp_profile')">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <t t-set="placeholder_count" t-value="'empl_profile'"/>
+                            <a href="/my/profile" class="text-decoration-none text-white">
+                                <div class="card portal-card bg-employee shadow-sm border-0 h-100">
+                                    <div class="card-body text-center">
+                                        <img src="/hr/static/description/icon.png" class="mb-3" width="50"
+                                             height="50"/>
+                                        <h5 class="card-title fw-bold">My Profile</h5>
+<!--                                        <p class="card-text">View OR submit expenses.</p>-->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+
+                     <!-- PayRoll -->
+                    <t t-if="request.env.user.has_group('pk_advance_employee_portal.ad_group_payroll')">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <t t-set="placeholder_count" t-value="'my_payroll'"/>
+                            <a href="/my/payslips" class="text-decoration-none text-white">
+                                <div class="card portal-card bg-attendance shadow-sm border-0 h-100">
+                                    <div class="card-body text-center">
+                                        <img src="/hr_payroll/static/description/icon.png" class="mb-3" width="50"
+                                             height="50"/>
+                                        <h5 class="card-title fw-bold">Payroll</h5>
+<!--                                        <p class="card-text">Check your attendance Details.</p>-->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+
+                    <!-- Sales -->
+                    <t t-if="request.env.user.has_group('pk_advance_employee_portal.ad_group_portal_sales')">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <t t-set="placeholder_count" t-value="'sale_order_checkout_count'"/>
+                            <a href="/sale/my" class="text-decoration-none text-white">
+                                <div class="card portal-card bg-sales shadow-sm border-0 h-100">
+                                    <div class="card-body text-center">
+                                        <img src="/sale/static/description/icon.png" class="mb-3" width="50"
+                                             height="50"/>
+                                        <h5 class="card-title fw-bold">Sales</h5>
+<!--                                        <p class="card-text">View and submit new quotations.</p>-->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+
+                    <!-- Attendance -->
+                    <t t-if="request.env.user.has_group('pk_advance_employee_portal.ad_group_portal_attendance_access')">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <t t-set="placeholder_count" t-value="'attendance_checkin_out'"/>
+                            <a href="/attendance/my" class="text-decoration-none text-white">
+                                <div class="card portal-card bg-attendance shadow-sm border-0 h-100">
+                                    <div class="card-body text-center">
+                                        <img src="/hr_attendance/static/description/icon.png" class="mb-3" width="50"
+                                             height="50"/>
+                                        <h5 class="card-title fw-bold">Attendance</h5>
+<!--                                        <p class="card-text">Check your attendance Details.</p>-->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+
+                    <!-- Time Off -->
+                    <t t-if="request.env.user.has_group('pk_advance_employee_portal.ad_group_portal_leaves')">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <t t-set="placeholder_count" t-value="'book_checkout_count'"/>
+                            <a href="/employee/leaves" class="text-decoration-none text-white">
+                                <div class="card portal-card bg-timeoff shadow-sm border-0 h-100">
+                                    <div class="card-body text-center">
+                                        <img src="/hr_holidays/static/description/icon.png" class="mb-3" width="50"
+                                             height="50"/>
+                                        <h5 class="card-title fw-bold">Time Off</h5>
+<!--                                        <p class="card-text">View OR submit new requests.</p>-->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+
+                    <!-- Weekly Schedule -->
+
+                    <t t-if="request.env.user.has_group('pk_advance_employee_portal.ad_group_portal_schedule')">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <t t-set="placeholder_count" t-value="'weekly_checkout_count'"/>
+                            <a href="/weekly/schedule" class="text-decoration-none text-white">
+                                <div class="card portal-card bg-schedule shadow-sm border-0 h-100">
+                                    <div class="card-body text-center">
+                                        <img src="/planning/static/description/icon.png" class="mb-3" width="50"
+                                             height="50"/>
+                                        <h5 class="card-title fw-bold">Weekly Schedule</h5>
+<!--                                        <p class="card-text">View and submit new schedule requests.</p>-->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+
+                    <!-- Tasks -->
+                    <t t-if="request.env.user.has_group('pk_advance_employee_portal.ad_group_portal_tasks')">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <t t-set="placeholder_count" t-value="'project_checkout_count'"/>
+                            <a href="/tasks/my" class="text-decoration-none text-dark">
+                                <div class="card portal-card bg-tasks shadow-sm border-0 h-100">
+                                    <div class="card-body text-center">
+                                        <img src="/project/static/description/icon.png" class="mb-3" width="50"
+                                             height="50"/>
+                                        <h5 class="card-title fw-bold">Tasks</h5>
+<!--                                        <p class="card-text">View OR update tasks.</p>-->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+
+                    <!-- Expenses -->
+                    <t t-if="request.env.user.has_group('pk_advance_employee_portal.ad_group_portal_expenses')">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <t t-set="placeholder_count" t-value="'expense_checkout_count'"/>
+                            <a href="/expense/my" class="text-decoration-none text-white">
+                                <div class="card portal-card bg-expenses shadow-sm border-0 h-100">
+                                    <div class="card-body text-center">
+                                        <img src="/hr_expense/static/description/icon.png" class="mb-3" width="50"
+                                             height="50"/>
+                                        <h5 class="card-title fw-bold">Expenses</h5>
+<!--                                        <p class="card-text">View OR submit expenses.</p>-->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+
+
+
+                </div>
+            </section>
+
+            <style>
+                .portal-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                cursor: pointer;
+                border-radius: 12px;
+                color: inherit;
+                }
+                .portal-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+                }
+
+                /* Backend colors for each card */
+                .bg-sales { background-color: #007bff; } /* Blue */
+                .bg-timeoff { background-color: #28a745; } /* Green */
+                .bg-schedule { background-color: #17a2b8; } /* Teal */
+                .bg-tasks { background-color: #ffc107; color: #212529 !important; } /* Yellow with dark text */
+                .bg-expenses { background-color: #fd7e14; } /* Orange */
+                .bg-attendance { background-color: #6f42c1; } /* Purple */
+                .bg-employee { background-color: #cc0000;  }
+
+                /* Text fix for readability */
+                .bg-tasks h5, .bg-tasks p { color: #212529 !important; }
+            </style>
+        </xpath>
+    </template>
+
+
+</odoo>
